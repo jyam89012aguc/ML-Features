@@ -1,0 +1,35 @@
+{
+  "general": {
+    "defaultApprovalMode": "yolo"
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "disableYoloMode": false,
+    "enablePermanentToolApproval": true,
+    "autoAddToPolicyByDefault": false,
+    "folderTrust": {
+      "enabled": false
+    },
+    "environmentVariableRedaction": {
+      "enabled": true,
+      "blocked": [
+        "API_KEY",
+        "TOKEN",
+        "SECRET",
+        "PASSWORD",
+        "DATABASE_URL"
+      ]
+    }
+  },
+  "advanced": {
+    "ignoreLocalEnv": true
+  },
+  "context": {
+    "fileFiltering": {
+      "respectGitIgnore": true,
+      "respectGeminiIgnore": true
+    }
+  }
+}

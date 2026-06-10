@@ -1,0 +1,116 @@
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+
+[projects.'c:\windows\system32']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\onedrive\desktop\active_non audited features per ai\gemini\v2 (silver schema compliant)']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\chatgpt']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\chatgpt\20260511_150856 (50 feature families)']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\db']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\db\feature db hedge fund']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\ai-cli-history']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\claude']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\gemini\20260511_142838 (30 technical features)']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\db\feature db hedge fund - v2.0']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\db\feature db hedge fund - v3.0']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\jahren new features\short origional and complete features 1a']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\jahren new features\short origional and complete features 1a gemini']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\jahren new features\short_technical_features_1b_gemini']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\db\feature db hedge fund - v4.0']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\db\feature db hedge fund - v5.0']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\capitulation feature build sep 01-59']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\need to move\capitulation 1a claude']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\feature family 3 short (1a)']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\downloads\biotech_fundamental_features\biotech_implementations_v2']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\biotech features\chatgpt_biotech']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\biotech features\claude_biotech']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\feature family 1 short (1a)\deduplication scripts']
+trust_level = "trusted"
+
+[projects.'e:\jahren - biotech']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\featue family 2 short technical (1b)\deduplication scripts']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\feature family 1 long (50 features)\pipeline 1a']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\active_non audited features per ai\capitulation (1a)\perplexity']
+trust_level = "trusted"
+
+[projects.'d:\active_non audited features per ai\breakout features\breakouts']
+trust_level = "trusted"
+
+[projects.'d:\active_non audited features per ai\technology features\claude']
+trust_level = "trusted"
+
+[projects.'d:\active_non audited features per ai\capitulation (1a)\deduplication scripts']
+trust_level = "trusted"
+
+[projects.'c:\users\jyama\desktop\permission_settings_handoff']
+trust_level = "trusted"
+
+[projects.'d:\active_non audited features per ai\capitulation (1a)']
+trust_level = "trusted"
+
+[projects.'c:\']
+trust_level = "trusted"
+
+[projects.'e:\capitulation (1a)']
+trust_level = "trusted"
+
+[projects.'e:\technology - full script']
+trust_level = "trusted"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[notice]
+hide_rate_limit_model_nudge = true
