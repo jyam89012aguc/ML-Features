@@ -1,0 +1,66 @@
+// Tailnet ACL policy for the 5-machine remote-desktop deployment.
+// Paste this into the Tailscale admin console:  https://login.tailscale.com/admin/acls/file
+//
+// WHAT IT DOES
+//   - Defines a "tag:rdp-host" tag for the 5 remote machines.
+//   - Lets ONLY your admin identity (and any device logged in as you) reach
+//     RDP (port 3389) on those tagged machines.
+//   - Denies everything else by default (Tailscale is default-deny once any
+//     "acls" rule exists), so the tagged hosts cannot reach each other or
+//     anything else over the tailnet, and no one but you can reach them.
+//
+// IMPORTANT
+//   - Saving this REPLACES your entire tailnet policy. If you already have
+//     other rules/devices that need access, merge them in before saving.
+//   - The machines get the tag from `tailscale up --advertise-tags=tag:rdp-host`
+//     (the bootstrap script does this). Advertising the tag requires your
+//     identity to be listed as a tagOwner below — it is.
+//   - Replace the email below if jasopenny@yahoo.com is not your tailnet login.
+
+{
+  // Who is allowed to own (apply) each tag.
+  "tagOwners": {
+    "tag:rdp-host": ["autogroup:admin", "jason.yamaguchi@gmail.com"],
+  },
+
+  // Admin group = the people who may RDP into the hosts.
+  //   - jason.yamaguchi@gmail.com = you (tailnet owner)
+  //   - jko.respeto@gmail.com     = the remote user (already a member of this tailnet)
+  // Both can RDP into every tag:rdp-host machine. No one else can.
+  "groups": {
+    "group:rdp-admins": [
+      "jason.yamaguchi@gmail.com",
+      "jko.respeto@gmail.com",
+    ],
+  },
+
+  "acls": [
+    // Admins (any device they're logged into) -> RDP on the host machines.
+    // 3389 covers RDP's TCP control channel and optional UDP transport.
+    {
+      "action": "accept",
+      "src":    ["group:rdp-admins"],
+      "dst":    ["tag:rdp-host:3389"],
+    },
+
+    // OPTIONAL: let the admins reach the hosts on all ports (full management,
+    // e.g. SMB/WinRM/ping). Uncomment if you want more than just RDP.
+    // {
+    //   "action": "accept",
+    //   "src":    ["group:rdp-admins"],
+    //   "dst":    ["tag:rdp-host:*"],
+    // },
+  ],
+
+  // No Tailscale SSH rules in this deployment.
+  "ssh": [],
+
+  // Tighten test access: only admins can use the "tailscale ping"/check tools
+  // against the hosts. (Optional; remove if it gets in the way.)
+  "tests": [
+    {
+      "src":    "jason.yamaguchi@gmail.com",
+      "accept": ["tag:rdp-host:3389"],
+    },
+  ],
+}
