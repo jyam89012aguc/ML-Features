@@ -1,0 +1,225 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this repo is
+
+A flat library of **quantitative equity features** for US equities, computed from Sharadar SF1 quarterly fundamentals + daily OHLCV. 431 Python files, ~42 thematic families, no orchestration layer, no entry point, no tests yet (per the initial commit message: "untested baseline").
+
+Each file is a collection of pure functions. A function takes raw pandas Series (e.g. `debt`, `equity`, `revenue`, `gp`, `cashneq`, `close`, `shareswa`) and returns a pandas Series. There is no DataFrame plumbing, no I/O, no `__main__`, no CLI. The files are intended to be imported by an external pipeline (not in this repo).
+
+## File naming convention
+
+`{theme}_{tier}[_{chunk}][_{variant}].py`
+
+- **theme** — one of ~42 families (e.g. `balance_sheet_snapshot`, `margin_acceleration`, `cash_flow_jerk`, `valuation_trajectory`, `volatility_regime`).
+- **tier** — `base`, `2nd_derivatives`, or `3rd_derivatives`. `base` = level/raw ratios. `2nd_derivatives` = QoQ rate of change of base. `3rd_derivatives` = rate of change of the 2nd derivatives.
+- **chunk** — numeric range like `001_075`, `076_150`, `151_225`, `226_300`, `301_375`, etc. Splits a theme's feature set across multiple files when it gets large. The numbers in the filename match the function suffixes inside (e.g. `margin_acceleration_base_001_075.py` defines `ma_001_*` through `ma_075_*`).
+- **variant suffixes** — `_v2`, `_ext`, `_expanded`, ` (1)`. These are iterations/duplicates from development. Some pairs are alternates of the same thing; treat them as candidates for consolidation, not as separately load-bearing.
+
+## Function naming convention
+
+Each theme has a short prefix used in function names:
+
+- `bss_` — balance_sheet_snapshot
+- `ma_` — margin_acceleration
+- (and similar 2-4 letter prefixes per theme)
+
+`base` functions use `{prefix}_{NNN}_{name}`. Derivative tiers use `{prefix}_2d_{NNN}_*` / `{prefix}_3d_{NNN}_*`.
+
+## Shared helpers
+
+Most files **inline** their own copies of helper functions (`_safe_div`, `_pct_chg`, `_delta`, `_rolling_mean`, `_rolling_std`, `_rolling_min`, `_rolling_max`, `_safe_log`, `_clamp`, `_zscore`, `_streak`, `_slope`, etc.). This is intentional self-containment — each feature file can be read or executed in isolation.
+
+The one exception so far is `margin_acceleration_*` files, which import from `margin_acceleration_utils.py`. If you extract more shared utilities, follow that pattern (one utils file per theme) rather than introducing a single global utils module — files in this codebase deliberately avoid cross-theme coupling.
+
+## Constants used across files
+
+Trading-day cadences appear in many files:
+
+```
+QDAYS = 63    # quarter
+YDAYS = 252   # year
+MDAYS = 21    # month
+WDAYS = 5     # week
+```
+
+Note: some files (e.g. `margin_acceleration`) operate on **quarterly-indexed** Series and use periods of `1, 4, 8, 12, 16` (quarters) instead of trading days. Check whether the Series passed in is daily or quarterly before adding a feature — the same theme can mix conventions across files.
+
+## Numerical conventions
+
+- All division goes through `_safe_div` (replaces `0` denominators with `NaN`).
+- Logs go through `_safe_log` (clips at `1e-9`).
+- Rolling stats use `min_periods=max(1, window // 2)` (or `min_periods=1` in newer files) — half-window warmup, not full-window.
+- Functions return Series aligned to the input index. They do not drop or reindex.
+
+## Workflow notes
+
+- **No build / lint / test commands exist yet.** No `pyproject.toml`, `setup.py`, `requirements.txt`, or test directory. Dependencies are just `numpy` and `pandas`.
+- To sanity-check a single file syntactically: `python -c "import {filename_without_ext}"` from the repo root.
+- The directory path contains a typo (`origional`) and double space — quote it when shelling.
+
+---
+
+## Audit precedent classes
+
+When auditing a family, decide each finding using the rules below. Every class lists the precedent families that established it — cite at least one when applying or deferring. Long-form per-family detail is in `AUDITS.md`.
+
+### AUTO-DELETE classes (apply without asking)
+
+1. **Formula-exact under rename** — body identical mod docstring / variable rename; same inputs, same operator chain. Lower-numbered slot wins. First established RL `rl_119/120` (mu→sma); applied universally since (BSS, RA, SD, DR, GC, LA, CFA, EA, etc.).
+
+2. **Cancellation-equivalent** — `(X/N) / (Y/N) = X/Y` and similar telescoping ratios. First: RL `rl_080/081/082` (per-share normalized cancels). Then: CAS `cas_182/183` (DuPont 3-factor / 5-factor `(N/R)(R/A)(A/E) = N/E`); LA `la_011/285` (`(netinc/equity)/(netinc/assets) = assets/equity`), `la_278/549` (mktcap cancellation); RA `ra_022/517`, `ra_041/381`, `ra_088/341`; EA `ea_290/291` (ncfo − \|capex\| = fcf via Sharadar `fcf = ncfo + capex`).
+
+3. **Algebraic-identity scalar-mult** — constant multiple via telescoping or unit conversion (`_diff(MA_W,1) = _diff(s,W)/W`, `bollinger_pctb = z/4 + 0.5`, `CMO = trend_intensity × 100`, etc.). Often invisible to value-hash because of FP scale factors — caught by post-warmup z-cosine scan at `sim=1.0`, `ratio_std_rel<1e-13`. First: RI `ri_2d_031`. Then: MT `mt_151..155` + `mt_371..375` + `mt_396..400`; CFA ufcf-aliases (Sharadar `fcf = ncfo + capex`); SD `sd_120/121` (`s/b` vs `(s−b)/b` collapses under `.diff()`); VE PE-family clusters (`ve_083`, `ve_419`, `ve_084` × 100); MAD `mad_e2d_015`/`e3d_015`; PM `pm_2d_042`/`pm_3d_042`; CFT `cft_3d_002` (`mean(d²,4) = jerk_yoy/4`); DR `dr_014`/`dr_410`/`dr_d2_153`/`dr_d2_158`/`dr_d2_214`/`dr_d3_239`.
+
+4. **Cross-tier base→deriv pollution** — base-tier function whose body is a derivative operator (`_roc_*`, `.diff()`, etc.). Per CLAUDE.md tier semantics, ROC/acceleration features belong in the derivative tier. **Delete from base.** First: RL `rl_227/229/231`. Then: RI `ri_036`; CFS `cfs_d2_002`; CFT `cft_012`==`cft_2d_004`, `cft_284`==`cft_3d_001`; VT `vt_114`/`418`/`575`/`576` → deriv; RA 12 cross-tier (`ra_011/013/033/035/...`); GC `gc_066`; CFA `cfa_027/028`→`cfa_2d_003/004`; DR 10 cross-tier; LA 6 base-vs-d1 ROC pollution.
+
+5. **Cross-tier deriv mis-tier** — derivative-tier operator placed in the wrong tier (e.g. 3-diff jerk in a 2nd-deriv file). Delete from wrong tier; canonical lives in the right tier. RA `ra_2d_003` was a 3-diff jerk identical to `ra_3d_002`.
+
+6. **Mathematical-identity dups invisible to value-hash** — variant of (3) where the scalar offset cancels under `.diff()`/`.diff().diff()`. PC `pc_317/318` (close/ATH ratio == dd_ath up to constant +1, cancels in `.diff()`); PC `pc_344` (Fibonacci 0.618 prox == position-in-range up to constant −0.382); PC `pc_364`/`pc_352` at jerk level. Verified at max\|a−b\|=1e-15.
+
+7. **Sign-flip algebraic-identity** — body equals `−sibling` via `1 − x` style identity. Auto-apply: `slope/delta(GM) = −slope/delta(cogs_ratio)` since `GM = 1 − cogs_ratio`. EA `ea_076/077` = `−ea_005/002`; GC `gc_017/137` precedent.
+
+### SURGICAL-REBODY-PRESERVE classes (apply per direction; preserves slot)
+
+8. **Naming bug — body doesn't match docstring/name promise.** Rebody to canonical interpretation that matches the function name. Slot count preserved. First: `ls_148` (binary regime flag vs continuous z-score). Then: `vac_118` (cap-day mask), `ve_424` (ncf→ncfo input correction), `cas_141` (positive-only dilution clip), `vt_296` (Mass Index canonical), `vt_511` (Graham fair-value canonical), DT `_ex_` slot suite (~50 buggy derivative slots), LA Beaver 9 slots (`la_199/200` + `la_d1_065-068` + `la_d2_049-051` → ncfo/liabilities), efficiency_acceleration `rg_126/127` (monotonic_score). User-approved per HANDOFF "ASK FIRST naming corrections."
+
+9. **Same-window same-input collisions → differentiate via TTM/EMA-smoothed inputs.** First: `ls_121` (FCF on 252d-avg debt, banker's convention vs `ls_019`). Then: ES `es_047/048/050` + `es_222/223` + `es_2d_018` + `es_3d_018` (DuPont decomp via TTM-avg or EMA), `es_279/280` (TTM-smoothed YoY), `es_475/477/480` (trailing-1y mean baseline), `es_324/331` (TTM-avg per-share inputs); LA secondary collisions (DT Pass-2 re-rebodies to use 252d-trailing-mean smoothed denoms).
+
+10. **"Surgical-rebody-everything" mode (zero deletes).** Choose this disposition when the dup count is high AND each slot has a distinct intended formula behind a buggy body. Scope: VAC tab 6 (1 fn) → LS tab 14 (7 rebodies) → CAS tab 18 (1 + 2 academic-trace) → DT tab 22 (~80 rebodies) → ES tab 15 (24 rebodies) → RJ tab-rj (~155 rebodies, including 124 mass-bomb placeholder slots with zero name-encoded intent — invented distinct signals along window/statistic/transformation axes). Always two-pass: Pass 2 catches secondary collisions where Pass-1 rebodies match an existing main-tier sibling.
+
+### KEEP-BY-DESIGN classes (do not delete)
+
+11. **Academic-distress traces** — composite features inline x1/x2/x3/x4/x5 directly, but each model variable must be individually addressable for explainability. First: LS `ls_061`/`151`/`170`/`188` (Altman / Springate / Ohlson / Zmijewski / Beaver). Then: CAS `cas_062`/`090` (composite `cas_231` inlines); DT 10 academic-trace; CFA `cfa_167`/`242` (composite `cfa_427`); LA `la_002`/`176`/`178`/`181`/`190`/`191`/`193`/`196` (composites `la_182`/`194`/`198`).
+
+12. **Clip-differentiated** — same body apart from a `.clip(...)` or `.abs()` on a denominator; diverge on real data when the clip threshold is crossed (negative equity, negative inventory, negative PE, etc.). First: RI `ri_003/090` (rnd/equity vs rnd/equity.abs() — diverge on negative-equity firms). Then: LS `ls_022/296`, `ls_073/111`, `ls_112/115`; CFA `cfa_105/166` (cash-quality sign-flip when netinc<0); VT `vt_031/064`; RI `ri_107/115`; ES `es_182/339`; LA 7 pairs; revenue_growth `rg`-family.
+
+13. **Sample-bias on healthy synth** — always-zero or always-NaN on healthy fwd-fill synthetic; real signal triggers on distress / volatile / cash-burn firms. First: PS `ps_270` + CFS `cfs_d3_046` + BSS `bss_288` (cash_runway needs sustained negative ncfo). Then: RI `ri_044`; RA `ra_587` + `ra_365-369`; GC `gc_405/406`; DR `dr_137` (dilution_half_life needs reverse-split data); LA `la_530` (debt growth CVaR needs outliers), LA `la_324/380/385` (3-clique constants on healthy synth); CFA `cfa_201/202/420`; VE 5 always-positive flags; DT 27 sample-bias constants; ES `es_503/504`/`2d_098`/`3d_070`; revenue_growth `rg_166`. Mark each in the family writeup with the precedent chain.
+
+14. **Synth-coincidence value-exact** — different bodies coincide on synthetic data because of input-generation identities. KEEP — diverges on real Sharadar where the inputs are independent. Common sources: `opinc==ebit` (synth artifact, real EBIT includes non-op items); `eps=netinc/100` (constant divisor); `shareswa=sharesbas*0.99` (constant scalar); `debtc/debtnc=0.20/0.80*debt` (constant proportion); `fcf=ncfo+capex` (Sharadar definitional); `ncfo ≈ const*ebitda` or `opinc=0.78*ebitda`; `intexp = const*debt`; `taxexp = ebt × 0.21`. Examples: GC 11 pairs (mostly opinc/ebit), CFA 7 pairs, DT 14 pairs.
+
+15. **Winsorized clip-doesn't-fire on bounded synth.** First: PS `ps_006/312`. Then: RA `ra_002/325` (`clip(p01,p99)` doesn't fire on bounded synth growth); CFT `cft_049/288` + `cft_072/289` (`clip(±3)`); CFA `cfa_590/591`.
+
+16. **NOPAT / days-conversion scalar mults** — domain-meaningful constant multiples (annualization, after-tax, unit conversion). Each variant is the deliberate after-tax / annualized companion. First: LS `ls_023/297` (×1/252 days), `ls_127/212` (×0.79 NOPAT). Then: CAS `cas_025/136` (×1/4 quarterly→annualized); CFA 21 such pairs; CFT 9 such pairs (CCC vs wc/rev = ×90, yield_3y vs cumulative = ×3); LA `la_212`; EA `ea_006/103`, `ea_007/104`, `ea_010/105` (×0.75 NOPAT); SD/MT/RI/PS same precedent acknowledged.
+
+### BUG CLASSES (fix in place; don't delete)
+
+17. **`_safe_div(scalar, int)` int-as-denom** — Series-helper applied to a scalar errors at runtime (`(N).replace(0, NaN)`). Replace with direct Python `/`. First: BSS `bss_055` (`_safe_div(revenue, 4)` → `revenue / 4`). Same class: VE `ve_385/387` (`/12`); ES `es_503/504` (`_log_safe(scalar)` → `np.log1p`); GC `gc_331` (kwarg name mismatch `fill=` vs `f=` → positional); LA `la_204/316/555/556` (`/N`); DR `dr_344/345` (`x.iloc[0]` with `raw=True` → `x[0]`); RA `ra_2d_025/3d_025` (missing `return` / undefined variable, 3yr_cagr family). Generic principle: Series helpers don't work on scalars or ndarrays.
+
+18. **`_slope` window/min_periods shape mismatch** — `x_demean=arange(window)` mismatches warmup-edge variable-length arrays under `min_periods<window`. Repair fixes all `*_slope_*` derivatives at once. VE: 4 helper copies repaired, restored 10 broken functions.
+
+19. **`bool_series.shift(W)` TypeError** — pandas converts shifted bool → object/float; `~` then errors. Fix: `.fillna(False).astype(bool)`. RA `ra_139/140/571/572/573`.
+
+20. **`.dropna()` violates align contract** — output row count != input. Forbidden by Numerical convention "Functions return Series aligned to the input index." VT `vt_400_pe_entropy_63`.
+
+21. **Look-ahead `.shift(-N)`** — uses future data; rebody to `.shift(N)`. VR `vr_169/170` first; same `_leverage_effect` helper bug repeated in VR 2nd/3rd derivative file copies.
+
+22. **`_frama` helper missing length normalization** — root-cause helper bug producing 3 constants + 2 dup groups across PMA `pma_164-170`. Fix the helper, restore canonical Ehlers FRAMA in 7 functions; do NOT delete the function slots.
+
+23. **Buggy DOTALL regex on mass deletes** — `(?s)` flag in delete-tooling deleted 22 unrelated defs alongside intended target (RA `c78a350`). Forward-fix `f355d20` restored. Always verify diff before commit on regex-driven mass deletes; prefer line-walk algorithms.
+
+### HARNESS DESIGN LESSONS
+
+24. **Cadence — quarterly families need quarterly-row synth, NOT daily-fwd-fill.** Quarterly families: CAS, MT, CFT, RD/intangibles, profitability_snapshot, EA. Daily harness with quarterly fwd-fill produces false-positive constants/all-NaNs (MT first run: 35 false-positive constants → 0 after switch). Always check `.shift(N)` semantics (days vs quarters) before harness design. Tell from period args (small ints 1/4/8/12/20 + docstring annotations like "(4 quarters)").
+
+25. **Mixed-cadence inside one family** — same theme can mix conventions across files. GC uses `TRADING_DAYS_QTR=63`/`YR=252` even though family is "trajectory"; DT uses daily-cadence with quarterly-anchor fwd-fill. Inventory the file's constants before harness design.
+
+26. **Warmup must clear max shift.** RA needs warmup=2600 (10y CAGR shift = 2520); VT daily synth ≥ 2000d (1260d shift); SD warmup=800 (504d shifts); LA warmup=1000 (`TD_Y*3=756d`).
+
+27. **Profile mix for sample-bias breakthrough.** 5-profile minimum standard. DR: issuer/buyback/stable/sbc-heavy/distress profiles broke `ncfcommon`-clip sample-bias that single-profile harness missed. Healthy-only synth produces flood of false KEEP-by-design constants.
+
+28. **Vary mix proportions over time within each profile.** Constant ratios (`taxexp = ebit*0.21`, `debtc = debt*0.25`, `netinccmn = netinc*0.97`, etc.) make their ratios mathematically constant in synth → mass false-positive constants AND false-positive scalar-mult pairs at exactly the proportion ratio. Replace each constant with `np.clip(midpoint + amp*sin(...) + noise, lo, hi)`. EA v1→v2: 13 false-positive constants and 4 false-positive scalar-mults eliminated. Also `revenue_growth` v1→v2: 26 false-positive constants → 1 (multiplicative-from-revenue trap).
+
+29. **Two-scan dup detection.** Value-hash misses scalar mults at FP-noise scale; AUC+Spearman tie scan misses some FP-amp scalar mults but catches rank-equivalent ones; post-warmup z-cosine scan at `sim=1.0`, `ratio_std_rel<1e-13` catches algebraic-identity scalar mults invisible to both. Examples caught: VE PE-family ×100 cluster expansions (`ve_083`, `ve_419`, `ve_084`) — only z-cosine; VA-2d/3d Pass-2 — AUC+Spearman.
+
+30. **Cross-tier scope must be explicit.** A "deriv-only audit" misses base-vs-deriv overlap. Always include the base registry when verifying derivatives, and include the derivative registries when verifying base. First lesson: RL tab 7-cont (`aa25895`). Now standard: VT, CFT, CFA, RA, GC, DR, LA all run cross-tier scans.
+
+31. **`_safe_div` quirk in CFT family** — `_safe_div(num, den, fill=0.0)` fills NaN with 0 instead of NaN (every other audited family returns NaN). Relevant when CFT output drives `*_x_*` interaction features.
+
+32. **Concurrent-tab races.** Per HANDOFF default ("second to start should release"), but use judgment: if the other tab has no fix commits AND its harness has a cadence/scope bug, surface the conflict and continue. ES auto-deleted 13 dup slots while harness was building; reverted per surgical direction. CAS replaced a daily-cadence harness left by a stalled tab.
+
+---
+
+## Findings so far
+
+**Per-family audit progress** (compact summary; full detail in `AUDITS.md`):
+
+| Family | Date | Bind | Removed | Status |
+|---|---|---:|---|---|
+| `price_momentum_base` | 2026-05-08 | 294/294 | 6 dups | clean |
+| `basing_pattern_base` | 2026-05-09 | 273/300 | 1 const + 6 dups | hybrid; 20 fns need fundamentals harness |
+| `moving_average_dynamics_base` | 2026-05-09 | 282/295 | 5 scalar-mult dups | hybrid; 13 fns need fundamentals harness |
+| `peak_and_crash_base` | 2026-05-09 | 265/293 | 3 dups + 1 helper + re-audit 4 cross-tier dups | hybrid; 28 fns need fundamentals harness; 9 always-zeros KEEP. **Re-audit verify pass 2026-05-09 (commit `ad9955a`)**: 4 cross-tier vhash dup groups deleted (pc_049 == pc_006 Class 1; pc_132 == pc_351 Class 1+4 base→deriv; pc_265 == pc_250 Class 2 cancellation; pc_284 == pc_365 Class 1+4 ema-2ndDiff commutation); 2 Class 16 unit-conversion scalar-mult pairs (pc_079/pc_083 ×100 Martin/Burke, pc_090/pc_147 ×1/63 mean/sum) KEEP. Cross-chain dedup connectivity lesson same as RL tab 7-cont + PPS re-audit. |
+| `price_moving_averages_base` | 2026-05-09 | 300/300 | 0 (helper fix) | pure-price; `_frama` helper fix restored 7 fns |
+| `volatility_regime_base` | 2026-05-09 | 273/291 | 9 dups + 1 helper bug + 1 lookahead | hybrid; 18 fns need fundamentals harness |
+| `crash_speed_base` | 2026-05-09 | 211/221 | 1 const + 4 dups | hybrid; 10 fns need fundamentals harness |
+| `volume_at_capitulation_base` | 2026-05-09 | 282/300 | 1 surgical edit | hybrid; 18 fns need fundamentals harness incl. new `instownpct` |
+| `moving_average_dynamics_2nd_derivatives` | 2026-05-09 | 49/49 | 1 scalar-mult dup | pure-price |
+| `moving_average_dynamics_3rd_derivatives` | 2026-05-09 | 49/49 | 1 scalar-mult dup | pure-price |
+| `volatility_regime_2nd_derivatives` | 2026-05-09 | 50/50 | 0 (helper fixes) | pure-OHLC; 1 perf vec + 1 lookback fix |
+| `volatility_regime_3rd_derivatives` | 2026-05-09 | 50/50 | 0 (helper fixes) | pure-OHLC; same as VR 2nd |
+| `price_moving_averages_2nd_derivatives` | 2026-05-09 | 50/50 | 0 | pure-close; clean |
+| `price_moving_averages_3rd_derivatives` | 2026-05-09 | 50/50 | 0 | pure-close; clean |
+| `peak_and_crash_2nd_derivatives` | 2026-05-09 | 47/47 | 3 mathematical-identity dups | pure-OHLC |
+| `peak_and_crash_3rd_derivatives` | 2026-05-09 | 49/49 | 1 dup + 1 helper | pure-OHLC |
+| `price_momentum_2nd_derivatives` | 2026-05-09 | 49/49 | 1 scalar-mult dup | pure-OHLC; CMO/trend_intensity identity |
+| `price_momentum_3rd_derivatives` | 2026-05-09 | 49/49 | 1 scalar-mult dup | pure-OHLC; same identity at jerk |
+| `basing_pattern_2nd_derivatives` | 2026-05-09 | 50/50 | 0 (helper perf only) | pure-OHLCV; 1 perf vec |
+| `basing_pattern_3rd_derivatives` | 2026-05-09 | 50/50 | 0 (helper perf only) | pure-OHLCV; 1 perf vec |
+| `crash_speed_2nd_derivatives` | 2026-05-09 | 50/50 | 0 | pure-OHLC; clean (70 min runtime) |
+| `crash_speed_3rd_derivatives` | 2026-05-09 | 50/50 | 0 | pure-OHLC; clean (70 min runtime) |
+| `volume_at_capitulation_2nd_derivatives` | 2026-05-09 | 50/50 | 0 | pure-OHLCV; 1 slow autocorr escalated |
+| `volume_at_capitulation_3rd_derivatives` | 2026-05-09 | 50/50 | 0 | pure-OHLCV; 1 slow autocorr escalated |
+| `volume_accumulation_2nd_derivatives` (+ `_v2`) | 2026-05-09 | 49/50 | 4 surgical edits across 2 passes | hybrid (1 fn needs `sharesbas`) |
+| `volume_accumulation_3rd_derivatives` (+ `_v2`) | 2026-05-09 | 50/50 | 4 surgical edits across 2 passes | pure-OHLCV |
+| `revenue_level_base` | 2026-05-09 | 290/290 | 10 dups | first Path B audit; cross-tier verify caught 3 more |
+| `revenue_level_2nd_derivatives` (+ `_v2`) | 2026-05-09 | 50/50 | 0 (deriv-side) | clean as audited; 3 cross-tier dups applied to BASE |
+| `revenue_level_3rd_derivatives` (+ `_v2`) | 2026-05-09 | 50/50 | 0 | clean; tier compounds base dedup automatically |
+| `balance_sheet_snapshot` (all tiers) | 2026-05-09 | 386/400 | 14 dups + 1 bug fix | Path B; 9 sample-bias constants KEEP |
+| `rd_and_intangibles` (all tiers) | 2026-05-09 | 271/275 | 4 deletes | Path B quarterly; 1 const + 2 clip-differentiated KEEP |
+| `debt_trajectory` (all tiers) | 2026-05-09 | 750/750 | ~80 surgical rebodies, 0 deletes | "surgical-rebody-everything" mode; 26 KEEP groups |
+| `leverage_and_solvency` (all tiers) | 2026-05-09 | 400/400 | 0 deletes (7 surgical edits) | "surgical-edits-only"; 9 KEEP + 20 sample-bias constants |
+| `valuation_at_entry` (all tiers) | 2026-05-09 | 379/400 | 20 dups + 6 bugs + 1 surgical | Path B; 5 always-positive flags KEEP |
+| `efficiency_snapshot` (all tiers) | 2026-05-09 | 775/775 | 0 deletes / 24 rebodies + 2 bugs | "surgical-edits-only"; 5 reverts of concurrent-tab auto-deletes |
+| `share_and_dilution_snapshot` (all tiers) | 2026-05-09 | 376/400 | 24 dups | Path B; 2 sample-bias constants + 1 algebraic-coincidence KEEP |
+| `capital_allocation_snapshot` (all tiers) | 2026-05-09 | 395/400 | 5 dups + 1 surgical edit | Path B quarterly; 2 academic-trace KEEP |
+| `margin_trajectory` (all tiers) | 2026-05-09 | 385/400 | 15 algebraic-identity dups | Path B quarterly; cadence lesson; uses `_d_`/`_dd_` infix |
+| `cash_flow_trajectory` (all tiers) | 2026-05-09 | 393/400 | 7 dups | Path B quarterly; 12 sample-bias constants KEEP; CFT `_safe_div` quirk |
+| `valuation_trajectory` (all tiers) | 2026-05-09 | 726/750 | 24 dups + 2 surgical + 1 bug | Path B; deriv files inline base-fn copies |
+| `revenue_acceleration` (all tiers) | 2026-05-09 | 708/750 | 42 dups + 6 bugs | Path B; 5 sample-bias constants + 2 dup groups KEEP |
+| `growth_vs_cost` (all tiers) | 2026-05-09 | 562/575 | 13 dups + 1 bug fix | Path B; 11 synth-coincidence value-exact KEEP |
+| `cash_flow_acceleration` (all tiers) | 2026-05-09 | 710/750 | 40 dups | Path B; 3 sample-bias constants + 9 KEEP groups |
+| `dilution_rate` (all tiers) | 2026-05-09 | 714/750 | 36 deletes + 2 raw=True bug fixes | Path B; 17 sample-bias-coincidence dup groups KEEP |
+| `efficiency_acceleration` (all tiers) | 2026-05-09 | 382/400 | 18 deletes (all base-side) | Path B quarterly; 3 NOPAT scalar-mult pairs KEEP; v1→v2 synth-mix lesson |
+| `revenue_growth` (all tiers) | 2026-05-09 | — | 12 deletes + 2 rebodies | Path B; multiplicative-from-revenue trap lesson; `rg_166` const + 3 KEEP |
+| `leverage_acceleration` (all tiers) | 2026-05-09 | 740/775 | 35 dups + 9 Beaver-rebodies + 4 bugs | Path B; 13 KEEP dup groups; tier prefix `la_d1`/`la_d2` |
+| `revenue_jerk` (all tiers) | 2026-05-09 | 750/750 | 0 deletes / ~155 surgical rebodies | Path B daily-cadence; surgical-rebody-everything per LS/DT/ES precedent. 124 placeholder-bomb slots (rj_201-225, rj_374-450, rj_2d/3d_055-065, rj_2d/3d_030-033) all rebodied to distinct signals; 10 _1y/_2y body dups fixed via window assignment; 7 cross-tier mathematical-identity collisions broken via scale-normalization on base side; 11 within-base value-dup pairs surgically edited; 2 pre-existing scalar-mult pairs rebodied (rj_479 → MAD trend strength, rj_2d_011 → shorter EMA cross). 376_450 rewritten as 75 EXPANDING-window stats to avoid rolling-window collisions in chunks 001_075/076_150. Function-name typo `rj_NNNsgna_*` (missing underscore) preserved verbatim for binding-layer compat. |
+| `margin_jerk` (all tiers) | 2026-05-09 | 662/725 | 63 deletes + 14 surgical rebodies | Path B quarterly (5 profiles × 80q × 12 cols); 13 files. **Pass 1** 48 deletes (24 cross-tier `*_accel`/`*_jerk`/`*_surprise`/incr-accel/dol-accel-jerk pollution + 5 ema4_roc base + 5 incr_vs_steady=lev algebra + 2 spread divergence linearity + 1 cancellation + 11 within-file/within-base literal dups). **Pass 2** rebodies — 11 mj_2d_033..050 + 6 mj_3d_043..050 + 1 systemic mj_2d_042 opex (was mj_2d_037 sga dup) → all rebodied to true 2nd/3rd diff (added inner `_d(...,4)`); 2 deriv signature bugs (mj_2d_044/050 missing `revenue`); 5 boll_pos → true Bollinger %B; mj_278 contrib_margin → `(gp-sgna-rnd)/rev`; mj_221 variable_cost → `(cor+sgna)/rev`; 5 mj_521..525 placeholders → distinct cross-margin metrics. **Pass 3** 15 deletes — base accel/jerk dups created by Pass 2 deriv rebody (cogs/sga/rnd/da/intexp/cascade/gross_oper_spread). **KEEP-by-design**: 5 entropy_proxy constants (qcut bin count = 4 on smooth synth — ps_270/cfs_d3_046/bss_288); 1 mj_087/mj_426 spread_chg vs convergence_rate (`.abs()` doesn't fire on synth — cft_008/051); 5 incr/decr scalar pairs (sample-bias on monotone-growth synth — cft_008/051). 0 errors / 0 all-NaN / 0 unexplained dups post-fix. Quarterly-cadence: 80-row synth, periods 1/2/4/8/12/16/20q (mt tab-20 / cas tab-18 family). |
+| `cash_earnings_divergence` (all tiers) | 2026-05-09 | 421/450 | 29 deletes (9 base formula-exact + 5 base cancellation-equiv + 8 cross-tier base→deriv + 8 within-deriv) | Path B quarterly (5 profiles × 80q × 37 cols); 10 files. 6 KEEP-by-design dup groups (1 Beneish academic-trace ced_158=ced_001; 1 clip-differentiated ced_149=ced_003 .where(rev>0); 4 sample-bias healthy-synth coincidences) + 3 days-conversion ×90 scalar-mult pairs (Class 16 cft CCC precedent) + 6 sample-bias constants (Piotroski-style positive-fraction=1 on healthy-CFO synth). 0 errors / 0 all-NaN. |
+| `moat_trajectory` (all tiers) | 2026-05-09 | 567/600 | 33 deletes (8 DuPont + 4 SGR=ROE + 3 EVA-spread + 4 Greenblatt-EY + 12 alpha-rename + 1 fcf=ncfo+capex + 1 retained-earnings) | Path B dual-cadence (5 profiles × 100q × 33 cols, OHLCV co-sampled at quarter ends); 12 files. 13 KEEP-by-design academic-trace dup groups (Piotroski/Altman/Ohlson/AQR-QMJ/Sloan-vs-Beneish components individually addressable; mt_174/mt_195/mt_207/mt_385/mt_412 composites inline) + 4 sample-bias constants + 1 harness-limitation all-NaN (mt_410 needs daily 252d). Function prefix `mt_` collides with margin_trajectory at name layer but each file self-contained at runtime. NEW non-Sharadar: `insider_pct`/`instinvest_pct` (3rd convention for inst-ownership pct after VAC `instownpct` + HEP `insiderpct`/`instpct`). 0 errors / 0 unexplained dups post-fix. |
+| `operating_leverage_composite` (all tiers) | 2026-05-09 | 750/750 | 0 deletes / ~80 surgical rebodies (3-pass) | Path B daily-cadence (5 profiles × 2500d × 29 cols, warmup=1800); 14 files. "Surgical-rebody-everything" mode (LS/DT/RJ/MJ precedent). 77 → 0 dup groups via: ~47 cross-tier base→deriv (CLAUDE class 4) → base side rebodied to `_delta(_ema(level, q), n)` (ES tab 15 EMA-input); 6 cross-tier deriv mis-tier (CLAUDE class 5; 2-diff bodies in 2d files) → rebody to 2d-correct `_delta(_pct(level, q), q)`; 4 naming bugs (CLAUDE class 8; olc_2d/3d_071 "_2q" + olc_2d/3d_072 "_pct_change" — ls_148/ve_424 precedent); ~17 within-tier algebraic-identity rebodies; 3 sign-flip-via-1-x rebodies via _pct (linearity-breaking). 3-pass campaign: Pass 1 cleared 73, Pass 2 caught 4 secondary collisions (EMA/delta commute → olc_462/olc_3d_045; sign-flip residual → olc_038/olc_2d_024), Pass 3 caught Pass-2's olc_038/olc_2d_024 secondary. KEEP: 1 sample-bias constant (olc_567 sign-change-freq always 0 on stable-sign synth) + 16 scalar-mult pairs (synth-coincidence + masked-DOL + chain-coincidence + 2 NOPAT-precedent ×365 days conversion). |
+| `pricing_power_signal` (all tiers) | 2026-05-09 | 750/750 | 0 deletes / 47+4 surgical rebodies + 1 bug fix | Path B mixed-cadence (5 profiles × 100q + 1500d, dispatch by registry `interval` field; 14 files / 47 cols). "Surgical-rebody-everything" mode (LS/ES/DT/MA precedent). 42 → 0 dup groups via: 10 cross-tier base→deriv `*_yoy_chg` slots rebodied to scale-normalized YoY (`_d1(s,4) / _rm(s.abs(),8)`); 8 within-deriv DuPont aliases rebodied to TTM-smoothed inputs (`mean(N,4)/mean(D,4)`); 6 within-base DuPont aliases rebodied to TTM-smoothed or additive ROE-ROA spread; 3 ebitda_ebit_spread aliases rebodied to (ebitda-ebit)/ebitda depreciation share (was depamor/rev = pps_046 by accounting identity); 5 EV-yield aliases rebodied to TTM-num (mean(X,4)/denom); 3 cost-mix aliases rebodied to cor/(sgna+rnd) (was opex/rev = pps_347 by accounting identity); 5 sign-flip identity rebodies (cor/gp instead of cor/rev to break vol(gm)=vol(cor/rev)); 6 composite differentiations (gp/cor markup growth, relative-streak, slope of z-score sum, median z-avg, z-scored 5-factor composite, 12q Sharpe). Bug fix: pps_595_margin_dispersion all-NaN due to `_rs(concat.T,3).iloc[0]` shape mismatch → proper per-row `concat(axis=1).std(axis=1)`. 5 KEEP-by-design Class 16 scalar-mults (days-receivable ×90 conversion, employee-proxy ×1000, sustainable-growth-rate ×0.7 constant payout). Mixed-cadence lesson: registry `interval` field is authoritative for harness dispatch since 1 file (`_base_451_525.py`) is daily-OHLCV-only and 18 daily-cadence fns are scattered across mostly-quarterly base files. **Re-audit verify pass 2026-05-09 (commit `47e0bee`)**: 4 additional Class 1/Class 7 algebraic-identity pairs found and surgical-rebodied — pps_347/348 → TTM-smoothed mean(opex,4)/mean(rev,4) (was = pps_056/057 gm-om spread by Sharadar opinc=gp-opex), pps_351 → TTM-smoothed slope8 (was = -pps_059 by opinc/gp = 1 - opex/gp), pps_541 → z-score mean-reversion (was = -pps_535 trivially). Cross-chain dedup connectivity lesson: separate canonical heads need to be scanned against each other at end of surgical-rebody pass. |
+| `sales_machine` (all tiers) | 2026-05-09 | 750/750 | 0 deletes / ~64 surgical rebodies + 11 bug fixes (zero deletes) | Path B quarterly-cadence (5 profiles × 120q × 44 cols, warmup=28); 14 files; tab-sm 14 commits `9dc74b8`...`0057b0b`. Surgical-rebody-everything mode (LS/DT/ES/MA precedent). 11 Class 17 `_safe_div(scalar, 90.0)` int-as-denom bug fixes in DSO/DIO/CCC/quality_z fns (replaced with direct `/ 90.0`; bss_055/ve_385/es_503/la_204 precedent). Rebody clusters: cross-tier base→deriv pollution rebodied to multiplicative `_pct_change` form (sm_032/055/066/084/2d_019/3d_019); cancellation-equiv / formula-rename rebodied with TTM-smoothed denoms (sm_153/154/167/169/249/260/264/451/452); altman_revenue_to_assets variants distinct via TTM/lagged assets (sm_556 vs sm_452 vs sm_016); contribution-margin variants via mixed-cost split (sm_241/2d_038/3d_035 — sgna added to 3d_035 sig); algebraic-identity scalar-mults rebodied via EMA smoothing or alt-stride (sm_009/194/535/562/569). 1 naming-bug rebody (Class 8): sm_3d_045 jerk_cash_conversion_cycle was DSO-only; rebodied to full CCC = DSO + DIO − DPO with widened signature (ls_148/vac_118 precedent). KEEP: 7 value-dup groups (Class 12 sm_083/200 clipped opmargin; Class 13 sm_112/543 + sm_584 sample-bias on healthy synth; Class 14 sm_056/403 + sm_057/404 synth-coincidence opex/rev≡(rev−cor−opinc)/rev when opinc=gp−opex; Class 14 sm_088/426 log-clip non-fire on big-rev synth; Class 14 sm_192/420 small-window CVaR≡min on 12q; Class 15 sm_311 winsorize-non-fire) + 2 sample-bias constants (sm_112/543) + 14 cadence-mismatch all-NaN (daily-tagged fns scattered in mostly-quarterly family using `.shift(252)`/`.shift(63)` — cft_206/207 + mt_410 mixed-cadence precedent, valid in production with daily fwd-fill). New non-Sharadar: `debtusd`/`equityusd`/`ncffin` aliases (binding-layer translation per LS/DT/CAS/CED precedent). Cadence: third confirmed quarterly-cadence family (after margin_trajectory tab-20 + margin_acceleration tab-30). |
+| `accounting_manipulation` (all tiers) | 2026-05-09 | 841/900 | 59 deletes + 4 bug fixes + 1 rebody | Path B daily-cadence (5 profiles × 2000d × 39 input cols, warmup=800; healthy_growth/distress/manipulator/stable_value/rnd_heavy with time-varying mix proportions per EA tab-33 lesson); 16 files; commit `e68d053`. **59 deletes** (all auto-applied): 47 Class 1 formula-exact under rename + 1 Class 2 cancellation-equivalent (am_300 dupont decomp `margin*turnover*leverage = ni/equity` per cas_182/183 precedent) + 3 Class 4 cross-tier base→deriv pollution (am_033, am_476, am_345) + 1 Class 6 mathematical-identity invisible to vhash (am_626 = am_040 - 0.21 linear shift, pc_317/318 precedent) + 1 Class 7 sign-flip algebraic-identity (am_198 std(cor/rev)=std(gp/rev), ea_076/077 precedent) + 6 cascade deletes (am_2d_047 Beneish SGAI = am_006 - 1; am_2d_071 = am_2d_035 DuPont leverage ROC; their am_3d_* wrappers). **Bug fixes (Class 17)**: am_144/293 param `open_price` → `open` (matches Sharadar SF1 col, binding-layer fix); am_2d_049 `_sd(taxexp, 0.21)` → `taxexp/0.21` (scalar-denom bug, bss_055/ve_385/es_503 precedent); am_640 `_sd(streak, TDY)` → `streak/TDY` (same class). **Rebody (Class 8)**: am_531_growth_consistency_score `corrwith(constant_1s)` returned NaN scalar × Series of 1s = all-NaN; rebodied to fraction of pairwise sign-agreements among QoQ {rev,ni,cfo} growth, 1y-smoothed (ls_148/ve_424 precedent). **KEEP-by-design** (12 vhash dups + 17 scalar pairs): Class 11 academic-trace (am_008/012 Beneish/Sloan; am_169/174 Pustylnick/Altman x2; am_170/176/565 Pustylnick/Altman x5/DuPont 5-way turnover; am_173/315 Altman x1/Ohlson o3; am_032/164 generic vs Dechow F-Score (am_164 used by composite am_168_dechow_fscore_proxy); am_092/304 Piotroski components; am_411/566 + am_562/567 + am_563/568 DuPont 5-way decomp components); Class 13 sample-bias 6-clique (am_059/068/202/317/388/727 binary flags = 0 on healthy synth); Class 14 synth-coincidence (am_295/364 margin hierarchy violations vs below-the-line bias both ~0); Class 16 days-conversion ×91.25 scalar mults (am_025/028 + am_047/100 + am_2d_007/022 + am_3d_007/022). 0 errors / 0 all-NaN / 0 unexplained dups post-fix. |
+| `investment_trajectory` (all tiers) | 2026-05-09/10 | 868/950 | 82 deletes + 150 placeholder rebodies + 1 bug fix | Path B daily-cadence hybrid (5 profiles × 2500d × 12 input cols, warmup=800 to clear 504d shift); 18 files / 950 fns (LARGEST family yet); tab-it commits `df3af55`, `6f4c2ec`, `6cb157b`. **150 placeholder rebodies in 6 chunked deriv files** (2nd/3rd-deriv chunks 026-050/051-075/076-100 — all 25 fns per file had identical body `_roc(close, DAYS_QTR)` placeholder; RJ tab-rj precedent: rebodied each to distinct (window, statistic) signal via deterministic `(slot_num % 25, slot_num // 5 % 7)` indexing across 25 stat templates × 7 windows; slot names preserved for binding-layer compat). **82 deletes** (lower-numbered slot wins): 55 Class 1 formula-exact cum_ret/mom/roc family aliases (it_388-394, it_426-428 — `close/close.shift(N) - 1` literal dups) + skew/kurt/expectancy/win_rate/sortino/treynor aliases + DuPont formula renames (it_497/686, it_495/702, it_704, it_496, it_691); 8 Class 2 cancellation-equivalent 5-way & 4-way gain_pain/upside_capture/omega/profit_factor clusters; 3 Class 3 algebraic-identity scalar-mult ×100 (it_426/427/428 ROC-as-percent); 3 Class 4 cross-tier base→deriv pollution (it_123 revenue_accel, it_124 netinc_accel, it_688 roe_acceleration — `g - g.shift(4)` base bodies belong in deriv tier per rl_227/229/231); 4 within-deriv dups (it_2d_017/018, it_3d_017, it_3d_016). **1 bug fix Class 17 extension**: it_533_te_vol_ret_63d `_mi_proxy(column_stack[:,0], 0, 8)` passed empty x to np.histogram2d → length mismatch; rebodied to rolling corr of `|log_ret|` vs lag-1 vol_chg. **KEEP-by-design**: 5 sample-bias constants (it_611/612/613 VPIN-proxy on uniform-volume synth; it_749/750 up/down_capture needs benchmark series); 7 all-NaN seasonality fns (it_362, it_618-623 require datetime index — harness uses RangeIndex). **NEW non-Sharadar col `instown_pct`** (4th convention for inst-ownership pct after VAC `instownpct` + HEP `insiderpct`/`instpct` + MT `insider_pct`/`instinvest_pct`). 0 errors / 0 unexplained dups post-fix. **Lessons**: (1) 6-file placeholder-bomb pattern detectable by `grep -c "return _roc(close, DAYS_QTR)"` per file; future audits should grep before harness investment. (2) Two-pass z-cosine catch — pass 1's giant 154-fn cluster absorbed it_3d_009/016 via union-find; pass 2 re-scan after rebody surfaced the residual. (3) Cosine matrix on N=950 × 1700d vectors ≈ 1.6 GB float64; bucket for larger families. |
+| `network_growth_engine` (all tiers) | 2026-05-09/10 | 1050/1050 | 0 deletes / ~94 surgical rebodies (2-pass) | Path B daily-cadence (5 profiles × 2400d × 44 input cols, warmup=1800 to clear 5y CAGR + slope+slope stack); 18 files / 1050 fns (LARGEST family yet, beats IT 950); tab-nge commits `c032824`/`447e657`/`de4d6eb`/`3d4ca36`/`25fdfa2`/`6b9873b`/`525a319`/`c1f7e54`/`d45e46d`/`19d3134`/`40d436e`/`c58db2e`/`6c562c2`/`2ae9c2e`/`9eb0da7`/`b2eaea0`/`6dfb35a`/`e39ec4f`. Surgical-rebody-everything mode (LS/DT/RJ/MJ/OLC/PPS/WTA precedent). 22 → 3 value-dups / 39 → 4 scalar-mults / 3 → 0 body-dups (incl. 1 harness false-positive empty-body group from 7 single-line return-fns in 751_825 — RG/HGS precedent). **Rebody clusters across 11 base files**: chunks 826_900 (16), 751_825 (17), 676_750 (11+1 Pass-2), 601_675 (7+8 Pass-1+Pass-2), 526_600 (2), 151_225 (6+9), 451_525 (4), 301_375 (5), 076_150 (2), 376_450 (2 Pass-1+1 Pass-2), 2nd_derivatives (1) — 6c562c2/c58db2e/2ae9c2e/9eb0da7/b2eaea0/6dfb35a/e39ec4f. **5-way smoothing-axis assignment** across asset-turnover cluster: ng_031 raw, ng_152 mean(rev/A,1y) DuPont smooth-ratio, ng_178 rev/mean(A,1y) PRAT smooth-denom, ng_405 mean(rev,1y)/A Altman smooth-num, ng_637 rev/mean(A,2y) Springate long smooth-denom. **Pass-2 secondary collisions (`e39ec4f`)**: ng_405 Pass-1 `rev/mean(A,1y)` accidentally matched ng_178 PRAT banker convention — re-rebodied to TTM-numerator form `mean(rev,1y)/A`; ng_616 Pass-1 `(NCFO-NI)/A > 0` mathematically identical to ng_392 `NCFO > NI` since A>0 — re-rebodied to `NCFO > mean(NI,1y)` smoothed-baseline form. **KEEP-BY-DESIGN** (3 value-dup groups + 4 scalar-mults): Class 13 sample-bias 4-clique ng_330/600/605/608 distress flags = 0; Class 13 ng_389/708 = 1 on healthy synth; Class 12 ng_846/896 cq.clip(-2,3) clip-differentiated (LS/CFA precedent, noted in 19d3134); Class 16 ng_232/245 + ng_233/246 days-conversion ratio=365 (cas_025/136); Class 16 ng_309/325 ratio=0.08 WACC hurdle (NOPAT precedent). 7 KEEP constants (Class 13). **NEW non-Sharadar — 4 ownership-pct conventions in same family**: `insider` (ng_746/747) + `insiderpct` (ng_105) + `institutionalpct` (ng_106-108) + `instown` (ng_743-745). 5th + 6th codebase conventions after VAC/HEP/HGS/MT precedents. **Lesson**: largest family in repo (1050 fns) had ~9% slots as alpha-rename/algebraic-identity dups stemming from chunks 601-900 re-implementing early features 001-225. Two-pass campaign with explicit Pass-2 secondary-collision check essential. |
+| `winner_take_all_signal` (all tiers) | 2026-05-10 | 868/900 | 32 deletes + ~92 surgical rebodies (3-pass) | Path B daily-cadence (5 profiles × 2500d × 35 input cols, warmup=1500 to clear 1260d=5y `.shift(DAYS_Y*5)` lookback); 16 files; tab-wta commits `31b021d`...`882563e`. Surgical-rebody-everything mode (LS/DT/RJ/MJ/OLC precedent). **Deletes**: 5 Class 4 cross-tier base→deriv pollution (wta_099/315/543/674 + 4 in 376_450 — body was `_delta`/`_pct_change` belonging in deriv tier; CFA cfa_027/028 + RA cross-tier precedent); 18 Class 1 within-deriv formula-exact; 5 Class 1 within-chunk auto-deletes (wta_070=021, wta_073=072, wta_206=153, wta_270=253, wta_290=272); 4 deletes embedded in earlier cross-tier base→deriv commits. **Rebodies (~92 across chunks 451_525, 526_600, 076_150, 301_375, 376_450, 601_675, 676_750)**: TTM-smoothing, EMA, longer/shorter horizons (6m/3m/2y/3y/4y/5y CAGR), log-form, threshold variants (wta_526 ROE>20% vs wta_134 ROE>15%), MA-spectrum (5-MA fan vs 4-MA fan), cross-IMPROVEMENTS vs cross-LEVELS to break DuPont 2/3-factor cancellation (wta_302 `_delta(om)*_delta(at)`), days-conversion. Class 8 naming-bug: wta_157 `(nm*at)/(nm*at*em) = equity/assets` (= wta_184 Altman_RE) rebodied to `log(NM)/log(ROE)`; wta_727 `(CA-rec-inv)/assets = cash/assets` (= wta_108) rebodied to `(CA-inv)/assets` working-capital quality. **Pass 3 secondary collision (`882563e`)**: wta_677 Pass-2 TTM-smoothed-factors DuPont 3-factor product still coincided with TTM-avg ROE (wta_594) on synth — product-of-TTM-means ≈ mean-of-product when ratios smoothly vary; Pass-3 rebody to NM × EM (skip turnover). **KEEP-BY-DESIGN** (5 vh-dups + 2 z-cos): 5 Class 11 academic-trace coincidences — wta_028=wta_158, wta_029=wta_159, wta_030=wta_185, wta_033=wta_152=wta_187, wta_040=wta_151; 2 z-cos — wta_025/wta_191 SGR=ROE×0.85 (Class 16), wta_325/wta_406 EV/EBITDA vs ND/EBITDA differ by close/EBITDA (Class 14). 13 constants Class 13 (Chaikin/Amihud/breakout on smooth synth) + 1 all-NaN wta_113 gap_fill_speed (event-conditional). 4th convention for inst-ownership pct (`instown_pct` vs VAC `instownpct` vs HEP `instpct`/`insiderpct` vs MT `insider_pct`/`instinvest_pct`). Three-pass with explicit Pass-2/Pass-3 secondary-collision check essential (RJ/MJ/OLC precedent — TTM-smoothing of DuPont 3-factor created new collisions with TTM-avg ROE that only re-running harness caught). |
+
+**Harness used:** `test_new_features_db_direct.py` (in `C:\Users\jyama\Downloads\`), after a patch that introspects each feature function's signature with `inspect.signature` and binds parameters by name to columns in the silver `sep` slice (Downloads commit `ef82b9b`). The harness reports `missing_inputs=[...]` for fundamentals-needing functions instead of running them with bad data.
+
+**Path B = synthetic-fundamentals mini-harness** (built per family). Standard: 5 profiles × N rows × M input cols, daily or quarterly cadence per the family's `.shift(N)` semantics. Save scratch to `temp_*` per `feedback_temp_scripts.md`.
+
+**Per-family detail writeups** (commits, deletes, perf vecs, bug fixes, lessons): see `AUDITS.md`. Read on demand for whichever family you're working on.
+
+**Outstanding work:**
+- ~~`share_and_dilution_snapshot_*` family cannot be validated with the db-direct harness -- needs fundamentals harness path.~~ **DONE tab 17 via Path B mini-harness** (commits `d5f21c4`..`f3791cd`); 24 dup deletes auto-applied per user direction (algebraic-identity + body-identical-mod-docstring + var-rename); 376/400 clean post-fix.
+- **20 unbindable basing_pattern_base functions** (need `revenue`/`netinc`/`fcf`/`debt`/`equity`/`assets`) inventoried at audit time; will need same fundamentals path. List in journal.md session 2 entry.
+- **13 unbindable moving_average_dynamics_base functions** (mad_129-134 in `_076_150.py`; mad_e136-142 in `_076_150_expanded.py`). Same fundamentals harness needed.
+- **28 unbindable peak_and_crash_base functions** (pc_166-176, pc_216-218, pc_225, pc_237-242, pc_249, pc_267-272 in `_151_300.py`). Same fundamentals harness needed.
+- **18 unbindable volatility_regime_base functions** (vr_117-121, 147-148 in `_076_150.py`; vr_250-260 in `_226_300.py`). Same fundamentals harness needed.
+- **10 unbindable crash_speed_base functions** (cs_101-cs_110 in `_076_150.py`). Same fundamentals harness needed.
+- **18 unbindable volume_at_capitulation_base functions** (vac_116, 121-123, 125, 146-150 in `_076_150.py`; vac_256-259, 262-265 in `_226_300.py`). Same fundamentals harness needed; vac_146-150 introduce the new `instownpct` column type (institutional ownership %).
+- **40 other families** unaudited. See journal for current Path A queue.
+- **All `_2nd_derivatives` and `_3rd_derivatives` files** unaudited (volatility_regime + moving_average_dynamics derivatives done).
+- **Hybrid-family classification correction:** the journal initially called `basing_pattern`, `crash_speed`, `peak_and_crash`, `price_moving_averages`, `volatility_regime`, `volume_*`, `moving_average_dynamics` "price-only." `basing_pattern`, `moving_average_dynamics`, `peak_and_crash`, `volatility_regime`, `crash_speed`, `volume_at_capitulation` are confirmed hybrid; `price_moving_averages` is confirmed pure-OHLCV; the rest have not been verified yet. Always run the arg-set inventory grep before committing harness time to a family.

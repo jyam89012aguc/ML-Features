@@ -1,0 +1,380 @@
+import pandas as pd
+import numpy as np
+import os
+FEATURE_FUNCTIONS = {}
+
+def f49eas_f49_equity_to_assets_solvency_base_v001_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(21).mean()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v001_signal'] = f49eas_f49_equity_to_assets_solvency_base_v001_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v002_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(63).mean()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v002_signal'] = f49eas_f49_equity_to_assets_solvency_base_v002_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v003_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(126).mean()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v003_signal'] = f49eas_f49_equity_to_assets_solvency_base_v003_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v004_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(252).mean()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v004_signal'] = f49eas_f49_equity_to_assets_solvency_base_v004_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v005_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(504).mean()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v005_signal'] = f49eas_f49_equity_to_assets_solvency_base_v005_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v006_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(21).std()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v006_signal'] = f49eas_f49_equity_to_assets_solvency_base_v006_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v007_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(63).std()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v007_signal'] = f49eas_f49_equity_to_assets_solvency_base_v007_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v008_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(126).std()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v008_signal'] = f49eas_f49_equity_to_assets_solvency_base_v008_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v009_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(252).std()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v009_signal'] = f49eas_f49_equity_to_assets_solvency_base_v009_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v010_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(504).std()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v010_signal'] = f49eas_f49_equity_to_assets_solvency_base_v010_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v011_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(21).skew()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v011_signal'] = f49eas_f49_equity_to_assets_solvency_base_v011_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v012_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(63).skew()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v012_signal'] = f49eas_f49_equity_to_assets_solvency_base_v012_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v013_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(126).skew()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v013_signal'] = f49eas_f49_equity_to_assets_solvency_base_v013_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v014_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(252).skew()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v014_signal'] = f49eas_f49_equity_to_assets_solvency_base_v014_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v015_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(504).skew()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v015_signal'] = f49eas_f49_equity_to_assets_solvency_base_v015_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v016_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(21).kurt()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v016_signal'] = f49eas_f49_equity_to_assets_solvency_base_v016_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v017_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(63).kurt()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v017_signal'] = f49eas_f49_equity_to_assets_solvency_base_v017_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v018_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(126).kurt()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v018_signal'] = f49eas_f49_equity_to_assets_solvency_base_v018_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v019_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(252).kurt()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v019_signal'] = f49eas_f49_equity_to_assets_solvency_base_v019_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v020_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(504).kurt()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v020_signal'] = f49eas_f49_equity_to_assets_solvency_base_v020_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v021_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(21).mean())/(equity / assets.replace(0, np.nan)).rolling(21).std())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v021_signal'] = f49eas_f49_equity_to_assets_solvency_base_v021_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v022_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(63).mean())/(equity / assets.replace(0, np.nan)).rolling(63).std())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v022_signal'] = f49eas_f49_equity_to_assets_solvency_base_v022_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v023_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(126).mean())/(equity / assets.replace(0, np.nan)).rolling(126).std())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v023_signal'] = f49eas_f49_equity_to_assets_solvency_base_v023_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v024_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(252).mean())/(equity / assets.replace(0, np.nan)).rolling(252).std())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v024_signal'] = f49eas_f49_equity_to_assets_solvency_base_v024_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v025_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(504).mean())/(equity / assets.replace(0, np.nan)).rolling(504).std())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v025_signal'] = f49eas_f49_equity_to_assets_solvency_base_v025_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v026_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(21).median())/(((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(21).median()).abs().rolling(21).median()))
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v026_signal'] = f49eas_f49_equity_to_assets_solvency_base_v026_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v027_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(63).median())/(((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(63).median()).abs().rolling(63).median()))
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v027_signal'] = f49eas_f49_equity_to_assets_solvency_base_v027_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v028_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(126).median())/(((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(126).median()).abs().rolling(126).median()))
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v028_signal'] = f49eas_f49_equity_to_assets_solvency_base_v028_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v029_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(252).median())/(((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(252).median()).abs().rolling(252).median()))
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v029_signal'] = f49eas_f49_equity_to_assets_solvency_base_v029_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v030_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(504).median())/(((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(504).median()).abs().rolling(504).median()))
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v030_signal'] = f49eas_f49_equity_to_assets_solvency_base_v030_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v031_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).gt((equity / assets.replace(0, np.nan)).rolling(21).mean()).rolling(21).mean())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v031_signal'] = f49eas_f49_equity_to_assets_solvency_base_v031_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v032_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).gt((equity / assets.replace(0, np.nan)).rolling(63).mean()).rolling(63).mean())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v032_signal'] = f49eas_f49_equity_to_assets_solvency_base_v032_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v033_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).gt((equity / assets.replace(0, np.nan)).rolling(126).mean()).rolling(126).mean())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v033_signal'] = f49eas_f49_equity_to_assets_solvency_base_v033_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v034_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).gt((equity / assets.replace(0, np.nan)).rolling(252).mean()).rolling(252).mean())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v034_signal'] = f49eas_f49_equity_to_assets_solvency_base_v034_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v035_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).gt((equity / assets.replace(0, np.nan)).rolling(504).mean()).rolling(504).mean())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v035_signal'] = f49eas_f49_equity_to_assets_solvency_base_v035_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v036_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(21).max()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v036_signal'] = f49eas_f49_equity_to_assets_solvency_base_v036_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v037_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(63).max()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v037_signal'] = f49eas_f49_equity_to_assets_solvency_base_v037_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v038_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(126).max()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v038_signal'] = f49eas_f49_equity_to_assets_solvency_base_v038_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v039_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(252).max()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v039_signal'] = f49eas_f49_equity_to_assets_solvency_base_v039_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v040_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(504).max()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v040_signal'] = f49eas_f49_equity_to_assets_solvency_base_v040_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v041_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(21).min()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v041_signal'] = f49eas_f49_equity_to_assets_solvency_base_v041_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v042_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(63).min()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v042_signal'] = f49eas_f49_equity_to_assets_solvency_base_v042_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v043_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(126).min()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v043_signal'] = f49eas_f49_equity_to_assets_solvency_base_v043_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v044_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(252).min()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v044_signal'] = f49eas_f49_equity_to_assets_solvency_base_v044_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v045_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).rolling(504).min()
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v045_signal'] = f49eas_f49_equity_to_assets_solvency_base_v045_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v046_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).rolling(21).max()-(equity / assets.replace(0, np.nan)).rolling(21).min())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v046_signal'] = f49eas_f49_equity_to_assets_solvency_base_v046_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v047_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).rolling(63).max()-(equity / assets.replace(0, np.nan)).rolling(63).min())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v047_signal'] = f49eas_f49_equity_to_assets_solvency_base_v047_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v048_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).rolling(126).max()-(equity / assets.replace(0, np.nan)).rolling(126).min())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v048_signal'] = f49eas_f49_equity_to_assets_solvency_base_v048_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v049_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).rolling(252).max()-(equity / assets.replace(0, np.nan)).rolling(252).min())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v049_signal'] = f49eas_f49_equity_to_assets_solvency_base_v049_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v050_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).rolling(504).max()-(equity / assets.replace(0, np.nan)).rolling(504).min())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v050_signal'] = f49eas_f49_equity_to_assets_solvency_base_v050_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v051_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(21).min())/((equity / assets.replace(0, np.nan)).rolling(21).max()-(equity / assets.replace(0, np.nan)).rolling(21).min()))
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v051_signal'] = f49eas_f49_equity_to_assets_solvency_base_v051_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v052_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(63).min())/((equity / assets.replace(0, np.nan)).rolling(63).max()-(equity / assets.replace(0, np.nan)).rolling(63).min()))
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v052_signal'] = f49eas_f49_equity_to_assets_solvency_base_v052_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v053_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(126).min())/((equity / assets.replace(0, np.nan)).rolling(126).max()-(equity / assets.replace(0, np.nan)).rolling(126).min()))
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v053_signal'] = f49eas_f49_equity_to_assets_solvency_base_v053_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v054_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(252).min())/((equity / assets.replace(0, np.nan)).rolling(252).max()-(equity / assets.replace(0, np.nan)).rolling(252).min()))
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v054_signal'] = f49eas_f49_equity_to_assets_solvency_base_v054_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v055_signal(equity, assets):
+    res = (((equity / assets.replace(0, np.nan))-(equity / assets.replace(0, np.nan)).rolling(504).min())/((equity / assets.replace(0, np.nan)).rolling(504).max()-(equity / assets.replace(0, np.nan)).rolling(504).min()))
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v055_signal'] = f49eas_f49_equity_to_assets_solvency_base_v055_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v056_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan))/(equity / assets.replace(0, np.nan)).rolling(21).max() - 1)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v056_signal'] = f49eas_f49_equity_to_assets_solvency_base_v056_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v057_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan))/(equity / assets.replace(0, np.nan)).rolling(63).max() - 1)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v057_signal'] = f49eas_f49_equity_to_assets_solvency_base_v057_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v058_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan))/(equity / assets.replace(0, np.nan)).rolling(126).max() - 1)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v058_signal'] = f49eas_f49_equity_to_assets_solvency_base_v058_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v059_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan))/(equity / assets.replace(0, np.nan)).rolling(252).max() - 1)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v059_signal'] = f49eas_f49_equity_to_assets_solvency_base_v059_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v060_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan))/(equity / assets.replace(0, np.nan)).rolling(504).max() - 1)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v060_signal'] = f49eas_f49_equity_to_assets_solvency_base_v060_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v061_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan))/(equity / assets.replace(0, np.nan)).rolling(21).min() - 1)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v061_signal'] = f49eas_f49_equity_to_assets_solvency_base_v061_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v062_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan))/(equity / assets.replace(0, np.nan)).rolling(63).min() - 1)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v062_signal'] = f49eas_f49_equity_to_assets_solvency_base_v062_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v063_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan))/(equity / assets.replace(0, np.nan)).rolling(126).min() - 1)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v063_signal'] = f49eas_f49_equity_to_assets_solvency_base_v063_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v064_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan))/(equity / assets.replace(0, np.nan)).rolling(252).min() - 1)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v064_signal'] = f49eas_f49_equity_to_assets_solvency_base_v064_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v065_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan))/(equity / assets.replace(0, np.nan)).rolling(504).min() - 1)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v065_signal'] = f49eas_f49_equity_to_assets_solvency_base_v065_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v066_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).ewm(span=21).mean() - (equity / assets.replace(0, np.nan)).ewm(span=21*3).mean())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v066_signal'] = f49eas_f49_equity_to_assets_solvency_base_v066_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v067_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).ewm(span=63).mean() - (equity / assets.replace(0, np.nan)).ewm(span=63*3).mean())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v067_signal'] = f49eas_f49_equity_to_assets_solvency_base_v067_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v068_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).ewm(span=126).mean() - (equity / assets.replace(0, np.nan)).ewm(span=126*3).mean())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v068_signal'] = f49eas_f49_equity_to_assets_solvency_base_v068_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v069_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).ewm(span=252).mean() - (equity / assets.replace(0, np.nan)).ewm(span=252*3).mean())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v069_signal'] = f49eas_f49_equity_to_assets_solvency_base_v069_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v070_signal(equity, assets):
+    res = ((equity / assets.replace(0, np.nan)).ewm(span=504).mean() - (equity / assets.replace(0, np.nan)).ewm(span=504*3).mean())
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v070_signal'] = f49eas_f49_equity_to_assets_solvency_base_v070_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v071_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).pct_change(21)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v071_signal'] = f49eas_f49_equity_to_assets_solvency_base_v071_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v072_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).pct_change(63)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v072_signal'] = f49eas_f49_equity_to_assets_solvency_base_v072_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v073_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).pct_change(126)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v073_signal'] = f49eas_f49_equity_to_assets_solvency_base_v073_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v074_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).pct_change(252)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v074_signal'] = f49eas_f49_equity_to_assets_solvency_base_v074_signal
+
+def f49eas_f49_equity_to_assets_solvency_base_v075_signal(equity, assets):
+    res = (equity / assets.replace(0, np.nan)).pct_change(504)
+    return res.replace([np.inf, -np.inf], np.nan)
+FEATURE_FUNCTIONS['f49eas_f49_equity_to_assets_solvency_base_v075_signal'] = f49eas_f49_equity_to_assets_solvency_base_v075_signal
+

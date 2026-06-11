@@ -1,0 +1,1257 @@
+"""Family f61 - Asset turnover  (J_Returns_Efficiency) | 3rd derivatives 001-150"""
+import inspect
+import numpy as np
+import pandas as pd
+
+TRADING_DAYS_YEAR = 252
+TRADING_DAYS_HALF = 126
+TRADING_DAYS_QUARTER = 63
+TRADING_DAYS_MONTH = 21
+TRADING_DAYS_WEEK = 5
+
+
+def _z(s, w):
+    m = s.rolling(w, min_periods=max(1, w // 2)).mean()
+    sd = s.rolling(w, min_periods=max(1, w // 2)).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+
+def _mean(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).mean()
+
+
+def _std(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).std()
+
+
+def _diff(s, n):
+    return s.diff(periods=n)
+
+
+def _slope_diff_norm(s, w):
+    return s.diff(periods=w) / s.abs().replace(0, np.nan)
+
+
+def _slope_pct(s, w):
+    return s.pct_change(periods=w)
+
+
+def _pct_change(s, n):
+    return s.pct_change(periods=n)
+
+
+def _safe_div(a, b):
+    return a / b.replace(0, np.nan)
+
+
+# ===== folder domain primitives =====
+def _asset_turnover_scaled(field, scale):
+    return field / scale.replace(0, np.nan).abs()
+
+
+def _asset_turnover_log(field):
+    return np.log(field.abs().replace(0, np.nan))
+
+
+def _asset_turnover_per_share(field, sharesbas):
+    return field / sharesbas.replace(0, np.nan).abs()
+
+
+# 5d accel of 21d raw assetturnover
+def at_f61_asset_turnover_raw_21d_accel_v001_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 21) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 21d raw assetturnover
+def at_f61_asset_turnover_raw_21d_accel_v002_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 21) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 21d raw assetturnover
+def at_f61_asset_turnover_raw_21d_accel_v003_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 21) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 63d raw assetturnover
+def at_f61_asset_turnover_raw_63d_accel_v004_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 63) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 63d raw assetturnover
+def at_f61_asset_turnover_raw_63d_accel_v005_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 63) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 63d raw assetturnover
+def at_f61_asset_turnover_raw_63d_accel_v006_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 63) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 126d raw assetturnover
+def at_f61_asset_turnover_raw_126d_accel_v007_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 126) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 126d raw assetturnover
+def at_f61_asset_turnover_raw_126d_accel_v008_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 126) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 126d raw assetturnover
+def at_f61_asset_turnover_raw_126d_accel_v009_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 126) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 252d raw assetturnover
+def at_f61_asset_turnover_raw_252d_accel_v010_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 252) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 252d raw assetturnover
+def at_f61_asset_turnover_raw_252d_accel_v011_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 252) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 252d raw assetturnover
+def at_f61_asset_turnover_raw_252d_accel_v012_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 252) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 504d raw assetturnover
+def at_f61_asset_turnover_raw_504d_accel_v013_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 504) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 504d raw assetturnover
+def at_f61_asset_turnover_raw_504d_accel_v014_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 504) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 504d raw assetturnover
+def at_f61_asset_turnover_raw_504d_accel_v015_signal(assetturnover, closeadj):
+    base = _mean(assetturnover, 504) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 21d log assetturnover
+def at_f61_asset_turnover_log_21d_accel_v016_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 21) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 21d log assetturnover
+def at_f61_asset_turnover_log_21d_accel_v017_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 21) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 21d log assetturnover
+def at_f61_asset_turnover_log_21d_accel_v018_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 21) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 63d log assetturnover
+def at_f61_asset_turnover_log_63d_accel_v019_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 63) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 63d log assetturnover
+def at_f61_asset_turnover_log_63d_accel_v020_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 63) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 63d log assetturnover
+def at_f61_asset_turnover_log_63d_accel_v021_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 63) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 126d log assetturnover
+def at_f61_asset_turnover_log_126d_accel_v022_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 126) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 126d log assetturnover
+def at_f61_asset_turnover_log_126d_accel_v023_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 126) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 126d log assetturnover
+def at_f61_asset_turnover_log_126d_accel_v024_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 126) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 252d log assetturnover
+def at_f61_asset_turnover_log_252d_accel_v025_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 252) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 252d log assetturnover
+def at_f61_asset_turnover_log_252d_accel_v026_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 252) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 252d log assetturnover
+def at_f61_asset_turnover_log_252d_accel_v027_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 252) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 504d log assetturnover
+def at_f61_asset_turnover_log_504d_accel_v028_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 504) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 504d log assetturnover
+def at_f61_asset_turnover_log_504d_accel_v029_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 504) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 504d log assetturnover
+def at_f61_asset_turnover_log_504d_accel_v030_signal(assetturnover, closeadj):
+    base = _mean(_asset_turnover_log(assetturnover), 504) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 21d pershare assetturnover
+def at_f61_asset_turnover_pershare_21d_accel_v031_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 21) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 21d pershare assetturnover
+def at_f61_asset_turnover_pershare_21d_accel_v032_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 21) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 21d pershare assetturnover
+def at_f61_asset_turnover_pershare_21d_accel_v033_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 21) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 63d pershare assetturnover
+def at_f61_asset_turnover_pershare_63d_accel_v034_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 63) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 63d pershare assetturnover
+def at_f61_asset_turnover_pershare_63d_accel_v035_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 63) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 63d pershare assetturnover
+def at_f61_asset_turnover_pershare_63d_accel_v036_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 63) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 126d pershare assetturnover
+def at_f61_asset_turnover_pershare_126d_accel_v037_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 126) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 126d pershare assetturnover
+def at_f61_asset_turnover_pershare_126d_accel_v038_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 126) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 126d pershare assetturnover
+def at_f61_asset_turnover_pershare_126d_accel_v039_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 126) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 252d pershare assetturnover
+def at_f61_asset_turnover_pershare_252d_accel_v040_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 252) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 252d pershare assetturnover
+def at_f61_asset_turnover_pershare_252d_accel_v041_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 252) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 252d pershare assetturnover
+def at_f61_asset_turnover_pershare_252d_accel_v042_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 252) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 504d pershare assetturnover
+def at_f61_asset_turnover_pershare_504d_accel_v043_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 504) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 504d pershare assetturnover
+def at_f61_asset_turnover_pershare_504d_accel_v044_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 504) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 504d pershare assetturnover
+def at_f61_asset_turnover_pershare_504d_accel_v045_signal(assetturnover, sharesbas, closeadj):
+    base = _mean(_asset_turnover_per_share(assetturnover, sharesbas), 504) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 21d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_21d_accel_v046_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 21)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 21d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_21d_accel_v047_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 21)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 21d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_21d_accel_v048_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 21)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 63d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_63d_accel_v049_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 63)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 63d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_63d_accel_v050_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 63)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 63d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_63d_accel_v051_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 63)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 126d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_126d_accel_v052_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 126)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 126d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_126d_accel_v053_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 126)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 126d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_126d_accel_v054_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 126)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 252d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_252d_accel_v055_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 252)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 252d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_252d_accel_v056_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 252)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 252d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_252d_accel_v057_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 252)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 504d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_504d_accel_v058_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 504)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 504d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_504d_accel_v059_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 504)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 504d per_assets assetturnover
+def at_f61_asset_turnover_per_assets_504d_accel_v060_signal(assetturnover, assets):
+    base = _mean(_asset_turnover_scaled(assetturnover, assets), 504)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 21d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_21d_accel_v061_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 21)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 21d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_21d_accel_v062_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 21)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 21d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_21d_accel_v063_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 21)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 63d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_63d_accel_v064_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 63)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 63d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_63d_accel_v065_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 63)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 63d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_63d_accel_v066_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 63)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 126d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_126d_accel_v067_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 126)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 126d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_126d_accel_v068_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 126)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 126d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_126d_accel_v069_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 126)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 252d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_252d_accel_v070_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 252)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 252d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_252d_accel_v071_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 252)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 252d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_252d_accel_v072_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 252)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 504d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_504d_accel_v073_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 504)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 504d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_504d_accel_v074_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 504)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 504d per_marketcap assetturnover
+def at_f61_asset_turnover_per_marketcap_504d_accel_v075_signal(assetturnover, marketcap):
+    base = _mean(_asset_turnover_scaled(assetturnover, marketcap), 504)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 21d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_21d_accel_v076_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 21)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 21d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_21d_accel_v077_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 21)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 21d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_21d_accel_v078_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 21)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 63d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_63d_accel_v079_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 63)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 63d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_63d_accel_v080_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 63)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 63d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_63d_accel_v081_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 63)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 126d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_126d_accel_v082_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 126)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 126d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_126d_accel_v083_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 126)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 126d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_126d_accel_v084_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 126)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 252d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_252d_accel_v085_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 252)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 252d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_252d_accel_v086_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 252)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 252d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_252d_accel_v087_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 252)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 504d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_504d_accel_v088_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 504)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 504d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_504d_accel_v089_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 504)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 504d per_equity assetturnover
+def at_f61_asset_turnover_per_equity_504d_accel_v090_signal(assetturnover, equity):
+    base = _mean(_asset_turnover_scaled(assetturnover, equity), 504)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 21d std assetturnover
+def at_f61_asset_turnover_std_21d_accel_v091_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 21) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 21d std assetturnover
+def at_f61_asset_turnover_std_21d_accel_v092_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 21) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 21d std assetturnover
+def at_f61_asset_turnover_std_21d_accel_v093_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 21) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 63d std assetturnover
+def at_f61_asset_turnover_std_63d_accel_v094_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 63) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 63d std assetturnover
+def at_f61_asset_turnover_std_63d_accel_v095_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 63) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 63d std assetturnover
+def at_f61_asset_turnover_std_63d_accel_v096_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 63) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 126d std assetturnover
+def at_f61_asset_turnover_std_126d_accel_v097_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 126) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 126d std assetturnover
+def at_f61_asset_turnover_std_126d_accel_v098_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 126) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 126d std assetturnover
+def at_f61_asset_turnover_std_126d_accel_v099_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 126) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 252d std assetturnover
+def at_f61_asset_turnover_std_252d_accel_v100_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 252) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 252d std assetturnover
+def at_f61_asset_turnover_std_252d_accel_v101_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 252) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 252d std assetturnover
+def at_f61_asset_turnover_std_252d_accel_v102_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 252) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 504d std assetturnover
+def at_f61_asset_turnover_std_504d_accel_v103_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 504) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 504d std assetturnover
+def at_f61_asset_turnover_std_504d_accel_v104_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 504) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 504d std assetturnover
+def at_f61_asset_turnover_std_504d_accel_v105_signal(assetturnover, closeadj):
+    base = _std(assetturnover, 504) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 21d ewm assetturnover
+def at_f61_asset_turnover_ewm_21d_accel_v106_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=21, min_periods=max(1, 21//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 21d ewm assetturnover
+def at_f61_asset_turnover_ewm_21d_accel_v107_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=21, min_periods=max(1, 21//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 21d ewm assetturnover
+def at_f61_asset_turnover_ewm_21d_accel_v108_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=21, min_periods=max(1, 21//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 63d ewm assetturnover
+def at_f61_asset_turnover_ewm_63d_accel_v109_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=63, min_periods=max(1, 63//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 63d ewm assetturnover
+def at_f61_asset_turnover_ewm_63d_accel_v110_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=63, min_periods=max(1, 63//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 63d ewm assetturnover
+def at_f61_asset_turnover_ewm_63d_accel_v111_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=63, min_periods=max(1, 63//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 126d ewm assetturnover
+def at_f61_asset_turnover_ewm_126d_accel_v112_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=126, min_periods=max(1, 126//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 126d ewm assetturnover
+def at_f61_asset_turnover_ewm_126d_accel_v113_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=126, min_periods=max(1, 126//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 126d ewm assetturnover
+def at_f61_asset_turnover_ewm_126d_accel_v114_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=126, min_periods=max(1, 126//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 252d ewm assetturnover
+def at_f61_asset_turnover_ewm_252d_accel_v115_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=252, min_periods=max(1, 252//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 252d ewm assetturnover
+def at_f61_asset_turnover_ewm_252d_accel_v116_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=252, min_periods=max(1, 252//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 252d ewm assetturnover
+def at_f61_asset_turnover_ewm_252d_accel_v117_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=252, min_periods=max(1, 252//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 504d ewm assetturnover
+def at_f61_asset_turnover_ewm_504d_accel_v118_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=504, min_periods=max(1, 504//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 504d ewm assetturnover
+def at_f61_asset_turnover_ewm_504d_accel_v119_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=504, min_periods=max(1, 504//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 504d ewm assetturnover
+def at_f61_asset_turnover_ewm_504d_accel_v120_signal(assetturnover, closeadj):
+    base = assetturnover.ewm(span=504, min_periods=max(1, 504//2)).mean() * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 21d sq assetturnover
+def at_f61_asset_turnover_sq_21d_accel_v121_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 21) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 21d sq assetturnover
+def at_f61_asset_turnover_sq_21d_accel_v122_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 21) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 21d sq assetturnover
+def at_f61_asset_turnover_sq_21d_accel_v123_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 21) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 63d sq assetturnover
+def at_f61_asset_turnover_sq_63d_accel_v124_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 63) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 63d sq assetturnover
+def at_f61_asset_turnover_sq_63d_accel_v125_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 63) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 63d sq assetturnover
+def at_f61_asset_turnover_sq_63d_accel_v126_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 63) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 126d sq assetturnover
+def at_f61_asset_turnover_sq_126d_accel_v127_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 126) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 126d sq assetturnover
+def at_f61_asset_turnover_sq_126d_accel_v128_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 126) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 126d sq assetturnover
+def at_f61_asset_turnover_sq_126d_accel_v129_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 126) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 252d sq assetturnover
+def at_f61_asset_turnover_sq_252d_accel_v130_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 252) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 252d sq assetturnover
+def at_f61_asset_turnover_sq_252d_accel_v131_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 252) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 252d sq assetturnover
+def at_f61_asset_turnover_sq_252d_accel_v132_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 252) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 504d sq assetturnover
+def at_f61_asset_turnover_sq_504d_accel_v133_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 504) * closeadj
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 504d sq assetturnover
+def at_f61_asset_turnover_sq_504d_accel_v134_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 504) * closeadj
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 504d sq assetturnover
+def at_f61_asset_turnover_sq_504d_accel_v135_signal(assetturnover, closeadj):
+    base = _mean(assetturnover * assetturnover, 504) * closeadj
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 21d z assetturnover
+def at_f61_asset_turnover_z_21d_accel_v136_signal(assetturnover):
+    base = _z(assetturnover, 21)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 21d z assetturnover
+def at_f61_asset_turnover_z_21d_accel_v137_signal(assetturnover):
+    base = _z(assetturnover, 21)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 21d z assetturnover
+def at_f61_asset_turnover_z_21d_accel_v138_signal(assetturnover):
+    base = _z(assetturnover, 21)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 63d z assetturnover
+def at_f61_asset_turnover_z_63d_accel_v139_signal(assetturnover):
+    base = _z(assetturnover, 63)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 63d z assetturnover
+def at_f61_asset_turnover_z_63d_accel_v140_signal(assetturnover):
+    base = _z(assetturnover, 63)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 63d z assetturnover
+def at_f61_asset_turnover_z_63d_accel_v141_signal(assetturnover):
+    base = _z(assetturnover, 63)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 126d z assetturnover
+def at_f61_asset_turnover_z_126d_accel_v142_signal(assetturnover):
+    base = _z(assetturnover, 126)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 126d z assetturnover
+def at_f61_asset_turnover_z_126d_accel_v143_signal(assetturnover):
+    base = _z(assetturnover, 126)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 126d z assetturnover
+def at_f61_asset_turnover_z_126d_accel_v144_signal(assetturnover):
+    base = _z(assetturnover, 126)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 252d z assetturnover
+def at_f61_asset_turnover_z_252d_accel_v145_signal(assetturnover):
+    base = _z(assetturnover, 252)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 252d z assetturnover
+def at_f61_asset_turnover_z_252d_accel_v146_signal(assetturnover):
+    base = _z(assetturnover, 252)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 252d z assetturnover
+def at_f61_asset_turnover_z_252d_accel_v147_signal(assetturnover):
+    base = _z(assetturnover, 252)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d accel of 504d z assetturnover
+def at_f61_asset_turnover_z_504d_accel_v148_signal(assetturnover):
+    base = _z(assetturnover, 504)
+    slope = _slope_diff_norm(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d accel of 504d z assetturnover
+def at_f61_asset_turnover_z_504d_accel_v149_signal(assetturnover):
+    base = _z(assetturnover, 504)
+    slope = _slope_diff_norm(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d accel of 504d z assetturnover
+def at_f61_asset_turnover_z_504d_accel_v150_signal(assetturnover):
+    base = _z(assetturnover, 504)
+    slope = _slope_diff_norm(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)

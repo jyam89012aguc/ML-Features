@@ -1,0 +1,211 @@
+"""
+88_88_insider_transaction_freq — 2nd Derivatives 051-075
+Domain: 88_insider_transaction_freq
+Asset class: Equities
+Target context: Capitulation
+"""
+import numpy as np
+import pandas as pd
+
+# ── Utility helpers ──────────────────────────────────────────────────────────
+_EPS = 1e-9
+
+def _safe_div(a: pd.Series, b: pd.Series) -> pd.Series:
+    return a / b.replace(0, _EPS)
+
+def _rolling_mean(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).mean()
+
+def _rolling_std(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).std().fillna(0)
+
+def _zscore_rolling(s: pd.Series, w: int) -> pd.Series:
+    m = _rolling_mean(s, w)
+    sd = _rolling_std(s, w)
+    return _safe_div((s - m), sd)
+
+def _rank_pct(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).rank(pct=True)
+
+def _rolling_skew(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).skew().fillna(0)
+
+def _rolling_kurt(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).kurt().fillna(0)
+
+# ── Feature functions ────────────────────────────────────────────────────────
+
+def itf_d2_051_vel_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 5d to detect acceleration in trend.
+    """
+    base = insider_buy_value
+    return base.diff(5)
+
+def itf_d2_052_vel_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 21d to detect acceleration in trend.
+    """
+    base = insider_buy_value
+    return base.diff(21)
+
+def itf_d2_053_vel_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 63d to detect acceleration in trend.
+    """
+    base = insider_buy_value
+    return base.diff(63)
+
+def itf_d2_054_vel_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 126d to detect acceleration in trend.
+    """
+    base = insider_buy_value
+    return base.diff(126)
+
+def itf_d2_055_vel_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 252d to detect acceleration in trend.
+    """
+    base = insider_buy_value
+    return base.diff(252)
+
+def itf_d2_056_vel_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 5d to detect acceleration in trend.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return base.diff(5)
+
+def itf_d2_057_vel_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 21d to detect acceleration in trend.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return base.diff(21)
+
+def itf_d2_058_vel_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 63d to detect acceleration in trend.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return base.diff(63)
+
+def itf_d2_059_vel_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 126d to detect acceleration in trend.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return base.diff(126)
+
+def itf_d2_060_vel_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 252d to detect acceleration in trend.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return base.diff(252)
+
+def itf_d2_061_vel_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 5d to detect acceleration in trend.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return base.diff(5)
+
+def itf_d2_062_vel_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 21d to detect acceleration in trend.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return base.diff(21)
+
+def itf_d2_063_vel_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 63d to detect acceleration in trend.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return base.diff(63)
+
+def itf_d2_064_vel_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 126d to detect acceleration in trend.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return base.diff(126)
+
+def itf_d2_065_vel_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 252d to detect acceleration in trend.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return base.diff(252)
+
+def itf_d2_066_vel_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 5d to detect acceleration in trend.
+    """
+    base = _safe_div(insider_buy_shares, insider_shares_held)
+    return base.diff(5)
+
+def itf_d2_067_vel_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 21d to detect acceleration in trend.
+    """
+    base = _safe_div(insider_buy_shares, insider_shares_held)
+    return base.diff(21)
+
+def itf_d2_068_vel_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 63d to detect acceleration in trend.
+    """
+    base = _safe_div(insider_buy_shares, insider_shares_held)
+    return base.diff(63)
+
+def itf_d2_069_vel_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 126d to detect acceleration in trend.
+    """
+    base = _safe_div(insider_buy_shares, insider_shares_held)
+    return base.diff(126)
+
+def itf_d2_070_vel_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 252d to detect acceleration in trend.
+    """
+    base = _safe_div(insider_buy_shares, insider_shares_held)
+    return base.diff(252)
+
+def itf_d2_071_vel_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 5d to detect acceleration in trend.
+    """
+    base = insider_buy_shares
+    return base.diff(5)
+
+def itf_d2_072_vel_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 21d to detect acceleration in trend.
+    """
+    base = insider_buy_shares
+    return base.diff(21)
+
+def itf_d2_073_vel_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 63d to detect acceleration in trend.
+    """
+    base = insider_buy_shares
+    return base.diff(63)
+
+def itf_d2_074_vel_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 126d to detect acceleration in trend.
+    """
+    base = insider_buy_shares
+    return base.diff(126)
+
+def itf_d2_075_vel_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Velocity of 88_insider_transaction_freq over 252d to detect acceleration in trend.
+    """
+    base = insider_buy_shares
+    return base.diff(252)

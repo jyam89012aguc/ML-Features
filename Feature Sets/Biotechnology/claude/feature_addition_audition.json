@@ -1,0 +1,626 @@
+[
+  {
+    "family": "f105_insider_transaction_microstructure",
+    "placement": "new_family",
+    "candidate_name": "open_market_purchase_pressure",
+    "source_tables": [
+      "sf2"
+    ],
+    "source_fields": [
+      "transactioncode",
+      "transactionshares",
+      "transactionpricepershare",
+      "transactionvalue"
+    ],
+    "operation": "transaction_code_weighted_flow",
+    "horizon": "30d_90d_180d",
+    "expected_signal": "Separates open-market purchases from grants, exercises, gifts, and tax-withholding sales.",
+    "duplication_guard": "Existing insider families use broad transactionvalue, not transactioncode-specific flow.",
+    "upstream_requirement": "Map Form 4 transaction codes; emphasize P and S, downweight A/M/F/G.",
+    "score": 97,
+    "status": "implemented",
+    "proposed_signal_name": "f105_insider_transaction_microstructure_open_market_purchase_pressure_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f103_corporate_action_risk",
+    "placement": "new_family",
+    "candidate_name": "delisting_bankruptcy_cadence",
+    "source_tables": [
+      "actions"
+    ],
+    "source_fields": [
+      "action",
+      "date",
+      "value"
+    ],
+    "operation": "action_type_decay_count",
+    "horizon": "63d_252d_504d",
+    "expected_signal": "Distinguishes routine actions from distress-linked actions.",
+    "duplication_guard": "Existing f94 uses placeholder actionvalue, not action-type-specific history.",
+    "upstream_requirement": "Encode actions where action in regulatorydelisting, voluntarydelisting, bankruptcyliquidation.",
+    "score": 96,
+    "status": "implemented",
+    "proposed_signal_name": "f103_corporate_action_risk_delisting_bankruptcy_cadence_audition_signal",
+    "new_to_target_family": [
+      "date"
+    ],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f102_trading_liquidity",
+    "placement": "new_family",
+    "candidate_name": "dollar_volume_liquidity",
+    "source_tables": [
+      "sep",
+      "daily_prices"
+    ],
+    "source_fields": [
+      "closeadj",
+      "volume",
+      "marketcap"
+    ],
+    "operation": "dollar_volume_to_marketcap",
+    "horizon": "21d_63d_252d",
+    "expected_signal": "Identifies names where trading capacity is thin relative to market value.",
+    "duplication_guard": "Existing functions use closeadj heavily but do not use volume.",
+    "upstream_requirement": "Join sep and daily_prices by ticker/date.",
+    "score": 95,
+    "status": "implemented",
+    "proposed_signal_name": "f102_trading_liquidity_dollar_volume_liquidity_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f108_true_sector_industry_relative",
+    "placement": "new_family",
+    "candidate_name": "biotech_peer_relative_cash_runway",
+    "source_tables": [
+      "tickers",
+      "fundamentals"
+    ],
+    "source_fields": [
+      "industry",
+      "sector",
+      "cashneq",
+      "ncfo",
+      "marketcap"
+    ],
+    "operation": "industry_cross_sectional_percentile",
+    "horizon": "quarterly",
+    "expected_signal": "Ranks runway and cash strength against actual biotech peers rather than the whole market.",
+    "duplication_guard": "Existing f99 appears template-based and does not take sector/industry arguments.",
+    "upstream_requirement": "Compute peer group from tickers industry/sector and avoid future membership leakage.",
+    "score": 95,
+    "status": "implemented",
+    "proposed_signal_name": "f108_true_sector_industry_relative_biotech_peer_relative_cash_runway_audition_signal",
+    "new_to_target_family": [
+      "industry",
+      "sector"
+    ],
+    "new_to_existing_library": [
+      "sector"
+    ],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f101_price_volume_technicals",
+    "placement": "new_family",
+    "candidate_name": "distance_to_52w_high_low",
+    "source_tables": [
+      "metrics"
+    ],
+    "source_fields": [
+      "price",
+      "high52w",
+      "low52w"
+    ],
+    "operation": "range_position",
+    "horizon": "52w",
+    "expected_signal": "Captures whether the stock is near breakout, drawdown, or base-building territory.",
+    "duplication_guard": "No existing family uses high52w or low52w as function inputs.",
+    "upstream_requirement": "Join metrics by ticker/date.",
+    "score": 94,
+    "status": "implemented",
+    "proposed_signal_name": "f101_price_volume_technicals_distance_to_52w_high_low_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f106_institutional_security_mix",
+    "placement": "new_family",
+    "candidate_name": "put_call_ownership_skew",
+    "source_tables": [
+      "sf3a"
+    ],
+    "source_fields": [
+      "putholders",
+      "cllholders",
+      "putvalue",
+      "cllvalue",
+      "totalvalue"
+    ],
+    "operation": "options_holder_value_skew",
+    "horizon": "quarterly",
+    "expected_signal": "Measures institutional downside hedging versus upside positioning.",
+    "duplication_guard": "Existing institutional features use value/units, not put/call holder and value mixes.",
+    "upstream_requirement": "Use sf3a aggregate security-type columns by ticker/calendardate.",
+    "score": 94,
+    "status": "implemented",
+    "proposed_signal_name": "f106_institutional_security_mix_put_call_ownership_skew_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f105_insider_transaction_microstructure",
+    "placement": "new_family",
+    "candidate_name": "officer_director_alignment",
+    "source_tables": [
+      "sf2"
+    ],
+    "source_fields": [
+      "isdirector",
+      "isofficer",
+      "istenpercentowner",
+      "transactioncode",
+      "transactionvalue"
+    ],
+    "operation": "role_weighted_net_flow",
+    "horizon": "90d_365d",
+    "expected_signal": "Weights insider transactions by role and control status.",
+    "duplication_guard": "Existing role-split family does not use the full role flag interaction with transaction codes.",
+    "upstream_requirement": "Convert Y/N role flags to numeric weights.",
+    "score": 93,
+    "status": "implemented",
+    "proposed_signal_name": "f105_insider_transaction_microstructure_officer_director_alignment_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f97_multi_year_price_context",
+    "placement": "existing_family_v151_plus",
+    "candidate_name": "beta_adjusted_drawdown_context",
+    "source_tables": [
+      "metrics"
+    ],
+    "source_fields": [
+      "price",
+      "high52w",
+      "low52w",
+      "high5y",
+      "low5y",
+      "beta1y",
+      "beta5y"
+    ],
+    "operation": "beta_adjusted_range_position",
+    "horizon": "52w_5y",
+    "expected_signal": "Distinguishes idiosyncratic drawdowns from high-beta market-linked declines.",
+    "duplication_guard": "Existing f97 uses close; this requires range and beta fields.",
+    "upstream_requirement": "Join metrics by ticker/date.",
+    "score": 93,
+    "status": "implemented",
+    "proposed_signal_name": "f97_multi_year_price_context_beta_adjusted_drawdown_context_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f101_price_volume_technicals",
+    "placement": "new_family",
+    "candidate_name": "moving_average_stack",
+    "source_tables": [
+      "metrics"
+    ],
+    "source_fields": [
+      "price",
+      "ma50d",
+      "ma200d",
+      "ma50w",
+      "ma200w"
+    ],
+    "operation": "trend_stack",
+    "horizon": "50d_200d_50w_200w",
+    "expected_signal": "Separates improving technical regimes from persistent downtrends.",
+    "duplication_guard": "Existing price-context functions use close/closeadj transforms, not precomputed MA stack fields.",
+    "upstream_requirement": "Join metrics by ticker/date.",
+    "score": 92,
+    "status": "implemented",
+    "proposed_signal_name": "f101_price_volume_technicals_moving_average_stack_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f36_asset_composition",
+    "placement": "existing_family_v151_plus",
+    "candidate_name": "investment_liquidity_mix",
+    "source_tables": [
+      "fundamentals"
+    ],
+    "source_fields": [
+      "investments",
+      "investmentsc",
+      "investmentsnc",
+      "assets",
+      "cashneq"
+    ],
+    "operation": "investment_component_ratios",
+    "horizon": "63d_252d",
+    "expected_signal": "Improves liquidity quality by separating cash from current and noncurrent investments.",
+    "duplication_guard": "Existing asset composition does not use investments/investmentsc/investmentsnc.",
+    "upstream_requirement": "Use fundamentals point-in-time values.",
+    "score": 92,
+    "status": "implemented",
+    "proposed_signal_name": "f36_asset_composition_investment_liquidity_mix_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f102_trading_liquidity",
+    "placement": "new_family",
+    "candidate_name": "volume_shock_vs_average",
+    "source_tables": [
+      "metrics"
+    ],
+    "source_fields": [
+      "volume",
+      "volumeavg1m",
+      "volumeavg3m"
+    ],
+    "operation": "volume_ratio_and_acceleration",
+    "horizon": "1m_3m",
+    "expected_signal": "Flags attention shocks, liquidity droughts, and abnormal accumulation/distribution windows.",
+    "duplication_guard": "No existing signal uses volumeavg1m or volumeavg3m.",
+    "upstream_requirement": "Join metrics by ticker/date.",
+    "score": 91,
+    "status": "implemented",
+    "proposed_signal_name": "f102_trading_liquidity_volume_shock_vs_average_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f22_debt_mix",
+    "placement": "existing_family_v151_plus",
+    "candidate_name": "current_noncurrent_debt_mix",
+    "source_tables": [
+      "fundamentals"
+    ],
+    "source_fields": [
+      "debtc",
+      "debtnc",
+      "debt"
+    ],
+    "operation": "current_to_noncurrent_debt_ratio",
+    "horizon": "63d_252d",
+    "expected_signal": "Captures debt maturity pressure and refinancing risk.",
+    "duplication_guard": "Uses debtnc, which existing f22 signatures do not use.",
+    "upstream_requirement": "Use fundamentals point-in-time values.",
+    "score": 91,
+    "status": "implemented",
+    "proposed_signal_name": "f22_debt_mix_current_noncurrent_debt_mix_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f103_corporate_action_risk",
+    "placement": "new_family",
+    "candidate_name": "split_ticker_change_instability",
+    "source_tables": [
+      "actions"
+    ],
+    "source_fields": [
+      "action",
+      "date",
+      "value",
+      "contraticker"
+    ],
+    "operation": "corporate_identity_instability",
+    "horizon": "252d_1008d",
+    "expected_signal": "Captures reverse-split/ticker-change churn often linked to microcap stress.",
+    "duplication_guard": "No existing signal uses action categories or contraticker.",
+    "upstream_requirement": "Encode split, adrratiosplit, tickerchangeto, tickerchangefrom events.",
+    "score": 90,
+    "status": "implemented",
+    "proposed_signal_name": "f103_corporate_action_risk_split_ticker_change_instability_audition_signal",
+    "new_to_target_family": [
+      "date",
+      "contraticker"
+    ],
+    "new_to_existing_library": [
+      "contraticker"
+    ],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f106_institutional_security_mix",
+    "placement": "new_family",
+    "candidate_name": "warrant_debt_preferred_overhang",
+    "source_tables": [
+      "sf3a"
+    ],
+    "source_fields": [
+      "wntholders",
+      "dbtholders",
+      "prfholders",
+      "wntvalue",
+      "dbtvalue",
+      "prfvalue",
+      "totalvalue"
+    ],
+    "operation": "non_common_security_mix",
+    "horizon": "quarterly",
+    "expected_signal": "Flags non-common institutional exposure that may imply financing complexity or overhang.",
+    "duplication_guard": "Existing holder concentration features do not use warrant/debt/preferred security-type mixes.",
+    "upstream_requirement": "Use sf3a aggregate security-type columns by ticker/calendardate.",
+    "score": 90,
+    "status": "implemented",
+    "proposed_signal_name": "f106_institutional_security_mix_warrant_debt_preferred_overhang_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f104_event_code_intensity",
+    "placement": "new_family",
+    "candidate_name": "event_code_entropy",
+    "source_tables": [
+      "events"
+    ],
+    "source_fields": [
+      "eventcodes",
+      "date"
+    ],
+    "operation": "categorical_entropy",
+    "horizon": "63d_252d",
+    "expected_signal": "Measures whether event activity is broadening beyond a single recurring event type.",
+    "duplication_guard": "Avoids simple event counts already approximated by f95 eventcount placeholder.",
+    "upstream_requirement": "Split pipe-delimited eventcodes into per-code indicators before rolling entropy.",
+    "score": 89,
+    "status": "implemented",
+    "proposed_signal_name": "f104_event_code_intensity_event_code_entropy_audition_signal",
+    "new_to_target_family": [
+      "date"
+    ],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f73_market_cap",
+    "placement": "existing_family_v151_plus",
+    "candidate_name": "marketcap_liquidity_turnover",
+    "source_tables": [
+      "daily_prices",
+      "sep"
+    ],
+    "source_fields": [
+      "marketcap",
+      "closeadj",
+      "volume"
+    ],
+    "operation": "dollar_volume_marketcap_turnover",
+    "horizon": "21d_63d_252d",
+    "expected_signal": "Shows whether market cap is supported by actual trading liquidity.",
+    "duplication_guard": "Existing f73 uses marketcap but not volume.",
+    "upstream_requirement": "Join sep and daily_prices by ticker/date.",
+    "score": 89,
+    "status": "implemented",
+    "proposed_signal_name": "f73_market_cap_marketcap_liquidity_turnover_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f107_listing_lifecycle_metadata",
+    "placement": "new_family",
+    "candidate_name": "public_age_and_delisting_pressure",
+    "source_tables": [
+      "tickers",
+      "sep"
+    ],
+    "source_fields": [
+      "firstpricedate",
+      "lastpricedate",
+      "isdelisted",
+      "date"
+    ],
+    "operation": "listing_age_and_terminal_flag",
+    "horizon": "point_in_time",
+    "expected_signal": "Separates newly public, mature, stale, and delisting-risk names.",
+    "duplication_guard": "No existing signal uses firstpricedate, lastpricedate, or isdelisted.",
+    "upstream_requirement": "Compute point-in-time age and days-to-last-price without lookahead.",
+    "score": 88,
+    "status": "implemented",
+    "proposed_signal_name": "f107_listing_lifecycle_metadata_public_age_and_delisting_pressure_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f77_price_book",
+    "placement": "existing_family_v151_plus",
+    "candidate_name": "normalized_price_book_validity",
+    "source_tables": [
+      "fundamentals"
+    ],
+    "source_fields": [
+      "pb",
+      "pb_normalized",
+      "has_negative_pb",
+      "has_negative_equity"
+    ],
+    "operation": "pb_validity_adjusted_level",
+    "horizon": "63d_252d",
+    "expected_signal": "Prevents naive price/book signals when equity is negative or PB requires normalization.",
+    "duplication_guard": "Existing f77 uses pb but not pb_normalized or negative-equity flags.",
+    "upstream_requirement": "Cast boolean flags to numeric point-in-time series.",
+    "score": 88,
+    "status": "implemented",
+    "proposed_signal_name": "f77_price_book_normalized_price_book_validity_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f104_event_code_intensity",
+    "placement": "new_family",
+    "candidate_name": "event_code_transition_rate",
+    "source_tables": [
+      "events"
+    ],
+    "source_fields": [
+      "eventcodes",
+      "date"
+    ],
+    "operation": "categorical_transition_rate",
+    "horizon": "252d",
+    "expected_signal": "Captures regime change in event mix rather than event volume alone.",
+    "duplication_guard": "Existing f95 does not use eventcodes or code transitions.",
+    "upstream_requirement": "Sort events by ticker/date and compare current code set with prior event code set.",
+    "score": 87,
+    "status": "implemented",
+    "proposed_signal_name": "f104_event_code_intensity_event_code_transition_rate_audition_signal",
+    "new_to_target_family": [
+      "date"
+    ],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f109_valuation_normalization_flags",
+    "placement": "new_family",
+    "candidate_name": "negative_valuation_flag_blend",
+    "source_tables": [
+      "fundamentals"
+    ],
+    "source_fields": [
+      "has_negative_pe",
+      "has_negative_pb",
+      "has_negative_earnings",
+      "has_negative_equity",
+      "alternative_valuation_needed"
+    ],
+    "operation": "boolean_flag_blend",
+    "horizon": "quarterly",
+    "expected_signal": "Captures when conventional valuation metrics are structurally invalid.",
+    "duplication_guard": "No existing signal uses normalized valuation flags.",
+    "upstream_requirement": "Cast boolean flags to numeric point-in-time series.",
+    "score": 87,
+    "status": "implemented",
+    "proposed_signal_name": "f109_valuation_normalization_flags_negative_valuation_flag_blend_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f21_total_debt",
+    "placement": "existing_family_v151_plus",
+    "candidate_name": "noncurrent_debt_load",
+    "source_tables": [
+      "fundamentals"
+    ],
+    "source_fields": [
+      "debtnc",
+      "debt",
+      "assets",
+      "marketcap"
+    ],
+    "operation": "debtnc_scaled_level",
+    "horizon": "63d_252d",
+    "expected_signal": "Distinguishes long-term financing burden from current debt pressure.",
+    "duplication_guard": "Existing f21 uses debt broadly; this requires debtnc and rejects debt-only transforms.",
+    "upstream_requirement": "Use fundamentals point-in-time values.",
+    "score": 86,
+    "status": "implemented",
+    "proposed_signal_name": "f21_total_debt_noncurrent_debt_load_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f95_event_density",
+    "placement": "existing_family_v151_plus",
+    "candidate_name": "event_code_specific_density",
+    "source_tables": [
+      "events"
+    ],
+    "source_fields": [
+      "eventcodes",
+      "date"
+    ],
+    "operation": "event_code_specific_decay_count",
+    "horizon": "63d_252d",
+    "expected_signal": "Adds event-type composition while avoiding generic event count duplication.",
+    "duplication_guard": "Requires parsed eventcodes; rejects simple total eventcount transforms.",
+    "upstream_requirement": "Split pipe-delimited eventcodes into code indicators.",
+    "score": 86,
+    "status": "implemented",
+    "proposed_signal_name": "f95_event_density_event_code_specific_density_audition_signal",
+    "new_to_target_family": [
+      "date"
+    ],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f38_tangible_book",
+    "placement": "existing_family_v151_plus",
+    "candidate_name": "diluted_tangible_book_per_share",
+    "source_tables": [
+      "fundamentals"
+    ],
+    "source_fields": [
+      "tbvps",
+      "bvps",
+      "shareswadil",
+      "equity",
+      "intangibles"
+    ],
+    "operation": "diluted_tangible_book_context",
+    "horizon": "63d_252d",
+    "expected_signal": "Adds dilution-aware tangible book context for balance sheet support.",
+    "duplication_guard": "Existing f38 uses tangibles but not tbvps, bvps, or shareswadil.",
+    "upstream_requirement": "Use fundamentals point-in-time values.",
+    "score": 85,
+    "status": "implemented",
+    "proposed_signal_name": "f38_tangible_book_diluted_tangible_book_per_share_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  },
+  {
+    "family": "f55_eps_level",
+    "placement": "existing_family_v151_plus",
+    "candidate_name": "diluted_usd_eps_context",
+    "source_tables": [
+      "fundamentals"
+    ],
+    "source_fields": [
+      "eps",
+      "epsdil",
+      "epsusd",
+      "pe",
+      "pe1"
+    ],
+    "operation": "diluted_eps_and_multiple_context",
+    "horizon": "63d_252d",
+    "expected_signal": "Separates basic EPS from diluted and USD-normalized EPS context.",
+    "duplication_guard": "Existing f55 uses eps but not epsdil, epsusd, pe, or pe1.",
+    "upstream_requirement": "Use fundamentals point-in-time values.",
+    "score": 84,
+    "status": "implemented",
+    "proposed_signal_name": "f55_eps_level_diluted_usd_eps_context_audition_signal",
+    "new_to_target_family": [],
+    "new_to_existing_library": [],
+    "rejection_reasons": []
+  }
+]

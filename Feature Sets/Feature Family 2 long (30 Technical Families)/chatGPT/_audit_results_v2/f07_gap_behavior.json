@@ -1,0 +1,97 @@
+{
+  "family": "f07_gap_behavior",
+  "n_funcs": 440,
+  "by_tier": {
+    "base": 140,
+    "jerk": 150,
+    "slope": 150
+  },
+  "errors": [],
+  "all_nan": [],
+  "constants": [],
+  "vhash_dups": [],
+  "zcos_dups": [],
+  "signflip_pairs": [],
+  "class4_candidates": [
+    {
+      "name": "f07gb_f07_gap_behavior_gap_delta_5d_base_v005_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_vol_adj_delta_5d_base_v015_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_delta_10d_base_v020_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_vol_adj_delta_10d_base_v030_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_delta_15d_base_v035_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_vol_adj_delta_15d_base_v045_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_delta_21d_base_v050_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_vol_adj_delta_21d_base_v060_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_delta_42d_base_v065_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_vol_adj_delta_42d_base_v075_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_delta_63d_base_v080_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_vol_adj_delta_63d_base_v090_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_delta_84d_base_v095_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_vol_adj_delta_84d_base_v105_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_delta_126d_base_v110_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_vol_adj_delta_126d_base_v120_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_delta_252d_base_v125_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_vol_adj_delta_252d_base_v135_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_delta_504d_base_v140_signal",
+      "recipe": "delta"
+    },
+    {
+      "name": "f07gb_f07_gap_behavior_gap_vol_adj_delta_504d_base_v150_signal",
+      "recipe": "delta"
+    }
+  ]
+}

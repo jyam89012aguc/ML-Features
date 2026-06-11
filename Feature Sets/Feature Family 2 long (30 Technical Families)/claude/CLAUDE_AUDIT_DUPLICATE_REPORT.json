@@ -1,0 +1,434 @@
+[
+  {
+    "keep": {
+      "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+      "name": "f09cp_f09_close_position_within_range_cp_1d_base_v001_signal",
+      "lineno": 34,
+      "end": 39,
+      "n": 1
+    },
+    "delete": [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_base_001_075_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_clpos_1d_base_v028_signal",
+        "lineno": 283,
+        "end": 287,
+        "n": 28
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+      "name": "f09cp_f09_close_position_within_range_op_1d_base_v007_signal",
+      "lineno": 93,
+      "end": 98,
+      "n": 7
+    },
+    "delete": [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_base_001_075_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_oppos_1d_base_v029_signal",
+        "lineno": 290,
+        "end": 294,
+        "n": 29
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f17_volatility_regime\\f17_volatility_regime_jerk_001_150_claude.py",
+      "name": "f17vr_f17_volatility_regime_regime_autocorr_80d_jerk_v018_signal",
+      "lineno": 115,
+      "end": 118,
+      "n": 18
+    },
+    "delete": [
+      {
+        "file": "f17_volatility_regime\\f17_volatility_regime_slope_001_150_claude.py",
+        "name": "f17vr_f17_volatility_regime_regime_autocorr_80d_slope_v018_signal",
+        "lineno": 114,
+        "end": 117,
+        "n": 18
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f17_volatility_regime\\f17_volatility_regime_jerk_001_150_claude.py",
+      "name": "f17vr_f17_volatility_regime_ewmavol_lam94_jerk_v030_signal",
+      "lineno": 169,
+      "end": 170,
+      "n": 30
+    },
+    "delete": [
+      {
+        "file": "f17_volatility_regime\\f17_volatility_regime_slope_001_150_claude.py",
+        "name": "f17vr_f17_volatility_regime_ewmavol_lam94_slope_v030_signal",
+        "lineno": 168,
+        "end": 169,
+        "n": 30
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f17_volatility_regime\\f17_volatility_regime_jerk_001_150_claude.py",
+      "name": "f17vr_f17_volatility_regime_volz_centered_500d_jerk_v071_signal",
+      "lineno": 320,
+      "end": 321,
+      "n": 71
+    },
+    "delete": [
+      {
+        "file": "f17_volatility_regime\\f17_volatility_regime_slope_001_150_claude.py",
+        "name": "f17vr_f17_volatility_regime_volz_centered_500d_slope_v071_signal",
+        "lineno": 319,
+        "end": 320,
+        "n": 71
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f17_volatility_regime\\f17_volatility_regime_jerk_001_150_claude.py",
+      "name": "f17vr_f17_volatility_regime_volABS_acf1_60d_jerk_v117_signal",
+      "lineno": 450,
+      "end": 453,
+      "n": 117
+    },
+    "delete": [
+      {
+        "file": "f17_volatility_regime\\f17_volatility_regime_slope_001_150_claude.py",
+        "name": "f17vr_f17_volatility_regime_volABS_acf1_60d_slope_v117_signal",
+        "lineno": 449,
+        "end": 452,
+        "n": 117
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f17_volatility_regime\\f17_volatility_regime_jerk_001_150_claude.py",
+      "name": "f17vr_f17_volatility_regime_sqret_acf10_120d_jerk_v118_signal",
+      "lineno": 454,
+      "end": 457,
+      "n": 118
+    },
+    "delete": [
+      {
+        "file": "f17_volatility_regime\\f17_volatility_regime_slope_001_150_claude.py",
+        "name": "f17vr_f17_volatility_regime_sqret_acf10_120d_slope_v118_signal",
+        "lineno": 453,
+        "end": 456,
+        "n": 118
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f17_volatility_regime\\f17_volatility_regime_jerk_001_150_claude.py",
+      "name": "f17vr_f17_volatility_regime_volrank_acf3_60d_jerk_v135_signal",
+      "lineno": 499,
+      "end": 502,
+      "n": 135
+    },
+    "delete": [
+      {
+        "file": "f17_volatility_regime\\f17_volatility_regime_slope_001_150_claude.py",
+        "name": "f17vr_f17_volatility_regime_volrank_acf3_60d_slope_v135_signal",
+        "lineno": 498,
+        "end": 501,
+        "n": 135
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_base_001_075_claude.py",
+      "name": "f21rv_f21_raw_volume_metrics_logvol_sma5_sma50_base_v002_signal",
+      "lineno": 73,
+      "end": 76,
+      "n": 2
+    },
+    "delete": [
+      {
+        "file": "f22_volume_trend\\f22_volume_trend_base_001_075_claude.py",
+        "name": "f22vt_f22_volume_trend_vol_sma_5_50_ratio_base_v006_signal",
+        "lineno": 134,
+        "end": 136,
+        "n": 6
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_base_001_075_claude.py",
+      "name": "f21rv_f21_raw_volume_metrics_vol_skew_60d_base_v011_signal",
+      "lineno": 145,
+      "end": 147,
+      "n": 11
+    },
+    "delete": [
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_base_076_150_claude.py",
+        "name": "f27vr_f27_volume_regime_v_skew_60d_base_v078_signal",
+        "lineno": 87,
+        "end": 90,
+        "n": 78
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_base_001_075_claude.py",
+      "name": "f21rv_f21_raw_volume_metrics_vol_max_to_min_30d_base_v049_signal",
+      "lineno": 491,
+      "end": 495,
+      "n": 49
+    },
+    "delete": [
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_base_076_150_claude.py",
+        "name": "f27vr_f27_volume_regime_log_minmax_range_30d_base_v142_signal",
+        "lineno": 835,
+        "end": 839,
+        "n": 142
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f27_volume_regime\\f27_volume_regime_base_001_075_claude.py",
+      "name": "f27vr_f27_volume_regime_v_over_max60_base_v068_signal",
+      "lineno": 769,
+      "end": 772,
+      "n": 68
+    },
+    "delete": [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_base_076_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_dd_from_max_60d_base_v076_signal",
+        "lineno": 76,
+        "end": 79,
+        "n": 76
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_slope_001_150_claude.py",
+      "name": "f21rv_f21_raw_volume_metrics_logvol_sma5_sma50_10d_slope_v002_signal",
+      "lineno": 204,
+      "end": 205,
+      "n": 2
+    },
+    "delete": [
+      {
+        "file": "f22_volume_trend\\f22_volume_trend_slope_001_150_claude.py",
+        "name": "f22vt_f22_volume_trend_vol_sma_5_50_ratio_slope_v006_signal",
+        "lineno": 111,
+        "end": 112,
+        "n": 6
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_cmf_multiwin_signagree_jerk_v054_signal",
+      "lineno": 212,
+      "end": 223,
+      "n": 54
+    },
+    "delete": [
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_cmf_multiwin_signagree_slope_v054_signal",
+        "lineno": 212,
+        "end": 223,
+        "n": 54
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "name": "f29rs_f29_relative_strength_vs_benchmark_ema_logrs_50d_jerk_v007_signal",
+      "lineno": 75,
+      "end": 77,
+      "n": 7
+    },
+    "delete": [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_ema_logrs_50d_slope_v007_signal",
+        "lineno": 74,
+        "end": 76,
+        "n": 7
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "name": "f29rs_f29_relative_strength_vs_benchmark_info_ratio_200d_jerk_v025_signal",
+      "lineno": 157,
+      "end": 161,
+      "n": 25
+    },
+    "delete": [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_info_ratio_200d_slope_v025_signal",
+        "lineno": 156,
+        "end": 160,
+        "n": 25
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "name": "f29rs_f29_relative_strength_vs_benchmark_dema_logrs_30d_jerk_v082_signal",
+      "lineno": 494,
+      "end": 496,
+      "n": 82
+    },
+    "delete": [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_dema_logrs_30d_slope_v082_signal",
+        "lineno": 493,
+        "end": 495,
+        "n": 82
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "name": "f29rs_f29_relative_strength_vs_benchmark_tema_slope_logrs_40d_jerk_v083_signal",
+      "lineno": 497,
+      "end": 499,
+      "n": 83
+    },
+    "delete": [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_tema_slope_logrs_40d_slope_v083_signal",
+        "lineno": 496,
+        "end": 498,
+        "n": 83
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "name": "f29rs_f29_relative_strength_vs_benchmark_wilder_logrs_25d_jerk_v084_signal",
+      "lineno": 500,
+      "end": 502,
+      "n": 84
+    },
+    "delete": [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_wilder_logrs_25d_slope_v084_signal",
+        "lineno": 499,
+        "end": 501,
+        "n": 84
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "name": "f29rs_f29_relative_strength_vs_benchmark_omega_diff_60d_jerk_v092_signal",
+      "lineno": 545,
+      "end": 550,
+      "n": 92
+    },
+    "delete": [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_omega_diff_60d_slope_v092_signal",
+        "lineno": 544,
+        "end": 549,
+        "n": 92
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "name": "f29rs_f29_relative_strength_vs_benchmark_signed_outperf_intensity_30d_jerk_v113_signal",
+      "lineno": 659,
+      "end": 663,
+      "n": 113
+    },
+    "delete": [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_signed_outperf_intensity_30d_slope_v113_signal",
+        "lineno": 658,
+        "end": 662,
+        "n": 113
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "name": "f29rs_f29_relative_strength_vs_benchmark_winsor_active_mean_60d_jerk_v114_signal",
+      "lineno": 664,
+      "end": 671,
+      "n": 114
+    },
+    "delete": [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_winsor_active_mean_60d_slope_v114_signal",
+        "lineno": 663,
+        "end": 670,
+        "n": 114
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "name": "f29rs_f29_relative_strength_vs_benchmark_active_ret_volnorm_30d_jerk_v129_signal",
+      "lineno": 757,
+      "end": 762,
+      "n": 129
+    },
+    "delete": [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_active_ret_volnorm_30d_slope_v129_signal",
+        "lineno": 756,
+        "end": 761,
+        "n": 129
+      }
+    ]
+  },
+  {
+    "keep": {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "name": "f29rs_f29_relative_strength_vs_benchmark_rs_pctB_30d_jerk_v143_signal",
+      "lineno": 827,
+      "end": 831,
+      "n": 143
+    },
+    "delete": [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_rs_pctB_30d_slope_v143_signal",
+        "lineno": 826,
+        "end": 830,
+        "n": 143
+      }
+    ]
+  }
+]

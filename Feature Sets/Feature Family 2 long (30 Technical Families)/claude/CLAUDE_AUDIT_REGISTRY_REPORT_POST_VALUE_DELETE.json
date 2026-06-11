@@ -1,0 +1,24 @@
+{
+  "issues": [
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_jerk_001_150_claude.py",
+      "type": "AssertionError",
+      "error": "expected 150 jerk features"
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+      "type": "AssertionError",
+      "error": "expected 150 slope features"
+    },
+    {
+      "file": "f28_price_volume_divergence\\f28_price_volume_divergence_jerk_001_150_claude.py",
+      "type": "KeyError",
+      "error": "'f28pd_f28_price_volume_divergence_updown_vol_ratio_30d_jerk_v028_signal'"
+    },
+    {
+      "file": "f28_price_volume_divergence\\f28_price_volume_divergence_slope_001_150_claude.py",
+      "type": "KeyError",
+      "error": "'f28pd_f28_price_volume_divergence_updown_vol_ratio_30d_slope_v028_signal'"
+    }
+  ]
+}

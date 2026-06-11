@@ -1,0 +1,4024 @@
+{
+  "files": 612,
+  "checked_functions": 4300,
+  "errors": [],
+  "bad_alignment": [],
+  "all_nan": [
+    {
+      "file": "02_advance_speed\\02_advance_speed__base__151_225.py",
+      "name": "f02_advs_152_days_to_double_from_252d_low"
+    },
+    {
+      "file": "02_advance_speed\\02_advance_speed__base__151_225.py",
+      "name": "f02_advs_153_days_to_triple_from_252d_low"
+    },
+    {
+      "file": "02_advance_speed\\02_advance_speed__d1__151_225.py",
+      "name": "f02_advs_152_days_to_double_from_252d_low_d1"
+    },
+    {
+      "file": "02_advance_speed\\02_advance_speed__d1__151_225.py",
+      "name": "f02_advs_153_days_to_triple_from_252d_low_d1"
+    },
+    {
+      "file": "02_advance_speed\\02_advance_speed__d2__151_225.py",
+      "name": "f02_advs_152_days_to_double_from_252d_low_d2"
+    },
+    {
+      "file": "02_advance_speed\\02_advance_speed__d2__151_225.py",
+      "name": "f02_advs_153_days_to_triple_from_252d_low_d2"
+    },
+    {
+      "file": "02_advance_speed\\02_advance_speed__d3__151_225.py",
+      "name": "f02_advs_152_days_to_double_from_252d_low_d3"
+    },
+    {
+      "file": "02_advance_speed\\02_advance_speed__d3__151_225.py",
+      "name": "f02_advs_153_days_to_triple_from_252d_low_d3"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__base__151_225.py",
+      "name": "f03_amad_151_days_since_2x_from_252d_low"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__base__151_225.py",
+      "name": "f03_amad_152_days_since_3x_from_252d_low"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__base__151_225.py",
+      "name": "f03_amad_153_days_since_5x_from_252d_low"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__d1__151_225.py",
+      "name": "f03_amad_151_days_since_2x_from_252d_low_d1"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__d1__151_225.py",
+      "name": "f03_amad_152_days_since_3x_from_252d_low_d1"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__d1__151_225.py",
+      "name": "f03_amad_153_days_since_5x_from_252d_low_d1"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__d2__151_225.py",
+      "name": "f03_amad_151_days_since_2x_from_252d_low_d2"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__d2__151_225.py",
+      "name": "f03_amad_152_days_since_3x_from_252d_low_d2"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__d2__151_225.py",
+      "name": "f03_amad_153_days_since_5x_from_252d_low_d2"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__d3__151_225.py",
+      "name": "f03_amad_151_days_since_2x_from_252d_low_d3"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__d3__151_225.py",
+      "name": "f03_amad_152_days_since_3x_from_252d_low_d3"
+    },
+    {
+      "file": "03_advance_magnitude_duration\\03_advance_magnitude_duration__d3__151_225.py",
+      "name": "f03_amad_153_days_since_5x_from_252d_low_d3"
+    },
+    {
+      "file": "06_volume_distribution_dryup\\06_volume_distribution_dryup__base__151_225.py",
+      "name": "f06_vddu_151_dryup_after_climax_21d"
+    },
+    {
+      "file": "06_volume_distribution_dryup\\06_volume_distribution_dryup__base__151_225.py",
+      "name": "f06_vddu_153_days_since_last_3sigma_volume_spike"
+    },
+    {
+      "file": "06_volume_distribution_dryup\\06_volume_distribution_dryup__d1__151_225.py",
+      "name": "f06_vddu_151_dryup_after_climax_21d_d1"
+    },
+    {
+      "file": "06_volume_distribution_dryup\\06_volume_distribution_dryup__d1__151_225.py",
+      "name": "f06_vddu_153_days_since_last_3sigma_volume_spike_d1"
+    },
+    {
+      "file": "06_volume_distribution_dryup\\06_volume_distribution_dryup__d2__151_225.py",
+      "name": "f06_vddu_151_dryup_after_climax_21d_d2"
+    },
+    {
+      "file": "06_volume_distribution_dryup\\06_volume_distribution_dryup__d2__151_225.py",
+      "name": "f06_vddu_153_days_since_last_3sigma_volume_spike_d2"
+    },
+    {
+      "file": "06_volume_distribution_dryup\\06_volume_distribution_dryup__d3__151_225.py",
+      "name": "f06_vddu_151_dryup_after_climax_21d_d3"
+    },
+    {
+      "file": "06_volume_distribution_dryup\\06_volume_distribution_dryup__d3__151_225.py",
+      "name": "f06_vddu_153_days_since_last_3sigma_volume_spike_d3"
+    },
+    {
+      "file": "07_distribution_signature\\07_distribution_signature__base__151_225.py",
+      "name": "f07_dsig_152_distribution_day_after_252d_high_count_42d"
+    },
+    {
+      "file": "07_distribution_signature\\07_distribution_signature__d1__151_225.py",
+      "name": "f07_dsig_152_distribution_day_after_252d_high_count_42d_d1"
+    },
+    {
+      "file": "07_distribution_signature\\07_distribution_signature__d2__151_225.py",
+      "name": "f07_dsig_152_distribution_day_after_252d_high_count_42d_d2"
+    },
+    {
+      "file": "07_distribution_signature\\07_distribution_signature__d3__151_225.py",
+      "name": "f07_dsig_152_distribution_day_after_252d_high_count_42d_d3"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__base__001_075.py",
+      "name": "f11_rqlv_038_deferredrev_qoq_pct"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__base__001_075.py",
+      "name": "f11_rqlv_039_deferredrev_decay_4q"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__base__001_075.py",
+      "name": "f11_rqlv_040_recurring_revenue_proxy"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__d1__001_075.py",
+      "name": "f11_rqlv_038_deferredrev_qoq_pct_d1"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__d1__001_075.py",
+      "name": "f11_rqlv_039_deferredrev_decay_4q_d1"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__d1__001_075.py",
+      "name": "f11_rqlv_040_recurring_revenue_proxy_d1"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__d2__001_075.py",
+      "name": "f11_rqlv_038_deferredrev_qoq_pct_d2"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__d2__001_075.py",
+      "name": "f11_rqlv_039_deferredrev_decay_4q_d2"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__d2__001_075.py",
+      "name": "f11_rqlv_040_recurring_revenue_proxy_d2"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__d3__001_075.py",
+      "name": "f11_rqlv_038_deferredrev_qoq_pct_d3"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__d3__001_075.py",
+      "name": "f11_rqlv_039_deferredrev_decay_4q_d3"
+    },
+    {
+      "file": "11_revenue_quality_level\\11_revenue_quality_level__d3__001_075.py",
+      "name": "f11_rqlv_040_recurring_revenue_proxy_d3"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__base__001_075.py",
+      "name": "f12_psnp_039_return_on_ppe"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__base__076_150.py",
+      "name": "f12_psnp_076_signed_log_eps_ttm"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__base__076_150.py",
+      "name": "f12_psnp_077_signed_log_eps_dil_ttm"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__base__076_150.py",
+      "name": "f12_psnp_078_eps_growth_yoy"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__base__076_150.py",
+      "name": "f12_psnp_113_interest_coverage_ebit"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__base__076_150.py",
+      "name": "f12_psnp_114_interest_coverage_ebitda"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__base__076_150.py",
+      "name": "f12_psnp_115_opinc_minus_interest_margin"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__base__151_225.py",
+      "name": "f12_psnp_151_pre_sbc_operating_margin_ttm"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d1__001_075.py",
+      "name": "f12_psnp_039_return_on_ppe_d1"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d1__076_150.py",
+      "name": "f12_psnp_076_signed_log_eps_ttm_d1"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d1__076_150.py",
+      "name": "f12_psnp_077_signed_log_eps_dil_ttm_d1"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d1__076_150.py",
+      "name": "f12_psnp_078_eps_growth_yoy_d1"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d1__076_150.py",
+      "name": "f12_psnp_113_interest_coverage_ebit_d1"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d1__076_150.py",
+      "name": "f12_psnp_114_interest_coverage_ebitda_d1"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d1__076_150.py",
+      "name": "f12_psnp_115_opinc_minus_interest_margin_d1"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d1__151_225.py",
+      "name": "f12_psnp_151_pre_sbc_operating_margin_ttm_d1"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d2__001_075.py",
+      "name": "f12_psnp_039_return_on_ppe_d2"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d2__076_150.py",
+      "name": "f12_psnp_076_signed_log_eps_ttm_d2"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d2__076_150.py",
+      "name": "f12_psnp_077_signed_log_eps_dil_ttm_d2"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d2__076_150.py",
+      "name": "f12_psnp_078_eps_growth_yoy_d2"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d2__076_150.py",
+      "name": "f12_psnp_113_interest_coverage_ebit_d2"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d2__076_150.py",
+      "name": "f12_psnp_114_interest_coverage_ebitda_d2"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d2__076_150.py",
+      "name": "f12_psnp_115_opinc_minus_interest_margin_d2"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d2__151_225.py",
+      "name": "f12_psnp_151_pre_sbc_operating_margin_ttm_d2"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d3__001_075.py",
+      "name": "f12_psnp_039_return_on_ppe_d3"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d3__076_150.py",
+      "name": "f12_psnp_076_signed_log_eps_ttm_d3"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d3__076_150.py",
+      "name": "f12_psnp_077_signed_log_eps_dil_ttm_d3"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d3__076_150.py",
+      "name": "f12_psnp_078_eps_growth_yoy_d3"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d3__076_150.py",
+      "name": "f12_psnp_113_interest_coverage_ebit_d3"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d3__076_150.py",
+      "name": "f12_psnp_114_interest_coverage_ebitda_d3"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d3__076_150.py",
+      "name": "f12_psnp_115_opinc_minus_interest_margin_d3"
+    },
+    {
+      "file": "12_profitability_snapshot\\12_profitability_snapshot__d3__151_225.py",
+      "name": "f12_psnp_151_pre_sbc_operating_margin_ttm_d3"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__base__001_075.py",
+      "name": "f13_cbsp_039_cash_share_of_currentassets"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__base__001_075.py",
+      "name": "f13_cbsp_040_liquidity_composite"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__base__001_075.py",
+      "name": "f13_cbsp_073_delta_deferredrev_to_revenue"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__base__001_075.py",
+      "name": "f13_cbsp_075_delta_currentassets_minus_delta_currentliabs_to_assets"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__base__076_150.py",
+      "name": "f13_cbsp_076_ncff_to_assets"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__base__076_150.py",
+      "name": "f13_cbsp_077_ncff_to_revenue"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__base__076_150.py",
+      "name": "f13_cbsp_078_ncff_share_of_total_cashflows"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__base__076_150.py",
+      "name": "f13_cbsp_150_cash_burn_aggregate_composite"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__base__151_225.py",
+      "name": "f13_cbsp_151_fcf_ex_sbc_ttm"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d1__001_075.py",
+      "name": "f13_cbsp_039_cash_share_of_currentassets_d1"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d1__001_075.py",
+      "name": "f13_cbsp_040_liquidity_composite_d1"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d1__001_075.py",
+      "name": "f13_cbsp_073_delta_deferredrev_to_revenue_d1"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d1__001_075.py",
+      "name": "f13_cbsp_075_delta_currentassets_minus_delta_currentliabs_to_assets_d1"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d1__076_150.py",
+      "name": "f13_cbsp_076_ncff_to_assets_d1"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d1__076_150.py",
+      "name": "f13_cbsp_077_ncff_to_revenue_d1"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d1__076_150.py",
+      "name": "f13_cbsp_078_ncff_share_of_total_cashflows_d1"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d1__076_150.py",
+      "name": "f13_cbsp_150_cash_burn_aggregate_composite_d1"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d1__151_225.py",
+      "name": "f13_cbsp_151_fcf_ex_sbc_ttm_d1"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d2__001_075.py",
+      "name": "f13_cbsp_039_cash_share_of_currentassets_d2"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d2__001_075.py",
+      "name": "f13_cbsp_040_liquidity_composite_d2"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d2__001_075.py",
+      "name": "f13_cbsp_073_delta_deferredrev_to_revenue_d2"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d2__001_075.py",
+      "name": "f13_cbsp_075_delta_currentassets_minus_delta_currentliabs_to_assets_d2"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d2__076_150.py",
+      "name": "f13_cbsp_076_ncff_to_assets_d2"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d2__076_150.py",
+      "name": "f13_cbsp_077_ncff_to_revenue_d2"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d2__076_150.py",
+      "name": "f13_cbsp_078_ncff_share_of_total_cashflows_d2"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d2__076_150.py",
+      "name": "f13_cbsp_150_cash_burn_aggregate_composite_d2"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d2__151_225.py",
+      "name": "f13_cbsp_151_fcf_ex_sbc_ttm_d2"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d3__001_075.py",
+      "name": "f13_cbsp_039_cash_share_of_currentassets_d3"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d3__001_075.py",
+      "name": "f13_cbsp_040_liquidity_composite_d3"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d3__001_075.py",
+      "name": "f13_cbsp_073_delta_deferredrev_to_revenue_d3"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d3__001_075.py",
+      "name": "f13_cbsp_075_delta_currentassets_minus_delta_currentliabs_to_assets_d3"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d3__076_150.py",
+      "name": "f13_cbsp_076_ncff_to_assets_d3"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d3__076_150.py",
+      "name": "f13_cbsp_077_ncff_to_revenue_d3"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d3__076_150.py",
+      "name": "f13_cbsp_078_ncff_share_of_total_cashflows_d3"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d3__076_150.py",
+      "name": "f13_cbsp_150_cash_burn_aggregate_composite_d3"
+    },
+    {
+      "file": "13_cash_burn_snapshot\\13_cash_burn_snapshot__d3__151_225.py",
+      "name": "f13_cbsp_151_fcf_ex_sbc_ttm_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__001_075.py",
+      "name": "f14_bsss_039_cash_runway_quarters_cfo"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__001_075.py",
+      "name": "f14_bsss_073_ccc_dso_plus_dio_minus_dpo"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__001_075.py",
+      "name": "f14_bsss_074_deferredrev_to_revenue"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__001_075.py",
+      "name": "f14_bsss_075_deposits_to_liabilities"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__076_150.py",
+      "name": "f14_bsss_076_intangibles_to_assets"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__076_150.py",
+      "name": "f14_bsss_077_intangibles_to_equity"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__076_150.py",
+      "name": "f14_bsss_078_intangibles_to_tangibles"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__076_150.py",
+      "name": "f14_bsss_114_capex_to_ppne"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__151_225.py",
+      "name": "f14_bsss_152_zmijewski_score"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__151_225.py",
+      "name": "f14_bsss_153_taffler_score"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__151_225.py",
+      "name": "f14_bsss_154_fulmer_h_score"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__151_225.py",
+      "name": "f14_bsss_155_net_operating_assets_to_assets"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__151_225.py",
+      "name": "f14_bsss_156_tangible_equity_to_debt"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__base__151_225.py",
+      "name": "f14_bsss_157_capex_to_depamor_below_1_streak_8q"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__001_075.py",
+      "name": "f14_bsss_039_cash_runway_quarters_cfo_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__001_075.py",
+      "name": "f14_bsss_073_ccc_dso_plus_dio_minus_dpo_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__001_075.py",
+      "name": "f14_bsss_074_deferredrev_to_revenue_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__001_075.py",
+      "name": "f14_bsss_075_deposits_to_liabilities_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__076_150.py",
+      "name": "f14_bsss_076_intangibles_to_assets_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__076_150.py",
+      "name": "f14_bsss_077_intangibles_to_equity_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__076_150.py",
+      "name": "f14_bsss_078_intangibles_to_tangibles_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__076_150.py",
+      "name": "f14_bsss_114_capex_to_ppne_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__151_225.py",
+      "name": "f14_bsss_152_zmijewski_score_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__151_225.py",
+      "name": "f14_bsss_153_taffler_score_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__151_225.py",
+      "name": "f14_bsss_154_fulmer_h_score_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__151_225.py",
+      "name": "f14_bsss_155_net_operating_assets_to_assets_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__151_225.py",
+      "name": "f14_bsss_156_tangible_equity_to_debt_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d1__151_225.py",
+      "name": "f14_bsss_157_capex_to_depamor_below_1_streak_8q_d1"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__001_075.py",
+      "name": "f14_bsss_039_cash_runway_quarters_cfo_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__001_075.py",
+      "name": "f14_bsss_073_ccc_dso_plus_dio_minus_dpo_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__001_075.py",
+      "name": "f14_bsss_074_deferredrev_to_revenue_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__001_075.py",
+      "name": "f14_bsss_075_deposits_to_liabilities_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__076_150.py",
+      "name": "f14_bsss_076_intangibles_to_assets_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__076_150.py",
+      "name": "f14_bsss_077_intangibles_to_equity_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__076_150.py",
+      "name": "f14_bsss_078_intangibles_to_tangibles_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__076_150.py",
+      "name": "f14_bsss_114_capex_to_ppne_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__151_225.py",
+      "name": "f14_bsss_152_zmijewski_score_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__151_225.py",
+      "name": "f14_bsss_153_taffler_score_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__151_225.py",
+      "name": "f14_bsss_154_fulmer_h_score_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__151_225.py",
+      "name": "f14_bsss_155_net_operating_assets_to_assets_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__151_225.py",
+      "name": "f14_bsss_156_tangible_equity_to_debt_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d2__151_225.py",
+      "name": "f14_bsss_157_capex_to_depamor_below_1_streak_8q_d2"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__001_075.py",
+      "name": "f14_bsss_039_cash_runway_quarters_cfo_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__001_075.py",
+      "name": "f14_bsss_073_ccc_dso_plus_dio_minus_dpo_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__001_075.py",
+      "name": "f14_bsss_074_deferredrev_to_revenue_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__001_075.py",
+      "name": "f14_bsss_075_deposits_to_liabilities_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__076_150.py",
+      "name": "f14_bsss_076_intangibles_to_assets_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__076_150.py",
+      "name": "f14_bsss_077_intangibles_to_equity_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__076_150.py",
+      "name": "f14_bsss_078_intangibles_to_tangibles_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__076_150.py",
+      "name": "f14_bsss_114_capex_to_ppne_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__151_225.py",
+      "name": "f14_bsss_152_zmijewski_score_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__151_225.py",
+      "name": "f14_bsss_153_taffler_score_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__151_225.py",
+      "name": "f14_bsss_154_fulmer_h_score_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__151_225.py",
+      "name": "f14_bsss_155_net_operating_assets_to_assets_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__151_225.py",
+      "name": "f14_bsss_156_tangible_equity_to_debt_d3"
+    },
+    {
+      "file": "14_balance_sheet_stress_snapshot\\14_balance_sheet_stress_snapshot__d3__151_225.py",
+      "name": "f14_bsss_157_capex_to_depamor_below_1_streak_8q_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__001_075.py",
+      "name": "f15_vesp_001_pe_level_raw"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__001_075.py",
+      "name": "f15_vesp_002_log_pe_level"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__001_075.py",
+      "name": "f15_vesp_003_ps_level_raw"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__001_075.py",
+      "name": "f15_vesp_038_ps_zscore_504d"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__001_075.py",
+      "name": "f15_vesp_039_ps_zscore_1260d"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__001_075.py",
+      "name": "f15_vesp_040_evebitda_zscore_252d"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__001_075.py",
+      "name": "f15_vesp_073_composite_z_pe_ps_pb_evebitda_1260d"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__001_075.py",
+      "name": "f15_vesp_074_composite_z_ev_multiples_504d"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__001_075.py",
+      "name": "f15_vesp_075_composite_z_equity_multiples_252d"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__076_150.py",
+      "name": "f15_vesp_076_composite_z_pe_evebitda_1260d"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__076_150.py",
+      "name": "f15_vesp_077_composite_z_ps_evsales_504d"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__076_150.py",
+      "name": "f15_vesp_078_composite_z_pb_mcap_tangibles_1260d"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__076_150.py",
+      "name": "f15_vesp_113_dilution_adjusted_evsales"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__076_150.py",
+      "name": "f15_vesp_150_log_extreme_intensity"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__151_225.py",
+      "name": "f15_vesp_152_marketcap_to_burn_rate"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__base__151_225.py",
+      "name": "f15_vesp_153_valuation_x_leverage_joint_z_252d"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__001_075.py",
+      "name": "f15_vesp_001_pe_level_raw_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__001_075.py",
+      "name": "f15_vesp_002_log_pe_level_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__001_075.py",
+      "name": "f15_vesp_003_ps_level_raw_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__001_075.py",
+      "name": "f15_vesp_038_ps_zscore_504d_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__001_075.py",
+      "name": "f15_vesp_039_ps_zscore_1260d_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__001_075.py",
+      "name": "f15_vesp_040_evebitda_zscore_252d_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__001_075.py",
+      "name": "f15_vesp_073_composite_z_pe_ps_pb_evebitda_1260d_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__001_075.py",
+      "name": "f15_vesp_074_composite_z_ev_multiples_504d_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__001_075.py",
+      "name": "f15_vesp_075_composite_z_equity_multiples_252d_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__076_150.py",
+      "name": "f15_vesp_076_composite_z_pe_evebitda_1260d_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__076_150.py",
+      "name": "f15_vesp_077_composite_z_ps_evsales_504d_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__076_150.py",
+      "name": "f15_vesp_078_composite_z_pb_mcap_tangibles_1260d_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__076_150.py",
+      "name": "f15_vesp_113_dilution_adjusted_evsales_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__076_150.py",
+      "name": "f15_vesp_150_log_extreme_intensity_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__151_225.py",
+      "name": "f15_vesp_152_marketcap_to_burn_rate_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d1__151_225.py",
+      "name": "f15_vesp_153_valuation_x_leverage_joint_z_252d_d1"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__001_075.py",
+      "name": "f15_vesp_001_pe_level_raw_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__001_075.py",
+      "name": "f15_vesp_002_log_pe_level_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__001_075.py",
+      "name": "f15_vesp_003_ps_level_raw_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__001_075.py",
+      "name": "f15_vesp_038_ps_zscore_504d_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__001_075.py",
+      "name": "f15_vesp_039_ps_zscore_1260d_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__001_075.py",
+      "name": "f15_vesp_040_evebitda_zscore_252d_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__001_075.py",
+      "name": "f15_vesp_073_composite_z_pe_ps_pb_evebitda_1260d_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__001_075.py",
+      "name": "f15_vesp_074_composite_z_ev_multiples_504d_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__001_075.py",
+      "name": "f15_vesp_075_composite_z_equity_multiples_252d_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__076_150.py",
+      "name": "f15_vesp_076_composite_z_pe_evebitda_1260d_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__076_150.py",
+      "name": "f15_vesp_077_composite_z_ps_evsales_504d_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__076_150.py",
+      "name": "f15_vesp_078_composite_z_pb_mcap_tangibles_1260d_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__076_150.py",
+      "name": "f15_vesp_113_dilution_adjusted_evsales_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__076_150.py",
+      "name": "f15_vesp_150_log_extreme_intensity_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__151_225.py",
+      "name": "f15_vesp_152_marketcap_to_burn_rate_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d2__151_225.py",
+      "name": "f15_vesp_153_valuation_x_leverage_joint_z_252d_d2"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__001_075.py",
+      "name": "f15_vesp_001_pe_level_raw_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__001_075.py",
+      "name": "f15_vesp_002_log_pe_level_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__001_075.py",
+      "name": "f15_vesp_003_ps_level_raw_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__001_075.py",
+      "name": "f15_vesp_038_ps_zscore_504d_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__001_075.py",
+      "name": "f15_vesp_039_ps_zscore_1260d_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__001_075.py",
+      "name": "f15_vesp_040_evebitda_zscore_252d_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__001_075.py",
+      "name": "f15_vesp_073_composite_z_pe_ps_pb_evebitda_1260d_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__001_075.py",
+      "name": "f15_vesp_074_composite_z_ev_multiples_504d_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__001_075.py",
+      "name": "f15_vesp_075_composite_z_equity_multiples_252d_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__076_150.py",
+      "name": "f15_vesp_076_composite_z_pe_evebitda_1260d_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__076_150.py",
+      "name": "f15_vesp_077_composite_z_ps_evsales_504d_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__076_150.py",
+      "name": "f15_vesp_078_composite_z_pb_mcap_tangibles_1260d_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__076_150.py",
+      "name": "f15_vesp_113_dilution_adjusted_evsales_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__076_150.py",
+      "name": "f15_vesp_150_log_extreme_intensity_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__151_225.py",
+      "name": "f15_vesp_152_marketcap_to_burn_rate_d3"
+    },
+    {
+      "file": "15_valuation_extreme_snapshot\\15_valuation_extreme_snapshot__d3__151_225.py",
+      "name": "f15_vesp_153_valuation_x_leverage_joint_z_252d_d3"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__base__001_075.py",
+      "name": "f16_sint_039_daystocover_quintile_state_252d"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__base__001_075.py",
+      "name": "f16_sint_040_daystocover_quintile_state_1260d"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__base__001_075.py",
+      "name": "f16_sint_074_corr_dtc_close_504d"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__base__076_150.py",
+      "name": "f16_sint_149_days_since_dtc_252d_high"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__base__151_225.py",
+      "name": "f16_sint_151_dtc_vol_adjusted_252d"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__base__151_225.py",
+      "name": "f16_sint_153_days_since_max_spfloat_252d"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d1__001_075.py",
+      "name": "f16_sint_039_daystocover_quintile_state_252d_d1"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d1__001_075.py",
+      "name": "f16_sint_040_daystocover_quintile_state_1260d_d1"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d1__001_075.py",
+      "name": "f16_sint_074_corr_dtc_close_504d_d1"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d1__076_150.py",
+      "name": "f16_sint_149_days_since_dtc_252d_high_d1"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d1__151_225.py",
+      "name": "f16_sint_151_dtc_vol_adjusted_252d_d1"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d1__151_225.py",
+      "name": "f16_sint_153_days_since_max_spfloat_252d_d1"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d2__001_075.py",
+      "name": "f16_sint_039_daystocover_quintile_state_252d_d2"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d2__001_075.py",
+      "name": "f16_sint_040_daystocover_quintile_state_1260d_d2"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d2__001_075.py",
+      "name": "f16_sint_074_corr_dtc_close_504d_d2"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d2__076_150.py",
+      "name": "f16_sint_149_days_since_dtc_252d_high_d2"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d2__151_225.py",
+      "name": "f16_sint_151_dtc_vol_adjusted_252d_d2"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d2__151_225.py",
+      "name": "f16_sint_153_days_since_max_spfloat_252d_d2"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d3__001_075.py",
+      "name": "f16_sint_039_daystocover_quintile_state_252d_d3"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d3__001_075.py",
+      "name": "f16_sint_040_daystocover_quintile_state_1260d_d3"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d3__001_075.py",
+      "name": "f16_sint_074_corr_dtc_close_504d_d3"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d3__076_150.py",
+      "name": "f16_sint_149_days_since_dtc_252d_high_d3"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d3__151_225.py",
+      "name": "f16_sint_151_dtc_vol_adjusted_252d_d3"
+    },
+    {
+      "file": "16_short_interest_structure\\16_short_interest_structure__d3__151_225.py",
+      "name": "f16_sint_153_days_since_max_spfloat_252d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__001_075.py",
+      "name": "f17_oskp_001_atm_iv_30d_zscore_252d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__001_075.py",
+      "name": "f17_oskp_002_atm_iv_30d_zscore_63d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__001_075.py",
+      "name": "f17_oskp_003_atm_iv_30d_rank_pct_252d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__001_075.py",
+      "name": "f17_oskp_038_iv_skew_30d_rank_pct_252d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__076_150.py",
+      "name": "f17_oskp_113_atm_iv_intra_term_volatility_63d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__076_150.py",
+      "name": "f17_oskp_114_atm_iv_30d_quarterly_max_minus_long_baseline"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__076_150.py",
+      "name": "f17_oskp_115_atm_iv_30d_increase_thrust_5d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__076_150.py",
+      "name": "f17_oskp_148_composite_blowoff_iv_skew_score_63d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__076_150.py",
+      "name": "f17_oskp_150_composite_skew_complacency_score_63d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__151_225.py",
+      "name": "f17_oskp_151_risk_reversal_25_delta_30d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__151_225.py",
+      "name": "f17_oskp_152_tail_skew_10_delta_30d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__151_225.py",
+      "name": "f17_oskp_153_vol_of_vol_atm_iv_21d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__151_225.py",
+      "name": "f17_oskp_154_max_pain_proxy_distance"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__151_225.py",
+      "name": "f17_oskp_155_oi_concentration_hhi_by_strike"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__base__151_225.py",
+      "name": "f17_oskp_156_iv_beta_to_vix_63d"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__001_075.py",
+      "name": "f17_oskp_001_atm_iv_30d_zscore_252d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__001_075.py",
+      "name": "f17_oskp_002_atm_iv_30d_zscore_63d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__001_075.py",
+      "name": "f17_oskp_003_atm_iv_30d_rank_pct_252d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__001_075.py",
+      "name": "f17_oskp_038_iv_skew_30d_rank_pct_252d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__076_150.py",
+      "name": "f17_oskp_113_atm_iv_intra_term_volatility_63d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__076_150.py",
+      "name": "f17_oskp_114_atm_iv_30d_quarterly_max_minus_long_baseline_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__076_150.py",
+      "name": "f17_oskp_115_atm_iv_30d_increase_thrust_5d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__076_150.py",
+      "name": "f17_oskp_148_composite_blowoff_iv_skew_score_63d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__076_150.py",
+      "name": "f17_oskp_150_composite_skew_complacency_score_63d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__151_225.py",
+      "name": "f17_oskp_151_risk_reversal_25_delta_30d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__151_225.py",
+      "name": "f17_oskp_152_tail_skew_10_delta_30d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__151_225.py",
+      "name": "f17_oskp_153_vol_of_vol_atm_iv_21d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__151_225.py",
+      "name": "f17_oskp_154_max_pain_proxy_distance_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__151_225.py",
+      "name": "f17_oskp_155_oi_concentration_hhi_by_strike_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d1__151_225.py",
+      "name": "f17_oskp_156_iv_beta_to_vix_63d_d1"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__001_075.py",
+      "name": "f17_oskp_001_atm_iv_30d_zscore_252d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__001_075.py",
+      "name": "f17_oskp_002_atm_iv_30d_zscore_63d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__001_075.py",
+      "name": "f17_oskp_003_atm_iv_30d_rank_pct_252d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__001_075.py",
+      "name": "f17_oskp_038_iv_skew_30d_rank_pct_252d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__076_150.py",
+      "name": "f17_oskp_113_atm_iv_intra_term_volatility_63d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__076_150.py",
+      "name": "f17_oskp_114_atm_iv_30d_quarterly_max_minus_long_baseline_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__076_150.py",
+      "name": "f17_oskp_115_atm_iv_30d_increase_thrust_5d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__076_150.py",
+      "name": "f17_oskp_148_composite_blowoff_iv_skew_score_63d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__076_150.py",
+      "name": "f17_oskp_150_composite_skew_complacency_score_63d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__151_225.py",
+      "name": "f17_oskp_151_risk_reversal_25_delta_30d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__151_225.py",
+      "name": "f17_oskp_152_tail_skew_10_delta_30d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__151_225.py",
+      "name": "f17_oskp_153_vol_of_vol_atm_iv_21d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__151_225.py",
+      "name": "f17_oskp_154_max_pain_proxy_distance_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__151_225.py",
+      "name": "f17_oskp_155_oi_concentration_hhi_by_strike_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d2__151_225.py",
+      "name": "f17_oskp_156_iv_beta_to_vix_63d_d2"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__001_075.py",
+      "name": "f17_oskp_001_atm_iv_30d_zscore_252d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__001_075.py",
+      "name": "f17_oskp_002_atm_iv_30d_zscore_63d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__001_075.py",
+      "name": "f17_oskp_003_atm_iv_30d_rank_pct_252d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__001_075.py",
+      "name": "f17_oskp_038_iv_skew_30d_rank_pct_252d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__076_150.py",
+      "name": "f17_oskp_113_atm_iv_intra_term_volatility_63d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__076_150.py",
+      "name": "f17_oskp_114_atm_iv_30d_quarterly_max_minus_long_baseline_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__076_150.py",
+      "name": "f17_oskp_115_atm_iv_30d_increase_thrust_5d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__076_150.py",
+      "name": "f17_oskp_148_composite_blowoff_iv_skew_score_63d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__076_150.py",
+      "name": "f17_oskp_150_composite_skew_complacency_score_63d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__151_225.py",
+      "name": "f17_oskp_151_risk_reversal_25_delta_30d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__151_225.py",
+      "name": "f17_oskp_152_tail_skew_10_delta_30d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__151_225.py",
+      "name": "f17_oskp_153_vol_of_vol_atm_iv_21d_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__151_225.py",
+      "name": "f17_oskp_154_max_pain_proxy_distance_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__151_225.py",
+      "name": "f17_oskp_155_oi_concentration_hhi_by_strike_d3"
+    },
+    {
+      "file": "17_options_skew_at_peak\\17_options_skew_at_peak__d3__151_225.py",
+      "name": "f17_oskp_156_iv_beta_to_vix_63d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__001_075.py",
+      "name": "f18_iasp_001_insider_net_value_zscore_252d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__001_075.py",
+      "name": "f18_iasp_002_insider_net_value_zscore_63d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__001_075.py",
+      "name": "f18_iasp_003_insider_net_value_rank_pct_252d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__001_075.py",
+      "name": "f18_iasp_073_director_sell_value_zscore_252d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__001_075.py",
+      "name": "f18_iasp_074_director_sell_value_sum_63d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__001_075.py",
+      "name": "f18_iasp_075_director_sell_log_diff_63d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__076_150.py",
+      "name": "f18_iasp_076_ceo_buy_value_zscore_252d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__076_150.py",
+      "name": "f18_iasp_078_ceo_buy_to_sell_log_ratio_63d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__076_150.py",
+      "name": "f18_iasp_113_planned_minus_unplanned_log_ratio_change_21d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__076_150.py",
+      "name": "f18_iasp_115_sell_plan_mix_volatility_63d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__076_150.py",
+      "name": "f18_iasp_149_composite_insider_topping_score_252d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__076_150.py",
+      "name": "f18_iasp_150_composite_insider_blowoff_score_252d"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__base__151_225.py",
+      "name": "f18_iasp_153_planned_sale_within_90d_of_plan_proxy"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__001_075.py",
+      "name": "f18_iasp_001_insider_net_value_zscore_252d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__001_075.py",
+      "name": "f18_iasp_002_insider_net_value_zscore_63d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__001_075.py",
+      "name": "f18_iasp_003_insider_net_value_rank_pct_252d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__001_075.py",
+      "name": "f18_iasp_073_director_sell_value_zscore_252d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__001_075.py",
+      "name": "f18_iasp_074_director_sell_value_sum_63d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__001_075.py",
+      "name": "f18_iasp_075_director_sell_log_diff_63d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__076_150.py",
+      "name": "f18_iasp_076_ceo_buy_value_zscore_252d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__076_150.py",
+      "name": "f18_iasp_078_ceo_buy_to_sell_log_ratio_63d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__076_150.py",
+      "name": "f18_iasp_113_planned_minus_unplanned_log_ratio_change_21d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__076_150.py",
+      "name": "f18_iasp_115_sell_plan_mix_volatility_63d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__076_150.py",
+      "name": "f18_iasp_149_composite_insider_topping_score_252d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__076_150.py",
+      "name": "f18_iasp_150_composite_insider_blowoff_score_252d_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d1__151_225.py",
+      "name": "f18_iasp_153_planned_sale_within_90d_of_plan_proxy_d1"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__001_075.py",
+      "name": "f18_iasp_001_insider_net_value_zscore_252d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__001_075.py",
+      "name": "f18_iasp_002_insider_net_value_zscore_63d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__001_075.py",
+      "name": "f18_iasp_003_insider_net_value_rank_pct_252d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__001_075.py",
+      "name": "f18_iasp_073_director_sell_value_zscore_252d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__001_075.py",
+      "name": "f18_iasp_074_director_sell_value_sum_63d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__001_075.py",
+      "name": "f18_iasp_075_director_sell_log_diff_63d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__076_150.py",
+      "name": "f18_iasp_076_ceo_buy_value_zscore_252d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__076_150.py",
+      "name": "f18_iasp_078_ceo_buy_to_sell_log_ratio_63d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__076_150.py",
+      "name": "f18_iasp_113_planned_minus_unplanned_log_ratio_change_21d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__076_150.py",
+      "name": "f18_iasp_115_sell_plan_mix_volatility_63d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__076_150.py",
+      "name": "f18_iasp_149_composite_insider_topping_score_252d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__076_150.py",
+      "name": "f18_iasp_150_composite_insider_blowoff_score_252d_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d2__151_225.py",
+      "name": "f18_iasp_153_planned_sale_within_90d_of_plan_proxy_d2"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__001_075.py",
+      "name": "f18_iasp_001_insider_net_value_zscore_252d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__001_075.py",
+      "name": "f18_iasp_002_insider_net_value_zscore_63d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__001_075.py",
+      "name": "f18_iasp_003_insider_net_value_rank_pct_252d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__001_075.py",
+      "name": "f18_iasp_073_director_sell_value_zscore_252d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__001_075.py",
+      "name": "f18_iasp_074_director_sell_value_sum_63d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__001_075.py",
+      "name": "f18_iasp_075_director_sell_log_diff_63d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__076_150.py",
+      "name": "f18_iasp_076_ceo_buy_value_zscore_252d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__076_150.py",
+      "name": "f18_iasp_078_ceo_buy_to_sell_log_ratio_63d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__076_150.py",
+      "name": "f18_iasp_113_planned_minus_unplanned_log_ratio_change_21d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__076_150.py",
+      "name": "f18_iasp_115_sell_plan_mix_volatility_63d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__076_150.py",
+      "name": "f18_iasp_149_composite_insider_topping_score_252d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__076_150.py",
+      "name": "f18_iasp_150_composite_insider_blowoff_score_252d_d3"
+    },
+    {
+      "file": "18_insider_activity_snapshot\\18_insider_activity_snapshot__d3__151_225.py",
+      "name": "f18_iasp_153_planned_sale_within_90d_of_plan_proxy_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__001_075.py",
+      "name": "f19_dssp_040_dilution_overhang_acceleration_21d"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__001_075.py",
+      "name": "f19_dssp_073_sharefactor_decrease_intensity_252d"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__076_150.py",
+      "name": "f19_dssp_076_sharesbas_split_adj_log_diff_21d"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__076_150.py",
+      "name": "f19_dssp_077_sharesbas_split_adj_log_diff_63d"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__076_150.py",
+      "name": "f19_dssp_078_sharesbas_split_adj_log_diff_252d"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__076_150.py",
+      "name": "f19_dssp_113_dilution_volatility_252d"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__076_150.py",
+      "name": "f19_dssp_114_dilution_volatility_zscore_long"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__076_150.py",
+      "name": "f19_dssp_148_dilution_velocity_long_minus_short_zscore_252d"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__076_150.py",
+      "name": "f19_dssp_149_composite_dilution_blowoff_score_252d"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__076_150.py",
+      "name": "f19_dssp_150_composite_dilution_topping_score_5y"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__base__151_225.py",
+      "name": "f19_dssp_153_sbc_dilution_share_yoy"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__001_075.py",
+      "name": "f19_dssp_040_dilution_overhang_acceleration_21d_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__001_075.py",
+      "name": "f19_dssp_073_sharefactor_decrease_intensity_252d_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__076_150.py",
+      "name": "f19_dssp_076_sharesbas_split_adj_log_diff_21d_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__076_150.py",
+      "name": "f19_dssp_077_sharesbas_split_adj_log_diff_63d_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__076_150.py",
+      "name": "f19_dssp_078_sharesbas_split_adj_log_diff_252d_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__076_150.py",
+      "name": "f19_dssp_113_dilution_volatility_252d_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__076_150.py",
+      "name": "f19_dssp_114_dilution_volatility_zscore_long_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__076_150.py",
+      "name": "f19_dssp_148_dilution_velocity_long_minus_short_zscore_252d_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__076_150.py",
+      "name": "f19_dssp_149_composite_dilution_blowoff_score_252d_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__076_150.py",
+      "name": "f19_dssp_150_composite_dilution_topping_score_5y_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d1__151_225.py",
+      "name": "f19_dssp_153_sbc_dilution_share_yoy_d1"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__001_075.py",
+      "name": "f19_dssp_040_dilution_overhang_acceleration_21d_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__001_075.py",
+      "name": "f19_dssp_073_sharefactor_decrease_intensity_252d_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__076_150.py",
+      "name": "f19_dssp_076_sharesbas_split_adj_log_diff_21d_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__076_150.py",
+      "name": "f19_dssp_077_sharesbas_split_adj_log_diff_63d_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__076_150.py",
+      "name": "f19_dssp_078_sharesbas_split_adj_log_diff_252d_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__076_150.py",
+      "name": "f19_dssp_113_dilution_volatility_252d_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__076_150.py",
+      "name": "f19_dssp_114_dilution_volatility_zscore_long_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__076_150.py",
+      "name": "f19_dssp_148_dilution_velocity_long_minus_short_zscore_252d_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__076_150.py",
+      "name": "f19_dssp_149_composite_dilution_blowoff_score_252d_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__076_150.py",
+      "name": "f19_dssp_150_composite_dilution_topping_score_5y_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d2__151_225.py",
+      "name": "f19_dssp_153_sbc_dilution_share_yoy_d2"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__001_075.py",
+      "name": "f19_dssp_040_dilution_overhang_acceleration_21d_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__001_075.py",
+      "name": "f19_dssp_073_sharefactor_decrease_intensity_252d_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__076_150.py",
+      "name": "f19_dssp_076_sharesbas_split_adj_log_diff_21d_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__076_150.py",
+      "name": "f19_dssp_077_sharesbas_split_adj_log_diff_63d_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__076_150.py",
+      "name": "f19_dssp_078_sharesbas_split_adj_log_diff_252d_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__076_150.py",
+      "name": "f19_dssp_113_dilution_volatility_252d_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__076_150.py",
+      "name": "f19_dssp_114_dilution_volatility_zscore_long_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__076_150.py",
+      "name": "f19_dssp_148_dilution_velocity_long_minus_short_zscore_252d_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__076_150.py",
+      "name": "f19_dssp_149_composite_dilution_blowoff_score_252d_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__076_150.py",
+      "name": "f19_dssp_150_composite_dilution_topping_score_5y_d3"
+    },
+    {
+      "file": "19_dilution_structure_snapshot\\19_dilution_structure_snapshot__d3__151_225.py",
+      "name": "f19_dssp_153_sbc_dilution_share_yoy_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__001_075.py",
+      "name": "f20_iosp_003_log_inst_investors"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__001_075.py",
+      "name": "f20_iosp_038_avg_position_units_qoq_pct"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__001_075.py",
+      "name": "f20_iosp_039_avg_position_units_yoy_pct"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__001_075.py",
+      "name": "f20_iosp_073_total_options_intensity_yoy_pct"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__001_075.py",
+      "name": "f20_iosp_074_options_to_value_ratio"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__001_075.py",
+      "name": "f20_iosp_075_inst_calls_qoq_pct"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__076_150.py",
+      "name": "f20_iosp_076_inst_puts_qoq_pct"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__076_150.py",
+      "name": "f20_iosp_077_inst_calls_yoy_pct"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__076_150.py",
+      "name": "f20_iosp_078_inst_puts_yoy_pct"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__151_225.py",
+      "name": "f20_iosp_151_position_size_hhi_proxy_q"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__151_225.py",
+      "name": "f20_iosp_152_top5_holder_share_of_value"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__151_225.py",
+      "name": "f20_iosp_153_single_fund_full_exit_event_q"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__base__151_225.py",
+      "name": "f20_iosp_154_smart_money_joint_exit_composite_8q"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__001_075.py",
+      "name": "f20_iosp_003_log_inst_investors_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__001_075.py",
+      "name": "f20_iosp_038_avg_position_units_qoq_pct_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__001_075.py",
+      "name": "f20_iosp_039_avg_position_units_yoy_pct_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__001_075.py",
+      "name": "f20_iosp_073_total_options_intensity_yoy_pct_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__001_075.py",
+      "name": "f20_iosp_074_options_to_value_ratio_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__001_075.py",
+      "name": "f20_iosp_075_inst_calls_qoq_pct_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__076_150.py",
+      "name": "f20_iosp_076_inst_puts_qoq_pct_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__076_150.py",
+      "name": "f20_iosp_077_inst_calls_yoy_pct_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__076_150.py",
+      "name": "f20_iosp_078_inst_puts_yoy_pct_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__151_225.py",
+      "name": "f20_iosp_151_position_size_hhi_proxy_q_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__151_225.py",
+      "name": "f20_iosp_152_top5_holder_share_of_value_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__151_225.py",
+      "name": "f20_iosp_153_single_fund_full_exit_event_q_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d1__151_225.py",
+      "name": "f20_iosp_154_smart_money_joint_exit_composite_8q_d1"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__001_075.py",
+      "name": "f20_iosp_003_log_inst_investors_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__001_075.py",
+      "name": "f20_iosp_038_avg_position_units_qoq_pct_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__001_075.py",
+      "name": "f20_iosp_039_avg_position_units_yoy_pct_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__001_075.py",
+      "name": "f20_iosp_073_total_options_intensity_yoy_pct_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__001_075.py",
+      "name": "f20_iosp_074_options_to_value_ratio_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__001_075.py",
+      "name": "f20_iosp_075_inst_calls_qoq_pct_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__076_150.py",
+      "name": "f20_iosp_076_inst_puts_qoq_pct_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__076_150.py",
+      "name": "f20_iosp_077_inst_calls_yoy_pct_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__076_150.py",
+      "name": "f20_iosp_078_inst_puts_yoy_pct_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__151_225.py",
+      "name": "f20_iosp_151_position_size_hhi_proxy_q_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__151_225.py",
+      "name": "f20_iosp_152_top5_holder_share_of_value_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__151_225.py",
+      "name": "f20_iosp_153_single_fund_full_exit_event_q_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d2__151_225.py",
+      "name": "f20_iosp_154_smart_money_joint_exit_composite_8q_d2"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__001_075.py",
+      "name": "f20_iosp_003_log_inst_investors_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__001_075.py",
+      "name": "f20_iosp_038_avg_position_units_qoq_pct_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__001_075.py",
+      "name": "f20_iosp_039_avg_position_units_yoy_pct_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__001_075.py",
+      "name": "f20_iosp_073_total_options_intensity_yoy_pct_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__001_075.py",
+      "name": "f20_iosp_074_options_to_value_ratio_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__001_075.py",
+      "name": "f20_iosp_075_inst_calls_qoq_pct_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__076_150.py",
+      "name": "f20_iosp_076_inst_puts_qoq_pct_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__076_150.py",
+      "name": "f20_iosp_077_inst_calls_yoy_pct_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__076_150.py",
+      "name": "f20_iosp_078_inst_puts_yoy_pct_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__151_225.py",
+      "name": "f20_iosp_151_position_size_hhi_proxy_q_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__151_225.py",
+      "name": "f20_iosp_152_top5_holder_share_of_value_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__151_225.py",
+      "name": "f20_iosp_153_single_fund_full_exit_event_q_d3"
+    },
+    {
+      "file": "20_institutional_ownership_snapshot\\20_institutional_ownership_snapshot__d3__151_225.py",
+      "name": "f20_iosp_154_smart_money_joint_exit_composite_8q_d3"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__base__076_150.py",
+      "name": "f22_mctj_114_cogs_to_rev_yoy_change_zscore_8q"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__base__151_225.py",
+      "name": "f22_mctj_152_margin_compression_cogs_share_4q"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__base__151_225.py",
+      "name": "f22_mctj_153_etr_normalized_margin_trend_8q"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__d1__076_150.py",
+      "name": "f22_mctj_114_cogs_to_rev_yoy_change_zscore_8q_d1"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__d1__151_225.py",
+      "name": "f22_mctj_152_margin_compression_cogs_share_4q_d1"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__d1__151_225.py",
+      "name": "f22_mctj_153_etr_normalized_margin_trend_8q_d1"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__d2__076_150.py",
+      "name": "f22_mctj_114_cogs_to_rev_yoy_change_zscore_8q_d2"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__d2__151_225.py",
+      "name": "f22_mctj_152_margin_compression_cogs_share_4q_d2"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__d2__151_225.py",
+      "name": "f22_mctj_153_etr_normalized_margin_trend_8q_d2"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__d3__076_150.py",
+      "name": "f22_mctj_114_cogs_to_rev_yoy_change_zscore_8q_d3"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__d3__151_225.py",
+      "name": "f22_mctj_152_margin_compression_cogs_share_4q_d3"
+    },
+    {
+      "file": "22_margin_compression_trajectory\\22_margin_compression_trajectory__d3__151_225.py",
+      "name": "f22_mctj_153_etr_normalized_margin_trend_8q_d3"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__base__001_075.py",
+      "name": "f23_cfdt_039_capex_to_ppnenet"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__base__151_225.py",
+      "name": "f23_cfdt_151_dividend_cut_emergence_indicator_q"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__base__151_225.py",
+      "name": "f23_cfdt_152_buyback_funded_by_burn_indicator"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__base__151_225.py",
+      "name": "f23_cfdt_153_capex_collapse_with_buyback_indicator"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d1__001_075.py",
+      "name": "f23_cfdt_039_capex_to_ppnenet_d1"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d1__151_225.py",
+      "name": "f23_cfdt_151_dividend_cut_emergence_indicator_q_d1"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d1__151_225.py",
+      "name": "f23_cfdt_152_buyback_funded_by_burn_indicator_d1"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d1__151_225.py",
+      "name": "f23_cfdt_153_capex_collapse_with_buyback_indicator_d1"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d2__001_075.py",
+      "name": "f23_cfdt_039_capex_to_ppnenet_d2"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d2__151_225.py",
+      "name": "f23_cfdt_151_dividend_cut_emergence_indicator_q_d2"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d2__151_225.py",
+      "name": "f23_cfdt_152_buyback_funded_by_burn_indicator_d2"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d2__151_225.py",
+      "name": "f23_cfdt_153_capex_collapse_with_buyback_indicator_d2"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d3__001_075.py",
+      "name": "f23_cfdt_039_capex_to_ppnenet_d3"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d3__151_225.py",
+      "name": "f23_cfdt_151_dividend_cut_emergence_indicator_q_d3"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d3__151_225.py",
+      "name": "f23_cfdt_152_buyback_funded_by_burn_indicator_d3"
+    },
+    {
+      "file": "23_cash_flow_deterioration_trajectory\\23_cash_flow_deterioration_trajectory__d3__151_225.py",
+      "name": "f23_cfdt_153_capex_collapse_with_buyback_indicator_d3"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__base__001_075.py",
+      "name": "f24_dbtj_039_interest_coverage_ebit_ttm"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__base__001_075.py",
+      "name": "f24_dbtj_040_interest_coverage_ebitda_ttm"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__base__076_150.py",
+      "name": "f24_dbtj_077_ncff_minus_capex_4q_to_debt"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__base__076_150.py",
+      "name": "f24_dbtj_078_debt_funded_buyback_proxy"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__base__076_150.py",
+      "name": "f24_dbtj_113_current_liab_growth_minus_revenue_growth"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__base__076_150.py",
+      "name": "f24_dbtj_148_interest_burden_growth_yoy_pct"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__base__076_150.py",
+      "name": "f24_dbtj_150_compound_leverage_coverage_index"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d1__001_075.py",
+      "name": "f24_dbtj_039_interest_coverage_ebit_ttm_d1"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d1__001_075.py",
+      "name": "f24_dbtj_040_interest_coverage_ebitda_ttm_d1"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d1__076_150.py",
+      "name": "f24_dbtj_077_ncff_minus_capex_4q_to_debt_d1"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d1__076_150.py",
+      "name": "f24_dbtj_078_debt_funded_buyback_proxy_d1"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d1__076_150.py",
+      "name": "f24_dbtj_113_current_liab_growth_minus_revenue_growth_d1"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d1__076_150.py",
+      "name": "f24_dbtj_148_interest_burden_growth_yoy_pct_d1"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d1__076_150.py",
+      "name": "f24_dbtj_150_compound_leverage_coverage_index_d1"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d2__001_075.py",
+      "name": "f24_dbtj_039_interest_coverage_ebit_ttm_d2"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d2__001_075.py",
+      "name": "f24_dbtj_040_interest_coverage_ebitda_ttm_d2"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d2__076_150.py",
+      "name": "f24_dbtj_077_ncff_minus_capex_4q_to_debt_d2"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d2__076_150.py",
+      "name": "f24_dbtj_078_debt_funded_buyback_proxy_d2"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d2__076_150.py",
+      "name": "f24_dbtj_113_current_liab_growth_minus_revenue_growth_d2"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d2__076_150.py",
+      "name": "f24_dbtj_148_interest_burden_growth_yoy_pct_d2"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d2__076_150.py",
+      "name": "f24_dbtj_150_compound_leverage_coverage_index_d2"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d3__001_075.py",
+      "name": "f24_dbtj_039_interest_coverage_ebit_ttm_d3"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d3__001_075.py",
+      "name": "f24_dbtj_040_interest_coverage_ebitda_ttm_d3"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d3__076_150.py",
+      "name": "f24_dbtj_077_ncff_minus_capex_4q_to_debt_d3"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d3__076_150.py",
+      "name": "f24_dbtj_078_debt_funded_buyback_proxy_d3"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d3__076_150.py",
+      "name": "f24_dbtj_113_current_liab_growth_minus_revenue_growth_d3"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d3__076_150.py",
+      "name": "f24_dbtj_148_interest_burden_growth_yoy_pct_d3"
+    },
+    {
+      "file": "24_debt_buildup_trajectory\\24_debt_buildup_trajectory__d3__076_150.py",
+      "name": "f24_dbtj_150_compound_leverage_coverage_index_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__001_075.py",
+      "name": "f25_sibt_038_shortpctshares_minus_252d_median"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__001_075.py",
+      "name": "f25_sibt_039_float_vs_shares_short_gap"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__001_075.py",
+      "name": "f25_sibt_040_float_vs_shares_short_ratio"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__001_075.py",
+      "name": "f25_sibt_073_log_si_times_dtc_chg63"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__001_075.py",
+      "name": "f25_sibt_074_dtc_times_si_pct_chg126"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__001_075.py",
+      "name": "f25_sibt_075_compound_squeeze_index"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__076_150.py",
+      "name": "f25_sibt_113_spf_jumped_5pp_in_63d_indicator"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__076_150.py",
+      "name": "f25_sibt_114_dtc_jumped_2x_in_63d_indicator"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__076_150.py",
+      "name": "f25_sibt_148_si_buildup_breadth_indicator"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__076_150.py",
+      "name": "f25_sibt_150_compound_buildup_trajectory_score"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__base__151_225.py",
+      "name": "f25_sibt_153_dtc_above_10_persistence_63d"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__001_075.py",
+      "name": "f25_sibt_038_shortpctshares_minus_252d_median_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__001_075.py",
+      "name": "f25_sibt_039_float_vs_shares_short_gap_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__001_075.py",
+      "name": "f25_sibt_040_float_vs_shares_short_ratio_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__001_075.py",
+      "name": "f25_sibt_073_log_si_times_dtc_chg63_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__001_075.py",
+      "name": "f25_sibt_074_dtc_times_si_pct_chg126_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__001_075.py",
+      "name": "f25_sibt_075_compound_squeeze_index_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__076_150.py",
+      "name": "f25_sibt_113_spf_jumped_5pp_in_63d_indicator_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__076_150.py",
+      "name": "f25_sibt_114_dtc_jumped_2x_in_63d_indicator_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__076_150.py",
+      "name": "f25_sibt_148_si_buildup_breadth_indicator_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__076_150.py",
+      "name": "f25_sibt_150_compound_buildup_trajectory_score_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d1__151_225.py",
+      "name": "f25_sibt_153_dtc_above_10_persistence_63d_d1"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__001_075.py",
+      "name": "f25_sibt_038_shortpctshares_minus_252d_median_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__001_075.py",
+      "name": "f25_sibt_039_float_vs_shares_short_gap_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__001_075.py",
+      "name": "f25_sibt_040_float_vs_shares_short_ratio_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__001_075.py",
+      "name": "f25_sibt_073_log_si_times_dtc_chg63_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__001_075.py",
+      "name": "f25_sibt_074_dtc_times_si_pct_chg126_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__001_075.py",
+      "name": "f25_sibt_075_compound_squeeze_index_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__076_150.py",
+      "name": "f25_sibt_113_spf_jumped_5pp_in_63d_indicator_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__076_150.py",
+      "name": "f25_sibt_114_dtc_jumped_2x_in_63d_indicator_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__076_150.py",
+      "name": "f25_sibt_148_si_buildup_breadth_indicator_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__076_150.py",
+      "name": "f25_sibt_150_compound_buildup_trajectory_score_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d2__151_225.py",
+      "name": "f25_sibt_153_dtc_above_10_persistence_63d_d2"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__001_075.py",
+      "name": "f25_sibt_038_shortpctshares_minus_252d_median_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__001_075.py",
+      "name": "f25_sibt_039_float_vs_shares_short_gap_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__001_075.py",
+      "name": "f25_sibt_040_float_vs_shares_short_ratio_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__001_075.py",
+      "name": "f25_sibt_073_log_si_times_dtc_chg63_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__001_075.py",
+      "name": "f25_sibt_074_dtc_times_si_pct_chg126_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__001_075.py",
+      "name": "f25_sibt_075_compound_squeeze_index_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__076_150.py",
+      "name": "f25_sibt_113_spf_jumped_5pp_in_63d_indicator_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__076_150.py",
+      "name": "f25_sibt_114_dtc_jumped_2x_in_63d_indicator_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__076_150.py",
+      "name": "f25_sibt_148_si_buildup_breadth_indicator_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__076_150.py",
+      "name": "f25_sibt_150_compound_buildup_trajectory_score_d3"
+    },
+    {
+      "file": "25_short_interest_buildup_trajectory\\25_short_interest_buildup_trajectory__d3__151_225.py",
+      "name": "f25_sibt_153_dtc_above_10_persistence_63d_d3"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__base__076_150.py",
+      "name": "f26_drtj_076_sharesbas_split_adjusted_qoq"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__base__076_150.py",
+      "name": "f26_drtj_077_sharesbas_split_adjusted_yoy"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__base__076_150.py",
+      "name": "f26_drtj_078_sharesbas_split_adjusted_8q_pct"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__base__151_225.py",
+      "name": "f26_drtj_152_convertible_vs_secondary_classifier"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d1__076_150.py",
+      "name": "f26_drtj_076_sharesbas_split_adjusted_qoq_d1"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d1__076_150.py",
+      "name": "f26_drtj_077_sharesbas_split_adjusted_yoy_d1"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d1__076_150.py",
+      "name": "f26_drtj_078_sharesbas_split_adjusted_8q_pct_d1"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d1__151_225.py",
+      "name": "f26_drtj_152_convertible_vs_secondary_classifier_d1"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d2__076_150.py",
+      "name": "f26_drtj_076_sharesbas_split_adjusted_qoq_d2"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d2__076_150.py",
+      "name": "f26_drtj_077_sharesbas_split_adjusted_yoy_d2"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d2__076_150.py",
+      "name": "f26_drtj_078_sharesbas_split_adjusted_8q_pct_d2"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d2__151_225.py",
+      "name": "f26_drtj_152_convertible_vs_secondary_classifier_d2"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d3__076_150.py",
+      "name": "f26_drtj_076_sharesbas_split_adjusted_qoq_d3"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d3__076_150.py",
+      "name": "f26_drtj_077_sharesbas_split_adjusted_yoy_d3"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d3__076_150.py",
+      "name": "f26_drtj_078_sharesbas_split_adjusted_8q_pct_d3"
+    },
+    {
+      "file": "26_dilution_rate_trajectory\\26_dilution_rate_trajectory__d3__151_225.py",
+      "name": "f26_drtj_152_convertible_vs_secondary_classifier_d3"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__base__001_075.py",
+      "name": "f27_istj_038_director_sell_to_mcap_63d"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__base__001_075.py",
+      "name": "f27_istj_039_tenpct_sell_to_mcap_63d"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__base__001_075.py",
+      "name": "f27_istj_040_officer_sell_concentration_growth"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__base__076_150.py",
+      "name": "f27_istj_150_insider_total_owned_trend_slope_252d"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__base__151_225.py",
+      "name": "f27_istj_151_form4_filing_latency_mean_63d"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d1__001_075.py",
+      "name": "f27_istj_038_director_sell_to_mcap_63d_d1"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d1__001_075.py",
+      "name": "f27_istj_039_tenpct_sell_to_mcap_63d_d1"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d1__001_075.py",
+      "name": "f27_istj_040_officer_sell_concentration_growth_d1"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d1__076_150.py",
+      "name": "f27_istj_150_insider_total_owned_trend_slope_252d_d1"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d1__151_225.py",
+      "name": "f27_istj_151_form4_filing_latency_mean_63d_d1"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d2__001_075.py",
+      "name": "f27_istj_038_director_sell_to_mcap_63d_d2"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d2__001_075.py",
+      "name": "f27_istj_039_tenpct_sell_to_mcap_63d_d2"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d2__001_075.py",
+      "name": "f27_istj_040_officer_sell_concentration_growth_d2"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d2__076_150.py",
+      "name": "f27_istj_150_insider_total_owned_trend_slope_252d_d2"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d2__151_225.py",
+      "name": "f27_istj_151_form4_filing_latency_mean_63d_d2"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d3__001_075.py",
+      "name": "f27_istj_038_director_sell_to_mcap_63d_d3"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d3__001_075.py",
+      "name": "f27_istj_039_tenpct_sell_to_mcap_63d_d3"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d3__001_075.py",
+      "name": "f27_istj_040_officer_sell_concentration_growth_d3"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d3__076_150.py",
+      "name": "f27_istj_150_insider_total_owned_trend_slope_252d_d3"
+    },
+    {
+      "file": "27_insider_selling_trajectory\\27_insider_selling_trajectory__d3__151_225.py",
+      "name": "f27_istj_151_form4_filing_latency_mean_63d_d3"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__base__001_075.py",
+      "name": "f28_ihct_073_inst_dec_share_of_total"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__base__001_075.py",
+      "name": "f28_ihct_074_inst_inc_share_of_total"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__base__001_075.py",
+      "name": "f28_ihct_075_inst_dec_share_acceleration"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__base__076_150.py",
+      "name": "f28_ihct_076_inst_new_buyers_qoq"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__base__076_150.py",
+      "name": "f28_ihct_077_inst_new_buyers_yoy"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__base__076_150.py",
+      "name": "f28_ihct_078_inst_new_buyers_dryup_4q"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__base__076_150.py",
+      "name": "f28_ihct_149_inst_holder_collapse_terminal_score"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__base__151_225.py",
+      "name": "f28_ihct_151_lockup_expiry_window_flag"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d1__001_075.py",
+      "name": "f28_ihct_073_inst_dec_share_of_total_d1"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d1__001_075.py",
+      "name": "f28_ihct_074_inst_inc_share_of_total_d1"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d1__001_075.py",
+      "name": "f28_ihct_075_inst_dec_share_acceleration_d1"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d1__076_150.py",
+      "name": "f28_ihct_076_inst_new_buyers_qoq_d1"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d1__076_150.py",
+      "name": "f28_ihct_077_inst_new_buyers_yoy_d1"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d1__076_150.py",
+      "name": "f28_ihct_078_inst_new_buyers_dryup_4q_d1"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d1__076_150.py",
+      "name": "f28_ihct_149_inst_holder_collapse_terminal_score_d1"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d1__151_225.py",
+      "name": "f28_ihct_151_lockup_expiry_window_flag_d1"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d2__001_075.py",
+      "name": "f28_ihct_073_inst_dec_share_of_total_d2"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d2__001_075.py",
+      "name": "f28_ihct_074_inst_inc_share_of_total_d2"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d2__001_075.py",
+      "name": "f28_ihct_075_inst_dec_share_acceleration_d2"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d2__076_150.py",
+      "name": "f28_ihct_076_inst_new_buyers_qoq_d2"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d2__076_150.py",
+      "name": "f28_ihct_077_inst_new_buyers_yoy_d2"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d2__076_150.py",
+      "name": "f28_ihct_078_inst_new_buyers_dryup_4q_d2"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d2__076_150.py",
+      "name": "f28_ihct_149_inst_holder_collapse_terminal_score_d2"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d2__151_225.py",
+      "name": "f28_ihct_151_lockup_expiry_window_flag_d2"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d3__001_075.py",
+      "name": "f28_ihct_073_inst_dec_share_of_total_d3"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d3__001_075.py",
+      "name": "f28_ihct_074_inst_inc_share_of_total_d3"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d3__001_075.py",
+      "name": "f28_ihct_075_inst_dec_share_acceleration_d3"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d3__076_150.py",
+      "name": "f28_ihct_076_inst_new_buyers_qoq_d3"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d3__076_150.py",
+      "name": "f28_ihct_077_inst_new_buyers_yoy_d3"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d3__076_150.py",
+      "name": "f28_ihct_078_inst_new_buyers_dryup_4q_d3"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d3__076_150.py",
+      "name": "f28_ihct_149_inst_holder_collapse_terminal_score_d3"
+    },
+    {
+      "file": "28_institutional_holding_collapse_trajectory\\28_institutional_holding_collapse_trajectory__d3__151_225.py",
+      "name": "f28_ihct_151_lockup_expiry_window_flag_d3"
+    },
+    {
+      "file": "31_cash_burn_acceleration\\31_cash_burn_acceleration__base__151_225.py",
+      "name": "f31_cbac_152_financing_bridge_collapse_q"
+    },
+    {
+      "file": "31_cash_burn_acceleration\\31_cash_burn_acceleration__base__151_225.py",
+      "name": "f31_cbac_153_going_concern_composite_q"
+    },
+    {
+      "file": "31_cash_burn_acceleration\\31_cash_burn_acceleration__d1__151_225.py",
+      "name": "f31_cbac_152_financing_bridge_collapse_q_d1"
+    },
+    {
+      "file": "31_cash_burn_acceleration\\31_cash_burn_acceleration__d1__151_225.py",
+      "name": "f31_cbac_153_going_concern_composite_q_d1"
+    },
+    {
+      "file": "31_cash_burn_acceleration\\31_cash_burn_acceleration__d2__151_225.py",
+      "name": "f31_cbac_152_financing_bridge_collapse_q_d2"
+    },
+    {
+      "file": "31_cash_burn_acceleration\\31_cash_burn_acceleration__d2__151_225.py",
+      "name": "f31_cbac_153_going_concern_composite_q_d2"
+    },
+    {
+      "file": "31_cash_burn_acceleration\\31_cash_burn_acceleration__d3__151_225.py",
+      "name": "f31_cbac_152_financing_bridge_collapse_q_d3"
+    },
+    {
+      "file": "31_cash_burn_acceleration\\31_cash_burn_acceleration__d3__151_225.py",
+      "name": "f31_cbac_153_going_concern_composite_q_d3"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__base__001_075.py",
+      "name": "f32_lbac_074_composite_coverage_deterioration_accel_4q"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__base__001_075.py",
+      "name": "f32_lbac_075_composite_leverage_coverage_accel_combo_z"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__base__076_150.py",
+      "name": "f32_lbac_113_short_debt_recent_4q_minus_prior_4q"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__base__076_150.py",
+      "name": "f32_lbac_114_short_debt_to_total_latest_to_16q_max"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__base__076_150.py",
+      "name": "f32_lbac_150_final_leverage_buildup_accel_composite_8q"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__base__151_225.py",
+      "name": "f32_lbac_153_leverage_regime_2state_posterior"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d1__001_075.py",
+      "name": "f32_lbac_074_composite_coverage_deterioration_accel_4q_d1"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d1__001_075.py",
+      "name": "f32_lbac_075_composite_leverage_coverage_accel_combo_z_d1"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d1__076_150.py",
+      "name": "f32_lbac_113_short_debt_recent_4q_minus_prior_4q_d1"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d1__076_150.py",
+      "name": "f32_lbac_114_short_debt_to_total_latest_to_16q_max_d1"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d1__076_150.py",
+      "name": "f32_lbac_150_final_leverage_buildup_accel_composite_8q_d1"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d1__151_225.py",
+      "name": "f32_lbac_153_leverage_regime_2state_posterior_d1"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d2__001_075.py",
+      "name": "f32_lbac_074_composite_coverage_deterioration_accel_4q_d2"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d2__001_075.py",
+      "name": "f32_lbac_075_composite_leverage_coverage_accel_combo_z_d2"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d2__076_150.py",
+      "name": "f32_lbac_113_short_debt_recent_4q_minus_prior_4q_d2"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d2__076_150.py",
+      "name": "f32_lbac_114_short_debt_to_total_latest_to_16q_max_d2"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d2__076_150.py",
+      "name": "f32_lbac_150_final_leverage_buildup_accel_composite_8q_d2"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d2__151_225.py",
+      "name": "f32_lbac_153_leverage_regime_2state_posterior_d2"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d3__001_075.py",
+      "name": "f32_lbac_074_composite_coverage_deterioration_accel_4q_d3"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d3__001_075.py",
+      "name": "f32_lbac_075_composite_leverage_coverage_accel_combo_z_d3"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d3__076_150.py",
+      "name": "f32_lbac_113_short_debt_recent_4q_minus_prior_4q_d3"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d3__076_150.py",
+      "name": "f32_lbac_114_short_debt_to_total_latest_to_16q_max_d3"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d3__076_150.py",
+      "name": "f32_lbac_150_final_leverage_buildup_accel_composite_8q_d3"
+    },
+    {
+      "file": "32_leverage_buildup_acceleration\\32_leverage_buildup_acceleration__d3__151_225.py",
+      "name": "f32_lbac_153_leverage_regime_2state_posterior_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__001_075.py",
+      "name": "f33_pfac_001_etf_flow_cliff_jump_vs_8q_std"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__001_075.py",
+      "name": "f33_pfac_002_etf_share_cliff_jump_vs_8q_std"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__001_075.py",
+      "name": "f33_pfac_003_etf_flow_structural_break_8q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__001_075.py",
+      "name": "f33_pfac_040_etf_concentration_latest_to_8q_max"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__001_075.py",
+      "name": "f33_pfac_074_composite_inst_exit_accel_4q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__001_075.py",
+      "name": "f33_pfac_075_composite_inst_vs_etf_divergence_z_4q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__076_150.py",
+      "name": "f33_pfac_076_etf_share_inst_value_correlation_8q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__076_150.py",
+      "name": "f33_pfac_077_etf_share_inst_count_correlation_8q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__076_150.py",
+      "name": "f33_pfac_113_put_call_cumulative_z_8q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__076_150.py",
+      "name": "f33_pfac_115_put_call_exp_fit_r2_8q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__076_150.py",
+      "name": "f33_pfac_150_final_passive_flow_accel_composite_8q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__151_225.py",
+      "name": "f33_pfac_151_etf_active_share_crossover_event_q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__151_225.py",
+      "name": "f33_pfac_152_index_membership_event_q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__151_225.py",
+      "name": "f33_pfac_153_inst_count_value_divergence_q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__base__151_225.py",
+      "name": "f33_pfac_154_filing_staleness_quarter_q"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__001_075.py",
+      "name": "f33_pfac_001_etf_flow_cliff_jump_vs_8q_std_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__001_075.py",
+      "name": "f33_pfac_002_etf_share_cliff_jump_vs_8q_std_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__001_075.py",
+      "name": "f33_pfac_003_etf_flow_structural_break_8q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__001_075.py",
+      "name": "f33_pfac_040_etf_concentration_latest_to_8q_max_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__001_075.py",
+      "name": "f33_pfac_074_composite_inst_exit_accel_4q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__001_075.py",
+      "name": "f33_pfac_075_composite_inst_vs_etf_divergence_z_4q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__076_150.py",
+      "name": "f33_pfac_076_etf_share_inst_value_correlation_8q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__076_150.py",
+      "name": "f33_pfac_077_etf_share_inst_count_correlation_8q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__076_150.py",
+      "name": "f33_pfac_113_put_call_cumulative_z_8q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__076_150.py",
+      "name": "f33_pfac_115_put_call_exp_fit_r2_8q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__076_150.py",
+      "name": "f33_pfac_150_final_passive_flow_accel_composite_8q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__151_225.py",
+      "name": "f33_pfac_151_etf_active_share_crossover_event_q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__151_225.py",
+      "name": "f33_pfac_152_index_membership_event_q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__151_225.py",
+      "name": "f33_pfac_153_inst_count_value_divergence_q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d1__151_225.py",
+      "name": "f33_pfac_154_filing_staleness_quarter_q_d1"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__001_075.py",
+      "name": "f33_pfac_001_etf_flow_cliff_jump_vs_8q_std_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__001_075.py",
+      "name": "f33_pfac_002_etf_share_cliff_jump_vs_8q_std_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__001_075.py",
+      "name": "f33_pfac_003_etf_flow_structural_break_8q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__001_075.py",
+      "name": "f33_pfac_040_etf_concentration_latest_to_8q_max_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__001_075.py",
+      "name": "f33_pfac_074_composite_inst_exit_accel_4q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__001_075.py",
+      "name": "f33_pfac_075_composite_inst_vs_etf_divergence_z_4q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__076_150.py",
+      "name": "f33_pfac_076_etf_share_inst_value_correlation_8q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__076_150.py",
+      "name": "f33_pfac_077_etf_share_inst_count_correlation_8q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__076_150.py",
+      "name": "f33_pfac_113_put_call_cumulative_z_8q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__076_150.py",
+      "name": "f33_pfac_115_put_call_exp_fit_r2_8q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__076_150.py",
+      "name": "f33_pfac_150_final_passive_flow_accel_composite_8q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__151_225.py",
+      "name": "f33_pfac_151_etf_active_share_crossover_event_q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__151_225.py",
+      "name": "f33_pfac_152_index_membership_event_q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__151_225.py",
+      "name": "f33_pfac_153_inst_count_value_divergence_q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d2__151_225.py",
+      "name": "f33_pfac_154_filing_staleness_quarter_q_d2"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__001_075.py",
+      "name": "f33_pfac_001_etf_flow_cliff_jump_vs_8q_std_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__001_075.py",
+      "name": "f33_pfac_002_etf_share_cliff_jump_vs_8q_std_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__001_075.py",
+      "name": "f33_pfac_003_etf_flow_structural_break_8q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__001_075.py",
+      "name": "f33_pfac_040_etf_concentration_latest_to_8q_max_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__001_075.py",
+      "name": "f33_pfac_074_composite_inst_exit_accel_4q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__001_075.py",
+      "name": "f33_pfac_075_composite_inst_vs_etf_divergence_z_4q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__076_150.py",
+      "name": "f33_pfac_076_etf_share_inst_value_correlation_8q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__076_150.py",
+      "name": "f33_pfac_077_etf_share_inst_count_correlation_8q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__076_150.py",
+      "name": "f33_pfac_113_put_call_cumulative_z_8q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__076_150.py",
+      "name": "f33_pfac_115_put_call_exp_fit_r2_8q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__076_150.py",
+      "name": "f33_pfac_150_final_passive_flow_accel_composite_8q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__151_225.py",
+      "name": "f33_pfac_151_etf_active_share_crossover_event_q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__151_225.py",
+      "name": "f33_pfac_152_index_membership_event_q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__151_225.py",
+      "name": "f33_pfac_153_inst_count_value_divergence_q_d3"
+    },
+    {
+      "file": "33_passive_flow_acceleration\\33_passive_flow_acceleration__d3__151_225.py",
+      "name": "f33_pfac_154_filing_staleness_quarter_q_d3"
+    },
+    {
+      "file": "37_blowoff_parabolic_signature\\37_blowoff_parabolic_signature__base__076_150.py",
+      "name": "f37_bpsg_115_dollar_volume_zscore_at_new_high_504d"
+    },
+    {
+      "file": "37_blowoff_parabolic_signature\\37_blowoff_parabolic_signature__d1__076_150.py",
+      "name": "f37_bpsg_115_dollar_volume_zscore_at_new_high_504d_d1"
+    },
+    {
+      "file": "37_blowoff_parabolic_signature\\37_blowoff_parabolic_signature__d2__076_150.py",
+      "name": "f37_bpsg_115_dollar_volume_zscore_at_new_high_504d_d2"
+    },
+    {
+      "file": "37_blowoff_parabolic_signature\\37_blowoff_parabolic_signature__d3__076_150.py",
+      "name": "f37_bpsg_115_dollar_volume_zscore_at_new_high_504d_d3"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__base__001_075.py",
+      "name": "f39_hlem_001_intangibles_qoq_drop_pct"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__base__001_075.py",
+      "name": "f39_hlem_002_intangibles_4q_max_minus_current_to_max"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__base__001_075.py",
+      "name": "f39_hlem_003_intangibles_yoy_pct"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__base__001_075.py",
+      "name": "f39_hlem_038_liabilitiesnc_qoq_jump_zscore"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__base__001_075.py",
+      "name": "f39_hlem_039_accruedliab_residual_yoy_jump"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__base__001_075.py",
+      "name": "f39_hlem_040_accrued_liab_qoq_jump_share"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__base__076_150.py",
+      "name": "f39_hlem_150_hidden_loss_aggregate_composite"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__base__151_225.py",
+      "name": "f39_hlem_151_warranty_environmental_reserve_emergence"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__base__151_225.py",
+      "name": "f39_hlem_153_dta_valuation_allowance_proxy"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d1__001_075.py",
+      "name": "f39_hlem_001_intangibles_qoq_drop_pct_d1"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d1__001_075.py",
+      "name": "f39_hlem_002_intangibles_4q_max_minus_current_to_max_d1"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d1__001_075.py",
+      "name": "f39_hlem_003_intangibles_yoy_pct_d1"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d1__001_075.py",
+      "name": "f39_hlem_038_liabilitiesnc_qoq_jump_zscore_d1"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d1__001_075.py",
+      "name": "f39_hlem_039_accruedliab_residual_yoy_jump_d1"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d1__001_075.py",
+      "name": "f39_hlem_040_accrued_liab_qoq_jump_share_d1"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d1__076_150.py",
+      "name": "f39_hlem_150_hidden_loss_aggregate_composite_d1"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d1__151_225.py",
+      "name": "f39_hlem_151_warranty_environmental_reserve_emergence_d1"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d1__151_225.py",
+      "name": "f39_hlem_153_dta_valuation_allowance_proxy_d1"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d2__001_075.py",
+      "name": "f39_hlem_001_intangibles_qoq_drop_pct_d2"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d2__001_075.py",
+      "name": "f39_hlem_002_intangibles_4q_max_minus_current_to_max_d2"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d2__001_075.py",
+      "name": "f39_hlem_003_intangibles_yoy_pct_d2"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d2__001_075.py",
+      "name": "f39_hlem_038_liabilitiesnc_qoq_jump_zscore_d2"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d2__001_075.py",
+      "name": "f39_hlem_039_accruedliab_residual_yoy_jump_d2"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d2__001_075.py",
+      "name": "f39_hlem_040_accrued_liab_qoq_jump_share_d2"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d2__076_150.py",
+      "name": "f39_hlem_150_hidden_loss_aggregate_composite_d2"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d2__151_225.py",
+      "name": "f39_hlem_151_warranty_environmental_reserve_emergence_d2"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d2__151_225.py",
+      "name": "f39_hlem_153_dta_valuation_allowance_proxy_d2"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d3__001_075.py",
+      "name": "f39_hlem_001_intangibles_qoq_drop_pct_d3"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d3__001_075.py",
+      "name": "f39_hlem_002_intangibles_4q_max_minus_current_to_max_d3"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d3__001_075.py",
+      "name": "f39_hlem_003_intangibles_yoy_pct_d3"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d3__001_075.py",
+      "name": "f39_hlem_038_liabilitiesnc_qoq_jump_zscore_d3"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d3__001_075.py",
+      "name": "f39_hlem_039_accruedliab_residual_yoy_jump_d3"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d3__001_075.py",
+      "name": "f39_hlem_040_accrued_liab_qoq_jump_share_d3"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d3__076_150.py",
+      "name": "f39_hlem_150_hidden_loss_aggregate_composite_d3"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d3__151_225.py",
+      "name": "f39_hlem_151_warranty_environmental_reserve_emergence_d3"
+    },
+    {
+      "file": "39_hidden_loss_emergence\\39_hidden_loss_emergence__d3__151_225.py",
+      "name": "f39_hlem_153_dta_valuation_allowance_proxy_d3"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__base__076_150.py",
+      "name": "f40_eqdg_076_eps_growth_minus_revenue_growth_yoy"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__base__076_150.py",
+      "name": "f40_eqdg_113_eps_zscore_minus_fcf_per_share_zscore_12q"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__base__076_150.py",
+      "name": "f40_eqdg_148_investments_to_assets"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__base__076_150.py",
+      "name": "f40_eqdg_149_ncfcommon_share_of_ncff"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__base__076_150.py",
+      "name": "f40_eqdg_150_ncfdebt_minus_ncfcommon_to_assets"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__base__151_225.py",
+      "name": "f40_eqdg_151_dechow_dichev_residual_quality_5y"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__base__151_225.py",
+      "name": "f40_eqdg_154_dechow_dichev_dispersion_20q"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d1__076_150.py",
+      "name": "f40_eqdg_076_eps_growth_minus_revenue_growth_yoy_d1"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d1__076_150.py",
+      "name": "f40_eqdg_113_eps_zscore_minus_fcf_per_share_zscore_12q_d1"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d1__076_150.py",
+      "name": "f40_eqdg_148_investments_to_assets_d1"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d1__076_150.py",
+      "name": "f40_eqdg_149_ncfcommon_share_of_ncff_d1"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d1__076_150.py",
+      "name": "f40_eqdg_150_ncfdebt_minus_ncfcommon_to_assets_d1"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d1__151_225.py",
+      "name": "f40_eqdg_151_dechow_dichev_residual_quality_5y_d1"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d1__151_225.py",
+      "name": "f40_eqdg_154_dechow_dichev_dispersion_20q_d1"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d2__076_150.py",
+      "name": "f40_eqdg_076_eps_growth_minus_revenue_growth_yoy_d2"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d2__076_150.py",
+      "name": "f40_eqdg_113_eps_zscore_minus_fcf_per_share_zscore_12q_d2"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d2__076_150.py",
+      "name": "f40_eqdg_148_investments_to_assets_d2"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d2__076_150.py",
+      "name": "f40_eqdg_149_ncfcommon_share_of_ncff_d2"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d2__076_150.py",
+      "name": "f40_eqdg_150_ncfdebt_minus_ncfcommon_to_assets_d2"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d2__151_225.py",
+      "name": "f40_eqdg_151_dechow_dichev_residual_quality_5y_d2"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d2__151_225.py",
+      "name": "f40_eqdg_154_dechow_dichev_dispersion_20q_d2"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d3__076_150.py",
+      "name": "f40_eqdg_076_eps_growth_minus_revenue_growth_yoy_d3"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d3__076_150.py",
+      "name": "f40_eqdg_113_eps_zscore_minus_fcf_per_share_zscore_12q_d3"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d3__076_150.py",
+      "name": "f40_eqdg_148_investments_to_assets_d3"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d3__076_150.py",
+      "name": "f40_eqdg_149_ncfcommon_share_of_ncff_d3"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d3__076_150.py",
+      "name": "f40_eqdg_150_ncfdebt_minus_ncfcommon_to_assets_d3"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d3__151_225.py",
+      "name": "f40_eqdg_151_dechow_dichev_residual_quality_5y_d3"
+    },
+    {
+      "file": "40_earnings_quality_divergence\\40_earnings_quality_divergence__d3__151_225.py",
+      "name": "f40_eqdg_154_dechow_dichev_dispersion_20q_d3"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__base__076_150.py",
+      "name": "f41_rolv_076_da_to_ebit_cv_2y"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__base__076_150.py",
+      "name": "f41_rolv_077_da_growth_minus_rev_growth_1y"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__base__076_150.py",
+      "name": "f41_rolv_113_sbc_rev_correlation_2y"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__base__076_150.py",
+      "name": "f41_rolv_114_sbc_growth_5y_avg"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__base__076_150.py",
+      "name": "f41_rolv_115_sbc_to_shareswadil_growth_couple"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__base__151_225.py",
+      "name": "f41_rolv_153_capacity_utilization_trend_slope_8q"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d1__076_150.py",
+      "name": "f41_rolv_076_da_to_ebit_cv_2y_d1"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d1__076_150.py",
+      "name": "f41_rolv_077_da_growth_minus_rev_growth_1y_d1"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d1__076_150.py",
+      "name": "f41_rolv_113_sbc_rev_correlation_2y_d1"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d1__076_150.py",
+      "name": "f41_rolv_114_sbc_growth_5y_avg_d1"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d1__076_150.py",
+      "name": "f41_rolv_115_sbc_to_shareswadil_growth_couple_d1"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d1__151_225.py",
+      "name": "f41_rolv_153_capacity_utilization_trend_slope_8q_d1"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d2__076_150.py",
+      "name": "f41_rolv_076_da_to_ebit_cv_2y_d2"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d2__076_150.py",
+      "name": "f41_rolv_077_da_growth_minus_rev_growth_1y_d2"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d2__076_150.py",
+      "name": "f41_rolv_113_sbc_rev_correlation_2y_d2"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d2__076_150.py",
+      "name": "f41_rolv_114_sbc_growth_5y_avg_d2"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d2__076_150.py",
+      "name": "f41_rolv_115_sbc_to_shareswadil_growth_couple_d2"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d2__151_225.py",
+      "name": "f41_rolv_153_capacity_utilization_trend_slope_8q_d2"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d3__076_150.py",
+      "name": "f41_rolv_076_da_to_ebit_cv_2y_d3"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d3__076_150.py",
+      "name": "f41_rolv_077_da_growth_minus_rev_growth_1y_d3"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d3__076_150.py",
+      "name": "f41_rolv_113_sbc_rev_correlation_2y_d3"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d3__076_150.py",
+      "name": "f41_rolv_114_sbc_growth_5y_avg_d3"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d3__076_150.py",
+      "name": "f41_rolv_115_sbc_to_shareswadil_growth_couple_d3"
+    },
+    {
+      "file": "41_reverse_operating_leverage\\41_reverse_operating_leverage__d3__151_225.py",
+      "name": "f41_rolv_153_capacity_utilization_trend_slope_8q_d3"
+    },
+    {
+      "file": "42_pricing_power_loss_signal\\42_pricing_power_loss_signal__base__076_150.py",
+      "name": "f42_pplo_148_cash_gm_proxy_yoy_change"
+    },
+    {
+      "file": "42_pricing_power_loss_signal\\42_pricing_power_loss_signal__d1__076_150.py",
+      "name": "f42_pplo_148_cash_gm_proxy_yoy_change_d1"
+    },
+    {
+      "file": "42_pricing_power_loss_signal\\42_pricing_power_loss_signal__d2__076_150.py",
+      "name": "f42_pplo_148_cash_gm_proxy_yoy_change_d2"
+    },
+    {
+      "file": "42_pricing_power_loss_signal\\42_pricing_power_loss_signal__d3__076_150.py",
+      "name": "f42_pplo_148_cash_gm_proxy_yoy_change_d3"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__base__001_075.py",
+      "name": "f43_hdcl_003_revenue_5y_cagr_log"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__base__076_150.py",
+      "name": "f43_hdcl_148_composite_f43_hdcl_blowoff_score"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__base__076_150.py",
+      "name": "f43_hdcl_150_composite_f43_hdcl_topping_score"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__base__151_225.py",
+      "name": "f43_hdcl_151_backlog_rpo_depletion_rate"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__base__151_225.py",
+      "name": "f43_hdcl_152_acquisition_growth_deceleration_proxy"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d1__001_075.py",
+      "name": "f43_hdcl_003_revenue_5y_cagr_log_d1"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d1__076_150.py",
+      "name": "f43_hdcl_148_composite_f43_hdcl_blowoff_score_d1"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d1__076_150.py",
+      "name": "f43_hdcl_150_composite_f43_hdcl_topping_score_d1"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d1__151_225.py",
+      "name": "f43_hdcl_151_backlog_rpo_depletion_rate_d1"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d1__151_225.py",
+      "name": "f43_hdcl_152_acquisition_growth_deceleration_proxy_d1"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d2__001_075.py",
+      "name": "f43_hdcl_003_revenue_5y_cagr_log_d2"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d2__076_150.py",
+      "name": "f43_hdcl_148_composite_f43_hdcl_blowoff_score_d2"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d2__076_150.py",
+      "name": "f43_hdcl_150_composite_f43_hdcl_topping_score_d2"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d2__151_225.py",
+      "name": "f43_hdcl_151_backlog_rpo_depletion_rate_d2"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d2__151_225.py",
+      "name": "f43_hdcl_152_acquisition_growth_deceleration_proxy_d2"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d3__001_075.py",
+      "name": "f43_hdcl_003_revenue_5y_cagr_log_d3"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d3__076_150.py",
+      "name": "f43_hdcl_148_composite_f43_hdcl_blowoff_score_d3"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d3__076_150.py",
+      "name": "f43_hdcl_150_composite_f43_hdcl_topping_score_d3"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d3__151_225.py",
+      "name": "f43_hdcl_151_backlog_rpo_depletion_rate_d3"
+    },
+    {
+      "file": "43_hypergrowth_deceleration_cliff\\43_hypergrowth_deceleration_cliff__d3__151_225.py",
+      "name": "f43_hdcl_152_acquisition_growth_deceleration_proxy_d3"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__base__001_075.py",
+      "name": "f44_mert_075_capital_turnover_change_5y"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__base__076_150.py",
+      "name": "f44_mert_078_sgna_to_revenue_change_5y"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__base__076_150.py",
+      "name": "f44_mert_113_ap_days_level"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__base__076_150.py",
+      "name": "f44_mert_114_ap_days_change_5y"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__base__076_150.py",
+      "name": "f44_mert_115_ap_days_zscore_5y"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__base__151_225.py",
+      "name": "f44_mert_151_switching_cost_proxy_deferred_rev_stickiness"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d1__001_075.py",
+      "name": "f44_mert_075_capital_turnover_change_5y_d1"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d1__076_150.py",
+      "name": "f44_mert_078_sgna_to_revenue_change_5y_d1"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d1__076_150.py",
+      "name": "f44_mert_113_ap_days_level_d1"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d1__076_150.py",
+      "name": "f44_mert_114_ap_days_change_5y_d1"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d1__076_150.py",
+      "name": "f44_mert_115_ap_days_zscore_5y_d1"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d1__151_225.py",
+      "name": "f44_mert_151_switching_cost_proxy_deferred_rev_stickiness_d1"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d2__001_075.py",
+      "name": "f44_mert_075_capital_turnover_change_5y_d2"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d2__076_150.py",
+      "name": "f44_mert_078_sgna_to_revenue_change_5y_d2"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d2__076_150.py",
+      "name": "f44_mert_113_ap_days_level_d2"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d2__076_150.py",
+      "name": "f44_mert_114_ap_days_change_5y_d2"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d2__076_150.py",
+      "name": "f44_mert_115_ap_days_zscore_5y_d2"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d2__151_225.py",
+      "name": "f44_mert_151_switching_cost_proxy_deferred_rev_stickiness_d2"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d3__001_075.py",
+      "name": "f44_mert_075_capital_turnover_change_5y_d3"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d3__076_150.py",
+      "name": "f44_mert_078_sgna_to_revenue_change_5y_d3"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d3__076_150.py",
+      "name": "f44_mert_113_ap_days_level_d3"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d3__076_150.py",
+      "name": "f44_mert_114_ap_days_change_5y_d3"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d3__076_150.py",
+      "name": "f44_mert_115_ap_days_zscore_5y_d3"
+    },
+    {
+      "file": "44_moat_erosion_trajectory\\44_moat_erosion_trajectory__d3__151_225.py",
+      "name": "f44_mert_151_switching_cost_proxy_deferred_rev_stickiness_d3"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__base__001_075.py",
+      "name": "f45_cdis_003_inventory_to_revenue_change_5y"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__base__001_075.py",
+      "name": "f45_cdis_073_revenue_per_unit_inventory_change_5y"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__base__001_075.py",
+      "name": "f45_cdis_075_revenue_per_dollar_of_sgna_change_5y"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__base__076_150.py",
+      "name": "f45_cdis_113_interest_coverage_proxy_level"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__base__076_150.py",
+      "name": "f45_cdis_114_interest_coverage_change_5y"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__base__076_150.py",
+      "name": "f45_cdis_115_interest_coverage_zscore_5y"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__base__076_150.py",
+      "name": "f45_cdis_148_composite_f45_cdis_revenue_pressure"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__base__076_150.py",
+      "name": "f45_cdis_150_composite_f45_cdis_aggregate_displacement_score"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d1__001_075.py",
+      "name": "f45_cdis_003_inventory_to_revenue_change_5y_d1"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d1__001_075.py",
+      "name": "f45_cdis_073_revenue_per_unit_inventory_change_5y_d1"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d1__001_075.py",
+      "name": "f45_cdis_075_revenue_per_dollar_of_sgna_change_5y_d1"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d1__076_150.py",
+      "name": "f45_cdis_113_interest_coverage_proxy_level_d1"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d1__076_150.py",
+      "name": "f45_cdis_114_interest_coverage_change_5y_d1"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d1__076_150.py",
+      "name": "f45_cdis_115_interest_coverage_zscore_5y_d1"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d1__076_150.py",
+      "name": "f45_cdis_148_composite_f45_cdis_revenue_pressure_d1"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d1__076_150.py",
+      "name": "f45_cdis_150_composite_f45_cdis_aggregate_displacement_score_d1"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d2__001_075.py",
+      "name": "f45_cdis_003_inventory_to_revenue_change_5y_d2"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d2__001_075.py",
+      "name": "f45_cdis_073_revenue_per_unit_inventory_change_5y_d2"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d2__001_075.py",
+      "name": "f45_cdis_075_revenue_per_dollar_of_sgna_change_5y_d2"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d2__076_150.py",
+      "name": "f45_cdis_113_interest_coverage_proxy_level_d2"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d2__076_150.py",
+      "name": "f45_cdis_114_interest_coverage_change_5y_d2"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d2__076_150.py",
+      "name": "f45_cdis_115_interest_coverage_zscore_5y_d2"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d2__076_150.py",
+      "name": "f45_cdis_148_composite_f45_cdis_revenue_pressure_d2"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d2__076_150.py",
+      "name": "f45_cdis_150_composite_f45_cdis_aggregate_displacement_score_d2"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d3__001_075.py",
+      "name": "f45_cdis_003_inventory_to_revenue_change_5y_d3"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d3__001_075.py",
+      "name": "f45_cdis_073_revenue_per_unit_inventory_change_5y_d3"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d3__001_075.py",
+      "name": "f45_cdis_075_revenue_per_dollar_of_sgna_change_5y_d3"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d3__076_150.py",
+      "name": "f45_cdis_113_interest_coverage_proxy_level_d3"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d3__076_150.py",
+      "name": "f45_cdis_114_interest_coverage_change_5y_d3"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d3__076_150.py",
+      "name": "f45_cdis_115_interest_coverage_zscore_5y_d3"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d3__076_150.py",
+      "name": "f45_cdis_148_composite_f45_cdis_revenue_pressure_d3"
+    },
+    {
+      "file": "45_competitive_displacement_signal\\45_competitive_displacement_signal__d3__076_150.py",
+      "name": "f45_cdis_150_composite_f45_cdis_aggregate_displacement_score_d3"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__base__001_075.py",
+      "name": "f46_amnp_039_tata_qoq_change"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__base__001_075.py",
+      "name": "f46_amnp_040_tata_zscore_8q"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__base__076_150.py",
+      "name": "f46_amnp_114_currentliab_to_currentassets_qoq_change"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__base__076_150.py",
+      "name": "f46_amnp_115_payables_to_cogs_ratio"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__base__151_225.py",
+      "name": "f46_amnp_152_dechow_dichev_proper_residual_quality_5y"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__base__151_225.py",
+      "name": "f46_amnp_153_big_bath_writedown_indicator"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__base__151_225.py",
+      "name": "f46_amnp_154_round_tripping_revenue_proxy"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__base__151_225.py",
+      "name": "f46_amnp_155_auditor_change_flag_proxy_4q"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d1__001_075.py",
+      "name": "f46_amnp_039_tata_qoq_change_d1"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d1__001_075.py",
+      "name": "f46_amnp_040_tata_zscore_8q_d1"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d1__076_150.py",
+      "name": "f46_amnp_114_currentliab_to_currentassets_qoq_change_d1"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d1__076_150.py",
+      "name": "f46_amnp_115_payables_to_cogs_ratio_d1"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d1__151_225.py",
+      "name": "f46_amnp_152_dechow_dichev_proper_residual_quality_5y_d1"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d1__151_225.py",
+      "name": "f46_amnp_153_big_bath_writedown_indicator_d1"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d1__151_225.py",
+      "name": "f46_amnp_154_round_tripping_revenue_proxy_d1"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d1__151_225.py",
+      "name": "f46_amnp_155_auditor_change_flag_proxy_4q_d1"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d2__001_075.py",
+      "name": "f46_amnp_039_tata_qoq_change_d2"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d2__001_075.py",
+      "name": "f46_amnp_040_tata_zscore_8q_d2"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d2__076_150.py",
+      "name": "f46_amnp_114_currentliab_to_currentassets_qoq_change_d2"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d2__076_150.py",
+      "name": "f46_amnp_115_payables_to_cogs_ratio_d2"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d2__151_225.py",
+      "name": "f46_amnp_152_dechow_dichev_proper_residual_quality_5y_d2"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d2__151_225.py",
+      "name": "f46_amnp_153_big_bath_writedown_indicator_d2"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d2__151_225.py",
+      "name": "f46_amnp_154_round_tripping_revenue_proxy_d2"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d2__151_225.py",
+      "name": "f46_amnp_155_auditor_change_flag_proxy_4q_d2"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d3__001_075.py",
+      "name": "f46_amnp_039_tata_qoq_change_d3"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d3__001_075.py",
+      "name": "f46_amnp_040_tata_zscore_8q_d3"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d3__076_150.py",
+      "name": "f46_amnp_114_currentliab_to_currentassets_qoq_change_d3"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d3__076_150.py",
+      "name": "f46_amnp_115_payables_to_cogs_ratio_d3"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d3__151_225.py",
+      "name": "f46_amnp_152_dechow_dichev_proper_residual_quality_5y_d3"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d3__151_225.py",
+      "name": "f46_amnp_153_big_bath_writedown_indicator_d3"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d3__151_225.py",
+      "name": "f46_amnp_154_round_tripping_revenue_proxy_d3"
+    },
+    {
+      "file": "46_accounting_manipulation\\46_accounting_manipulation__d3__151_225.py",
+      "name": "f46_amnp_155_auditor_change_flag_proxy_4q_d3"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__base__001_075.py",
+      "name": "f47_frem_001_event_count_q"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__base__001_075.py",
+      "name": "f47_frem_002_event_count_ttm"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__base__001_075.py",
+      "name": "f47_frem_003_event_count_yoy_pct"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__base__001_075.py",
+      "name": "f47_frem_039_event_sec_investigation_q"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__base__001_075.py",
+      "name": "f47_frem_073_event_count_x_revenue_yoy_negative"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__base__001_075.py",
+      "name": "f47_frem_074_event_count_x_ebitda_negative"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__base__001_075.py",
+      "name": "f47_frem_075_event_count_x_equity_decline"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__base__076_150.py",
+      "name": "f47_frem_078_event_count_when_debt_growing"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__base__076_150.py",
+      "name": "f47_frem_148_event_emergence_velocity"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__base__076_150.py",
+      "name": "f47_frem_149_event_emergence_acceleration"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d1__001_075.py",
+      "name": "f47_frem_001_event_count_q_d1"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d1__001_075.py",
+      "name": "f47_frem_002_event_count_ttm_d1"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d1__001_075.py",
+      "name": "f47_frem_003_event_count_yoy_pct_d1"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d1__001_075.py",
+      "name": "f47_frem_039_event_sec_investigation_q_d1"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d1__001_075.py",
+      "name": "f47_frem_073_event_count_x_revenue_yoy_negative_d1"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d1__001_075.py",
+      "name": "f47_frem_074_event_count_x_ebitda_negative_d1"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d1__001_075.py",
+      "name": "f47_frem_075_event_count_x_equity_decline_d1"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d1__076_150.py",
+      "name": "f47_frem_078_event_count_when_debt_growing_d1"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d1__076_150.py",
+      "name": "f47_frem_148_event_emergence_velocity_d1"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d1__076_150.py",
+      "name": "f47_frem_149_event_emergence_acceleration_d1"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d2__001_075.py",
+      "name": "f47_frem_001_event_count_q_d2"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d2__001_075.py",
+      "name": "f47_frem_002_event_count_ttm_d2"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d2__001_075.py",
+      "name": "f47_frem_003_event_count_yoy_pct_d2"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d2__001_075.py",
+      "name": "f47_frem_039_event_sec_investigation_q_d2"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d2__001_075.py",
+      "name": "f47_frem_073_event_count_x_revenue_yoy_negative_d2"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d2__001_075.py",
+      "name": "f47_frem_074_event_count_x_ebitda_negative_d2"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d2__001_075.py",
+      "name": "f47_frem_075_event_count_x_equity_decline_d2"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d2__076_150.py",
+      "name": "f47_frem_078_event_count_when_debt_growing_d2"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d2__076_150.py",
+      "name": "f47_frem_148_event_emergence_velocity_d2"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d2__076_150.py",
+      "name": "f47_frem_149_event_emergence_acceleration_d2"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d3__001_075.py",
+      "name": "f47_frem_001_event_count_q_d3"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d3__001_075.py",
+      "name": "f47_frem_002_event_count_ttm_d3"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d3__001_075.py",
+      "name": "f47_frem_003_event_count_yoy_pct_d3"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d3__001_075.py",
+      "name": "f47_frem_039_event_sec_investigation_q_d3"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d3__001_075.py",
+      "name": "f47_frem_073_event_count_x_revenue_yoy_negative_d3"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d3__001_075.py",
+      "name": "f47_frem_074_event_count_x_ebitda_negative_d3"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d3__001_075.py",
+      "name": "f47_frem_075_event_count_x_equity_decline_d3"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d3__076_150.py",
+      "name": "f47_frem_078_event_count_when_debt_growing_d3"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d3__076_150.py",
+      "name": "f47_frem_148_event_emergence_velocity_d3"
+    },
+    {
+      "file": "47_fraud_emergence_signal\\47_fraud_emergence_signal__d3__076_150.py",
+      "name": "f47_frem_149_event_emergence_acceleration_d3"
+    },
+    {
+      "file": "48_dilution_death_spiral\\48_dilution_death_spiral__base__151_225.py",
+      "name": "f48_ddsp_151_toxic_convertible_signature_q"
+    },
+    {
+      "file": "48_dilution_death_spiral\\48_dilution_death_spiral__d1__151_225.py",
+      "name": "f48_ddsp_151_toxic_convertible_signature_q_d1"
+    },
+    {
+      "file": "48_dilution_death_spiral\\48_dilution_death_spiral__d2__151_225.py",
+      "name": "f48_ddsp_151_toxic_convertible_signature_q_d2"
+    },
+    {
+      "file": "48_dilution_death_spiral\\48_dilution_death_spiral__d3__151_225.py",
+      "name": "f48_ddsp_151_toxic_convertible_signature_q_d3"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__base__001_075.py",
+      "name": "f49_ssaf_002_squeeze_event_21d_price_rip_x_dtc"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__base__001_075.py",
+      "name": "f49_ssaf_038_dtc_max63_now_minus_now_to_atr_proxy"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__base__001_075.py",
+      "name": "f49_ssaf_039_dtc_drop_x_log_si_drop_compound"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__base__001_075.py",
+      "name": "f49_ssaf_040_dtc_unwind_age_since_63d_peak"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__base__076_150.py",
+      "name": "f49_ssaf_113_dtc_back_to_baseline_distance"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d1__001_075.py",
+      "name": "f49_ssaf_002_squeeze_event_21d_price_rip_x_dtc_d1"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d1__001_075.py",
+      "name": "f49_ssaf_038_dtc_max63_now_minus_now_to_atr_proxy_d1"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d1__001_075.py",
+      "name": "f49_ssaf_039_dtc_drop_x_log_si_drop_compound_d1"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d1__001_075.py",
+      "name": "f49_ssaf_040_dtc_unwind_age_since_63d_peak_d1"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d1__076_150.py",
+      "name": "f49_ssaf_113_dtc_back_to_baseline_distance_d1"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d2__001_075.py",
+      "name": "f49_ssaf_002_squeeze_event_21d_price_rip_x_dtc_d2"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d2__001_075.py",
+      "name": "f49_ssaf_038_dtc_max63_now_minus_now_to_atr_proxy_d2"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d2__001_075.py",
+      "name": "f49_ssaf_039_dtc_drop_x_log_si_drop_compound_d2"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d2__001_075.py",
+      "name": "f49_ssaf_040_dtc_unwind_age_since_63d_peak_d2"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d2__076_150.py",
+      "name": "f49_ssaf_113_dtc_back_to_baseline_distance_d2"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d3__001_075.py",
+      "name": "f49_ssaf_002_squeeze_event_21d_price_rip_x_dtc_d3"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d3__001_075.py",
+      "name": "f49_ssaf_038_dtc_max63_now_minus_now_to_atr_proxy_d3"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d3__001_075.py",
+      "name": "f49_ssaf_039_dtc_drop_x_log_si_drop_compound_d3"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d3__001_075.py",
+      "name": "f49_ssaf_040_dtc_unwind_age_since_63d_peak_d3"
+    },
+    {
+      "file": "49_short_squeeze_aftermath\\49_short_squeeze_aftermath__d3__076_150.py",
+      "name": "f49_ssaf_113_dtc_back_to_baseline_distance_d3"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__base__001_075.py",
+      "name": "f50_tdcp_038_coverage_decline_speed_x_volume_spike"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__base__001_075.py",
+      "name": "f50_tdcp_039_intexp_growth_x_revenue_decline_x_close_decline"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__base__001_075.py",
+      "name": "f50_tdcp_075_altman_z_proxy_with_price_overlay"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__d1__001_075.py",
+      "name": "f50_tdcp_038_coverage_decline_speed_x_volume_spike_d1"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__d1__001_075.py",
+      "name": "f50_tdcp_039_intexp_growth_x_revenue_decline_x_close_decline_d1"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__d1__001_075.py",
+      "name": "f50_tdcp_075_altman_z_proxy_with_price_overlay_d1"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__d2__001_075.py",
+      "name": "f50_tdcp_038_coverage_decline_speed_x_volume_spike_d2"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__d2__001_075.py",
+      "name": "f50_tdcp_039_intexp_growth_x_revenue_decline_x_close_decline_d2"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__d2__001_075.py",
+      "name": "f50_tdcp_075_altman_z_proxy_with_price_overlay_d2"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__d3__001_075.py",
+      "name": "f50_tdcp_038_coverage_decline_speed_x_volume_spike_d3"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__d3__001_075.py",
+      "name": "f50_tdcp_039_intexp_growth_x_revenue_decline_x_close_decline_d3"
+    },
+    {
+      "file": "50_terminal_decline_composite\\50_terminal_decline_composite__d3__001_075.py",
+      "name": "f50_tdcp_075_altman_z_proxy_with_price_overlay_d3"
+    }
+  ]
+}

@@ -1,0 +1,1107 @@
+"""Family f065 - ROIC and invested capital returns (Returns and Efficiency) | Sharadar tables: SF1 | fields: roic, invcap, invcapavg | 2nd derivatives 001-150"""
+import inspect
+import numpy as np
+import pandas as pd
+
+TRADING_DAYS_YEAR = 252
+TRADING_DAYS_HALF = 126
+TRADING_DAYS_QUARTER = 63
+TRADING_DAYS_MONTH = 21
+TRADING_DAYS_WEEK = 5
+
+
+def _z(s, w):
+    m = s.rolling(w, min_periods=max(1, w // 2)).mean()
+    sd = s.rolling(w, min_periods=max(1, w // 2)).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+
+def _mean(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).mean()
+
+
+def _std(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).std()
+
+
+def _diff(s, n):
+    return s.diff(periods=n)
+
+
+def _slope_diff_norm(s, w):
+    return s.diff(periods=w) / s.abs().replace(0, np.nan)
+
+
+def _slope_pct(s, w):
+    return s.pct_change(periods=w)
+
+
+def _pct_change(s, n):
+    return s.pct_change(periods=n)
+
+
+def _safe_div(a, b):
+    return a / b.replace(0, np.nan)
+
+
+# ===== folder domain primitives =====
+def _return_on_invested_capital_scaled(field, scale):
+    return field / scale.replace(0, np.nan).abs()
+
+
+def _return_on_invested_capital_log(field):
+    return np.log(field.abs().replace(0, np.nan))
+
+
+def _return_on_invested_capital_per_share(field, sharesbas):
+    return field / sharesbas.replace(0, np.nan).abs()
+
+
+# 5d slope of 21d raw roic
+def roic_f065_return_on_invested_capital_raw_21d_slope_v001_signal(roic, closeadj):
+    base = _mean(roic, 21) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 21d raw roic
+def roic_f065_return_on_invested_capital_raw_21d_slope_v002_signal(roic, closeadj):
+    base = _mean(roic, 21) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 21d raw roic
+def roic_f065_return_on_invested_capital_raw_21d_slope_v003_signal(roic, closeadj):
+    base = _mean(roic, 21) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 63d raw roic
+def roic_f065_return_on_invested_capital_raw_63d_slope_v004_signal(roic, closeadj):
+    base = _mean(roic, 63) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 63d raw roic
+def roic_f065_return_on_invested_capital_raw_63d_slope_v005_signal(roic, closeadj):
+    base = _mean(roic, 63) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 63d raw roic
+def roic_f065_return_on_invested_capital_raw_63d_slope_v006_signal(roic, closeadj):
+    base = _mean(roic, 63) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 126d raw roic
+def roic_f065_return_on_invested_capital_raw_126d_slope_v007_signal(roic, closeadj):
+    base = _mean(roic, 126) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 126d raw roic
+def roic_f065_return_on_invested_capital_raw_126d_slope_v008_signal(roic, closeadj):
+    base = _mean(roic, 126) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 126d raw roic
+def roic_f065_return_on_invested_capital_raw_126d_slope_v009_signal(roic, closeadj):
+    base = _mean(roic, 126) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 252d raw roic
+def roic_f065_return_on_invested_capital_raw_252d_slope_v010_signal(roic, closeadj):
+    base = _mean(roic, 252) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 252d raw roic
+def roic_f065_return_on_invested_capital_raw_252d_slope_v011_signal(roic, closeadj):
+    base = _mean(roic, 252) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 252d raw roic
+def roic_f065_return_on_invested_capital_raw_252d_slope_v012_signal(roic, closeadj):
+    base = _mean(roic, 252) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 504d raw roic
+def roic_f065_return_on_invested_capital_raw_504d_slope_v013_signal(roic, closeadj):
+    base = _mean(roic, 504) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 504d raw roic
+def roic_f065_return_on_invested_capital_raw_504d_slope_v014_signal(roic, closeadj):
+    base = _mean(roic, 504) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 504d raw roic
+def roic_f065_return_on_invested_capital_raw_504d_slope_v015_signal(roic, closeadj):
+    base = _mean(roic, 504) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 21d log roic
+def roic_f065_return_on_invested_capital_log_21d_slope_v016_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 21) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 21d log roic
+def roic_f065_return_on_invested_capital_log_21d_slope_v017_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 21) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 21d log roic
+def roic_f065_return_on_invested_capital_log_21d_slope_v018_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 21) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 63d log roic
+def roic_f065_return_on_invested_capital_log_63d_slope_v019_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 63) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 63d log roic
+def roic_f065_return_on_invested_capital_log_63d_slope_v020_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 63) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 63d log roic
+def roic_f065_return_on_invested_capital_log_63d_slope_v021_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 63) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 126d log roic
+def roic_f065_return_on_invested_capital_log_126d_slope_v022_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 126) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 126d log roic
+def roic_f065_return_on_invested_capital_log_126d_slope_v023_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 126) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 126d log roic
+def roic_f065_return_on_invested_capital_log_126d_slope_v024_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 126) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 252d log roic
+def roic_f065_return_on_invested_capital_log_252d_slope_v025_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 252) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 252d log roic
+def roic_f065_return_on_invested_capital_log_252d_slope_v026_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 252) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 252d log roic
+def roic_f065_return_on_invested_capital_log_252d_slope_v027_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 252) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 504d log roic
+def roic_f065_return_on_invested_capital_log_504d_slope_v028_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 504) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 504d log roic
+def roic_f065_return_on_invested_capital_log_504d_slope_v029_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 504) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 504d log roic
+def roic_f065_return_on_invested_capital_log_504d_slope_v030_signal(roic, closeadj):
+    base = _mean(_return_on_invested_capital_log(roic), 504) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 21d pershare roic
+def roic_f065_return_on_invested_capital_pershare_21d_slope_v031_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 21) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 21d pershare roic
+def roic_f065_return_on_invested_capital_pershare_21d_slope_v032_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 21) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 21d pershare roic
+def roic_f065_return_on_invested_capital_pershare_21d_slope_v033_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 21) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 63d pershare roic
+def roic_f065_return_on_invested_capital_pershare_63d_slope_v034_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 63) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 63d pershare roic
+def roic_f065_return_on_invested_capital_pershare_63d_slope_v035_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 63) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 63d pershare roic
+def roic_f065_return_on_invested_capital_pershare_63d_slope_v036_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 63) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 126d pershare roic
+def roic_f065_return_on_invested_capital_pershare_126d_slope_v037_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 126) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 126d pershare roic
+def roic_f065_return_on_invested_capital_pershare_126d_slope_v038_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 126) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 126d pershare roic
+def roic_f065_return_on_invested_capital_pershare_126d_slope_v039_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 126) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 252d pershare roic
+def roic_f065_return_on_invested_capital_pershare_252d_slope_v040_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 252) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 252d pershare roic
+def roic_f065_return_on_invested_capital_pershare_252d_slope_v041_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 252) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 252d pershare roic
+def roic_f065_return_on_invested_capital_pershare_252d_slope_v042_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 252) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 504d pershare roic
+def roic_f065_return_on_invested_capital_pershare_504d_slope_v043_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 504) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 504d pershare roic
+def roic_f065_return_on_invested_capital_pershare_504d_slope_v044_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 504) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 504d pershare roic
+def roic_f065_return_on_invested_capital_pershare_504d_slope_v045_signal(roic, sharesbas, closeadj):
+    base = _mean(_return_on_invested_capital_per_share(roic, sharesbas), 504) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 21d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_21d_slope_v046_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 21)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 21d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_21d_slope_v047_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 21)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 21d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_21d_slope_v048_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 21)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 63d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_63d_slope_v049_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 63)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 63d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_63d_slope_v050_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 63)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 63d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_63d_slope_v051_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 63)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 126d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_126d_slope_v052_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 126)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 126d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_126d_slope_v053_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 126)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 126d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_126d_slope_v054_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 126)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 252d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_252d_slope_v055_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 252)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 252d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_252d_slope_v056_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 252)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 252d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_252d_slope_v057_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 252)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 504d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_504d_slope_v058_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 504)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 504d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_504d_slope_v059_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 504)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 504d per_invcap roic
+def roic_f065_return_on_invested_capital_per_invcap_504d_slope_v060_signal(roic, invcap):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcap), 504)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 21d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_21d_slope_v061_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 21)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 21d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_21d_slope_v062_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 21)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 21d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_21d_slope_v063_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 21)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 63d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_63d_slope_v064_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 63)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 63d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_63d_slope_v065_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 63)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 63d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_63d_slope_v066_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 63)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 126d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_126d_slope_v067_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 126)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 126d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_126d_slope_v068_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 126)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 126d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_126d_slope_v069_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 126)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 252d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_252d_slope_v070_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 252)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 252d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_252d_slope_v071_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 252)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 252d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_252d_slope_v072_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 252)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 504d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_504d_slope_v073_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 504)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 504d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_504d_slope_v074_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 504)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 504d per_invcapavg roic
+def roic_f065_return_on_invested_capital_per_invcapavg_504d_slope_v075_signal(roic, invcapavg):
+    base = _mean(_return_on_invested_capital_scaled(roic, invcapavg), 504)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 21d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_21d_slope_v076_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 21)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 21d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_21d_slope_v077_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 21)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 21d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_21d_slope_v078_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 21)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 63d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_63d_slope_v079_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 63)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 63d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_63d_slope_v080_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 63)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 63d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_63d_slope_v081_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 63)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 126d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_126d_slope_v082_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 126)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 126d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_126d_slope_v083_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 126)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 126d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_126d_slope_v084_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 126)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 252d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_252d_slope_v085_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 252)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 252d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_252d_slope_v086_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 252)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 252d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_252d_slope_v087_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 252)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 504d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_504d_slope_v088_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 504)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 504d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_504d_slope_v089_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 504)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 504d per_assets roic
+def roic_f065_return_on_invested_capital_per_assets_504d_slope_v090_signal(roic, assets):
+    base = _mean(_return_on_invested_capital_scaled(roic, assets), 504)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 21d std roic
+def roic_f065_return_on_invested_capital_std_21d_slope_v091_signal(roic, closeadj):
+    base = _std(roic, 21) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 21d std roic
+def roic_f065_return_on_invested_capital_std_21d_slope_v092_signal(roic, closeadj):
+    base = _std(roic, 21) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 21d std roic
+def roic_f065_return_on_invested_capital_std_21d_slope_v093_signal(roic, closeadj):
+    base = _std(roic, 21) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 63d std roic
+def roic_f065_return_on_invested_capital_std_63d_slope_v094_signal(roic, closeadj):
+    base = _std(roic, 63) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 63d std roic
+def roic_f065_return_on_invested_capital_std_63d_slope_v095_signal(roic, closeadj):
+    base = _std(roic, 63) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 63d std roic
+def roic_f065_return_on_invested_capital_std_63d_slope_v096_signal(roic, closeadj):
+    base = _std(roic, 63) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 126d std roic
+def roic_f065_return_on_invested_capital_std_126d_slope_v097_signal(roic, closeadj):
+    base = _std(roic, 126) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 126d std roic
+def roic_f065_return_on_invested_capital_std_126d_slope_v098_signal(roic, closeadj):
+    base = _std(roic, 126) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 126d std roic
+def roic_f065_return_on_invested_capital_std_126d_slope_v099_signal(roic, closeadj):
+    base = _std(roic, 126) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 252d std roic
+def roic_f065_return_on_invested_capital_std_252d_slope_v100_signal(roic, closeadj):
+    base = _std(roic, 252) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 252d std roic
+def roic_f065_return_on_invested_capital_std_252d_slope_v101_signal(roic, closeadj):
+    base = _std(roic, 252) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 252d std roic
+def roic_f065_return_on_invested_capital_std_252d_slope_v102_signal(roic, closeadj):
+    base = _std(roic, 252) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 504d std roic
+def roic_f065_return_on_invested_capital_std_504d_slope_v103_signal(roic, closeadj):
+    base = _std(roic, 504) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 504d std roic
+def roic_f065_return_on_invested_capital_std_504d_slope_v104_signal(roic, closeadj):
+    base = _std(roic, 504) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 504d std roic
+def roic_f065_return_on_invested_capital_std_504d_slope_v105_signal(roic, closeadj):
+    base = _std(roic, 504) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 21d ewm roic
+def roic_f065_return_on_invested_capital_ewm_21d_slope_v106_signal(roic, closeadj):
+    base = roic.ewm(span=21, min_periods=max(1, 21//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 21d ewm roic
+def roic_f065_return_on_invested_capital_ewm_21d_slope_v107_signal(roic, closeadj):
+    base = roic.ewm(span=21, min_periods=max(1, 21//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 21d ewm roic
+def roic_f065_return_on_invested_capital_ewm_21d_slope_v108_signal(roic, closeadj):
+    base = roic.ewm(span=21, min_periods=max(1, 21//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 63d ewm roic
+def roic_f065_return_on_invested_capital_ewm_63d_slope_v109_signal(roic, closeadj):
+    base = roic.ewm(span=63, min_periods=max(1, 63//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 63d ewm roic
+def roic_f065_return_on_invested_capital_ewm_63d_slope_v110_signal(roic, closeadj):
+    base = roic.ewm(span=63, min_periods=max(1, 63//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 63d ewm roic
+def roic_f065_return_on_invested_capital_ewm_63d_slope_v111_signal(roic, closeadj):
+    base = roic.ewm(span=63, min_periods=max(1, 63//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 126d ewm roic
+def roic_f065_return_on_invested_capital_ewm_126d_slope_v112_signal(roic, closeadj):
+    base = roic.ewm(span=126, min_periods=max(1, 126//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 126d ewm roic
+def roic_f065_return_on_invested_capital_ewm_126d_slope_v113_signal(roic, closeadj):
+    base = roic.ewm(span=126, min_periods=max(1, 126//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 126d ewm roic
+def roic_f065_return_on_invested_capital_ewm_126d_slope_v114_signal(roic, closeadj):
+    base = roic.ewm(span=126, min_periods=max(1, 126//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 252d ewm roic
+def roic_f065_return_on_invested_capital_ewm_252d_slope_v115_signal(roic, closeadj):
+    base = roic.ewm(span=252, min_periods=max(1, 252//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 252d ewm roic
+def roic_f065_return_on_invested_capital_ewm_252d_slope_v116_signal(roic, closeadj):
+    base = roic.ewm(span=252, min_periods=max(1, 252//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 252d ewm roic
+def roic_f065_return_on_invested_capital_ewm_252d_slope_v117_signal(roic, closeadj):
+    base = roic.ewm(span=252, min_periods=max(1, 252//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 504d ewm roic
+def roic_f065_return_on_invested_capital_ewm_504d_slope_v118_signal(roic, closeadj):
+    base = roic.ewm(span=504, min_periods=max(1, 504//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 504d ewm roic
+def roic_f065_return_on_invested_capital_ewm_504d_slope_v119_signal(roic, closeadj):
+    base = roic.ewm(span=504, min_periods=max(1, 504//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 504d ewm roic
+def roic_f065_return_on_invested_capital_ewm_504d_slope_v120_signal(roic, closeadj):
+    base = roic.ewm(span=504, min_periods=max(1, 504//2)).mean() * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 21d sq roic
+def roic_f065_return_on_invested_capital_sq_21d_slope_v121_signal(roic, closeadj):
+    base = _mean(roic * roic, 21) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 21d sq roic
+def roic_f065_return_on_invested_capital_sq_21d_slope_v122_signal(roic, closeadj):
+    base = _mean(roic * roic, 21) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 21d sq roic
+def roic_f065_return_on_invested_capital_sq_21d_slope_v123_signal(roic, closeadj):
+    base = _mean(roic * roic, 21) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 63d sq roic
+def roic_f065_return_on_invested_capital_sq_63d_slope_v124_signal(roic, closeadj):
+    base = _mean(roic * roic, 63) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 63d sq roic
+def roic_f065_return_on_invested_capital_sq_63d_slope_v125_signal(roic, closeadj):
+    base = _mean(roic * roic, 63) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 63d sq roic
+def roic_f065_return_on_invested_capital_sq_63d_slope_v126_signal(roic, closeadj):
+    base = _mean(roic * roic, 63) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 126d sq roic
+def roic_f065_return_on_invested_capital_sq_126d_slope_v127_signal(roic, closeadj):
+    base = _mean(roic * roic, 126) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 126d sq roic
+def roic_f065_return_on_invested_capital_sq_126d_slope_v128_signal(roic, closeadj):
+    base = _mean(roic * roic, 126) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 126d sq roic
+def roic_f065_return_on_invested_capital_sq_126d_slope_v129_signal(roic, closeadj):
+    base = _mean(roic * roic, 126) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 252d sq roic
+def roic_f065_return_on_invested_capital_sq_252d_slope_v130_signal(roic, closeadj):
+    base = _mean(roic * roic, 252) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 252d sq roic
+def roic_f065_return_on_invested_capital_sq_252d_slope_v131_signal(roic, closeadj):
+    base = _mean(roic * roic, 252) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 252d sq roic
+def roic_f065_return_on_invested_capital_sq_252d_slope_v132_signal(roic, closeadj):
+    base = _mean(roic * roic, 252) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 504d sq roic
+def roic_f065_return_on_invested_capital_sq_504d_slope_v133_signal(roic, closeadj):
+    base = _mean(roic * roic, 504) * closeadj
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 504d sq roic
+def roic_f065_return_on_invested_capital_sq_504d_slope_v134_signal(roic, closeadj):
+    base = _mean(roic * roic, 504) * closeadj
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 504d sq roic
+def roic_f065_return_on_invested_capital_sq_504d_slope_v135_signal(roic, closeadj):
+    base = _mean(roic * roic, 504) * closeadj
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 21d z roic
+def roic_f065_return_on_invested_capital_z_21d_slope_v136_signal(roic):
+    base = _z(roic, 21)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 21d z roic
+def roic_f065_return_on_invested_capital_z_21d_slope_v137_signal(roic):
+    base = _z(roic, 21)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 21d z roic
+def roic_f065_return_on_invested_capital_z_21d_slope_v138_signal(roic):
+    base = _z(roic, 21)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 63d z roic
+def roic_f065_return_on_invested_capital_z_63d_slope_v139_signal(roic):
+    base = _z(roic, 63)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 63d z roic
+def roic_f065_return_on_invested_capital_z_63d_slope_v140_signal(roic):
+    base = _z(roic, 63)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 63d z roic
+def roic_f065_return_on_invested_capital_z_63d_slope_v141_signal(roic):
+    base = _z(roic, 63)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 126d z roic
+def roic_f065_return_on_invested_capital_z_126d_slope_v142_signal(roic):
+    base = _z(roic, 126)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 126d z roic
+def roic_f065_return_on_invested_capital_z_126d_slope_v143_signal(roic):
+    base = _z(roic, 126)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 126d z roic
+def roic_f065_return_on_invested_capital_z_126d_slope_v144_signal(roic):
+    base = _z(roic, 126)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 252d z roic
+def roic_f065_return_on_invested_capital_z_252d_slope_v145_signal(roic):
+    base = _z(roic, 252)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 252d z roic
+def roic_f065_return_on_invested_capital_z_252d_slope_v146_signal(roic):
+    base = _z(roic, 252)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 252d z roic
+def roic_f065_return_on_invested_capital_z_252d_slope_v147_signal(roic):
+    base = _z(roic, 252)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d slope of 504d z roic
+def roic_f065_return_on_invested_capital_z_504d_slope_v148_signal(roic):
+    base = _z(roic, 504)
+    result = _slope_diff_norm(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d slope of 504d z roic
+def roic_f065_return_on_invested_capital_z_504d_slope_v149_signal(roic):
+    base = _z(roic, 504)
+    result = _slope_diff_norm(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d slope of 504d z roic
+def roic_f065_return_on_invested_capital_z_504d_slope_v150_signal(roic):
+    base = _z(roic, 504)
+    result = _slope_diff_norm(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)

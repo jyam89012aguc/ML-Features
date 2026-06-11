@@ -1,0 +1,945 @@
+import numpy as np
+import pandas as pd
+
+YDAYS = 252
+QDAYS = 63
+MDAYS = 21
+WDAYS = 5
+DDAYS_2Y = 504
+DDAYS_3Y = 756
+DDAYS_5Y = 1260
+
+
+def _safe_log(s, eps=1e-12):
+    return np.log(s.where(s > eps, np.nan))
+
+
+def _safe_div(num, den):
+    if isinstance(den, pd.Series):
+        d = den.replace(0, np.nan)
+    else:
+        d = np.where(den == 0, np.nan, den)
+    out = num / d
+    if isinstance(out, pd.Series):
+        return out.replace([np.inf, -np.inf], np.nan)
+    idx = num.index if hasattr(num, "index") else None
+    return pd.Series(out, index=idx).replace([np.inf, -np.inf], np.nan)
+
+
+def _rolling_zscore(s, window, min_periods=None):
+    if min_periods is None:
+        min_periods = max(window // 3, 2)
+    m = s.rolling(window, min_periods=min_periods).mean()
+    sd = s.rolling(window, min_periods=min_periods).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+
+def _consecutive_true_streak(b):
+    grp = (~b.fillna(False)).cumsum()
+    return b.fillna(False).astype(int).groupby(grp).cumsum()
+
+
+def _obv(close, volume):
+    sgn = np.sign(close.diff()).fillna(0.0)
+    return (sgn * volume).cumsum()
+
+
+def _safe_dow(idx, target):
+    if isinstance(idx, pd.DatetimeIndex):
+        return pd.Series((idx.dayofweek == target).astype(float), index=idx)
+    return pd.Series(np.nan, index=idx)
+
+
+def f22_obvd_301_obv_diff_on_doji_at_252d_high_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    rng = (high - low).replace(0, np.nan)
+    body = (close - close.shift(1)).abs() / rng
+    rmax = high.rolling(YDAYS, min_periods=QDAYS).max()
+    cond = (body < 0.1) & (high >= rmax)
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(cond, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_302_obv_diff_on_engulfing_bars_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    engulf = (high > high.shift(1)) & (low < low.shift(1)) & (close < close.shift(1))
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(engulf, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_303_obv_diff_on_hammer_bars_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    pos = _safe_div(close - low, high - low)
+    body = (close - close.shift(1)).abs()
+    lower_wick = pd.concat([close, close.shift(1)], axis=1).min(axis=1) - low
+    hammer = (pos >= 0.67) & (lower_wick > 2.0 * body)
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(hammer, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_304_obv_diff_on_shooting_star_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    pos = _safe_div(close - low, high - low)
+    body = (close - close.shift(1)).abs()
+    upper_wick = high - pd.concat([close, close.shift(1)], axis=1).max(axis=1)
+    star = (pos <= 0.33) & (upper_wick > 2.0 * body)
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(star, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_305_obv_diff_on_3_consec_up_days_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    up = close > close.shift(1)
+    three_up = up & up.shift(1) & up.shift(2)
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(three_up, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_306_obv_diff_on_3_consec_down_days_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    dn = close < close.shift(1)
+    three_dn = dn & dn.shift(1) & dn.shift(2)
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(three_dn, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_307_obv_diff_on_gap_up_bars_252d(open: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    gap_up = open > 1.005 * close.shift(1)
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(gap_up, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_308_obv_diff_on_gap_down_bars_252d(open: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    gap_dn = open < 0.995 * close.shift(1)
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(gap_dn, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_309_obv_diff_on_inside_days_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    inside = (high < high.shift(1)) & (low > low.shift(1))
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(inside, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_310_obv_diff_on_outside_days_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    outside = (high > high.shift(1)) & (low < low.shift(1))
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(outside, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_311_obv_diff_on_nr7_bars_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    rng = high - low
+    is_nr7 = rng == rng.rolling(7, min_periods=3).min()
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(is_nr7, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_312_obv_diff_on_wide_range_bars_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    pc = close.shift(1)
+    tr = pd.concat([high - low, (high - pc).abs(), (low - pc).abs()], axis=1).max(axis=1)
+    atr = tr.rolling(MDAYS, min_periods=WDAYS).mean()
+    wide = tr > 2.0 * atr
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(wide, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_313_obv_diff_on_at_252d_high_bars_252d(high: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    rmax = high.rolling(YDAYS, min_periods=QDAYS).max()
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(high >= rmax, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_314_obv_diff_on_at_252d_low_bars_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    rmin = low.rolling(YDAYS, min_periods=QDAYS).min()
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(low <= rmin, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_315_obv_diff_on_at_alltime_high_bars(close: pd.Series, volume: pd.Series) -> pd.Series:
+    rmax = close.expanding(min_periods=YDAYS).max()
+    z = _rolling_zscore(_obv(close, volume).diff(), YDAYS)
+    return z.where(close >= rmax, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_316_obv_diff_avg_monday_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    is_d = _safe_dow(close.index, 0)
+    return _obv(close, volume).diff().where(is_d == 1.0, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_317_obv_diff_avg_tuesday_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    is_d = _safe_dow(close.index, 1)
+    return _obv(close, volume).diff().where(is_d == 1.0, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_318_obv_diff_avg_wednesday_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    is_d = _safe_dow(close.index, 2)
+    return _obv(close, volume).diff().where(is_d == 1.0, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_319_obv_diff_avg_thursday_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    is_d = _safe_dow(close.index, 3)
+    return _obv(close, volume).diff().where(is_d == 1.0, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_320_obv_diff_avg_friday_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    is_d = _safe_dow(close.index, 4)
+    return _obv(close, volume).diff().where(is_d == 1.0, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_321_obv_diff_first_5_days_of_month_avg(close: pd.Series, volume: pd.Series) -> pd.Series:
+    if isinstance(close.index, pd.DatetimeIndex):
+        is_first = pd.Series(close.index.day <= 5, index=close.index).astype(float)
+    else:
+        is_first = pd.Series(np.nan, index=close.index)
+    return _obv(close, volume).diff().where(is_first == 1.0, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_322_obv_diff_last_5_days_of_month_avg(close: pd.Series, volume: pd.Series) -> pd.Series:
+    if isinstance(close.index, pd.DatetimeIndex):
+        is_last = pd.Series(close.index.day >= 25, index=close.index).astype(float)
+    else:
+        is_last = pd.Series(np.nan, index=close.index)
+    return _obv(close, volume).diff().where(is_last == 1.0, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_323_obv_diff_quarter_end_avg(close: pd.Series, volume: pd.Series) -> pd.Series:
+    if isinstance(close.index, pd.DatetimeIndex):
+        is_qe = pd.Series((close.index.month.isin([3, 6, 9, 12])) & (close.index.day >= 25), index=close.index).astype(float)
+    else:
+        is_qe = pd.Series(np.nan, index=close.index)
+    return _obv(close, volume).diff().where(is_qe == 1.0, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_324_obv_diff_year_end_avg(close: pd.Series, volume: pd.Series) -> pd.Series:
+    if isinstance(close.index, pd.DatetimeIndex):
+        is_ye = pd.Series((close.index.month == 12) & (close.index.day >= 24), index=close.index).astype(float)
+    else:
+        is_ye = pd.Series(np.nan, index=close.index)
+    return _obv(close, volume).diff().where(is_ye == 1.0, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_325_obv_diff_first_day_of_month_avg(close: pd.Series, volume: pd.Series) -> pd.Series:
+    if isinstance(close.index, pd.DatetimeIndex):
+        is_fd = pd.Series(close.index.day == 1, index=close.index).astype(float)
+    else:
+        is_fd = pd.Series(np.nan, index=close.index)
+    return _obv(close, volume).diff().where(is_fd == 1.0, np.nan).rolling(YDAYS, min_periods=QDAYS).mean()
+
+
+def f22_obvd_326_obv_slope_flipped_negative_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    slope = (obv - obv.shift(QDAYS)) / float(QDAYS)
+    return ((slope < 0) & (slope.shift(WDAYS) > 0)).astype(float)
+
+
+def f22_obvd_327_obv_slope_flipped_negative_count_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    slope = (obv - obv.shift(QDAYS)) / float(QDAYS)
+    return ((slope < 0) & (slope.shift(WDAYS) > 0)).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+
+
+def f22_obvd_328_obv_slope_flipped_positive_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    slope = (obv - obv.shift(QDAYS)) / float(QDAYS)
+    return ((slope > 0) & (slope.shift(WDAYS) < 0)).astype(float)
+
+
+def f22_obvd_329_obv_long_term_neg_short_pos_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    s252 = (obv - obv.shift(YDAYS)) / float(YDAYS)
+    s63 = (obv - obv.shift(QDAYS)) / float(QDAYS)
+    return ((s252 < 0) & (s63 > 0)).astype(float)
+
+
+def f22_obvd_330_obv_long_term_pos_short_neg_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    s252 = (obv - obv.shift(YDAYS)) / float(YDAYS)
+    s63 = (obv - obv.shift(QDAYS)) / float(QDAYS)
+    return ((s252 > 0) & (s63 < 0)).astype(float)
+
+
+def f22_obvd_331_obv_slope_max_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    slope = (obv - obv.shift(QDAYS)) / float(QDAYS)
+    return slope.rolling(YDAYS, min_periods=QDAYS).max()
+
+
+def f22_obvd_332_obv_slope_min_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    slope = (obv - obv.shift(QDAYS)) / float(QDAYS)
+    return slope.rolling(YDAYS, min_periods=QDAYS).min()
+
+
+def f22_obvd_333_obv_slope_range_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    slope = (obv - obv.shift(QDAYS)) / float(QDAYS)
+    return slope.rolling(YDAYS, min_periods=QDAYS).max() - slope.rolling(YDAYS, min_periods=QDAYS).min()
+
+
+def f22_obvd_334_obv_acceleration_recent_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    s21 = (obv - obv.shift(MDAYS)) / float(MDAYS)
+    return (s21 > s21.shift(MDAYS)).astype(float)
+
+
+def f22_obvd_335_obv_deceleration_recent_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    s21 = (obv - obv.shift(MDAYS)) / float(MDAYS)
+    return (s21 < s21.shift(MDAYS)).astype(float)
+
+
+def f22_obvd_336_obv_v_pattern_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmin21 = obv.rolling(MDAYS, min_periods=WDAYS).min().shift(11)  # min over the prior 21d ending 11 days ago
+    return (obv.shift(11) <= rmin21).astype(float)
+
+
+def f22_obvd_337_obv_inverted_v_pattern_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmax21 = obv.rolling(MDAYS, min_periods=WDAYS).max().shift(11)
+    return (obv.shift(11) >= rmax21).astype(float)
+
+
+def f22_obvd_338_obv_double_bottom_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmin = obv.rolling(QDAYS, min_periods=MDAYS).min()
+    near_min = (obv - rmin).abs() / (obv.abs() + 1.0) < 0.01
+    return (near_min & near_min.shift(MDAYS)).astype(float)
+
+
+def f22_obvd_339_obv_double_top_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmax = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    near_max = (rmax - obv).abs() / (obv.abs() + 1.0) < 0.01
+    return (near_max & near_max.shift(MDAYS)).astype(float)
+
+
+def f22_obvd_340_obv_trend_line_break_event_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    slope = (obv - obv.shift(QDAYS)) / float(QDAYS)
+    return (np.sign(slope) != np.sign(slope.shift(1))).astype(float)
+
+
+def f22_obvd_341_bullish_divergence_indicator(low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_ll = low.rolling(QDAYS, min_periods=MDAYS).min()
+    o_min = obv.rolling(QDAYS, min_periods=MDAYS).min()
+    return ((p_ll < p_ll.shift(QDAYS)) & (o_min > o_min.shift(QDAYS))).astype(float)
+
+
+def f22_obvd_342_bearish_divergence_indicator(high: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_hh = high.rolling(QDAYS, min_periods=MDAYS).max()
+    o_max = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    return ((p_hh > p_hh.shift(QDAYS)) & (o_max < o_max.shift(QDAYS))).astype(float)
+
+
+def f22_obvd_343_hidden_bullish_divergence_indicator(low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_hl = low.rolling(QDAYS, min_periods=MDAYS).min()
+    o_ll = obv.rolling(QDAYS, min_periods=MDAYS).min()
+    return ((p_hl > p_hl.shift(QDAYS)) & (o_ll < o_ll.shift(QDAYS))).astype(float)
+
+
+def f22_obvd_344_hidden_bearish_divergence_indicator(high: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_lh = high.rolling(QDAYS, min_periods=MDAYS).max()
+    o_hh = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    return ((p_lh < p_lh.shift(QDAYS)) & (o_hh > o_hh.shift(QDAYS))).astype(float)
+
+
+def f22_obvd_345_bearish_divergence_count_252d(high: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_hh = high.rolling(QDAYS, min_periods=MDAYS).max()
+    o_max = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    return ((p_hh > p_hh.shift(QDAYS)) & (o_max < o_max.shift(QDAYS))).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+
+
+def f22_obvd_346_bullish_divergence_count_252d(low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_ll = low.rolling(QDAYS, min_periods=MDAYS).min()
+    o_min = obv.rolling(QDAYS, min_periods=MDAYS).min()
+    return ((p_ll < p_ll.shift(QDAYS)) & (o_min > o_min.shift(QDAYS))).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+
+
+def f22_obvd_347_divergence_persistence_score_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_hh = high.rolling(QDAYS, min_periods=MDAYS).max()
+    o_max = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    p_ll = low.rolling(QDAYS, min_periods=MDAYS).min()
+    o_min = obv.rolling(QDAYS, min_periods=MDAYS).min()
+    bear = ((p_hh > p_hh.shift(QDAYS)) & (o_max < o_max.shift(QDAYS))).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+    bull = ((p_ll < p_ll.shift(QDAYS)) & (o_min > o_min.shift(QDAYS))).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+    return bull - bear
+
+
+def f22_obvd_348_triple_bearish_divergence_indicator(high: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_hh = high.rolling(QDAYS, min_periods=MDAYS).max()
+    o_max = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    bear = ((p_hh > p_hh.shift(QDAYS)) & (o_max < o_max.shift(QDAYS))).astype(float)
+    return (bear.rolling(MDAYS, min_periods=WDAYS).sum() >= 3).astype(float)
+
+
+def f22_obvd_349_failed_bullish_divergence_count_252d(low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_ll = low.rolling(QDAYS, min_periods=MDAYS).min()
+    o_min = obv.rolling(QDAYS, min_periods=MDAYS).min()
+    bull = (p_ll < p_ll.shift(QDAYS)) & (o_min > o_min.shift(QDAYS))
+    new_ll_after = (low.rolling(MDAYS, min_periods=WDAYS).min() < p_ll)
+    return (bull.shift(MDAYS) & new_ll_after).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+
+
+def f22_obvd_350_failed_bearish_divergence_count_252d(high: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_hh = high.rolling(QDAYS, min_periods=MDAYS).max()
+    o_max = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    bear = (p_hh > p_hh.shift(QDAYS)) & (o_max < o_max.shift(QDAYS))
+    new_hh_after = (high.rolling(MDAYS, min_periods=WDAYS).max() > p_hh)
+    return (bear.shift(MDAYS) & new_hh_after).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+
+
+def f22_obvd_351_divergence_at_252d_high_indicator(high: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_hh = high.rolling(QDAYS, min_periods=MDAYS).max()
+    o_max = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    bear = (p_hh > p_hh.shift(QDAYS)) & (o_max < o_max.shift(QDAYS))
+    rmax = high.rolling(YDAYS, min_periods=QDAYS).max()
+    return (bear & (high >= rmax)).astype(float)
+
+
+def f22_obvd_352_divergence_at_252d_low_indicator(low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_ll = low.rolling(QDAYS, min_periods=MDAYS).min()
+    o_min = obv.rolling(QDAYS, min_periods=MDAYS).min()
+    bull = (p_ll < p_ll.shift(QDAYS)) & (o_min > o_min.shift(QDAYS))
+    rmin = low.rolling(YDAYS, min_periods=QDAYS).min()
+    return (bull & (low <= rmin)).astype(float)
+
+
+def f22_obvd_353_divergence_with_above_med_vol_count_252d(high: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_hh = high.rolling(QDAYS, min_periods=MDAYS).max()
+    o_max = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    bear = (p_hh > p_hh.shift(QDAYS)) & (o_max < o_max.shift(QDAYS))
+    z = _rolling_zscore(_safe_log(volume), YDAYS)
+    return (bear & (z > 0)).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+
+
+def f22_obvd_354_divergence_followed_by_break_within_5d_count(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_hh = high.rolling(QDAYS, min_periods=MDAYS).max()
+    o_max = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    bear_5d_ago = ((p_hh > p_hh.shift(QDAYS)) & (o_max < o_max.shift(QDAYS))).shift(5)
+    rmin21 = low.rolling(MDAYS, min_periods=WDAYS).min().shift(1)
+    return (bear_5d_ago & (close < rmin21)).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+
+
+def f22_obvd_355_cumulative_divergence_strength_252d(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    p_hh = high.rolling(QDAYS, min_periods=MDAYS).max()
+    o_max = obv.rolling(QDAYS, min_periods=MDAYS).max()
+    bear = (p_hh > p_hh.shift(QDAYS)) & (o_max < o_max.shift(QDAYS))
+    pr_c = close.rolling(YDAYS, min_periods=QDAYS).rank(pct=True)
+    pr_o = obv.rolling(YDAYS, min_periods=QDAYS).rank(pct=True)
+    diff = (pr_c - pr_o).abs()
+    return diff.where(bear, 0.0).rolling(YDAYS, min_periods=QDAYS).sum()
+
+
+def f22_obvd_356_obv_at_or_above_21d_high_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    return (obv >= obv.rolling(MDAYS, min_periods=WDAYS).max()).astype(float)
+
+
+def f22_obvd_357_obv_at_or_above_63d_high_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    return (obv >= obv.rolling(QDAYS, min_periods=MDAYS).max()).astype(float)
+
+
+def f22_obvd_358_obv_at_or_above_252d_high_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    return (obv >= obv.rolling(YDAYS, min_periods=QDAYS).max()).astype(float)
+
+
+def f22_obvd_359_obv_at_or_below_21d_low_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    return (obv <= obv.rolling(MDAYS, min_periods=WDAYS).min()).astype(float)
+
+
+def f22_obvd_360_obv_at_or_below_63d_low_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    return (obv <= obv.rolling(QDAYS, min_periods=MDAYS).min()).astype(float)
+
+
+def f22_obvd_361_obv_at_or_below_252d_low_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    return (obv <= obv.rolling(YDAYS, min_periods=QDAYS).min()).astype(float)
+
+
+def f22_obvd_362_obv_breakout_above_21d_high_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmax21 = obv.rolling(MDAYS, min_periods=WDAYS).max()
+    return ((obv >= rmax21) & (obv.shift(1) < rmax21.shift(1))).astype(float)
+
+
+def f22_obvd_363_obv_breakdown_below_21d_low_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmin21 = obv.rolling(MDAYS, min_periods=WDAYS).min()
+    return ((obv <= rmin21) & (obv.shift(1) > rmin21.shift(1))).astype(float)
+
+
+def f22_obvd_364_obv_breakdown_below_63d_low_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmin63 = obv.rolling(QDAYS, min_periods=MDAYS).min()
+    return ((obv <= rmin63) & (obv.shift(1) > rmin63.shift(1))).astype(float)
+
+
+def f22_obvd_365_obv_at_50pct_of_252d_range_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmax = obv.rolling(YDAYS, min_periods=QDAYS).max()
+    rmin = obv.rolling(YDAYS, min_periods=QDAYS).min()
+    pos = _safe_div(obv - rmin, rmax - rmin)
+    return ((pos >= 0.48) & (pos <= 0.52)).astype(float)
+
+
+def f22_obvd_366_obv_at_top_third_of_252d_range_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmax = obv.rolling(YDAYS, min_periods=QDAYS).max()
+    rmin = obv.rolling(YDAYS, min_periods=QDAYS).min()
+    pos = _safe_div(obv - rmin, rmax - rmin)
+    return (pos >= 0.67).astype(float)
+
+
+def f22_obvd_367_obv_at_bottom_third_of_252d_range_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmax = obv.rolling(YDAYS, min_periods=QDAYS).max()
+    rmin = obv.rolling(YDAYS, min_periods=QDAYS).min()
+    pos = _safe_div(obv - rmin, rmax - rmin)
+    return (pos <= 0.33).astype(float)
+
+
+def f22_obvd_368_obv_failed_breakout_above_21d_high_count_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmax21 = obv.rolling(MDAYS, min_periods=WDAYS).max()
+    cross_up = (obv >= rmax21) & (obv.shift(1) < rmax21.shift(1))
+    cross_back = (obv < rmax21) & (obv.shift(1) >= rmax21.shift(1))
+    cup_recent = cross_up.shift(1).rolling(3, min_periods=1).max().fillna(False).astype(bool)
+    return (cup_recent & cross_back).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+
+
+def f22_obvd_369_obv_pulled_back_from_high_within_5d_count_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    rmax = obv.rolling(YDAYS, min_periods=QDAYS).max()
+    was_at = obv.shift(5) >= rmax.shift(5)
+    return (was_at & (obv < rmax)).astype(float).rolling(YDAYS, min_periods=QDAYS).sum()
+
+
+def f22_obvd_370_obv_close_above_all_emas_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    e21 = obv.ewm(span=MDAYS, min_periods=WDAYS, adjust=False).mean()
+    e63 = obv.ewm(span=QDAYS, min_periods=MDAYS, adjust=False).mean()
+    e252 = obv.ewm(span=YDAYS, min_periods=QDAYS, adjust=False).mean()
+    return ((obv > e21) & (e21 > e63) & (e63 > e252)).astype(float)
+
+
+def f22_obvd_371_obv_momentum_3d_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    d = obv.diff()
+    return ((d > 0) & (d.shift(1) > 0) & (d.shift(2) > 0)).astype(float)
+
+
+def f22_obvd_372_obv_momentum_5d_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    d = obv.diff()
+    return ((d > 0) & (d.shift(1) > 0) & (d.shift(2) > 0) & (d.shift(3) > 0) & (d.shift(4) > 0)).astype(float)
+
+
+def f22_obvd_373_obv_negative_momentum_3d_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    d = obv.diff()
+    return ((d < 0) & (d.shift(1) < 0) & (d.shift(2) < 0)).astype(float)
+
+
+def f22_obvd_374_obv_negative_momentum_5d_indicator(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    d = obv.diff()
+    return ((d < 0) & (d.shift(1) < 0) & (d.shift(2) < 0) & (d.shift(3) < 0) & (d.shift(4) < 0)).astype(float)
+
+
+def f22_obvd_375_obv_momentum_streak_max_252d(close: pd.Series, volume: pd.Series) -> pd.Series:
+    obv = _obv(close, volume)
+    pos_streak = _consecutive_true_streak(obv.diff() > 0).astype(float)
+    return pos_streak.rolling(YDAYS, min_periods=QDAYS).max()
+
+
+def f22_obvd_301_obv_diff_on_doji_at_252d_high_252d_d1(high, low, close, volume):
+    return f22_obvd_301_obv_diff_on_doji_at_252d_high_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_302_obv_diff_on_engulfing_bars_252d_d1(high, low, close, volume):
+    return f22_obvd_302_obv_diff_on_engulfing_bars_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_303_obv_diff_on_hammer_bars_252d_d1(high, low, close, volume):
+    return f22_obvd_303_obv_diff_on_hammer_bars_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_304_obv_diff_on_shooting_star_252d_d1(high, low, close, volume):
+    return f22_obvd_304_obv_diff_on_shooting_star_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_305_obv_diff_on_3_consec_up_days_252d_d1(close, volume):
+    return f22_obvd_305_obv_diff_on_3_consec_up_days_252d(close, volume).diff()
+
+
+def f22_obvd_306_obv_diff_on_3_consec_down_days_252d_d1(close, volume):
+    return f22_obvd_306_obv_diff_on_3_consec_down_days_252d(close, volume).diff()
+
+
+def f22_obvd_307_obv_diff_on_gap_up_bars_252d_d1(open, close, volume):
+    return f22_obvd_307_obv_diff_on_gap_up_bars_252d(open, close, volume).diff()
+
+
+def f22_obvd_308_obv_diff_on_gap_down_bars_252d_d1(open, close, volume):
+    return f22_obvd_308_obv_diff_on_gap_down_bars_252d(open, close, volume).diff()
+
+
+def f22_obvd_309_obv_diff_on_inside_days_252d_d1(high, low, close, volume):
+    return f22_obvd_309_obv_diff_on_inside_days_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_310_obv_diff_on_outside_days_252d_d1(high, low, close, volume):
+    return f22_obvd_310_obv_diff_on_outside_days_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_311_obv_diff_on_nr7_bars_252d_d1(high, low, close, volume):
+    return f22_obvd_311_obv_diff_on_nr7_bars_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_312_obv_diff_on_wide_range_bars_252d_d1(high, low, close, volume):
+    return f22_obvd_312_obv_diff_on_wide_range_bars_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_313_obv_diff_on_at_252d_high_bars_252d_d1(high, close, volume):
+    return f22_obvd_313_obv_diff_on_at_252d_high_bars_252d(high, close, volume).diff()
+
+
+def f22_obvd_314_obv_diff_on_at_252d_low_bars_252d_d1(high, low, close, volume):
+    return f22_obvd_314_obv_diff_on_at_252d_low_bars_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_315_obv_diff_on_at_alltime_high_bars_d1(close, volume):
+    return f22_obvd_315_obv_diff_on_at_alltime_high_bars(close, volume).diff()
+
+
+def f22_obvd_316_obv_diff_avg_monday_252d_d1(close, volume):
+    return f22_obvd_316_obv_diff_avg_monday_252d(close, volume).diff()
+
+
+def f22_obvd_317_obv_diff_avg_tuesday_252d_d1(close, volume):
+    return f22_obvd_317_obv_diff_avg_tuesday_252d(close, volume).diff()
+
+
+def f22_obvd_318_obv_diff_avg_wednesday_252d_d1(close, volume):
+    return f22_obvd_318_obv_diff_avg_wednesday_252d(close, volume).diff()
+
+
+def f22_obvd_319_obv_diff_avg_thursday_252d_d1(close, volume):
+    return f22_obvd_319_obv_diff_avg_thursday_252d(close, volume).diff()
+
+
+def f22_obvd_320_obv_diff_avg_friday_252d_d1(close, volume):
+    return f22_obvd_320_obv_diff_avg_friday_252d(close, volume).diff()
+
+
+def f22_obvd_321_obv_diff_first_5_days_of_month_avg_d1(close, volume):
+    return f22_obvd_321_obv_diff_first_5_days_of_month_avg(close, volume).diff()
+
+
+def f22_obvd_322_obv_diff_last_5_days_of_month_avg_d1(close, volume):
+    return f22_obvd_322_obv_diff_last_5_days_of_month_avg(close, volume).diff()
+
+
+def f22_obvd_323_obv_diff_quarter_end_avg_d1(close, volume):
+    return f22_obvd_323_obv_diff_quarter_end_avg(close, volume).diff()
+
+
+def f22_obvd_324_obv_diff_year_end_avg_d1(close, volume):
+    return f22_obvd_324_obv_diff_year_end_avg(close, volume).diff()
+
+
+def f22_obvd_325_obv_diff_first_day_of_month_avg_d1(close, volume):
+    return f22_obvd_325_obv_diff_first_day_of_month_avg(close, volume).diff()
+
+
+def f22_obvd_326_obv_slope_flipped_negative_indicator_d1(close, volume):
+    return f22_obvd_326_obv_slope_flipped_negative_indicator(close, volume).diff()
+
+
+def f22_obvd_327_obv_slope_flipped_negative_count_252d_d1(close, volume):
+    return f22_obvd_327_obv_slope_flipped_negative_count_252d(close, volume).diff()
+
+
+def f22_obvd_328_obv_slope_flipped_positive_indicator_d1(close, volume):
+    return f22_obvd_328_obv_slope_flipped_positive_indicator(close, volume).diff()
+
+
+def f22_obvd_329_obv_long_term_neg_short_pos_indicator_d1(close, volume):
+    return f22_obvd_329_obv_long_term_neg_short_pos_indicator(close, volume).diff()
+
+
+def f22_obvd_330_obv_long_term_pos_short_neg_indicator_d1(close, volume):
+    return f22_obvd_330_obv_long_term_pos_short_neg_indicator(close, volume).diff()
+
+
+def f22_obvd_331_obv_slope_max_252d_d1(close, volume):
+    return f22_obvd_331_obv_slope_max_252d(close, volume).diff()
+
+
+def f22_obvd_332_obv_slope_min_252d_d1(close, volume):
+    return f22_obvd_332_obv_slope_min_252d(close, volume).diff()
+
+
+def f22_obvd_333_obv_slope_range_252d_d1(close, volume):
+    return f22_obvd_333_obv_slope_range_252d(close, volume).diff()
+
+
+def f22_obvd_334_obv_acceleration_recent_indicator_d1(close, volume):
+    return f22_obvd_334_obv_acceleration_recent_indicator(close, volume).diff()
+
+
+def f22_obvd_335_obv_deceleration_recent_indicator_d1(close, volume):
+    return f22_obvd_335_obv_deceleration_recent_indicator(close, volume).diff()
+
+
+def f22_obvd_336_obv_v_pattern_indicator_d1(close, volume):
+    return f22_obvd_336_obv_v_pattern_indicator(close, volume).diff()
+
+
+def f22_obvd_337_obv_inverted_v_pattern_indicator_d1(close, volume):
+    return f22_obvd_337_obv_inverted_v_pattern_indicator(close, volume).diff()
+
+
+def f22_obvd_338_obv_double_bottom_indicator_d1(close, volume):
+    return f22_obvd_338_obv_double_bottom_indicator(close, volume).diff()
+
+
+def f22_obvd_339_obv_double_top_indicator_d1(close, volume):
+    return f22_obvd_339_obv_double_top_indicator(close, volume).diff()
+
+
+def f22_obvd_340_obv_trend_line_break_event_indicator_d1(close, volume):
+    return f22_obvd_340_obv_trend_line_break_event_indicator(close, volume).diff()
+
+
+def f22_obvd_341_bullish_divergence_indicator_d1(low, close, volume):
+    return f22_obvd_341_bullish_divergence_indicator(low, close, volume).diff()
+
+
+def f22_obvd_342_bearish_divergence_indicator_d1(high, close, volume):
+    return f22_obvd_342_bearish_divergence_indicator(high, close, volume).diff()
+
+
+def f22_obvd_343_hidden_bullish_divergence_indicator_d1(low, close, volume):
+    return f22_obvd_343_hidden_bullish_divergence_indicator(low, close, volume).diff()
+
+
+def f22_obvd_344_hidden_bearish_divergence_indicator_d1(high, close, volume):
+    return f22_obvd_344_hidden_bearish_divergence_indicator(high, close, volume).diff()
+
+
+def f22_obvd_345_bearish_divergence_count_252d_d1(high, close, volume):
+    return f22_obvd_345_bearish_divergence_count_252d(high, close, volume).diff()
+
+
+def f22_obvd_346_bullish_divergence_count_252d_d1(low, close, volume):
+    return f22_obvd_346_bullish_divergence_count_252d(low, close, volume).diff()
+
+
+def f22_obvd_347_divergence_persistence_score_252d_d1(high, low, close, volume):
+    return f22_obvd_347_divergence_persistence_score_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_348_triple_bearish_divergence_indicator_d1(high, close, volume):
+    return f22_obvd_348_triple_bearish_divergence_indicator(high, close, volume).diff()
+
+
+def f22_obvd_349_failed_bullish_divergence_count_252d_d1(low, close, volume):
+    return f22_obvd_349_failed_bullish_divergence_count_252d(low, close, volume).diff()
+
+
+def f22_obvd_350_failed_bearish_divergence_count_252d_d1(high, close, volume):
+    return f22_obvd_350_failed_bearish_divergence_count_252d(high, close, volume).diff()
+
+
+def f22_obvd_351_divergence_at_252d_high_indicator_d1(high, close, volume):
+    return f22_obvd_351_divergence_at_252d_high_indicator(high, close, volume).diff()
+
+
+def f22_obvd_352_divergence_at_252d_low_indicator_d1(low, close, volume):
+    return f22_obvd_352_divergence_at_252d_low_indicator(low, close, volume).diff()
+
+
+def f22_obvd_353_divergence_with_above_med_vol_count_252d_d1(high, close, volume):
+    return f22_obvd_353_divergence_with_above_med_vol_count_252d(high, close, volume).diff()
+
+
+def f22_obvd_354_divergence_followed_by_break_within_5d_count_d1(high, low, close, volume):
+    return f22_obvd_354_divergence_followed_by_break_within_5d_count(high, low, close, volume).diff()
+
+
+def f22_obvd_355_cumulative_divergence_strength_252d_d1(high, low, close, volume):
+    return f22_obvd_355_cumulative_divergence_strength_252d(high, low, close, volume).diff()
+
+
+def f22_obvd_356_obv_at_or_above_21d_high_indicator_d1(close, volume):
+    return f22_obvd_356_obv_at_or_above_21d_high_indicator(close, volume).diff()
+
+
+def f22_obvd_357_obv_at_or_above_63d_high_indicator_d1(close, volume):
+    return f22_obvd_357_obv_at_or_above_63d_high_indicator(close, volume).diff()
+
+
+def f22_obvd_358_obv_at_or_above_252d_high_indicator_d1(close, volume):
+    return f22_obvd_358_obv_at_or_above_252d_high_indicator(close, volume).diff()
+
+
+def f22_obvd_359_obv_at_or_below_21d_low_indicator_d1(close, volume):
+    return f22_obvd_359_obv_at_or_below_21d_low_indicator(close, volume).diff()
+
+
+def f22_obvd_360_obv_at_or_below_63d_low_indicator_d1(close, volume):
+    return f22_obvd_360_obv_at_or_below_63d_low_indicator(close, volume).diff()
+
+
+def f22_obvd_361_obv_at_or_below_252d_low_indicator_d1(close, volume):
+    return f22_obvd_361_obv_at_or_below_252d_low_indicator(close, volume).diff()
+
+
+def f22_obvd_362_obv_breakout_above_21d_high_indicator_d1(close, volume):
+    return f22_obvd_362_obv_breakout_above_21d_high_indicator(close, volume).diff()
+
+
+def f22_obvd_363_obv_breakdown_below_21d_low_indicator_d1(close, volume):
+    return f22_obvd_363_obv_breakdown_below_21d_low_indicator(close, volume).diff()
+
+
+def f22_obvd_364_obv_breakdown_below_63d_low_indicator_d1(close, volume):
+    return f22_obvd_364_obv_breakdown_below_63d_low_indicator(close, volume).diff()
+
+
+def f22_obvd_365_obv_at_50pct_of_252d_range_indicator_d1(close, volume):
+    return f22_obvd_365_obv_at_50pct_of_252d_range_indicator(close, volume).diff()
+
+
+def f22_obvd_366_obv_at_top_third_of_252d_range_indicator_d1(close, volume):
+    return f22_obvd_366_obv_at_top_third_of_252d_range_indicator(close, volume).diff()
+
+
+def f22_obvd_367_obv_at_bottom_third_of_252d_range_indicator_d1(close, volume):
+    return f22_obvd_367_obv_at_bottom_third_of_252d_range_indicator(close, volume).diff()
+
+
+def f22_obvd_368_obv_failed_breakout_above_21d_high_count_252d_d1(close, volume):
+    return f22_obvd_368_obv_failed_breakout_above_21d_high_count_252d(close, volume).diff()
+
+
+def f22_obvd_369_obv_pulled_back_from_high_within_5d_count_252d_d1(close, volume):
+    return f22_obvd_369_obv_pulled_back_from_high_within_5d_count_252d(close, volume).diff()
+
+
+def f22_obvd_370_obv_close_above_all_emas_indicator_d1(close, volume):
+    return f22_obvd_370_obv_close_above_all_emas_indicator(close, volume).diff()
+
+
+def f22_obvd_371_obv_momentum_3d_indicator_d1(close, volume):
+    return f22_obvd_371_obv_momentum_3d_indicator(close, volume).diff()
+
+
+def f22_obvd_372_obv_momentum_5d_indicator_d1(close, volume):
+    return f22_obvd_372_obv_momentum_5d_indicator(close, volume).diff()
+
+
+def f22_obvd_373_obv_negative_momentum_3d_indicator_d1(close, volume):
+    return f22_obvd_373_obv_negative_momentum_3d_indicator(close, volume).diff()
+
+
+def f22_obvd_374_obv_negative_momentum_5d_indicator_d1(close, volume):
+    return f22_obvd_374_obv_negative_momentum_5d_indicator(close, volume).diff()
+
+
+def f22_obvd_375_obv_momentum_streak_max_252d_d1(close, volume):
+    return f22_obvd_375_obv_momentum_streak_max_252d(close, volume).diff()
+
+
+ON_BALANCE_VOLUME_DYNAMICS_D1_REGISTRY_301_375 = {
+    "f22_obvd_301_obv_diff_on_doji_at_252d_high_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_301_obv_diff_on_doji_at_252d_high_252d_d1},
+    "f22_obvd_302_obv_diff_on_engulfing_bars_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_302_obv_diff_on_engulfing_bars_252d_d1},
+    "f22_obvd_303_obv_diff_on_hammer_bars_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_303_obv_diff_on_hammer_bars_252d_d1},
+    "f22_obvd_304_obv_diff_on_shooting_star_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_304_obv_diff_on_shooting_star_252d_d1},
+    "f22_obvd_305_obv_diff_on_3_consec_up_days_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_305_obv_diff_on_3_consec_up_days_252d_d1},
+    "f22_obvd_306_obv_diff_on_3_consec_down_days_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_306_obv_diff_on_3_consec_down_days_252d_d1},
+    "f22_obvd_307_obv_diff_on_gap_up_bars_252d_d1": {"inputs": ["open", "close", "volume"], "func": f22_obvd_307_obv_diff_on_gap_up_bars_252d_d1},
+    "f22_obvd_308_obv_diff_on_gap_down_bars_252d_d1": {"inputs": ["open", "close", "volume"], "func": f22_obvd_308_obv_diff_on_gap_down_bars_252d_d1},
+    "f22_obvd_309_obv_diff_on_inside_days_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_309_obv_diff_on_inside_days_252d_d1},
+    "f22_obvd_310_obv_diff_on_outside_days_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_310_obv_diff_on_outside_days_252d_d1},
+    "f22_obvd_311_obv_diff_on_nr7_bars_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_311_obv_diff_on_nr7_bars_252d_d1},
+    "f22_obvd_312_obv_diff_on_wide_range_bars_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_312_obv_diff_on_wide_range_bars_252d_d1},
+    "f22_obvd_313_obv_diff_on_at_252d_high_bars_252d_d1": {"inputs": ["high", "close", "volume"], "func": f22_obvd_313_obv_diff_on_at_252d_high_bars_252d_d1},
+    "f22_obvd_314_obv_diff_on_at_252d_low_bars_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_314_obv_diff_on_at_252d_low_bars_252d_d1},
+    "f22_obvd_315_obv_diff_on_at_alltime_high_bars_d1": {"inputs": ["close", "volume"], "func": f22_obvd_315_obv_diff_on_at_alltime_high_bars_d1},
+    "f22_obvd_316_obv_diff_avg_monday_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_316_obv_diff_avg_monday_252d_d1},
+    "f22_obvd_317_obv_diff_avg_tuesday_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_317_obv_diff_avg_tuesday_252d_d1},
+    "f22_obvd_318_obv_diff_avg_wednesday_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_318_obv_diff_avg_wednesday_252d_d1},
+    "f22_obvd_319_obv_diff_avg_thursday_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_319_obv_diff_avg_thursday_252d_d1},
+    "f22_obvd_320_obv_diff_avg_friday_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_320_obv_diff_avg_friday_252d_d1},
+    "f22_obvd_321_obv_diff_first_5_days_of_month_avg_d1": {"inputs": ["close", "volume"], "func": f22_obvd_321_obv_diff_first_5_days_of_month_avg_d1},
+    "f22_obvd_322_obv_diff_last_5_days_of_month_avg_d1": {"inputs": ["close", "volume"], "func": f22_obvd_322_obv_diff_last_5_days_of_month_avg_d1},
+    "f22_obvd_323_obv_diff_quarter_end_avg_d1": {"inputs": ["close", "volume"], "func": f22_obvd_323_obv_diff_quarter_end_avg_d1},
+    "f22_obvd_324_obv_diff_year_end_avg_d1": {"inputs": ["close", "volume"], "func": f22_obvd_324_obv_diff_year_end_avg_d1},
+    "f22_obvd_325_obv_diff_first_day_of_month_avg_d1": {"inputs": ["close", "volume"], "func": f22_obvd_325_obv_diff_first_day_of_month_avg_d1},
+    "f22_obvd_326_obv_slope_flipped_negative_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_326_obv_slope_flipped_negative_indicator_d1},
+    "f22_obvd_327_obv_slope_flipped_negative_count_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_327_obv_slope_flipped_negative_count_252d_d1},
+    "f22_obvd_328_obv_slope_flipped_positive_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_328_obv_slope_flipped_positive_indicator_d1},
+    "f22_obvd_329_obv_long_term_neg_short_pos_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_329_obv_long_term_neg_short_pos_indicator_d1},
+    "f22_obvd_330_obv_long_term_pos_short_neg_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_330_obv_long_term_pos_short_neg_indicator_d1},
+    "f22_obvd_331_obv_slope_max_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_331_obv_slope_max_252d_d1},
+    "f22_obvd_332_obv_slope_min_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_332_obv_slope_min_252d_d1},
+    "f22_obvd_333_obv_slope_range_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_333_obv_slope_range_252d_d1},
+    "f22_obvd_334_obv_acceleration_recent_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_334_obv_acceleration_recent_indicator_d1},
+    "f22_obvd_335_obv_deceleration_recent_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_335_obv_deceleration_recent_indicator_d1},
+    "f22_obvd_336_obv_v_pattern_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_336_obv_v_pattern_indicator_d1},
+    "f22_obvd_337_obv_inverted_v_pattern_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_337_obv_inverted_v_pattern_indicator_d1},
+    "f22_obvd_338_obv_double_bottom_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_338_obv_double_bottom_indicator_d1},
+    "f22_obvd_339_obv_double_top_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_339_obv_double_top_indicator_d1},
+    "f22_obvd_340_obv_trend_line_break_event_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_340_obv_trend_line_break_event_indicator_d1},
+    "f22_obvd_341_bullish_divergence_indicator_d1": {"inputs": ["low", "close", "volume"], "func": f22_obvd_341_bullish_divergence_indicator_d1},
+    "f22_obvd_342_bearish_divergence_indicator_d1": {"inputs": ["high", "close", "volume"], "func": f22_obvd_342_bearish_divergence_indicator_d1},
+    "f22_obvd_343_hidden_bullish_divergence_indicator_d1": {"inputs": ["low", "close", "volume"], "func": f22_obvd_343_hidden_bullish_divergence_indicator_d1},
+    "f22_obvd_344_hidden_bearish_divergence_indicator_d1": {"inputs": ["high", "close", "volume"], "func": f22_obvd_344_hidden_bearish_divergence_indicator_d1},
+    "f22_obvd_345_bearish_divergence_count_252d_d1": {"inputs": ["high", "close", "volume"], "func": f22_obvd_345_bearish_divergence_count_252d_d1},
+    "f22_obvd_346_bullish_divergence_count_252d_d1": {"inputs": ["low", "close", "volume"], "func": f22_obvd_346_bullish_divergence_count_252d_d1},
+    "f22_obvd_347_divergence_persistence_score_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_347_divergence_persistence_score_252d_d1},
+    "f22_obvd_348_triple_bearish_divergence_indicator_d1": {"inputs": ["high", "close", "volume"], "func": f22_obvd_348_triple_bearish_divergence_indicator_d1},
+    "f22_obvd_349_failed_bullish_divergence_count_252d_d1": {"inputs": ["low", "close", "volume"], "func": f22_obvd_349_failed_bullish_divergence_count_252d_d1},
+    "f22_obvd_350_failed_bearish_divergence_count_252d_d1": {"inputs": ["high", "close", "volume"], "func": f22_obvd_350_failed_bearish_divergence_count_252d_d1},
+    "f22_obvd_351_divergence_at_252d_high_indicator_d1": {"inputs": ["high", "close", "volume"], "func": f22_obvd_351_divergence_at_252d_high_indicator_d1},
+    "f22_obvd_352_divergence_at_252d_low_indicator_d1": {"inputs": ["low", "close", "volume"], "func": f22_obvd_352_divergence_at_252d_low_indicator_d1},
+    "f22_obvd_353_divergence_with_above_med_vol_count_252d_d1": {"inputs": ["high", "close", "volume"], "func": f22_obvd_353_divergence_with_above_med_vol_count_252d_d1},
+    "f22_obvd_354_divergence_followed_by_break_within_5d_count_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_354_divergence_followed_by_break_within_5d_count_d1},
+    "f22_obvd_355_cumulative_divergence_strength_252d_d1": {"inputs": ["high", "low", "close", "volume"], "func": f22_obvd_355_cumulative_divergence_strength_252d_d1},
+    "f22_obvd_356_obv_at_or_above_21d_high_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_356_obv_at_or_above_21d_high_indicator_d1},
+    "f22_obvd_357_obv_at_or_above_63d_high_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_357_obv_at_or_above_63d_high_indicator_d1},
+    "f22_obvd_358_obv_at_or_above_252d_high_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_358_obv_at_or_above_252d_high_indicator_d1},
+    "f22_obvd_359_obv_at_or_below_21d_low_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_359_obv_at_or_below_21d_low_indicator_d1},
+    "f22_obvd_360_obv_at_or_below_63d_low_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_360_obv_at_or_below_63d_low_indicator_d1},
+    "f22_obvd_361_obv_at_or_below_252d_low_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_361_obv_at_or_below_252d_low_indicator_d1},
+    "f22_obvd_362_obv_breakout_above_21d_high_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_362_obv_breakout_above_21d_high_indicator_d1},
+    "f22_obvd_363_obv_breakdown_below_21d_low_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_363_obv_breakdown_below_21d_low_indicator_d1},
+    "f22_obvd_364_obv_breakdown_below_63d_low_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_364_obv_breakdown_below_63d_low_indicator_d1},
+    "f22_obvd_365_obv_at_50pct_of_252d_range_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_365_obv_at_50pct_of_252d_range_indicator_d1},
+    "f22_obvd_366_obv_at_top_third_of_252d_range_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_366_obv_at_top_third_of_252d_range_indicator_d1},
+    "f22_obvd_367_obv_at_bottom_third_of_252d_range_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_367_obv_at_bottom_third_of_252d_range_indicator_d1},
+    "f22_obvd_368_obv_failed_breakout_above_21d_high_count_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_368_obv_failed_breakout_above_21d_high_count_252d_d1},
+    "f22_obvd_369_obv_pulled_back_from_high_within_5d_count_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_369_obv_pulled_back_from_high_within_5d_count_252d_d1},
+    "f22_obvd_370_obv_close_above_all_emas_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_370_obv_close_above_all_emas_indicator_d1},
+    "f22_obvd_371_obv_momentum_3d_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_371_obv_momentum_3d_indicator_d1},
+    "f22_obvd_372_obv_momentum_5d_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_372_obv_momentum_5d_indicator_d1},
+    "f22_obvd_373_obv_negative_momentum_3d_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_373_obv_negative_momentum_3d_indicator_d1},
+    "f22_obvd_374_obv_negative_momentum_5d_indicator_d1": {"inputs": ["close", "volume"], "func": f22_obvd_374_obv_negative_momentum_5d_indicator_d1},
+    "f22_obvd_375_obv_momentum_streak_max_252d_d1": {"inputs": ["close", "volume"], "func": f22_obvd_375_obv_momentum_streak_max_252d_d1},
+}

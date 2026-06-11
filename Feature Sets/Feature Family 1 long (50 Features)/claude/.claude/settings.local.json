@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Get-Item *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\jyama\\\\Desktop\\\\active_non audited features per AI\\\\claude\\\\50 Feature Family\\\\f03_crash_depth_duration\" -File | ForEach-Object { \"{0,-65} {1,8} bytes\" -f $_.Name, $_.Length })",
+      "PowerShell(Join-Path *)",
+      "PowerShell(Join-Path *2)"
+    ]
+  }
+}

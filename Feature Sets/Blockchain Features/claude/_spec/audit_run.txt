@@ -1,0 +1,72 @@
+f01_crypto_beta_momentum           contam(med|>.9)=0.28|0%  redund=0.35 dup95=1%  nan=8%  |ic|med=0.036 strong(|IR|>2)=12% best|ic|=0.230
+f02_halving_cycle_phase            contam(med|>.9)=0.58|0%  redund=0.32 dup95=1%  nan=28%  |ic|med=0.044 strong(|IR|>2)=15% best|ic|=0.251
+f03_parabolic_blowoff_top          contam(med|>.9)=0.17|0%  redund=0.40 dup95=1%  nan=3%  |ic|med=0.034 strong(|IR|>2)=2% best|ic|=0.146
+f04_crypto_winter_drawdown         contam(med|>.9)=0.35|0%  redund=0.28 dup95=1%  nan=9%  |ic|med=0.038 strong(|IR|>2)=9% best|ic|=0.295
+f05_reflexive_volatility_regime    contam(med|>.9)=0.19|0%  redund=0.31 dup95=0%  nan=5%  |ic|med=0.027 strong(|IR|>2)=17% best|ic|=0.216
+f06_volatility_squeeze_breakout    contam(med|>.9)=0.17|0%  redund=0.25 dup95=1%  nan=5%  |ic|med=0.033 strong(|IR|>2)=14% best|ic|=0.200
+f07_overnight_gap_dynamics         contam(med|>.9)=0.23|0%  redund=0.19 dup95=0%  nan=3%  |ic|med=0.054 strong(|IR|>2)=28% best|ic|=0.214
+f08_capitulation_volume_spike      contam(med|>.9)=0.13|0%  redund=0.30 dup95=0%  nan=4%  |ic|med=0.043 strong(|IR|>2)=23% best|ic|=0.278
+f09_range_expansion_atr            contam(med|>.9)=0.28|0%  redund=0.25 dup95=1%  nan=3%  |ic|med=0.044 strong(|IR|>2)=21% best|ic|=0.259
+f10_relative_strength_leadership   contam(med|>.9)=0.34|0%  redund=0.51 dup95=1%  nan=9%  |ic|med=0.030 strong(|IR|>2)=3% best|ic|=0.127
+f11_trend_persistence              contam(med|>.9)=0.27|0%  redund=0.25 dup95=1%  nan=5%  |ic|med=0.022 strong(|IR|>2)=7% best|ic|=0.166
+f12_oversold_reversion_oscillator  contam(med|>.9)=0.20|0%  redund=0.55 dup95=2%  nan=2%  |ic|med=0.040 strong(|IR|>2)=8% best|ic|=0.120
+f13_liquidity_dollar_volume        contam(med|>.9)=0.27|0%  redund=0.26 dup95=1%  nan=6%  |ic|med=0.083 strong(|IR|>2)=51% best|ic|=0.290
+f14_short_squeeze_thrust           contam(med|>.9)=0.13|0%  redund=0.35 dup95=0%  nan=2%  |ic|med=0.024 strong(|IR|>2)=1% best|ic|=0.095
+f15_accumulation_distribution_flow contam(med|>.9)=0.22|0%  redund=0.27 dup95=0%  nan=9%  |ic|med=0.050 strong(|IR|>2)=23% best|ic|=0.250
+f16_bitcoin_treasury_premium       contam(med|>.9)=0.31|0%  redund=0.26 dup95=0%  nan=13%  |ic|med=0.042 strong(|IR|>2)=19% best|ic|=0.194
+f17_share_dilution_machine         contam(med|>.9)=0.27|0%  redund=0.20 dup95=0%  nan=18%  |ic|med=0.038 strong(|IR|>2)=14% best|ic|=0.196
+f18_cash_burn_runway               contam(med|>.9)=0.29|0%  redund=0.14 dup95=0%  nan=14%  |ic|med=0.057 strong(|IR|>2)=31% best|ic|=0.189
+f19_mining_capex_intensity         contam(med|>.9)=0.32|0%  redund=0.22 dup95=0%  nan=22%  |ic|med=0.079 strong(|IR|>2)=50% best|ic|=0.314
+f20_operating_leverage_to_crypto   contam(med|>.9)=0.21|0%  redund=0.16 dup95=0%  nan=19%  |ic|med=0.052 strong(|IR|>2)=31% best|ic|=0.189
+f21_gross_margin_volatility        contam(med|>.9)=0.26|0%  redund=0.22 dup95=1%  nan=19%  |ic|med=0.119 strong(|IR|>2)=63% best|ic|=0.269
+f22_balance_sheet_leverage         contam(med|>.9)=0.28|0%  redund=0.20 dup95=0%  nan=9%  |ic|med=0.043 strong(|IR|>2)=24% best|ic|=0.245
+f23_revenue_hypergrowth            contam(med|>.9)=0.24|0%  redund=0.22 dup95=0%  nan=25%  |ic|med=0.054 strong(|IR|>2)=25% best|ic|=0.240
+f24_cash_earnings_divergence       contam(med|>.9)=0.28|0%  redund=0.17 dup95=0%  nan=18%  |ic|med=0.067 strong(|IR|>2)=37% best|ic|=0.221
+f25_dilution_adjusted_growth       contam(med|>.9)=0.26|0%  redund=0.16 dup95=0%  nan=26%  |ic|med=0.046 strong(|IR|>2)=21% best|ic|=0.261
+f26_ev_valuation_regime            contam(med|>.9)=0.22|0%  redund=0.16 dup95=0%  nan=22%  |ic|med=0.067 strong(|IR|>2)=39% best|ic|=0.253
+f27_speculative_multiple_decay     contam(med|>.9)=0.25|0%  redund=0.22 dup95=0%  nan=17%  |ic|med=0.043 strong(|IR|>2)=16% best|ic|=0.182
+f28_institutional_accumulation     contam(med|>.9)=0.26|0%  redund=0.28 dup95=0%  nan=15%  |ic|med=0.036 strong(|IR|>2)=17% best|ic|=0.325
+f29_ownership_concentration        contam(med|>.9)=0.32|0%  redund=0.19 dup95=1%  nan=17%  |ic|med=0.085 strong(|IR|>2)=47% best|ic|=0.317
+f30_smart_money_positioning        contam(med|>.9)=0.25|0%  redund=0.22 dup95=0%  nan=13%  |ic|med=0.040 strong(|IR|>2)=21% best|ic|=0.279
+=== SUMMARY ===
+                            family   n  contam_med  contam_hi  redund  dup95  nan_med  ic_absmed  ic_strong  best_ic
+          f01_crypto_beta_momentum 150       0.282      0.000   0.354  0.005    0.084      0.036      0.120    0.230
+           f02_halving_cycle_phase 150       0.578      0.000   0.316  0.007    0.282      0.044      0.153    0.251
+         f03_parabolic_blowoff_top 150       0.168      0.000   0.396  0.007    0.031      0.034      0.020    0.146
+        f04_crypto_winter_drawdown 150       0.351      0.000   0.276  0.005    0.092      0.038      0.093    0.295
+   f05_reflexive_volatility_regime 150       0.188      0.000   0.311  0.004    0.046      0.027      0.167    0.216
+   f06_volatility_squeeze_breakout 150       0.170      0.000   0.253  0.006    0.045      0.033      0.140    0.200
+        f07_overnight_gap_dynamics 150       0.226      0.000   0.195  0.004    0.031      0.054      0.280    0.214
+     f08_capitulation_volume_spike 150       0.134      0.000   0.301  0.005    0.041      0.043      0.233    0.278
+           f09_range_expansion_atr 150       0.279      0.000   0.252  0.006    0.030      0.044      0.213    0.259
+  f10_relative_strength_leadership 150       0.338      0.000   0.509  0.011    0.092      0.030      0.027    0.127
+             f11_trend_persistence 150       0.271      0.000   0.248  0.006    0.047      0.022      0.073    0.166
+ f12_oversold_reversion_oscillator 150       0.199      0.000   0.545  0.016    0.020      0.040      0.080    0.120
+       f13_liquidity_dollar_volume 150       0.273      0.000   0.265  0.007    0.063      0.083      0.507    0.290
+          f14_short_squeeze_thrust 150       0.130      0.000   0.354  0.003    0.024      0.024      0.013    0.095
+f15_accumulation_distribution_flow 150       0.220      0.000   0.266  0.003    0.088      0.050      0.227    0.250
+      f16_bitcoin_treasury_premium 150       0.310      0.000   0.264  0.004    0.125      0.042      0.193    0.194
+        f17_share_dilution_machine 150       0.266      0.000   0.196  0.002    0.178      0.038      0.140    0.196
+              f18_cash_burn_runway 150       0.290      0.000   0.137  0.003    0.145      0.057      0.313    0.189
+        f19_mining_capex_intensity 150       0.318      0.000   0.222  0.003    0.225      0.079      0.500    0.314
+  f20_operating_leverage_to_crypto 150       0.209      0.000   0.163  0.004    0.194      0.052      0.307    0.189
+       f21_gross_margin_volatility 150       0.257      0.000   0.221  0.006    0.194      0.119      0.627    0.269
+        f22_balance_sheet_leverage 150       0.278      0.000   0.205  0.002    0.092      0.043      0.240    0.245
+           f23_revenue_hypergrowth 150       0.243      0.000   0.218  0.002    0.249      0.054      0.250    0.240
+      f24_cash_earnings_divergence 150       0.277      0.000   0.169  0.003    0.177      0.067      0.367    0.221
+      f25_dilution_adjusted_growth 150       0.262      0.000   0.163  0.001    0.258      0.046      0.213    0.261
+           f26_ev_valuation_regime 150       0.217      0.000   0.161  0.002    0.220      0.067      0.387    0.253
+    f27_speculative_multiple_decay 150       0.253      0.000   0.221  0.001    0.172      0.043      0.160    0.182
+    f28_institutional_accumulation 150       0.264      0.000   0.280  0.002    0.147      0.036      0.173    0.325
+       f29_ownership_concentration 150       0.322      0.000   0.188  0.009    0.167      0.085      0.470    0.317
+       f30_smart_money_positioning 150       0.253      0.000   0.221  0.003    0.132      0.040      0.207    0.279
+
+==== OVERALL (30 families) ====
+families audited: 30
+median price-contamination: 0.26
+families >50% feats contaminated(>.9): 0/30
+median within-family redundancy |corr|: 0.25
+median %% near-dup pairs (>.95): 0%
+median NaN fraction: 11%
+median share strong-IC feats (|IR|>2) vs fwd252: 21%
+families with >=15%% strong-IC feats: 21/30

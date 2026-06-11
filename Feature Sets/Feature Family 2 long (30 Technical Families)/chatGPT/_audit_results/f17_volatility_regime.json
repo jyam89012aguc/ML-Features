@@ -1,0 +1,488 @@
+{
+  "family": "f17_volatility_regime",
+  "n_funcs": 450,
+  "errors": [],
+  "all_nan": [],
+  "constants": [],
+  "vhash_dups": [
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_5d_base_v002_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_5d_base_v014_signal"
+      ],
+      "tiers": [
+        "base"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_level_5d_slope_v001_signal",
+        "f17vr_f17_volatility_regime_vreg_pctdelta_5d_base_v006_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_10d_base_v017_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_10d_base_v029_signal"
+      ],
+      "tiers": [
+        "base"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_level_10d_slope_v016_signal",
+        "f17vr_f17_volatility_regime_vreg_pctdelta_10d_base_v021_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_15d_base_v032_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_15d_base_v044_signal"
+      ],
+      "tiers": [
+        "base"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_level_15d_slope_v031_signal",
+        "f17vr_f17_volatility_regime_vreg_pctdelta_15d_base_v036_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_21d_base_v047_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_21d_base_v059_signal"
+      ],
+      "tiers": [
+        "base"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_level_21d_slope_v046_signal",
+        "f17vr_f17_volatility_regime_vreg_pctdelta_21d_base_v051_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_42d_base_v062_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_42d_base_v074_signal"
+      ],
+      "tiers": [
+        "base"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_level_42d_slope_v061_signal",
+        "f17vr_f17_volatility_regime_vreg_pctdelta_42d_base_v066_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_63d_base_v077_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_63d_base_v089_signal"
+      ],
+      "tiers": [
+        "base"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_level_63d_slope_v076_signal",
+        "f17vr_f17_volatility_regime_vreg_pctdelta_63d_base_v081_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_84d_base_v092_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_84d_base_v104_signal"
+      ],
+      "tiers": [
+        "base"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_level_84d_slope_v091_signal",
+        "f17vr_f17_volatility_regime_vreg_pctdelta_84d_base_v096_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_126d_base_v107_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_126d_base_v119_signal"
+      ],
+      "tiers": [
+        "base"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_level_126d_slope_v106_signal",
+        "f17vr_f17_volatility_regime_vreg_pctdelta_126d_base_v111_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_252d_base_v122_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_252d_base_v134_signal"
+      ],
+      "tiers": [
+        "base"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_level_252d_slope_v121_signal",
+        "f17vr_f17_volatility_regime_vreg_pctdelta_252d_base_v126_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_504d_base_v137_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_504d_base_v149_signal"
+      ],
+      "tiers": [
+        "base"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_level_504d_slope_v136_signal",
+        "f17vr_f17_volatility_regime_vreg_pctdelta_504d_base_v141_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_5d_jerk_v002_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_5d_jerk_v014_signal"
+      ],
+      "tiers": [
+        "jerk"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_10d_jerk_v017_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_10d_jerk_v029_signal"
+      ],
+      "tiers": [
+        "jerk"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_15d_jerk_v032_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_15d_jerk_v044_signal"
+      ],
+      "tiers": [
+        "jerk"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_21d_jerk_v047_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_21d_jerk_v059_signal"
+      ],
+      "tiers": [
+        "jerk"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_42d_jerk_v062_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_42d_jerk_v074_signal"
+      ],
+      "tiers": [
+        "jerk"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_63d_jerk_v077_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_63d_jerk_v089_signal"
+      ],
+      "tiers": [
+        "jerk"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_84d_jerk_v092_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_84d_jerk_v104_signal"
+      ],
+      "tiers": [
+        "jerk"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_126d_jerk_v107_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_126d_jerk_v119_signal"
+      ],
+      "tiers": [
+        "jerk"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_252d_jerk_v122_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_252d_jerk_v134_signal"
+      ],
+      "tiers": [
+        "jerk"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_504d_jerk_v137_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_504d_jerk_v149_signal"
+      ],
+      "tiers": [
+        "jerk"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_5d_slope_v002_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_5d_slope_v014_signal"
+      ],
+      "tiers": [
+        "slope"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_10d_slope_v017_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_10d_slope_v029_signal"
+      ],
+      "tiers": [
+        "slope"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_15d_slope_v032_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_15d_slope_v044_signal"
+      ],
+      "tiers": [
+        "slope"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_21d_slope_v047_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_21d_slope_v059_signal"
+      ],
+      "tiers": [
+        "slope"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_42d_slope_v062_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_42d_slope_v074_signal"
+      ],
+      "tiers": [
+        "slope"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_63d_slope_v077_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_63d_slope_v089_signal"
+      ],
+      "tiers": [
+        "slope"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_84d_slope_v092_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_84d_slope_v104_signal"
+      ],
+      "tiers": [
+        "slope"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_126d_slope_v107_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_126d_slope_v119_signal"
+      ],
+      "tiers": [
+        "slope"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_252d_slope_v122_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_252d_slope_v134_signal"
+      ],
+      "tiers": [
+        "slope"
+      ],
+      "cross_tier": false
+    },
+    {
+      "members": [
+        "f17vr_f17_volatility_regime_vreg_mean_504d_slope_v137_signal",
+        "f17vr_f17_volatility_regime_vreg_mean_abs_504d_slope_v149_signal"
+      ],
+      "tiers": [
+        "slope"
+      ],
+      "cross_tier": false
+    }
+  ],
+  "zcos_dups": [],
+  "signflip_pairs": [],
+  "class4_base_deriv_pollution": [
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_delta_5d_base_v005_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_pctdelta_5d_base_v006_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_delta_10d_base_v020_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_pctdelta_10d_base_v021_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_delta_15d_base_v035_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_pctdelta_15d_base_v036_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_delta_21d_base_v050_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_pctdelta_21d_base_v051_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_delta_42d_base_v065_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_pctdelta_42d_base_v066_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_delta_63d_base_v080_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_pctdelta_63d_base_v081_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_delta_84d_base_v095_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_pctdelta_84d_base_v096_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_delta_126d_base_v110_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_pctdelta_126d_base_v111_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_delta_252d_base_v125_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_pctdelta_252d_base_v126_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_delta_504d_base_v140_signal"
+    },
+    {
+      "name": "f17vr_f17_volatility_regime_vreg_pctdelta_504d_base_v141_signal"
+    }
+  ],
+  "by_tier": {
+    "base": 150,
+    "jerk": 150,
+    "slope": 150
+  }
+}

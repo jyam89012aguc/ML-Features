@@ -1,0 +1,52 @@
+﻿{
+  "colorScheme": "solarized light",
+  "enableTelemetry": false,
+  "trustedWorkspaces": [
+    "C:\\WINDOWS\\system32"
+  ],
+  "general": {
+    "defaultApprovalMode": "yolo"
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "disableYoloMode": false,
+    "enablePermanentToolApproval": true,
+    "autoAddToPolicyByDefault": true,
+    "folderTrust": {
+      "enabled": false
+    },
+    "environmentVariableRedaction": {
+      "enabled": true,
+      "blocked": [
+        "API_KEY",
+        "TOKEN",
+        "SECRET",
+        "PASSWORD",
+        "DATABASE_URL"
+      ]
+    }
+  },
+  "permissions": {
+    "allow": [
+      "command(*)",
+      "custom(*)",
+      "execute_url(*)",
+      "mcp(*)",
+      "read_file(*)",
+      "read_url(*)",
+      "unsandboxed(*)",
+      "write_file(*)"
+    ]
+  },
+  "advanced": {
+    "ignoreLocalEnv": true
+  },
+  "context": {
+    "fileFiltering": {
+      "respectGitIgnore": true,
+      "respectGeminiIgnore": true
+    }
+  }
+}

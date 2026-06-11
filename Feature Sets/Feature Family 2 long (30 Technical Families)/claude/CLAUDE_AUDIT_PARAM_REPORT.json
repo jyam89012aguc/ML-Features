@@ -1,0 +1,13 @@
+{
+  "signals": 13500,
+  "params": {
+    "closeadj": 8687,
+    "close": 3212,
+    "volume": 3791,
+    "high": 5067,
+    "low": 4948,
+    "open_": 88,
+    "open": 1419,
+    "benchmark": 450
+  }
+}

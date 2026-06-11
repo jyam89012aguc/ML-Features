@@ -1,0 +1,188 @@
+{
+  "family": "f02_price_channel_position",
+  "n_funcs": 450,
+  "errors": [],
+  "all_nan": [],
+  "constants": [],
+  "vhash_dups": [
+    {
+      "members": [
+        "f02pc_f02_price_channel_position_chan_level_5d_slope_v001_signal",
+        "f02pc_f02_price_channel_position_chan_pctdelta_5d_base_v006_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f02pc_f02_price_channel_position_chan_level_10d_slope_v016_signal",
+        "f02pc_f02_price_channel_position_chan_pctdelta_10d_base_v021_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f02pc_f02_price_channel_position_chan_level_15d_slope_v031_signal",
+        "f02pc_f02_price_channel_position_chan_pctdelta_15d_base_v036_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f02pc_f02_price_channel_position_chan_level_21d_slope_v046_signal",
+        "f02pc_f02_price_channel_position_chan_pctdelta_21d_base_v051_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f02pc_f02_price_channel_position_chan_level_42d_slope_v061_signal",
+        "f02pc_f02_price_channel_position_chan_pctdelta_42d_base_v066_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f02pc_f02_price_channel_position_chan_level_63d_slope_v076_signal",
+        "f02pc_f02_price_channel_position_chan_pctdelta_63d_base_v081_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f02pc_f02_price_channel_position_chan_level_84d_slope_v091_signal",
+        "f02pc_f02_price_channel_position_chan_pctdelta_84d_base_v096_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f02pc_f02_price_channel_position_chan_level_126d_slope_v106_signal",
+        "f02pc_f02_price_channel_position_chan_pctdelta_126d_base_v111_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f02pc_f02_price_channel_position_chan_level_252d_slope_v121_signal",
+        "f02pc_f02_price_channel_position_chan_pctdelta_252d_base_v126_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    },
+    {
+      "members": [
+        "f02pc_f02_price_channel_position_chan_level_504d_slope_v136_signal",
+        "f02pc_f02_price_channel_position_chan_pctdelta_504d_base_v141_signal"
+      ],
+      "tiers": [
+        "base",
+        "slope"
+      ],
+      "cross_tier": true
+    }
+  ],
+  "zcos_dups": [],
+  "signflip_pairs": [],
+  "class4_base_deriv_pollution": [
+    {
+      "name": "f02pc_f02_price_channel_position_chan_delta_5d_base_v005_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_pctdelta_5d_base_v006_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_delta_10d_base_v020_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_pctdelta_10d_base_v021_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_delta_15d_base_v035_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_pctdelta_15d_base_v036_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_delta_21d_base_v050_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_pctdelta_21d_base_v051_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_delta_42d_base_v065_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_pctdelta_42d_base_v066_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_delta_63d_base_v080_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_pctdelta_63d_base_v081_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_delta_84d_base_v095_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_pctdelta_84d_base_v096_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_delta_126d_base_v110_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_pctdelta_126d_base_v111_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_delta_252d_base_v125_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_pctdelta_252d_base_v126_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_delta_504d_base_v140_signal"
+    },
+    {
+      "name": "f02pc_f02_price_channel_position_chan_pctdelta_504d_base_v141_signal"
+    }
+  ],
+  "by_tier": {
+    "base": 150,
+    "jerk": 150,
+    "slope": 150
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "files": 880,
+  "parse_errors": [],
+  "import_errors": [],
+  "functions_discovered": 66000,
+  "inputs": [
+    "close",
+    "high",
+    "low",
+    "volume"
+  ],
+  "elapsed_seconds": 8.808
+}

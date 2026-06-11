@@ -1,0 +1,605 @@
+{
+  "results": [
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9473, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9483, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9486, coverage_ok=98.00%\n"
+    },
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9434, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9454, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9489, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9434, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9488, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9362, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9366, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9396, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9429, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9476, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9496, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9394, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9395, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9198, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9474, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9340, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9462, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f06_candle_body_ratios\\f06_candle_body_ratios_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 73 features, max |corr|=0.9439, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f06_candle_body_ratios\\f06_candle_body_ratios_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.8737, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f06_candle_body_ratios\\f06_candle_body_ratios_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9306, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f06_candle_body_ratios\\f06_candle_body_ratios_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9296, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f07_gap_behavior\\f07_gap_behavior_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9283, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f07_gap_behavior\\f07_gap_behavior_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9038, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f07_gap_behavior\\f07_gap_behavior_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9322, coverage_ok=96.67%\n"
+    },
+    {
+      "file": "f07_gap_behavior\\f07_gap_behavior_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9492, coverage_ok=96.67%\n"
+    },
+    {
+      "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9453, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9417, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9363, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9379, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9398, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f09_close_position_within_range\\f09_close_position_within_range_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9332, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f09_close_position_within_range\\f09_close_position_within_range_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9331, coverage_ok=97.33%\n"
+    },
+    {
+      "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9320, coverage_ok=97.33%\n"
+    },
+    {
+      "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9421, coverage_ok=97.33%\n"
+    },
+    {
+      "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9371, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9331, coverage_ok=98.00%\n"
+    },
+    {
+      "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9292, coverage_ok=98.00%\n"
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9497, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9427, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9410, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9411, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9460, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9497, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9494, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9498, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f13_macd_variants\\f13_macd_variants_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9473, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f13_macd_variants\\f13_macd_variants_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9427, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f13_macd_variants\\f13_macd_variants_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9495, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f13_macd_variants\\f13_macd_variants_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9499, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f14_momentum_divergence\\f14_momentum_divergence_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9374, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f14_momentum_divergence\\f14_momentum_divergence_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9462, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f14_momentum_divergence\\f14_momentum_divergence_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9233, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f14_momentum_divergence\\f14_momentum_divergence_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9391, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9469, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9489, coverage_ok=96.00%\n"
+    },
+    {
+      "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9492, coverage_ok=86.67%\n"
+    },
+    {
+      "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9475, coverage_ok=96.67%\n"
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9425, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9392, coverage_ok=97.33%\n"
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9432, coverage_ok=96.67%\n"
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9453, coverage_ok=97.33%\n"
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9393, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9446, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 144 features, max |corr|=0.9472, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9461, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9467, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9461, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9463, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9303, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9497, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9425, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f19_atr_normalized_price\\f19_atr_normalized_price_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9477, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f19_atr_normalized_price\\f19_atr_normalized_price_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9429, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9364, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9324, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9408, coverage_ok=99.33%\n"
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9409, coverage_ok=99.33%\n"
+    },
+    {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9444, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 74 features, max |corr|=0.9499, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features,max |corr|=0.9489, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9490, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f22_volume_trend\\f22_volume_trend_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 74 features, max |corr|=0.9485, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f22_volume_trend\\f22_volume_trend_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9278, coverage_ok=97.33%\n"
+    },
+    {
+      "file": "f22_volume_trend\\f22_volume_trend_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9431, coverage_ok=99.33%\n"
+    },
+    {
+      "file": "f22_volume_trend\\f22_volume_trend_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 149 features, max |corr|=0.9441, coverage_ok=98.66%\n"
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9263, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9346, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9202, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9488, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9336, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.8972, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9417, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9491, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9499, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9477, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9360, coverage_ok=99.33%\n"
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9369, coverage_ok=99.33%\n"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9426, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9459, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 149 features, max |corr|=0.9481, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9428, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f27_volume_regime\\f27_volume_regime_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9497, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f27_volume_regime\\f27_volume_regime_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 73 features, max |corr|=0.9461, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f27_volume_regime\\f27_volume_regime_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9380, coverage_ok=96.67%\n"
+    },
+    {
+      "file": "f27_volume_regime\\f27_volume_regime_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9499, coverage_ok=97.33%\n"
+    },
+    {
+      "file": "f28_price_volume_divergence\\f28_price_volume_divergence_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9386, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f28_price_volume_divergence\\f28_price_volume_divergence_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9289, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f28_price_volume_divergence\\f28_price_volume_divergence_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9455, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f28_price_volume_divergence\\f28_price_volume_divergence_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9379, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9395, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9493, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 140 features, max |corr|=0.9477, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9439, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f30_drawdown_recovery_metrics\\f30_drawdown_recovery_metrics_base_001_075_claude.py",
+      "status": "ok",
+      "output": "OK base_001_075: 75 features, max |corr|=0.9372, coverage_ok=100.00%\n"
+    },
+    {
+      "file": "f30_drawdown_recovery_metrics\\f30_drawdown_recovery_metrics_base_076_150_claude.py",
+      "status": "ok",
+      "output": "OK base_076_150: 75 features, max |corr|=0.9336, coverage_ok=98.67%\n"
+    },
+    {
+      "file": "f30_drawdown_recovery_metrics\\f30_drawdown_recovery_metrics_jerk_001_150_claude.py",
+      "status": "ok",
+      "output": "OK jerk_001_150: 150 features, max |corr|=0.9492, coverage_ok=96.67%\n"
+    },
+    {
+      "file": "f30_drawdown_recovery_metrics\\f30_drawdown_recovery_metrics_slope_001_150_claude.py",
+      "status": "ok",
+      "output": "OK slope_001_150: 150 features, max |corr|=0.9489, coverage_ok=97.33%\n"
+    }
+  ],
+  "seconds": 46.81672668457031
+}

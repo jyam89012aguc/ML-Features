@@ -1,0 +1,1055 @@
+import numpy as np
+import pandas as pd
+from technology_helpers import _to_num, _clean, _safe_div, _log, _mean, _std, _sum, _min, _max, _z, _pct_change, _diff, _rank, _skew, _kurt, _autocorr, _corr, _slope, _ewm, _event_flag, _event_count, _event_rate, _clip_z
+
+
+# core00 slope mean 5d
+def cg_f57_technology_f57_high_growth_premium_core00_mean_5d_slope_v001_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _mean(series,5)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope mean 21d
+def cg_f57_technology_f57_high_growth_premium_core01_mean_21d_slope_v002_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _mean(series,21)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope mean 63d
+def cg_f57_technology_f57_high_growth_premium_core02_mean_63d_slope_v003_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _mean(series,63)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope mean 126d
+def cg_f57_technology_f57_high_growth_premium_core03_mean_126d_slope_v004_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _mean(series,126)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope mean 252d
+def cg_f57_technology_f57_high_growth_premium_core04_mean_252d_slope_v005_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _mean(series,252)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope mean 5d
+def cg_f57_technology_f57_high_growth_premium_core05_mean_5d_slope_v006_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _mean(series,5)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope mean 21d
+def cg_f57_technology_f57_high_growth_premium_core06_mean_21d_slope_v007_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _mean(series,21)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope mean 63d
+def cg_f57_technology_f57_high_growth_premium_core07_mean_63d_slope_v008_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _mean(series,63)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope mean 126d
+def cg_f57_technology_f57_high_growth_premium_core08_mean_126d_slope_v009_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _mean(series,126)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope mean 252d
+def cg_f57_technology_f57_high_growth_premium_core09_mean_252d_slope_v010_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _mean(series,252)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope z 21d
+def cg_f57_technology_f57_high_growth_premium_core00_z_21d_slope_v011_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _z(series,21)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope z 63d
+def cg_f57_technology_f57_high_growth_premium_core01_z_63d_slope_v012_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _z(series,63)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope z 126d
+def cg_f57_technology_f57_high_growth_premium_core02_z_126d_slope_v013_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _z(series,126)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope z 252d
+def cg_f57_technology_f57_high_growth_premium_core03_z_252d_slope_v014_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _z(series,252)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope z 5d
+def cg_f57_technology_f57_high_growth_premium_core04_z_5d_slope_v015_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _z(series,5)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope z 21d
+def cg_f57_technology_f57_high_growth_premium_core05_z_21d_slope_v016_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _z(series,21)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope z 63d
+def cg_f57_technology_f57_high_growth_premium_core06_z_63d_slope_v017_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _z(series,63)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope z 126d
+def cg_f57_technology_f57_high_growth_premium_core07_z_126d_slope_v018_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _z(series,126)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope z 252d
+def cg_f57_technology_f57_high_growth_premium_core08_z_252d_slope_v019_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _z(series,252)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope z 5d
+def cg_f57_technology_f57_high_growth_premium_core09_z_5d_slope_v020_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _z(series,5)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope rank 63d
+def cg_f57_technology_f57_high_growth_premium_core00_rank_63d_slope_v021_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _rank(series,63)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope rank 126d
+def cg_f57_technology_f57_high_growth_premium_core01_rank_126d_slope_v022_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _rank(series,126)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope rank 252d
+def cg_f57_technology_f57_high_growth_premium_core02_rank_252d_slope_v023_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _rank(series,252)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope rank 5d
+def cg_f57_technology_f57_high_growth_premium_core03_rank_5d_slope_v024_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _rank(series,5)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope rank 21d
+def cg_f57_technology_f57_high_growth_premium_core04_rank_21d_slope_v025_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _rank(series,21)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope rank 63d
+def cg_f57_technology_f57_high_growth_premium_core05_rank_63d_slope_v026_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _rank(series,63)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope rank 126d
+def cg_f57_technology_f57_high_growth_premium_core06_rank_126d_slope_v027_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _rank(series,126)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope rank 252d
+def cg_f57_technology_f57_high_growth_premium_core07_rank_252d_slope_v028_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _rank(series,252)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope rank 5d
+def cg_f57_technology_f57_high_growth_premium_core08_rank_5d_slope_v029_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _rank(series,5)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope rank 21d
+def cg_f57_technology_f57_high_growth_premium_core09_rank_21d_slope_v030_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _rank(series,21)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope std 126d
+def cg_f57_technology_f57_high_growth_premium_core00_std_126d_slope_v031_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _std(series,126)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope std 252d
+def cg_f57_technology_f57_high_growth_premium_core01_std_252d_slope_v032_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _std(series,252)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope std 5d
+def cg_f57_technology_f57_high_growth_premium_core02_std_5d_slope_v033_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _std(series,5)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope std 21d
+def cg_f57_technology_f57_high_growth_premium_core03_std_21d_slope_v034_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _std(series,21)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope std 63d
+def cg_f57_technology_f57_high_growth_premium_core04_std_63d_slope_v035_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _std(series,63)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope std 126d
+def cg_f57_technology_f57_high_growth_premium_core05_std_126d_slope_v036_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _std(series,126)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope std 252d
+def cg_f57_technology_f57_high_growth_premium_core06_std_252d_slope_v037_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _std(series,252)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope std 5d
+def cg_f57_technology_f57_high_growth_premium_core07_std_5d_slope_v038_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _std(series,5)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope std 21d
+def cg_f57_technology_f57_high_growth_premium_core08_std_21d_slope_v039_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _std(series,21)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope std 63d
+def cg_f57_technology_f57_high_growth_premium_core09_std_63d_slope_v040_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _std(series,63)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope delta 252d
+def cg_f57_technology_f57_high_growth_premium_core00_delta_252d_slope_v041_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _diff(series,252)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope delta 5d
+def cg_f57_technology_f57_high_growth_premium_core01_delta_5d_slope_v042_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _diff(series,5)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope delta 21d
+def cg_f57_technology_f57_high_growth_premium_core02_delta_21d_slope_v043_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _diff(series,21)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope delta 63d
+def cg_f57_technology_f57_high_growth_premium_core03_delta_63d_slope_v044_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _diff(series,63)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope delta 126d
+def cg_f57_technology_f57_high_growth_premium_core04_delta_126d_slope_v045_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _diff(series,126)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope delta 252d
+def cg_f57_technology_f57_high_growth_premium_core05_delta_252d_slope_v046_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _diff(series,252)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope delta 5d
+def cg_f57_technology_f57_high_growth_premium_core06_delta_5d_slope_v047_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _diff(series,5)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope delta 21d
+def cg_f57_technology_f57_high_growth_premium_core07_delta_21d_slope_v048_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _diff(series,21)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope delta 63d
+def cg_f57_technology_f57_high_growth_premium_core08_delta_63d_slope_v049_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _diff(series,63)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope delta 126d
+def cg_f57_technology_f57_high_growth_premium_core09_delta_126d_slope_v050_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _diff(series,126)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope pct 5d
+def cg_f57_technology_f57_high_growth_premium_core00_pct_5d_slope_v051_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _pct_change(series,5)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope pct 21d
+def cg_f57_technology_f57_high_growth_premium_core01_pct_21d_slope_v052_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _pct_change(series,21)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope pct 63d
+def cg_f57_technology_f57_high_growth_premium_core02_pct_63d_slope_v053_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _pct_change(series,63)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope pct 126d
+def cg_f57_technology_f57_high_growth_premium_core03_pct_126d_slope_v054_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _pct_change(series,126)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope pct 252d
+def cg_f57_technology_f57_high_growth_premium_core04_pct_252d_slope_v055_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _pct_change(series,252)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope pct 5d
+def cg_f57_technology_f57_high_growth_premium_core05_pct_5d_slope_v056_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _pct_change(series,5)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope pct 21d
+def cg_f57_technology_f57_high_growth_premium_core06_pct_21d_slope_v057_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _pct_change(series,21)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope pct 63d
+def cg_f57_technology_f57_high_growth_premium_core07_pct_63d_slope_v058_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _pct_change(series,63)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope pct 126d
+def cg_f57_technology_f57_high_growth_premium_core08_pct_126d_slope_v059_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _pct_change(series,126)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope pct 252d
+def cg_f57_technology_f57_high_growth_premium_core09_pct_252d_slope_v060_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _pct_change(series,252)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope ewm 21d
+def cg_f57_technology_f57_high_growth_premium_core00_ewm_21d_slope_v061_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _ewm(series,21)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope ewm 63d
+def cg_f57_technology_f57_high_growth_premium_core01_ewm_63d_slope_v062_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _ewm(series,63)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope ewm 126d
+def cg_f57_technology_f57_high_growth_premium_core02_ewm_126d_slope_v063_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _ewm(series,126)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope ewm 252d
+def cg_f57_technology_f57_high_growth_premium_core03_ewm_252d_slope_v064_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _ewm(series,252)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope ewm 5d
+def cg_f57_technology_f57_high_growth_premium_core04_ewm_5d_slope_v065_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _ewm(series,5)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope ewm 21d
+def cg_f57_technology_f57_high_growth_premium_core05_ewm_21d_slope_v066_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _ewm(series,21)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope ewm 63d
+def cg_f57_technology_f57_high_growth_premium_core06_ewm_63d_slope_v067_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _ewm(series,63)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope ewm 126d
+def cg_f57_technology_f57_high_growth_premium_core07_ewm_126d_slope_v068_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _ewm(series,126)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope ewm 252d
+def cg_f57_technology_f57_high_growth_premium_core08_ewm_252d_slope_v069_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _ewm(series,252)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope ewm 5d
+def cg_f57_technology_f57_high_growth_premium_core09_ewm_5d_slope_v070_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _ewm(series,5)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope slope 63d
+def cg_f57_technology_f57_high_growth_premium_core00_slope_63d_slope_v071_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _slope(series,63)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope slope 126d
+def cg_f57_technology_f57_high_growth_premium_core01_slope_126d_slope_v072_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _slope(series,126)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope slope 252d
+def cg_f57_technology_f57_high_growth_premium_core02_slope_252d_slope_v073_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _slope(series,252)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope slope 5d
+def cg_f57_technology_f57_high_growth_premium_core03_slope_5d_slope_v074_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _slope(series,5)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope slope 21d
+def cg_f57_technology_f57_high_growth_premium_core04_slope_21d_slope_v075_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _slope(series,21)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope slope 63d
+def cg_f57_technology_f57_high_growth_premium_core05_slope_63d_slope_v076_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _slope(series,63)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope slope 126d
+def cg_f57_technology_f57_high_growth_premium_core06_slope_126d_slope_v077_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _slope(series,126)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope slope 252d
+def cg_f57_technology_f57_high_growth_premium_core07_slope_252d_slope_v078_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _slope(series,252)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope slope 5d
+def cg_f57_technology_f57_high_growth_premium_core08_slope_5d_slope_v079_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _slope(series,5)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope slope 21d
+def cg_f57_technology_f57_high_growth_premium_core09_slope_21d_slope_v080_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _slope(series,21)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope abs_mean 126d
+def cg_f57_technology_f57_high_growth_premium_core00_abs_mean_126d_slope_v081_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _mean(series.abs(),126)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope abs_mean 252d
+def cg_f57_technology_f57_high_growth_premium_core01_abs_mean_252d_slope_v082_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _mean(series.abs(),252)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope abs_mean 5d
+def cg_f57_technology_f57_high_growth_premium_core02_abs_mean_5d_slope_v083_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _mean(series.abs(),5)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope abs_mean 21d
+def cg_f57_technology_f57_high_growth_premium_core03_abs_mean_21d_slope_v084_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _mean(series.abs(),21)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope abs_mean 63d
+def cg_f57_technology_f57_high_growth_premium_core04_abs_mean_63d_slope_v085_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _mean(series.abs(),63)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope abs_mean 126d
+def cg_f57_technology_f57_high_growth_premium_core05_abs_mean_126d_slope_v086_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _mean(series.abs(),126)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope abs_mean 252d
+def cg_f57_technology_f57_high_growth_premium_core06_abs_mean_252d_slope_v087_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _mean(series.abs(),252)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope abs_mean 5d
+def cg_f57_technology_f57_high_growth_premium_core07_abs_mean_5d_slope_v088_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _mean(series.abs(),5)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope abs_mean 21d
+def cg_f57_technology_f57_high_growth_premium_core08_abs_mean_21d_slope_v089_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _mean(series.abs(),21)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope abs_mean 63d
+def cg_f57_technology_f57_high_growth_premium_core09_abs_mean_63d_slope_v090_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _mean(series.abs(),63)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope pos_mag 252d
+def cg_f57_technology_f57_high_growth_premium_core00_pos_mag_252d_slope_v091_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _mean(series.where(series>0,0),252)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope pos_mag 5d
+def cg_f57_technology_f57_high_growth_premium_core01_pos_mag_5d_slope_v092_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _mean(series.where(series>0,0),5)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope pos_mag 21d
+def cg_f57_technology_f57_high_growth_premium_core02_pos_mag_21d_slope_v093_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _mean(series.where(series>0,0),21)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope pos_mag 63d
+def cg_f57_technology_f57_high_growth_premium_core03_pos_mag_63d_slope_v094_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _mean(series.where(series>0,0),63)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope pos_mag 126d
+def cg_f57_technology_f57_high_growth_premium_core04_pos_mag_126d_slope_v095_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _mean(series.where(series>0,0),126)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope pos_mag 252d
+def cg_f57_technology_f57_high_growth_premium_core05_pos_mag_252d_slope_v096_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _mean(series.where(series>0,0),252)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope pos_mag 5d
+def cg_f57_technology_f57_high_growth_premium_core06_pos_mag_5d_slope_v097_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _mean(series.where(series>0,0),5)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope pos_mag 21d
+def cg_f57_technology_f57_high_growth_premium_core07_pos_mag_21d_slope_v098_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _mean(series.where(series>0,0),21)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope pos_mag 63d
+def cg_f57_technology_f57_high_growth_premium_core08_pos_mag_63d_slope_v099_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _mean(series.where(series>0,0),63)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope pos_mag 126d
+def cg_f57_technology_f57_high_growth_premium_core09_pos_mag_126d_slope_v100_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _mean(series.where(series>0,0),126)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope neg_mag2 5d
+def cg_f57_technology_f57_high_growth_premium_core00_neg_mag2_5d_slope_v101_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _mean((series.where(series<0,0).abs() ** 2),5)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope neg_mag2 21d
+def cg_f57_technology_f57_high_growth_premium_core01_neg_mag2_21d_slope_v102_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _mean((series.where(series<0,0).abs() ** 2),21)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope neg_mag2 63d
+def cg_f57_technology_f57_high_growth_premium_core02_neg_mag2_63d_slope_v103_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _mean((series.where(series<0,0).abs() ** 2),63)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope neg_mag2 126d
+def cg_f57_technology_f57_high_growth_premium_core03_neg_mag2_126d_slope_v104_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _mean((series.where(series<0,0).abs() ** 2),126)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope neg_mag2 252d
+def cg_f57_technology_f57_high_growth_premium_core04_neg_mag2_252d_slope_v105_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _mean((series.where(series<0,0).abs() ** 2),252)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope neg_mag2 5d
+def cg_f57_technology_f57_high_growth_premium_core05_neg_mag2_5d_slope_v106_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _mean((series.where(series<0,0).abs() ** 2),5)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope neg_mag2 21d
+def cg_f57_technology_f57_high_growth_premium_core06_neg_mag2_21d_slope_v107_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _mean((series.where(series<0,0).abs() ** 2),21)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope neg_mag2 63d
+def cg_f57_technology_f57_high_growth_premium_core07_neg_mag2_63d_slope_v108_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _mean((series.where(series<0,0).abs() ** 2),63)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope neg_mag2 126d
+def cg_f57_technology_f57_high_growth_premium_core08_neg_mag2_126d_slope_v109_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _mean((series.where(series<0,0).abs() ** 2),126)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope neg_mag2 252d
+def cg_f57_technology_f57_high_growth_premium_core09_neg_mag2_252d_slope_v110_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _mean((series.where(series<0,0).abs() ** 2),252)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope vol_ratio 21d
+def cg_f57_technology_f57_high_growth_premium_core00_vol_ratio_21d_slope_v111_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _safe_div(_std(series,21), _mean(series.abs(),21)+1e-9)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope vol_ratio 63d
+def cg_f57_technology_f57_high_growth_premium_core01_vol_ratio_63d_slope_v112_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _safe_div(_std(series,63), _mean(series.abs(),63)+1e-9)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope vol_ratio 126d
+def cg_f57_technology_f57_high_growth_premium_core02_vol_ratio_126d_slope_v113_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _safe_div(_std(series,126), _mean(series.abs(),126)+1e-9)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope vol_ratio 252d
+def cg_f57_technology_f57_high_growth_premium_core03_vol_ratio_252d_slope_v114_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _safe_div(_std(series,252), _mean(series.abs(),252)+1e-9)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope vol_ratio 5d
+def cg_f57_technology_f57_high_growth_premium_core04_vol_ratio_5d_slope_v115_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _safe_div(_std(series,5), _mean(series.abs(),5)+1e-9)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope vol_ratio 21d
+def cg_f57_technology_f57_high_growth_premium_core05_vol_ratio_21d_slope_v116_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _safe_div(_std(series,21), _mean(series.abs(),21)+1e-9)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope vol_ratio 63d
+def cg_f57_technology_f57_high_growth_premium_core06_vol_ratio_63d_slope_v117_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _safe_div(_std(series,63), _mean(series.abs(),63)+1e-9)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope vol_ratio 126d
+def cg_f57_technology_f57_high_growth_premium_core07_vol_ratio_126d_slope_v118_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _safe_div(_std(series,126), _mean(series.abs(),126)+1e-9)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope vol_ratio 252d
+def cg_f57_technology_f57_high_growth_premium_core08_vol_ratio_252d_slope_v119_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _safe_div(_std(series,252), _mean(series.abs(),252)+1e-9)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope vol_ratio 5d
+def cg_f57_technology_f57_high_growth_premium_core09_vol_ratio_5d_slope_v120_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _safe_div(_std(series,5), _mean(series.abs(),5)+1e-9)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope recent_vs_long 63d
+def cg_f57_technology_f57_high_growth_premium_core00_recent_vs_long_63d_slope_v121_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _safe_div(_mean(series,63), _mean(series,126)+1e-9)-1.0
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope recent_vs_long 126d
+def cg_f57_technology_f57_high_growth_premium_core01_recent_vs_long_126d_slope_v122_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _safe_div(_mean(series,126), _mean(series,252)+1e-9)-1.0
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope recent_vs_long 252d
+def cg_f57_technology_f57_high_growth_premium_core02_recent_vs_long_252d_slope_v123_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _safe_div(_mean(series,252), _mean(series,504)+1e-9)-1.0
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope recent_vs_long 5d
+def cg_f57_technology_f57_high_growth_premium_core03_recent_vs_long_5d_slope_v124_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _safe_div(_mean(series,5), _mean(series,10)+1e-9)-1.0
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope recent_vs_long 21d
+def cg_f57_technology_f57_high_growth_premium_core04_recent_vs_long_21d_slope_v125_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _safe_div(_mean(series,21), _mean(series,42)+1e-9)-1.0
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope recent_vs_long 63d
+def cg_f57_technology_f57_high_growth_premium_core05_recent_vs_long_63d_slope_v126_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _safe_div(_mean(series,63), _mean(series,126)+1e-9)-1.0
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope recent_vs_long 126d
+def cg_f57_technology_f57_high_growth_premium_core06_recent_vs_long_126d_slope_v127_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _safe_div(_mean(series,126), _mean(series,252)+1e-9)-1.0
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope recent_vs_long 252d
+def cg_f57_technology_f57_high_growth_premium_core07_recent_vs_long_252d_slope_v128_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _safe_div(_mean(series,252), _mean(series,504)+1e-9)-1.0
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope recent_vs_long 5d
+def cg_f57_technology_f57_high_growth_premium_core08_recent_vs_long_5d_slope_v129_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _safe_div(_mean(series,5), _mean(series,10)+1e-9)-1.0
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope recent_vs_long 21d
+def cg_f57_technology_f57_high_growth_premium_core09_recent_vs_long_21d_slope_v130_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _safe_div(_mean(series,21), _mean(series,42)+1e-9)-1.0
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope accel 126d
+def cg_f57_technology_f57_high_growth_premium_core00_accel_126d_slope_v131_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _diff(_diff(series,42),42)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope accel 252d
+def cg_f57_technology_f57_high_growth_premium_core01_accel_252d_slope_v132_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _diff(_diff(series,84),84)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope accel 5d
+def cg_f57_technology_f57_high_growth_premium_core02_accel_5d_slope_v133_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _diff(_diff(series,1),1)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope accel 21d
+def cg_f57_technology_f57_high_growth_premium_core03_accel_21d_slope_v134_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _diff(_diff(series,7),7)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope accel 63d
+def cg_f57_technology_f57_high_growth_premium_core04_accel_63d_slope_v135_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _diff(_diff(series,21),21)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope accel 126d
+def cg_f57_technology_f57_high_growth_premium_core05_accel_126d_slope_v136_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _diff(_diff(series,42),42)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope accel 252d
+def cg_f57_technology_f57_high_growth_premium_core06_accel_252d_slope_v137_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _diff(_diff(series,84),84)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope accel 5d
+def cg_f57_technology_f57_high_growth_premium_core07_accel_5d_slope_v138_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _diff(_diff(series,1),1)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope accel 21d
+def cg_f57_technology_f57_high_growth_premium_core08_accel_21d_slope_v139_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _diff(_diff(series,7),7)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope accel 63d
+def cg_f57_technology_f57_high_growth_premium_core09_accel_63d_slope_v140_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _diff(_diff(series,21),21)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core00 slope centered_range 252d
+def cg_f57_technology_f57_high_growth_premium_core00_centered_range_252d_slope_v141_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = pe
+    base = _safe_div(series-_mean(series,252), (_max(series,252)-_min(series,252)).abs()+1e-9)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core01 slope centered_range 5d
+def cg_f57_technology_f57_high_growth_premium_core01_centered_range_5d_slope_v142_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = ps
+    base = _safe_div(series-_mean(series,5), (_max(series,5)-_min(series,5)).abs()+1e-9)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core02 slope centered_range 21d
+def cg_f57_technology_f57_high_growth_premium_core02_centered_range_21d_slope_v143_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,revenue.abs()+1e-9)
+    base = _safe_div(series-_mean(series,21), (_max(series,21)-_min(series,21)).abs()+1e-9)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core03 slope centered_range 63d
+def cg_f57_technology_f57_high_growth_premium_core03_centered_range_63d_slope_v144_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(marketcap,netinc.abs()+1e-9)
+    base = _safe_div(series-_mean(series,63), (_max(series,63)-_min(series,63)).abs()+1e-9)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core04 slope centered_range 126d
+def cg_f57_technology_f57_high_growth_premium_core04_centered_range_126d_slope_v145_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252), pe.abs()+1e-9)
+    base = _safe_div(series-_mean(series,126), (_max(series,126)-_min(series,126)).abs()+1e-9)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core05 slope centered_range 252d
+def cg_f57_technology_f57_high_growth_premium_core05_centered_range_252d_slope_v146_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(netinc,252), pe.abs()+1e-9)
+    base = _safe_div(series-_mean(series,252), (_max(series,252)-_min(series,252)).abs()+1e-9)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core06 slope centered_range 5d
+def cg_f57_technology_f57_high_growth_premium_core06_centered_range_5d_slope_v147_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(revenue-netinc,63), _std(revenue-netinc,252).abs()+1e-9)
+    base = _safe_div(series-_mean(series,5), (_max(series,5)-_min(series,5)).abs()+1e-9)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+
+# core07 slope centered_range 21d
+def cg_f57_technology_f57_high_growth_premium_core07_centered_range_21d_slope_v148_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _corr(pe,_pct_change(closeadj,21),252)
+    base = _safe_div(series-_mean(series,21), (_max(series,21)-_min(series,21)).abs()+1e-9)
+    result = _safe_div(_diff(base,63), _std(base,63).abs()+1e-9)
+    return _clean(result)
+
+# core08 slope centered_range 63d
+def cg_f57_technology_f57_high_growth_premium_core08_centered_range_63d_slope_v149_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_diff(pe,63), _std(pe,252).abs()+1e-9)
+    base = _safe_div(series-_mean(series,63), (_max(series,63)-_min(series,63)).abs()+1e-9)
+    result = _safe_div(_diff(base,21), _std(base,21).abs()+1e-9)
+    return _clean(result)
+
+# core09 slope centered_range 126d
+def cg_f57_technology_f57_high_growth_premium_core09_centered_range_126d_slope_v150_signal(pe, ps, marketcap, revenue, netinc, closeadj):
+    series = _safe_div(_pct_change(revenue,252)-_pct_change(netinc,252), _std(_pct_change(revenue,63),252).abs()+1e-9)
+    base = _safe_div(series-_mean(series,126), (_max(series,126)-_min(series,126)).abs()+1e-9)
+    result = _safe_div(_diff(base,5), _std(base,5).abs()+1e-9)
+    return _clean(result)
+

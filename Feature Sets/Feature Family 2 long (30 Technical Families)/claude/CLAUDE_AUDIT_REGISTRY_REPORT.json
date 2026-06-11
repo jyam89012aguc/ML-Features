@@ -1,0 +1,1174 @@
+{
+  "summaries": [
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_base_001_075_claude.py",
+      "registry": "f01_moving_average_systems_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_base_076_150_claude.py",
+      "registry": "f01_moving_average_systems_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_jerk_001_150_claude.py",
+      "registry": "f01_moving_average_systems_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_slope_001_150_claude.py",
+      "registry": "f01_moving_average_systems_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_base_001_075_claude.py",
+      "registry": "f02_price_channel_position_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_base_076_150_claude.py",
+      "registry": "f02_price_channel_position_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_jerk_001_150_claude.py",
+      "registry": "f02_price_channel_position_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_slope_001_150_claude.py",
+      "registry": "f02_price_channel_position_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_001_075_claude.py",
+      "registry": "f03_trend_strength_metrics_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+      "registry": "f03_trend_strength_metrics_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+      "registry": "f03_trend_strength_metrics_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+      "registry": "f03_trend_strength_metrics_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_001_075_claude.py",
+      "registry": "f04_support_resistance_proximity_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_076_150_claude.py",
+      "registry": "f04_support_resistance_proximity_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_jerk_001_150_claude.py",
+      "registry": "f04_support_resistance_proximity_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_slope_001_150_claude.py",
+      "registry": "f04_support_resistance_proximity_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_base_001_075_claude.py",
+      "registry": "f05_moving_average_envelope_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_base_076_150_claude.py",
+      "registry": "f05_moving_average_envelope_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_jerk_001_150_claude.py",
+      "registry": "f05_moving_average_envelope_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_slope_001_150_claude.py",
+      "registry": "f05_moving_average_envelope_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f06_candle_body_ratios\\f06_candle_body_ratios_base_001_075_claude.py",
+      "registry": "f06_candle_body_ratios_base_001_075_REGISTRY",
+      "functions": 73,
+      "registry_entries": 73
+    },
+    {
+      "file": "f06_candle_body_ratios\\f06_candle_body_ratios_base_076_150_claude.py",
+      "registry": "f06_candle_body_ratios_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f06_candle_body_ratios\\f06_candle_body_ratios_jerk_001_150_claude.py",
+      "registry": "f06_candle_body_ratios_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f06_candle_body_ratios\\f06_candle_body_ratios_slope_001_150_claude.py",
+      "registry": "f06_candle_body_ratios_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f07_gap_behavior\\f07_gap_behavior_base_001_075_claude.py",
+      "registry": "f07_gap_behavior_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f07_gap_behavior\\f07_gap_behavior_base_076_150_claude.py",
+      "registry": "f07_gap_behavior_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f07_gap_behavior\\f07_gap_behavior_jerk_001_150_claude.py",
+      "registry": "f07_gap_behavior_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f07_gap_behavior\\f07_gap_behavior_slope_001_150_claude.py",
+      "registry": "f07_gap_behavior_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+      "registry": "f08_high_low_range_dynamics_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_076_150_claude.py",
+      "registry": "f08_high_low_range_dynamics_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+      "registry": "f08_high_low_range_dynamics_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+      "registry": "f08_high_low_range_dynamics_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+      "registry": "f09_close_position_within_range_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f09_close_position_within_range\\f09_close_position_within_range_base_076_150_claude.py",
+      "registry": "f09_close_position_within_range_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f09_close_position_within_range\\f09_close_position_within_range_jerk_001_150_claude.py",
+      "registry": "f09_close_position_within_range_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+      "registry": "f09_close_position_within_range_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_001_075_claude.py",
+      "registry": "f10_candle_sequence_patterns_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_076_150_claude.py",
+      "registry": "f10_candle_sequence_patterns_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_jerk_001_150_claude.py",
+      "registry": "f10_candle_sequence_patterns_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_slope_001_150_claude.py",
+      "registry": "f10_candle_sequence_patterns_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_base_001_075_claude.py",
+      "registry": "f11_raw_roc_family_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_base_076_150_claude.py",
+      "registry": "f11_raw_roc_family_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_jerk_001_150_claude.py",
+      "registry": "f11_raw_roc_family_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_slope_001_150_claude.py",
+      "registry": "f11_raw_roc_family_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_base_001_075_claude.py",
+      "registry": "f12_oscillator_family_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_base_076_150_claude.py",
+      "registry": "f12_oscillator_family_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_jerk_001_150_claude.py",
+      "registry": "f12_oscillator_family_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_slope_001_150_claude.py",
+      "registry": "f12_oscillator_family_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f13_macd_variants\\f13_macd_variants_base_001_075_claude.py",
+      "registry": "f13_macd_variants_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f13_macd_variants\\f13_macd_variants_base_076_150_claude.py",
+      "registry": "f13_macd_variants_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f13_macd_variants\\f13_macd_variants_jerk_001_150_claude.py",
+      "registry": "f13_macd_variants_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f13_macd_variants\\f13_macd_variants_slope_001_150_claude.py",
+      "registry": "f13_macd_variants_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f14_momentum_divergence\\f14_momentum_divergence_base_001_075_claude.py",
+      "registry": "f14_momentum_divergence_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f14_momentum_divergence\\f14_momentum_divergence_base_076_150_claude.py",
+      "registry": "f14_momentum_divergence_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f14_momentum_divergence\\f14_momentum_divergence_jerk_001_150_claude.py",
+      "registry": "f14_momentum_divergence_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f14_momentum_divergence\\f14_momentum_divergence_slope_001_150_claude.py",
+      "registry": "f14_momentum_divergence_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_001_075_claude.py",
+      "registry": "f15_cross_sectional_momentum_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_076_150_claude.py",
+      "registry": "f15_cross_sectional_momentum_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_jerk_001_150_claude.py",
+      "registry": "f15_cross_sectional_momentum_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_slope_001_150_claude.py",
+      "registry": "f15_cross_sectional_momentum_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_001_075_claude.py",
+      "registry": "f16_realized_volatility_term_structure_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_076_150_claude.py",
+      "registry": "f16_realized_volatility_term_structure_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_jerk_001_150_claude.py",
+      "registry": "f16_realized_volatility_term_structure_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+      "registry": "f16_realized_volatility_term_structure_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_base_001_075_claude.py",
+      "registry": "f17_volatility_regime_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_base_076_150_claude.py",
+      "registry": "f17_volatility_regime_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_jerk_001_150_claude.py",
+      "registry": "f17_volatility_regime_jerk_001_150_REGISTRY",
+      "functions": 144,
+      "registry_entries": 144
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_slope_001_150_claude.py",
+      "registry": "f17_volatility_regime_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_base_001_075_claude.py",
+      "registry": "f18_parkinson_garman_klass_estimators_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_base_076_150_claude.py",
+      "registry": "f18_parkinson_garman_klass_estimators_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_jerk_001_150_claude.py",
+      "registry": "f18_parkinson_garman_klass_estimators_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_slope_001_150_claude.py",
+      "registry": "f18_parkinson_garman_klass_estimators_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_001_075_claude.py",
+      "registry": "f19_atr_normalized_price_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_076_150_claude.py",
+      "registry": "f19_atr_normalized_price_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f19_atr_normalized_price\\f19_atr_normalized_price_jerk_001_150_claude.py",
+      "registry": "f19_atr_normalized_price_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f19_atr_normalized_price\\f19_atr_normalized_price_slope_001_150_claude.py",
+      "registry": "f19_atr_normalized_price_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+      "registry": "f20_volatility_compression_expansion_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_076_150_claude.py",
+      "registry": "f20_volatility_compression_expansion_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+      "registry": "f20_volatility_compression_expansion_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+      "registry": "f20_volatility_compression_expansion_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_base_001_075_claude.py",
+      "registry": "f21_raw_volume_metrics_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_base_076_150_claude.py",
+      "registry": "f21_raw_volume_metrics_base_076_150_REGISTRY",
+      "functions": 74,
+      "registry_entries": 74
+    },
+    {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_jerk_001_150_claude.py",
+      "registry": "f21_raw_volume_metrics_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_slope_001_150_claude.py",
+      "registry": "f21_raw_volume_metrics_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f22_volume_trend\\f22_volume_trend_base_001_075_claude.py",
+      "registry": "f22_volume_trend_base_001_075_REGISTRY",
+      "functions": 74,
+      "registry_entries": 74
+    },
+    {
+      "file": "f22_volume_trend\\f22_volume_trend_base_076_150_claude.py",
+      "registry": "f22_volume_trend_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f22_volume_trend\\f22_volume_trend_jerk_001_150_claude.py",
+      "registry": "f22_volume_trend_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f22_volume_trend\\f22_volume_trend_slope_001_150_claude.py",
+      "registry": "f22_volume_trend_slope_001_150_REGISTRY",
+      "functions": 149,
+      "registry_entries": 149
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_001_075_claude.py",
+      "registry": "f23_on_balance_volume_family_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_076_150_claude.py",
+      "registry": "f23_on_balance_volume_family_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_jerk_001_150_claude.py",
+      "registry": "f23_on_balance_volume_family_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+      "registry": "f23_on_balance_volume_family_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_base_001_075_claude.py",
+      "registry": "f24_volume_price_confirmation_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_base_076_150_claude.py",
+      "registry": "f24_volume_price_confirmation_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_jerk_001_150_claude.py",
+      "registry": "f24_volume_price_confirmation_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_slope_001_150_claude.py",
+      "registry": "f24_volume_price_confirmation_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_base_001_075_claude.py",
+      "registry": "f25_vwap_deviation_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_base_076_150_claude.py",
+      "registry": "f25_vwap_deviation_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_jerk_001_150_claude.py",
+      "registry": "f25_vwap_deviation_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_slope_001_150_claude.py",
+      "registry": "f25_vwap_deviation_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+      "registry": "f26_accumulation_distribution_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_076_150_claude.py",
+      "registry": "f26_accumulation_distribution_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "registry": "f26_accumulation_distribution_jerk_001_150_REGISTRY",
+      "functions": 149,
+      "registry_entries": 149
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "registry": "f26_accumulation_distribution_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f27_volume_regime\\f27_volume_regime_base_001_075_claude.py",
+      "registry": "f27_volume_regime_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f27_volume_regime\\f27_volume_regime_base_076_150_claude.py",
+      "registry": "f27_volume_regime_base_076_150_REGISTRY",
+      "functions": 73,
+      "registry_entries": 73
+    },
+    {
+      "file": "f27_volume_regime\\f27_volume_regime_jerk_001_150_claude.py",
+      "registry": "f27_volume_regime_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f27_volume_regime\\f27_volume_regime_slope_001_150_claude.py",
+      "registry": "f27_volume_regime_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f28_price_volume_divergence\\f28_price_volume_divergence_base_001_075_claude.py",
+      "registry": "f28_price_volume_divergence_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f28_price_volume_divergence\\f28_price_volume_divergence_base_076_150_claude.py",
+      "registry": "f28_price_volume_divergence_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f28_price_volume_divergence\\f28_price_volume_divergence_jerk_001_150_claude.py",
+      "registry": "f28_price_volume_divergence_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f28_price_volume_divergence\\f28_price_volume_divergence_slope_001_150_claude.py",
+      "registry": "f28_price_volume_divergence_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_base_001_075_claude.py",
+      "registry": "f29_relative_strength_vs_benchmark_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_base_076_150_claude.py",
+      "registry": "f29_relative_strength_vs_benchmark_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+      "registry": "f29_relative_strength_vs_benchmark_jerk_001_150_REGISTRY",
+      "functions": 140,
+      "registry_entries": 140
+    },
+    {
+      "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_slope_001_150_claude.py",
+      "registry": "f29_relative_strength_vs_benchmark_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f30_drawdown_recovery_metrics\\f30_drawdown_recovery_metrics_base_001_075_claude.py",
+      "registry": "f30_drawdown_recovery_metrics_base_001_075_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f30_drawdown_recovery_metrics\\f30_drawdown_recovery_metrics_base_076_150_claude.py",
+      "registry": "f30_drawdown_recovery_metrics_base_076_150_REGISTRY",
+      "functions": 75,
+      "registry_entries": 75
+    },
+    {
+      "file": "f30_drawdown_recovery_metrics\\f30_drawdown_recovery_metrics_jerk_001_150_claude.py",
+      "registry": "f30_drawdown_recovery_metrics_jerk_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    },
+    {
+      "file": "f30_drawdown_recovery_metrics\\f30_drawdown_recovery_metrics_slope_001_150_claude.py",
+      "registry": "f30_drawdown_recovery_metrics_slope_001_150_REGISTRY",
+      "functions": 150,
+      "registry_entries": 150
+    }
+  ],
+  "issues": [
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_base_076_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f01ms_f01_moving_average_systems_ohlc4_close_diff_30d_base_v117_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_jerk_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f01ms_f01_moving_average_systems_ohlc4_close_diff_30d_jerk_v117_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_slope_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f01ms_f01_moving_average_systems_sign_ohlc4_close_ema_30d_slope_v038_signal",
+        "f01ms_f01_moving_average_systems_ohlc4_close_diff_30d_slope_v117_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_base_076_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f02pc_f02_price_channel_position_ohlcrng_30d_base_v078_signal",
+        "f02pc_f02_price_channel_position_obpos_10d_base_v079_signal",
+        "f02pc_f02_price_channel_position_bodyrng_30d_base_v132_signal",
+        "f02pc_f02_price_channel_position_wickrat_25d_base_v133_signal",
+        "f02pc_f02_price_channel_position_wicklo_25d_base_v134_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_jerk_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f02pc_f02_price_channel_position_ohlcrng_30d_jerk_v078_signal",
+        "f02pc_f02_price_channel_position_obpos_10d_jerk_v079_signal",
+        "f02pc_f02_price_channel_position_bodyrng_30d_jerk_v132_signal",
+        "f02pc_f02_price_channel_position_wickrat_25d_jerk_v133_signal",
+        "f02pc_f02_price_channel_position_wicklo_25d_jerk_v134_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_slope_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f02pc_f02_price_channel_position_ohlcrng_30d_slope_v078_signal",
+        "f02pc_f02_price_channel_position_obpos_10d_slope_v079_signal",
+        "f02pc_f02_price_channel_position_bodyrng_30d_slope_v132_signal",
+        "f02pc_f02_price_channel_position_wickrat_25d_slope_v133_signal",
+        "f02pc_f02_price_channel_position_wicklo_25d_slope_v134_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f03ts_f03_trend_strength_metrics_bullbarpct_40d_base_v119_signal",
+        "f03ts_f03_trend_strength_metrics_directnbody_30d_base_v120_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f03ts_f03_trend_strength_metrics_bullbarpct_40d_jerk_v119_signal",
+        "f03ts_f03_trend_strength_metrics_directnbody_30d_jerk_v120_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f03ts_f03_trend_strength_metrics_bullbarpct_40d_slope_v119_signal",
+        "f03ts_f03_trend_strength_metrics_directnbody_30d_slope_v120_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_base_001_075_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f05me_f05_moving_average_envelope_gkwidrat_20d_base_v035_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_base_076_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f05me_f05_moving_average_envelope_bodyabove_30d_base_v106_signal",
+        "f05me_f05_moving_average_envelope_bodybelow_30d_base_v107_signal",
+        "f05me_f05_moving_average_envelope_pkgkwid_30d_base_v128_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_jerk_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f05me_f05_moving_average_envelope_gkwidrat_20d_jerk_v035_signal",
+        "f05me_f05_moving_average_envelope_bodyabove_30d_jerk_v106_signal",
+        "f05me_f05_moving_average_envelope_bodybelow_30d_jerk_v107_signal",
+        "f05me_f05_moving_average_envelope_pkgkwid_30d_jerk_v128_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f05_moving_average_envelope\\f05_moving_average_envelope_slope_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f05me_f05_moving_average_envelope_gkwidrat_20d_slope_v035_signal",
+        "f05me_f05_moving_average_envelope_bodyabove_30d_slope_v106_signal",
+        "f05me_f05_moving_average_envelope_bodybelow_30d_slope_v107_signal",
+        "f05me_f05_moving_average_envelope_pkgkwid_30d_slope_v128_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_base_001_075_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f11rc_f11_raw_roc_family_openclrocdf_5d_base_v071_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_base_076_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f11rc_f11_raw_roc_family_clcldiff_5d_base_v124_signal",
+        "f11rc_f11_raw_roc_family_openrocstk_42d_base_v127_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_jerk_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f11rc_f11_raw_roc_family_openclrocdf_5d_jerk_v071_signal",
+        "f11rc_f11_raw_roc_family_clcldiff_5d_jerk_v124_signal",
+        "f11rc_f11_raw_roc_family_openrocstk_42d_jerk_v127_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f11_raw_roc_family\\f11_raw_roc_family_slope_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f11rc_f11_raw_roc_family_openclrocdf_5d_slope_v071_signal",
+        "f11rc_f11_raw_roc_family_clcldiff_5d_slope_v124_signal",
+        "f11rc_f11_raw_roc_family_openrocstk_42d_slope_v127_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_076_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f16vt_f16_realized_volatility_term_structure_gktermratio_base_v091_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_jerk_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f16vt_f16_realized_volatility_term_structure_gktermratio_jerk_v091_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f16vt_f16_realized_volatility_term_structure_gktermratio_slope_v091_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_base_076_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f17vr_f17_volatility_regime_gkvol_p75_ind_30d_base_v079_signal",
+        "f17vr_f17_volatility_regime_co_oc_ratio_42d_base_v113_signal",
+        "f17vr_f17_volatility_regime_oc_quartile_42on252_base_v114_signal",
+        "f17vr_f17_volatility_regime_GKvol_z_120d_base_v131_signal",
+        "f17vr_f17_volatility_regime_close_minus_open_voldiff_42d_base_v149_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_jerk_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f17vr_f17_volatility_regime_gkvol_p75_ind_30d_jerk_v079_signal",
+        "f17vr_f17_volatility_regime_co_oc_ratio_42d_jerk_v113_signal",
+        "f17vr_f17_volatility_regime_oc_quartile_42on252_jerk_v114_signal",
+        "f17vr_f17_volatility_regime_GKvol_z_120d_jerk_v131_signal",
+        "f17vr_f17_volatility_regime_close_minus_open_voldiff_42d_jerk_v149_signal"
+      ],
+      "counts": {
+        "funcs": 144,
+        "registry": 144
+      }
+    },
+    {
+      "file": "f17_volatility_regime\\f17_volatility_regime_slope_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f17vr_f17_volatility_regime_gkvol_p75_ind_30d_slope_v079_signal",
+        "f17vr_f17_volatility_regime_co_oc_ratio_42d_slope_v113_signal",
+        "f17vr_f17_volatility_regime_oc_quartile_42on252_slope_v114_signal",
+        "f17vr_f17_volatility_regime_GKvol_z_120d_slope_v131_signal",
+        "f17vr_f17_volatility_regime_close_minus_open_voldiff_42d_slope_v149_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f20ce_f20_volatility_compression_expansion_body_size_rank_50d_v060_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_076_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f20ce_f20_volatility_compression_expansion_log_co_sq_short_long_v083_signal",
+        "f20ce_f20_volatility_compression_expansion_gap_abs_30d_avg_v101_signal",
+        "f20ce_f20_volatility_compression_expansion_gap_zscore_60d_v102_signal",
+        "f20ce_f20_volatility_compression_expansion_body_to_range_30d_v129_signal",
+        "f20ce_f20_volatility_compression_expansion_wick_share_50d_v130_signal",
+        "f20ce_f20_volatility_compression_expansion_ohlc_dispersion_zscore_v142_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f20ce_f20_volatility_compression_expansion_body_size_rank_50d_jerk_v060_signal",
+        "f20ce_f20_volatility_compression_expansion_log_co_sq_short_long_jerk_v083_signal",
+        "f20ce_f20_volatility_compression_expansion_gap_abs_30d_avg_jerk_v101_signal",
+        "f20ce_f20_volatility_compression_expansion_gap_zscore_60d_jerk_v102_signal",
+        "f20ce_f20_volatility_compression_expansion_body_to_range_30d_jerk_v129_signal",
+        "f20ce_f20_volatility_compression_expansion_wick_share_50d_jerk_v130_signal",
+        "f20ce_f20_volatility_compression_expansion_ohlc_dispersion_zscore_jerk_v142_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f20ce_f20_volatility_compression_expansion_body_size_rank_50d_slope_v060_signal",
+        "f20ce_f20_volatility_compression_expansion_log_co_sq_short_long_slope_v083_signal",
+        "f20ce_f20_volatility_compression_expansion_gap_abs_30d_avg_slope_v101_signal",
+        "f20ce_f20_volatility_compression_expansion_gap_zscore_60d_slope_v102_signal",
+        "f20ce_f20_volatility_compression_expansion_body_to_range_30d_slope_v129_signal",
+        "f20ce_f20_volatility_compression_expansion_wick_share_50d_slope_v130_signal",
+        "f20ce_f20_volatility_compression_expansion_ohlc_dispersion_zscore_slope_v142_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_base_001_075_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f25vw_f25_vwap_deviation_open_close_vs_vwap_55d_base_v050_signal"
+      ],
+      "counts": {
+        "funcs": 75,
+        "registry": 75
+      }
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_jerk_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f25vw_f25_vwap_deviation_open_close_vs_vwap_55d_jerk_v050_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    },
+    {
+      "file": "f25_vwap_deviation\\f25_vwap_deviation_slope_001_150_claude.py",
+      "type": "registry_mismatch",
+      "missing_func": [],
+      "unregistered": [],
+      "bad_entries": [
+        "f25vw_f25_vwap_deviation_open_close_vs_vwap_55d_slope_v050_signal"
+      ],
+      "counts": {
+        "funcs": 150,
+        "registry": 150
+      }
+    }
+  ]
+}

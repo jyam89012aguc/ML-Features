@@ -1,0 +1,1419 @@
+{
+  "files": 8,
+  "parse_errors": [],
+  "import_errors": [],
+  "functions_discovered": 600,
+  "inputs": [
+    "close"
+  ],
+  "runtime_errors": [],
+  "shape_issues": [],
+  "all_nan": [],
+  "constants": [],
+  "duplicate_groups": [
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_001",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_031",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_061",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_091",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_121"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_002",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_032",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_062",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_092",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_122"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_003",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_033",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_063",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_093",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_123"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_004",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_034",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_064",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_094",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_124"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_005",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_035",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_065",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_095",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_125"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_006",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_036",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_066",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_096",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_126"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_007",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_037",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_067",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_097",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_127"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_008",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_038",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_068",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_098",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_128"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_009",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_039",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_069",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_099",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_129"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_010",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_040",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_070",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_100",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_130"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_011",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_041",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_071",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_101",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_131"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_012",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_042",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_072",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_102",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_132"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_013",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_043",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_073",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_103",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_133"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_014",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_044",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_074",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_104",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_134"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_015",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_045",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_075",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_105",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_135"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_016",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_046",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_076",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_106",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_136"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_017",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_047",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_077",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_107",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_137"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_018",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_048",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_078",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_108",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_138"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_019",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_049",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_079",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_109",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_139"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_020",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_050",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_080",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_110",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_140"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_021",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_051",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_081",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_111",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_141"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_022",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_052",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_082",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_112",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_142"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_023",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_053",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_083",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_113",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_143"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_024",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_054",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_084",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_114",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_144"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_025",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_055",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_085",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_115",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_145"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_026",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_056",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_086",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_116",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_146"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_027",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_057",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_087",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_117",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_147"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_028",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_058",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_088",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_118",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_148"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_029",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_059",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_089",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_119",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_149"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_030",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_060",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_090",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_120",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_150"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_001_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_031_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_061_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_091_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_121_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_002_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_032_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_062_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_092_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_122_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_003_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_033_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_063_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_093_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_123_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_004_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_034_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_064_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_094_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_124_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_005_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_035_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_065_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_095_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_125_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_006_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_036_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_066_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_096_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_126_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_007_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_037_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_067_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_097_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_127_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_008_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_038_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_068_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_098_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_128_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_009_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_039_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_069_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_099_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_129_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_010_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_040_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_070_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_100_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_130_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_011_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_041_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_071_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_101_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_131_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_012_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_042_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_072_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_102_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_132_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_013_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_043_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_073_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_103_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_133_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_014_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_044_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_074_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_104_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_134_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_015_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_045_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_075_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_105_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_135_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_016_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_046_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_076_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_106_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_136_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_017_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_047_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_077_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_107_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_137_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_018_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_048_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_078_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_108_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_138_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_019_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_049_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_079_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_109_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_139_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_020_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_050_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_080_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_110_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_140_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_021_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_051_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_081_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_111_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_141_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_022_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_052_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_082_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_112_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_142_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_023_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_053_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_083_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_113_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_143_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_024_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_054_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_084_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_114_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_144_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_025_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_055_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_085_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_115_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_145_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_026_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_056_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_086_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_116_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_146_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_027_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_057_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_087_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_117_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_147_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_028_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_058_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_088_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_118_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_148_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_029_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_059_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_089_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_119_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_149_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_030_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_060_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_090_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_120_d1",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_150_d1"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_001_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_031_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_061_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_091_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_121_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_002_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_032_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_062_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_092_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_122_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_003_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_033_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_063_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_093_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_123_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_004_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_034_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_064_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_094_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_124_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_005_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_035_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_065_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_095_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_125_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_006_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_036_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_066_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_096_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_126_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_007_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_037_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_067_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_097_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_127_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_008_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_038_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_068_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_098_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_128_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_009_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_039_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_069_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_099_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_129_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_010_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_040_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_070_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_100_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_130_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_011_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_041_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_071_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_101_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_131_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_012_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_042_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_072_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_102_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_132_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_013_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_043_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_073_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_103_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_133_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_014_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_044_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_074_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_104_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_134_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_015_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_045_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_075_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_105_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_135_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_016_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_046_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_076_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_106_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_136_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_017_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_047_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_077_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_107_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_137_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_018_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_048_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_078_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_108_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_138_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_019_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_049_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_079_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_109_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_139_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_020_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_050_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_080_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_110_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_140_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_021_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_051_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_081_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_111_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_141_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_022_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_052_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_082_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_112_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_142_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_023_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_053_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_083_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_113_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_143_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_024_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_054_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_084_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_114_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_144_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_025_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_055_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_085_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_115_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_145_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_026_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_056_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_086_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_116_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_146_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_027_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_057_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_087_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_117_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_147_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_028_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_058_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_088_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_118_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_148_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_029_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_059_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_089_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_119_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_149_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_030_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_060_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_090_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_120_d2",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_150_d2"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_001_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_031_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_061_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_091_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_121_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_002_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_032_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_062_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_092_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_122_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_003_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_033_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_063_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_093_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_123_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_004_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_034_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_064_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_094_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_124_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_005_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_035_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_065_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_095_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_125_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_006_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_036_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_066_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_096_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_126_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_007_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_037_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_067_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_097_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_127_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_008_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_038_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_068_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_098_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_128_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_009_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_039_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_069_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_099_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_129_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_010_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_040_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_070_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_100_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_130_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_011_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_041_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_071_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_101_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_131_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_012_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_042_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_072_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_102_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_132_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_013_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_043_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_073_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_103_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_133_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_014_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_044_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_074_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_104_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_134_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_015_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_045_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_075_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_105_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_135_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_016_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_046_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_076_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_106_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_136_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_017_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_047_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_077_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_107_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_137_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_018_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_048_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_078_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_108_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_138_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_019_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_049_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_079_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_109_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_139_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_020_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_050_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_080_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_110_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_140_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_021_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_051_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_081_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_111_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_141_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_022_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_052_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_082_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_112_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_142_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_023_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_053_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_083_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_113_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_143_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_024_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_054_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_084_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_114_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_144_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_025_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_055_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_085_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_115_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_145_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_026_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_056_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_086_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_116_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_146_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_027_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_057_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_087_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_117_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_147_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_028_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_058_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_088_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_118_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_148_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_029_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_059_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_089_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_119_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_149_d3"
+      ]
+    },
+    {
+      "folder": "02_parabolic_blowoff_signature_gemini",
+      "features": [
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_030_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_060_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_090_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_120_d3",
+        "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_150_d3"
+      ]
+    }
+  ],
+  "scalar_multiple_candidates": [],
+  "slowest": [
+    {
+      "seconds": 0.058,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_047_d3"
+    },
+    {
+      "seconds": 0.0551,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_048_d3"
+    },
+    {
+      "seconds": 0.0513,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_129_d3"
+    },
+    {
+      "seconds": 0.0499,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_128_d3"
+    },
+    {
+      "seconds": 0.0496,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_099_d3"
+    },
+    {
+      "seconds": 0.0495,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_069_d3"
+    },
+    {
+      "seconds": 0.0491,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_039_d3"
+    },
+    {
+      "seconds": 0.0491,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_039_d1"
+    },
+    {
+      "seconds": 0.049,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_069_d2"
+    },
+    {
+      "seconds": 0.0489,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_099_d1"
+    },
+    {
+      "seconds": 0.0489,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_069_d1"
+    },
+    {
+      "seconds": 0.0488,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_129"
+    },
+    {
+      "seconds": 0.0488,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_129_d2"
+    },
+    {
+      "seconds": 0.0486,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_039_d2"
+    },
+    {
+      "seconds": 0.0485,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_030_d3"
+    },
+    {
+      "seconds": 0.0485,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_099"
+    },
+    {
+      "seconds": 0.0484,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_030"
+    },
+    {
+      "seconds": 0.0483,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_009_d2"
+    },
+    {
+      "seconds": 0.0482,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_060_d1"
+    },
+    {
+      "seconds": 0.0482,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_129_d1"
+    },
+    {
+      "seconds": 0.0481,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_060_d3"
+    },
+    {
+      "seconds": 0.0481,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_099_d2"
+    },
+    {
+      "seconds": 0.0481,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_009_d3"
+    },
+    {
+      "seconds": 0.0481,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_009"
+    },
+    {
+      "seconds": 0.048,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_039"
+    },
+    {
+      "seconds": 0.048,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_090_d2"
+    },
+    {
+      "seconds": 0.048,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_120_d3"
+    },
+    {
+      "seconds": 0.0479,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_090_d1"
+    },
+    {
+      "seconds": 0.0479,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_120_d2"
+    },
+    {
+      "seconds": 0.0479,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_150_d3"
+    },
+    {
+      "seconds": 0.0479,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_030_d2"
+    },
+    {
+      "seconds": 0.0478,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_069"
+    },
+    {
+      "seconds": 0.0478,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_030_d1"
+    },
+    {
+      "seconds": 0.0478,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_120_d1"
+    },
+    {
+      "seconds": 0.0477,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_090_d3"
+    },
+    {
+      "seconds": 0.0476,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_090"
+    },
+    {
+      "seconds": 0.0476,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_150_d1"
+    },
+    {
+      "seconds": 0.0476,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_009_d1"
+    },
+    {
+      "seconds": 0.0475,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_120"
+    },
+    {
+      "seconds": 0.0475,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__001_075.py::f02_pblo_gemini_060_d2"
+    },
+    {
+      "seconds": 0.0473,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_046_d1"
+    },
+    {
+      "seconds": 0.0473,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__076_150.py::f02_pblo_gemini_150"
+    },
+    {
+      "seconds": 0.0471,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_150_d2"
+    },
+    {
+      "seconds": 0.047,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__base__001_075.py::f02_pblo_gemini_060"
+    },
+    {
+      "seconds": 0.0459,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__076_150.py::f02_pblo_gemini_098_d3"
+    },
+    {
+      "seconds": 0.0456,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_068_d3"
+    },
+    {
+      "seconds": 0.0454,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__076_150.py::f02_pblo_gemini_098_d1"
+    },
+    {
+      "seconds": 0.0452,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d3__001_075.py::f02_pblo_gemini_038_d3"
+    },
+    {
+      "seconds": 0.0451,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d1__001_075.py::f02_pblo_gemini_068_d1"
+    },
+    {
+      "seconds": 0.045,
+      "feature": "02_parabolic_blowoff_signature_gemini\\02_parabolic_blowoff_signature_gemini__d2__076_150.py::f02_pblo_gemini_128_d2"
+    }
+  ],
+  "elapsed_seconds": 25.19
+}

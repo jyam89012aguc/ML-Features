@@ -1,0 +1,1289 @@
+import inspect
+import numpy as np
+import pandas as pd
+
+TRADING_DAYS_YEAR = 252
+TRADING_DAYS_HALF = 126
+TRADING_DAYS_QUARTER = 63
+TRADING_DAYS_MONTH = 21
+TRADING_DAYS_WEEK = 5
+
+def _z(s, w):
+    m = s.rolling(w, min_periods=max(1, w // 2)).mean()
+    sd = s.rolling(w, min_periods=max(1, w // 2)).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+
+def _mean(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).mean()
+
+
+def _std(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).std()
+
+
+def _safe_div(a, b):
+    return a / b.replace(0, np.nan)
+
+
+def _ema(s, w):
+    return s.ewm(span=w, min_periods=max(1, w // 2)).mean()
+
+
+def _qrank(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).rank(pct=True)
+
+
+def _diff(s, n):
+    return s.diff(periods=n)
+
+
+def _slope(s, w):
+    return s.diff(periods=w) / s.abs().replace(0, np.nan)
+
+
+def _jerk(s, w):
+    sl = s.diff(periods=w) / s.abs().replace(0, np.nan)
+    return sl.diff(periods=w)
+
+
+# ===== folder domain primitives =====
+
+def _f35_payout_floor(payoutratio, w):
+    return payoutratio.rolling(w, min_periods=max(1, w // 2)).min()
+
+
+def _f35_payout_durability(payoutratio, eps, w):
+    mu = payoutratio.rolling(w, min_periods=max(1, w // 2)).mean()
+    sd = eps.rolling(w, min_periods=max(1, w // 2)).std()
+    return mu / sd.replace(0, np.nan)
+
+
+def _f35_payout_sustainability(payoutratio, fcfps, w):
+    margin = (1.0 - payoutratio)
+    fcf_g = fcfps.pct_change(periods=w)
+    return margin * fcf_g
+
+
+# ===== features =====
+def f35bpd_f35_bank_payout_durability_payoutfloor_5d_jerk_v001_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 5) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_5d_jerk_v002_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 5) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_5d_jerk_v003_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 5) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_5d_jerk_v004_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 5) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_10d_jerk_v005_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 10) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_10d_jerk_v006_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 10) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_10d_jerk_v007_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 10) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_10d_jerk_v008_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 10) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_21d_jerk_v009_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 21) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_21d_jerk_v010_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 21) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_21d_jerk_v011_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 21) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_21d_jerk_v012_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 21) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_42d_jerk_v013_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 42) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_42d_jerk_v014_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 42) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_42d_jerk_v015_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 42) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_42d_jerk_v016_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 42) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_63d_jerk_v017_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 63) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_63d_jerk_v018_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 63) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_63d_jerk_v019_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 63) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_63d_jerk_v020_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 63) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_126d_jerk_v021_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 126) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_126d_jerk_v022_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 126) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_126d_jerk_v023_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 126) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_126d_jerk_v024_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 126) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_189d_jerk_v025_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 189) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_189d_jerk_v026_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 189) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_189d_jerk_v027_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 189) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_189d_jerk_v028_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 189) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_252d_jerk_v029_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 252) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_252d_jerk_v030_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 252) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_252d_jerk_v031_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 252) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_252d_jerk_v032_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 252) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_378d_jerk_v033_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 378) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_378d_jerk_v034_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 378) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_378d_jerk_v035_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 378) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_378d_jerk_v036_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 378) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_504d_jerk_v037_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 504) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_504d_jerk_v038_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 504) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_504d_jerk_v039_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 504) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutfloor_504d_jerk_v040_signal(payoutratio, closeadj):
+    base = _f35_payout_floor(payoutratio, 504) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_5d_jerk_v041_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 5) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_5d_jerk_v042_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 5) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_5d_jerk_v043_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 5) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_5d_jerk_v044_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 5) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_10d_jerk_v045_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 10) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_10d_jerk_v046_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 10) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_10d_jerk_v047_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 10) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_10d_jerk_v048_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 10) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_21d_jerk_v049_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 21) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_21d_jerk_v050_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 21) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_21d_jerk_v051_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 21) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_21d_jerk_v052_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 21) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_42d_jerk_v053_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 42) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_42d_jerk_v054_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 42) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_42d_jerk_v055_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 42) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_42d_jerk_v056_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 42) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_63d_jerk_v057_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 63) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_63d_jerk_v058_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 63) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_63d_jerk_v059_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 63) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_63d_jerk_v060_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 63) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_126d_jerk_v061_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 126) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_126d_jerk_v062_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 126) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_126d_jerk_v063_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 126) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_126d_jerk_v064_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 126) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_189d_jerk_v065_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 189) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_189d_jerk_v066_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 189) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_189d_jerk_v067_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 189) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_189d_jerk_v068_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 189) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_252d_jerk_v069_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 252) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_252d_jerk_v070_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 252) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_252d_jerk_v071_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 252) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_252d_jerk_v072_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 252) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_378d_jerk_v073_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 378) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_378d_jerk_v074_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 378) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_378d_jerk_v075_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 378) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_378d_jerk_v076_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 378) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_504d_jerk_v077_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 504) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_504d_jerk_v078_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 504) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_504d_jerk_v079_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 504) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutdur_504d_jerk_v080_signal(payoutratio, eps, closeadj):
+    base = _f35_payout_durability(payoutratio, eps, 504) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_5d_jerk_v081_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 5) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_5d_jerk_v082_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 5) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_5d_jerk_v083_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 5) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_5d_jerk_v084_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 5) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_10d_jerk_v085_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 10) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_10d_jerk_v086_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 10) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_10d_jerk_v087_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 10) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_10d_jerk_v088_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 10) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_21d_jerk_v089_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 21) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_21d_jerk_v090_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 21) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_21d_jerk_v091_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 21) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_21d_jerk_v092_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 21) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_42d_jerk_v093_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 42) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_42d_jerk_v094_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 42) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_42d_jerk_v095_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 42) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_42d_jerk_v096_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 42) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_63d_jerk_v097_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 63) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_63d_jerk_v098_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 63) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_63d_jerk_v099_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 63) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_63d_jerk_v100_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 63) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_126d_jerk_v101_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 126) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_126d_jerk_v102_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 126) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_126d_jerk_v103_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 126) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_126d_jerk_v104_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 126) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_189d_jerk_v105_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 189) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_189d_jerk_v106_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 189) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_189d_jerk_v107_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 189) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_189d_jerk_v108_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 189) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_252d_jerk_v109_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 252) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_252d_jerk_v110_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 252) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_252d_jerk_v111_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 252) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_252d_jerk_v112_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 252) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_378d_jerk_v113_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 378) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_378d_jerk_v114_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 378) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_378d_jerk_v115_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 378) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_378d_jerk_v116_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 378) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_504d_jerk_v117_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 504) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_504d_jerk_v118_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 504) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_504d_jerk_v119_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 504) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutsust_504d_jerk_v120_signal(payoutratio, fcfps, closeadj):
+    base = _f35_payout_sustainability(payoutratio, fcfps, 504) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_21d_jerk_v121_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 21)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_21d_jerk_v122_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 21)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_21d_jerk_v123_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 21)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_21d_jerk_v124_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 21)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_42d_jerk_v125_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 42)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_42d_jerk_v126_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 42)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_42d_jerk_v127_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 42)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_42d_jerk_v128_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 42)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_63d_jerk_v129_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 63)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_63d_jerk_v130_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 63)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_63d_jerk_v131_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 63)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_63d_jerk_v132_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 63)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_126d_jerk_v133_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 126)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_126d_jerk_v134_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 126)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_126d_jerk_v135_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 126)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_126d_jerk_v136_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 126)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_252d_jerk_v137_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 252)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_252d_jerk_v138_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 252)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_252d_jerk_v139_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 252)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_252d_jerk_v140_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 252)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_504d_jerk_v141_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 504)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_504d_jerk_v142_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 504)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_504d_jerk_v143_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 504)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutheadroom_504d_jerk_v144_signal(payoutratio, closeadj):
+    f = _f35_payout_floor(payoutratio, 504)
+    base = (payoutratio - f) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutcomposite_21d_jerk_v145_signal(payoutratio, eps, closeadj):
+    fl = _f35_payout_floor(payoutratio, 21)
+    d = _f35_payout_durability(payoutratio, eps, 21)
+    base = (fl + d) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutcomposite_21d_jerk_v146_signal(payoutratio, eps, closeadj):
+    fl = _f35_payout_floor(payoutratio, 21)
+    d = _f35_payout_durability(payoutratio, eps, 21)
+    base = (fl + d) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutcomposite_21d_jerk_v147_signal(payoutratio, eps, closeadj):
+    fl = _f35_payout_floor(payoutratio, 21)
+    d = _f35_payout_durability(payoutratio, eps, 21)
+    base = (fl + d) * closeadj
+    result = _jerk(base, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutcomposite_21d_jerk_v148_signal(payoutratio, eps, closeadj):
+    fl = _f35_payout_floor(payoutratio, 21)
+    d = _f35_payout_durability(payoutratio, eps, 21)
+    base = (fl + d) * closeadj
+    result = _jerk(base, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutcomposite_63d_jerk_v149_signal(payoutratio, eps, closeadj):
+    fl = _f35_payout_floor(payoutratio, 63)
+    d = _f35_payout_durability(payoutratio, eps, 63)
+    base = (fl + d) * closeadj
+    result = _jerk(base, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+def f35bpd_f35_bank_payout_durability_payoutcomposite_63d_jerk_v150_signal(payoutratio, eps, closeadj):
+    fl = _f35_payout_floor(payoutratio, 63)
+    d = _f35_payout_durability(payoutratio, eps, 63)
+    base = (fl + d) * closeadj
+    result = _jerk(base, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+_FEATURES = [
+    f35bpd_f35_bank_payout_durability_payoutfloor_5d_jerk_v001_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_5d_jerk_v002_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_5d_jerk_v003_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_5d_jerk_v004_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_10d_jerk_v005_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_10d_jerk_v006_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_10d_jerk_v007_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_10d_jerk_v008_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_21d_jerk_v009_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_21d_jerk_v010_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_21d_jerk_v011_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_21d_jerk_v012_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_42d_jerk_v013_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_42d_jerk_v014_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_42d_jerk_v015_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_42d_jerk_v016_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_63d_jerk_v017_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_63d_jerk_v018_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_63d_jerk_v019_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_63d_jerk_v020_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_126d_jerk_v021_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_126d_jerk_v022_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_126d_jerk_v023_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_126d_jerk_v024_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_189d_jerk_v025_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_189d_jerk_v026_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_189d_jerk_v027_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_189d_jerk_v028_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_252d_jerk_v029_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_252d_jerk_v030_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_252d_jerk_v031_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_252d_jerk_v032_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_378d_jerk_v033_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_378d_jerk_v034_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_378d_jerk_v035_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_378d_jerk_v036_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_504d_jerk_v037_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_504d_jerk_v038_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_504d_jerk_v039_signal,
+    f35bpd_f35_bank_payout_durability_payoutfloor_504d_jerk_v040_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_5d_jerk_v041_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_5d_jerk_v042_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_5d_jerk_v043_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_5d_jerk_v044_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_10d_jerk_v045_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_10d_jerk_v046_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_10d_jerk_v047_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_10d_jerk_v048_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_21d_jerk_v049_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_21d_jerk_v050_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_21d_jerk_v051_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_21d_jerk_v052_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_42d_jerk_v053_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_42d_jerk_v054_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_42d_jerk_v055_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_42d_jerk_v056_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_63d_jerk_v057_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_63d_jerk_v058_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_63d_jerk_v059_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_63d_jerk_v060_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_126d_jerk_v061_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_126d_jerk_v062_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_126d_jerk_v063_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_126d_jerk_v064_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_189d_jerk_v065_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_189d_jerk_v066_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_189d_jerk_v067_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_189d_jerk_v068_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_252d_jerk_v069_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_252d_jerk_v070_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_252d_jerk_v071_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_252d_jerk_v072_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_378d_jerk_v073_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_378d_jerk_v074_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_378d_jerk_v075_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_378d_jerk_v076_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_504d_jerk_v077_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_504d_jerk_v078_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_504d_jerk_v079_signal,
+    f35bpd_f35_bank_payout_durability_payoutdur_504d_jerk_v080_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_5d_jerk_v081_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_5d_jerk_v082_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_5d_jerk_v083_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_5d_jerk_v084_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_10d_jerk_v085_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_10d_jerk_v086_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_10d_jerk_v087_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_10d_jerk_v088_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_21d_jerk_v089_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_21d_jerk_v090_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_21d_jerk_v091_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_21d_jerk_v092_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_42d_jerk_v093_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_42d_jerk_v094_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_42d_jerk_v095_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_42d_jerk_v096_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_63d_jerk_v097_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_63d_jerk_v098_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_63d_jerk_v099_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_63d_jerk_v100_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_126d_jerk_v101_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_126d_jerk_v102_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_126d_jerk_v103_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_126d_jerk_v104_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_189d_jerk_v105_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_189d_jerk_v106_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_189d_jerk_v107_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_189d_jerk_v108_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_252d_jerk_v109_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_252d_jerk_v110_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_252d_jerk_v111_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_252d_jerk_v112_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_378d_jerk_v113_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_378d_jerk_v114_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_378d_jerk_v115_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_378d_jerk_v116_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_504d_jerk_v117_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_504d_jerk_v118_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_504d_jerk_v119_signal,
+    f35bpd_f35_bank_payout_durability_payoutsust_504d_jerk_v120_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_21d_jerk_v121_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_21d_jerk_v122_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_21d_jerk_v123_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_21d_jerk_v124_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_42d_jerk_v125_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_42d_jerk_v126_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_42d_jerk_v127_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_42d_jerk_v128_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_63d_jerk_v129_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_63d_jerk_v130_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_63d_jerk_v131_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_63d_jerk_v132_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_126d_jerk_v133_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_126d_jerk_v134_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_126d_jerk_v135_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_126d_jerk_v136_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_252d_jerk_v137_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_252d_jerk_v138_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_252d_jerk_v139_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_252d_jerk_v140_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_504d_jerk_v141_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_504d_jerk_v142_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_504d_jerk_v143_signal,
+    f35bpd_f35_bank_payout_durability_payoutheadroom_504d_jerk_v144_signal,
+    f35bpd_f35_bank_payout_durability_payoutcomposite_21d_jerk_v145_signal,
+    f35bpd_f35_bank_payout_durability_payoutcomposite_21d_jerk_v146_signal,
+    f35bpd_f35_bank_payout_durability_payoutcomposite_21d_jerk_v147_signal,
+    f35bpd_f35_bank_payout_durability_payoutcomposite_21d_jerk_v148_signal,
+    f35bpd_f35_bank_payout_durability_payoutcomposite_63d_jerk_v149_signal,
+    f35bpd_f35_bank_payout_durability_payoutcomposite_63d_jerk_v150_signal,
+]
+
+
+def _inputs_for(fn):
+    sig = inspect.signature(fn)
+    return [p.name for p in sig.parameters.values()]
+
+
+REGISTRY = {fn.__name__: {"inputs": _inputs_for(fn), "func": fn} for fn in _FEATURES}
+F35_BANK_PAYOUT_DURABILITY_REGISTRY_JERK_001_150 = REGISTRY
+
+
+
+if __name__ == "__main__":
+    np.random.seed(42)
+    n = 1500
+    rets = np.random.normal(0.0005, 0.02, n)
+    closeadj = pd.Series(100.0 * np.exp(np.cumsum(rets)), name="closeadj")
+    high = closeadj * (1.0 + np.abs(np.random.normal(0, 0.01, n)))
+    low = closeadj * (1.0 - np.abs(np.random.normal(0, 0.01, n)))
+    high = pd.Series(high, name="high")
+    low = pd.Series(low, name="low")
+    volume = pd.Series(np.abs(np.random.normal(1e6, 3e5, n)), name="volume")
+    revenue = pd.Series(1e9 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="revenue")
+    ebitda  = pd.Series(2e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="ebitda")
+    ebit    = pd.Series(1.5e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="ebit")
+    netinc  = pd.Series(1e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.015, n))), name="netinc")
+    fcf     = pd.Series(8e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.015, n))), name="fcf")
+    ncfo    = pd.Series(1.2e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.014, n))), name="ncfo")
+    capex   = pd.Series(5e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.02, n))), name="capex")
+    depamor = pd.Series(4e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="depamor")
+    sgna    = pd.Series(2.5e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="sgna")
+    opex    = pd.Series(7e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="opex")
+    gp      = pd.Series(3.5e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="gp")
+    cor     = pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="cor")
+    rnd     = pd.Series(4e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="rnd")
+    assets       = pd.Series(2e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="assets")
+    assetsc      = pd.Series(8e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="assetsc")
+    assetsnc     = pd.Series(1.2e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="assetsnc")
+    liabilities  = pd.Series(1.1e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="liabilities")
+    liabilitiesc = pd.Series(5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="liabilitiesc")
+    liabilitiesnc= pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="liabilitiesnc")
+    equity       = pd.Series(9e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="equity")
+    equityusd    = pd.Series(9e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="equityusd")
+    debt         = pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="debt")
+    debtc        = pd.Series(1.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="debtc")
+    debtnc       = pd.Series(4.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="debtnc")
+    cashneq      = pd.Series(2.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="cashneq")
+    inventory    = pd.Series(2e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="inventory")
+    receivables  = pd.Series(2.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="receivables")
+    payables     = pd.Series(1.8e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="payables")
+    deferredrev  = pd.Series(1.0e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="deferredrev")
+    workingcapital = pd.Series(3e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="workingcapital")
+    ppnenet      = pd.Series(7e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="ppnenet")
+    intangibles  = pd.Series(3e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="intangibles")
+    tangibles    = pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="tangibles")
+    invcap       = pd.Series(1.4e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="invcap")
+    retearn      = pd.Series(5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="retearn")
+    sbcomp       = pd.Series(2e7 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="sbcomp")
+    sharesbas    = pd.Series(1e8 * np.exp(np.cumsum(np.random.normal(-0.00005, 0.003, n))), name="sharesbas")
+    shareswa     = pd.Series(1e8 * np.exp(np.cumsum(np.random.normal(-0.00005, 0.003, n))), name="shareswa")
+    shareswadil  = pd.Series(1.02e8 * np.exp(np.cumsum(np.random.normal(-0.00005, 0.003, n))), name="shareswadil")
+    eps          = pd.Series(1.0 + 0.5*np.cumsum(np.random.normal(0.0003, 0.01, n))/np.arange(1,n+1), name="eps")
+    epsdil       = pd.Series(0.98 + 0.5*np.cumsum(np.random.normal(0.0003, 0.01, n))/np.arange(1,n+1), name="epsdil")
+    bvps         = pd.Series(10.0 * np.exp(np.cumsum(np.random.normal(0.0002, 0.005, n))), name="bvps")
+    fcfps        = pd.Series(0.8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="fcfps")
+    sps          = pd.Series(10.0 * np.exp(np.cumsum(np.random.normal(0.0002, 0.005, n))), name="sps")
+    dps          = pd.Series(0.5 * np.exp(np.cumsum(np.random.normal(0.0002, 0.005, n))), name="dps")
+    marketcap    = pd.Series(closeadj * 1e8, name="marketcap")
+    ev           = pd.Series(closeadj * 1.2e8 + debt - cashneq, name="ev")
+    pe           = pd.Series(closeadj / eps.replace(0, np.nan).abs(), name="pe")
+    pb           = pd.Series(closeadj / bvps.replace(0, np.nan).abs(), name="pb")
+    ps           = pd.Series(closeadj / sps.replace(0, np.nan).abs(), name="ps")
+    evebit       = pd.Series(ev / ebit.replace(0, np.nan).abs(), name="evebit")
+    evebitda     = pd.Series(ev / ebitda.replace(0, np.nan).abs(), name="evebitda")
+    grossmargin  = pd.Series(0.30 + 0.05*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="grossmargin")
+    ebitdamargin = pd.Series(0.20 + 0.05*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="ebitdamargin")
+    netmargin    = pd.Series(0.10 + 0.04*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="netmargin")
+    roa          = pd.Series(0.07 + 0.03*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="roa")
+    roe          = pd.Series(0.12 + 0.04*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="roe")
+    roic         = pd.Series(0.10 + 0.04*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="roic")
+    ros          = pd.Series(0.08 + 0.03*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="ros")
+    currentratio = pd.Series(1.5 + 0.3*np.sin(np.arange(n)/250.0) + 0.05*np.random.randn(n), name="currentratio")
+    de           = pd.Series(0.6 + 0.2*np.sin(np.arange(n)/250.0) + 0.05*np.random.randn(n), name="de")
+    payoutratio  = pd.Series(0.3 + 0.1*np.sin(np.arange(n)/250.0) + 0.03*np.random.randn(n), name="payoutratio")
+    divyield     = pd.Series(0.02 + 0.005*np.sin(np.arange(n)/250.0) + 0.001*np.random.randn(n), name="divyield")
+    assetturnover= pd.Series(0.7 + 0.15*np.sin(np.arange(n)/250.0) + 0.02*np.random.randn(n), name="assetturnover")
+
+    cols = {
+        "closeadj": closeadj, "high": high, "low": low, "volume": volume,
+        "revenue": revenue, "ebitda": ebitda, "ebit": ebit, "netinc": netinc, "fcf": fcf,
+        "ncfo": ncfo, "capex": capex, "depamor": depamor, "sgna": sgna, "opex": opex,
+        "gp": gp, "cor": cor, "rnd": rnd,
+        "assets": assets, "assetsc": assetsc, "assetsnc": assetsnc,
+        "liabilities": liabilities, "liabilitiesc": liabilitiesc, "liabilitiesnc": liabilitiesnc,
+        "equity": equity, "equityusd": equityusd,
+        "debt": debt, "debtc": debtc, "debtnc": debtnc, "cashneq": cashneq,
+        "inventory": inventory, "receivables": receivables, "payables": payables,
+        "deferredrev": deferredrev, "workingcapital": workingcapital,
+        "ppnenet": ppnenet, "intangibles": intangibles, "tangibles": tangibles,
+        "invcap": invcap, "retearn": retearn, "sbcomp": sbcomp,
+        "sharesbas": sharesbas, "shareswa": shareswa, "shareswadil": shareswadil,
+        "eps": eps, "epsdil": epsdil, "bvps": bvps, "fcfps": fcfps, "sps": sps, "dps": dps,
+        "marketcap": marketcap, "ev": ev,
+        "pe": pe, "pb": pb, "ps": ps, "evebit": evebit, "evebitda": evebitda,
+        "grossmargin": grossmargin, "ebitdamargin": ebitdamargin, "netmargin": netmargin,
+        "roa": roa, "roe": roe, "roic": roic, "ros": ros,
+        "currentratio": currentratio, "de": de,
+        "payoutratio": payoutratio, "divyield": divyield, "assetturnover": assetturnover,
+    }
+
+    n_features = 0
+    nan_ok = 0
+    domain_primitives = ("_f35_payout_floor", "_f35_payout_durability", "_f35_payout_sustainability",)
+    for name, meta in REGISTRY.items():
+        fn = meta["func"]
+        args = [cols[c] for c in meta["inputs"]]
+        y1 = fn(*args)
+        y2 = fn(*args)
+        pd.testing.assert_series_equal(y1, y2)
+        q = y1.iloc[504:].dropna()
+        assert len(q) > 0, name
+        assert q.nunique() > 50, f"{name} nunique={q.nunique()}"
+        assert q.std() > 0, name
+        assert not q.isna().all(), name
+        nan_ratio = y1.iloc[504:].isna().mean()
+        if nan_ratio < 0.5:
+            nan_ok += 1
+        src = inspect.getsource(fn)
+        assert any(p in src for p in domain_primitives), name
+        n_features += 1
+    assert n_features == 150, n_features
+    assert nan_ok >= int(0.8 * n_features), f"nan_ok={nan_ok}/{n_features}"
+    print(f"OK f35_bank_payout_durability_3rd_derivatives_001_150_claude: {n_features} features pass")

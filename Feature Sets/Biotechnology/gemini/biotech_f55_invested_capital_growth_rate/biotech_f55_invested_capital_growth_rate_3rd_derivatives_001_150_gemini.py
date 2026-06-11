@@ -1,0 +1,1056 @@
+
+import numpy as np
+import pandas as pd
+from gemini_helpers import _mean, _std, _z, _pct_change, _diff, _safe_div, _slope, _log, _rank, _skew, _kurt, _autocorr
+
+
+# 5d accel of 21d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_21d_accel_v001_signal(invcap):
+    base = _mean(invcap, 21)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 21d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_21d_accel_v002_signal(invcap):
+    base = _mean(invcap, 21)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 21d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_21d_accel_v003_signal(invcap):
+    base = _mean(invcap, 21)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 63d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_63d_accel_v004_signal(invcap):
+    base = _mean(invcap, 63)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 63d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_63d_accel_v005_signal(invcap):
+    base = _mean(invcap, 63)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 63d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_63d_accel_v006_signal(invcap):
+    base = _mean(invcap, 63)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 126d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_126d_accel_v007_signal(invcap):
+    base = _mean(invcap, 126)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 126d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_126d_accel_v008_signal(invcap):
+    base = _mean(invcap, 126)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 126d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_126d_accel_v009_signal(invcap):
+    base = _mean(invcap, 126)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 252d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_252d_accel_v010_signal(invcap):
+    base = _mean(invcap, 252)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 252d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_252d_accel_v011_signal(invcap):
+    base = _mean(invcap, 252)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 252d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_252d_accel_v012_signal(invcap):
+    base = _mean(invcap, 252)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 504d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_504d_accel_v013_signal(invcap):
+    base = _mean(invcap, 504)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 504d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_504d_accel_v014_signal(invcap):
+    base = _mean(invcap, 504)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 504d raw invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_raw_504d_accel_v015_signal(invcap):
+    base = _mean(invcap, 504)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 21d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_21d_accel_v016_signal(invcap):
+    base = _mean(_log(invcap), 21)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 21d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_21d_accel_v017_signal(invcap):
+    base = _mean(_log(invcap), 21)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 21d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_21d_accel_v018_signal(invcap):
+    base = _mean(_log(invcap), 21)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 63d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_63d_accel_v019_signal(invcap):
+    base = _mean(_log(invcap), 63)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 63d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_63d_accel_v020_signal(invcap):
+    base = _mean(_log(invcap), 63)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 63d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_63d_accel_v021_signal(invcap):
+    base = _mean(_log(invcap), 63)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 126d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_126d_accel_v022_signal(invcap):
+    base = _mean(_log(invcap), 126)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 126d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_126d_accel_v023_signal(invcap):
+    base = _mean(_log(invcap), 126)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 126d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_126d_accel_v024_signal(invcap):
+    base = _mean(_log(invcap), 126)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 252d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_252d_accel_v025_signal(invcap):
+    base = _mean(_log(invcap), 252)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 252d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_252d_accel_v026_signal(invcap):
+    base = _mean(_log(invcap), 252)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 252d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_252d_accel_v027_signal(invcap):
+    base = _mean(_log(invcap), 252)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 504d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_504d_accel_v028_signal(invcap):
+    base = _mean(_log(invcap), 504)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 504d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_504d_accel_v029_signal(invcap):
+    base = _mean(_log(invcap), 504)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 504d log invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_log_504d_accel_v030_signal(invcap):
+    base = _mean(_log(invcap), 504)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 21d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_21d_accel_v031_signal(invcap):
+    base = _z(invcap, 21)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 21d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_21d_accel_v032_signal(invcap):
+    base = _z(invcap, 21)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 21d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_21d_accel_v033_signal(invcap):
+    base = _z(invcap, 21)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 63d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_63d_accel_v034_signal(invcap):
+    base = _z(invcap, 63)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 63d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_63d_accel_v035_signal(invcap):
+    base = _z(invcap, 63)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 63d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_63d_accel_v036_signal(invcap):
+    base = _z(invcap, 63)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 126d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_126d_accel_v037_signal(invcap):
+    base = _z(invcap, 126)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 126d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_126d_accel_v038_signal(invcap):
+    base = _z(invcap, 126)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 126d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_126d_accel_v039_signal(invcap):
+    base = _z(invcap, 126)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 252d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_252d_accel_v040_signal(invcap):
+    base = _z(invcap, 252)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 252d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_252d_accel_v041_signal(invcap):
+    base = _z(invcap, 252)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 252d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_252d_accel_v042_signal(invcap):
+    base = _z(invcap, 252)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 504d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_504d_accel_v043_signal(invcap):
+    base = _z(invcap, 504)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 504d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_504d_accel_v044_signal(invcap):
+    base = _z(invcap, 504)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 504d z invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_z_504d_accel_v045_signal(invcap):
+    base = _z(invcap, 504)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 21d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_21d_accel_v046_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 21), sharesbas)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 21d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_21d_accel_v047_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 21), sharesbas)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 21d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_21d_accel_v048_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 21), sharesbas)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 63d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_63d_accel_v049_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 63), sharesbas)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 63d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_63d_accel_v050_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 63), sharesbas)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 63d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_63d_accel_v051_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 63), sharesbas)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 126d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_126d_accel_v052_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 126), sharesbas)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 126d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_126d_accel_v053_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 126), sharesbas)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 126d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_126d_accel_v054_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 126), sharesbas)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 252d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_252d_accel_v055_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 252), sharesbas)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 252d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_252d_accel_v056_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 252), sharesbas)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 252d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_252d_accel_v057_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 252), sharesbas)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 504d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_504d_accel_v058_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 504), sharesbas)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 504d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_504d_accel_v059_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 504), sharesbas)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 504d ps invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_ps_504d_accel_v060_signal(invcap, sharesbas):
+    base = _safe_div(_mean(invcap, 504), sharesbas)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 21d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_21d_accel_v061_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 21), assets)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 21d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_21d_accel_v062_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 21), assets)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 21d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_21d_accel_v063_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 21), assets)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 63d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_63d_accel_v064_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 63), assets)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 63d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_63d_accel_v065_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 63), assets)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 63d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_63d_accel_v066_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 63), assets)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 126d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_126d_accel_v067_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 126), assets)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 126d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_126d_accel_v068_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 126), assets)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 126d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_126d_accel_v069_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 126), assets)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 252d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_252d_accel_v070_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 252), assets)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 252d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_252d_accel_v071_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 252), assets)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 252d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_252d_accel_v072_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 252), assets)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 504d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_504d_accel_v073_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 504), assets)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 504d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_504d_accel_v074_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 504), assets)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 504d asset_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_asset_scaled_504d_accel_v075_signal(invcap, assets):
+    base = _safe_div(_mean(invcap, 504), assets)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 21d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_21d_accel_v076_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 21), marketcap)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 21d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_21d_accel_v077_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 21), marketcap)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 21d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_21d_accel_v078_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 21), marketcap)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 63d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_63d_accel_v079_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 63), marketcap)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 63d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_63d_accel_v080_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 63), marketcap)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 63d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_63d_accel_v081_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 63), marketcap)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 126d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_126d_accel_v082_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 126), marketcap)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 126d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_126d_accel_v083_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 126), marketcap)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 126d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_126d_accel_v084_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 126), marketcap)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 252d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_252d_accel_v085_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 252), marketcap)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 252d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_252d_accel_v086_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 252), marketcap)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 252d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_252d_accel_v087_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 252), marketcap)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 504d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_504d_accel_v088_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 504), marketcap)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 504d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_504d_accel_v089_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 504), marketcap)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 504d mcap_scaled invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mcap_scaled_504d_accel_v090_signal(invcap, marketcap):
+    base = _safe_div(_mean(invcap, 504), marketcap)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 21d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_21d_accel_v091_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(21).min(), invcap.rolling(21).min())
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 21d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_21d_accel_v092_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(21).min(), invcap.rolling(21).min())
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 21d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_21d_accel_v093_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(21).min(), invcap.rolling(21).min())
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 63d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_63d_accel_v094_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(63).min(), invcap.rolling(63).min())
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 63d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_63d_accel_v095_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(63).min(), invcap.rolling(63).min())
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 63d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_63d_accel_v096_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(63).min(), invcap.rolling(63).min())
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 126d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_126d_accel_v097_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(126).min(), invcap.rolling(126).min())
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 126d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_126d_accel_v098_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(126).min(), invcap.rolling(126).min())
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 126d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_126d_accel_v099_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(126).min(), invcap.rolling(126).min())
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 252d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_252d_accel_v100_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(252).min(), invcap.rolling(252).min())
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 252d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_252d_accel_v101_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(252).min(), invcap.rolling(252).min())
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 252d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_252d_accel_v102_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(252).min(), invcap.rolling(252).min())
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 504d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_504d_accel_v103_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(504).min(), invcap.rolling(504).min())
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 504d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_504d_accel_v104_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(504).min(), invcap.rolling(504).min())
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 504d dist_low invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_low_504d_accel_v105_signal(invcap):
+    base = _safe_div(invcap - invcap.rolling(504).min(), invcap.rolling(504).min())
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 21d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_21d_accel_v106_signal(invcap):
+    base = _safe_div(invcap.rolling(21).max() - invcap, invcap.rolling(21).max())
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 21d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_21d_accel_v107_signal(invcap):
+    base = _safe_div(invcap.rolling(21).max() - invcap, invcap.rolling(21).max())
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 21d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_21d_accel_v108_signal(invcap):
+    base = _safe_div(invcap.rolling(21).max() - invcap, invcap.rolling(21).max())
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 63d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_63d_accel_v109_signal(invcap):
+    base = _safe_div(invcap.rolling(63).max() - invcap, invcap.rolling(63).max())
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 63d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_63d_accel_v110_signal(invcap):
+    base = _safe_div(invcap.rolling(63).max() - invcap, invcap.rolling(63).max())
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 63d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_63d_accel_v111_signal(invcap):
+    base = _safe_div(invcap.rolling(63).max() - invcap, invcap.rolling(63).max())
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 126d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_126d_accel_v112_signal(invcap):
+    base = _safe_div(invcap.rolling(126).max() - invcap, invcap.rolling(126).max())
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 126d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_126d_accel_v113_signal(invcap):
+    base = _safe_div(invcap.rolling(126).max() - invcap, invcap.rolling(126).max())
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 126d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_126d_accel_v114_signal(invcap):
+    base = _safe_div(invcap.rolling(126).max() - invcap, invcap.rolling(126).max())
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 252d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_252d_accel_v115_signal(invcap):
+    base = _safe_div(invcap.rolling(252).max() - invcap, invcap.rolling(252).max())
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 252d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_252d_accel_v116_signal(invcap):
+    base = _safe_div(invcap.rolling(252).max() - invcap, invcap.rolling(252).max())
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 252d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_252d_accel_v117_signal(invcap):
+    base = _safe_div(invcap.rolling(252).max() - invcap, invcap.rolling(252).max())
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 504d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_504d_accel_v118_signal(invcap):
+    base = _safe_div(invcap.rolling(504).max() - invcap, invcap.rolling(504).max())
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 504d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_504d_accel_v119_signal(invcap):
+    base = _safe_div(invcap.rolling(504).max() - invcap, invcap.rolling(504).max())
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 504d dist_high invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_dist_high_504d_accel_v120_signal(invcap):
+    base = _safe_div(invcap.rolling(504).max() - invcap, invcap.rolling(504).max())
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 21d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_21d_accel_v121_signal(invcap):
+    base = _safe_div(_mean(invcap, 21) - _mean(invcap, 42), _mean(invcap, 42))
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 21d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_21d_accel_v122_signal(invcap):
+    base = _safe_div(_mean(invcap, 21) - _mean(invcap, 42), _mean(invcap, 42))
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 21d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_21d_accel_v123_signal(invcap):
+    base = _safe_div(_mean(invcap, 21) - _mean(invcap, 42), _mean(invcap, 42))
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 63d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_63d_accel_v124_signal(invcap):
+    base = _safe_div(_mean(invcap, 63) - _mean(invcap, 126), _mean(invcap, 126))
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 63d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_63d_accel_v125_signal(invcap):
+    base = _safe_div(_mean(invcap, 63) - _mean(invcap, 126), _mean(invcap, 126))
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 63d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_63d_accel_v126_signal(invcap):
+    base = _safe_div(_mean(invcap, 63) - _mean(invcap, 126), _mean(invcap, 126))
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 126d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_126d_accel_v127_signal(invcap):
+    base = _safe_div(_mean(invcap, 126) - _mean(invcap, 252), _mean(invcap, 252))
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 126d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_126d_accel_v128_signal(invcap):
+    base = _safe_div(_mean(invcap, 126) - _mean(invcap, 252), _mean(invcap, 252))
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 126d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_126d_accel_v129_signal(invcap):
+    base = _safe_div(_mean(invcap, 126) - _mean(invcap, 252), _mean(invcap, 252))
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 252d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_252d_accel_v130_signal(invcap):
+    base = _safe_div(_mean(invcap, 252) - _mean(invcap, 504), _mean(invcap, 504))
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 252d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_252d_accel_v131_signal(invcap):
+    base = _safe_div(_mean(invcap, 252) - _mean(invcap, 504), _mean(invcap, 504))
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 252d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_252d_accel_v132_signal(invcap):
+    base = _safe_div(_mean(invcap, 252) - _mean(invcap, 504), _mean(invcap, 504))
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 504d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_504d_accel_v133_signal(invcap):
+    base = _safe_div(_mean(invcap, 504) - _mean(invcap, 1008), _mean(invcap, 1008))
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 504d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_504d_accel_v134_signal(invcap):
+    base = _safe_div(_mean(invcap, 504) - _mean(invcap, 1008), _mean(invcap, 1008))
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 504d mom invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_mom_504d_accel_v135_signal(invcap):
+    base = _safe_div(_mean(invcap, 504) - _mean(invcap, 1008), _mean(invcap, 1008))
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 21d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_21d_accel_v136_signal(invcap):
+    base = _std(invcap, 21)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 21d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_21d_accel_v137_signal(invcap):
+    base = _std(invcap, 21)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 21d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_21d_accel_v138_signal(invcap):
+    base = _std(invcap, 21)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 63d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_63d_accel_v139_signal(invcap):
+    base = _std(invcap, 63)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 63d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_63d_accel_v140_signal(invcap):
+    base = _std(invcap, 63)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 63d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_63d_accel_v141_signal(invcap):
+    base = _std(invcap, 63)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 126d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_126d_accel_v142_signal(invcap):
+    base = _std(invcap, 126)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 126d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_126d_accel_v143_signal(invcap):
+    base = _std(invcap, 126)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 126d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_126d_accel_v144_signal(invcap):
+    base = _std(invcap, 126)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 252d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_252d_accel_v145_signal(invcap):
+    base = _std(invcap, 252)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 252d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_252d_accel_v146_signal(invcap):
+    base = _std(invcap, 252)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 252d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_252d_accel_v147_signal(invcap):
+    base = _std(invcap, 252)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 5d accel of 504d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_504d_accel_v148_signal(invcap):
+    base = _std(invcap, 504)
+    slope = _slope(base, 5)
+    result = _diff(slope, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 21d accel of 504d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_504d_accel_v149_signal(invcap):
+    base = _std(invcap, 504)
+    slope = _slope(base, 21)
+    result = _diff(slope, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+# 63d accel of 504d vol invcap
+def gm_f55_biotech_f55_invested_capital_growth_rate_vol_504d_accel_v150_signal(invcap):
+    base = _std(invcap, 504)
+    slope = _slope(base, 63)
+    result = _diff(slope, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+

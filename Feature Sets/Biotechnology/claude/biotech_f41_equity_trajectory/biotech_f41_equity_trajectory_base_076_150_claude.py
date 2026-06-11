@@ -1,0 +1,582 @@
+"""Family f41 - Book value & equity trajectory  (F_BalanceSheet) | base 076-150"""
+import inspect
+import numpy as np
+import pandas as pd
+
+TRADING_DAYS_YEAR = 252
+TRADING_DAYS_HALF = 126
+TRADING_DAYS_QUARTER = 63
+TRADING_DAYS_MONTH = 21
+TRADING_DAYS_WEEK = 5
+
+
+def _z(s, w):
+    m = s.rolling(w, min_periods=max(1, w // 2)).mean()
+    sd = s.rolling(w, min_periods=max(1, w // 2)).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+
+def _mean(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).mean()
+
+
+def _std(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).std()
+
+
+def _diff(s, n):
+    return s.diff(periods=n)
+
+
+def _slope_diff_norm(s, w):
+    return s.diff(periods=w) / s.abs().replace(0, np.nan)
+
+
+def _slope_pct(s, w):
+    return s.pct_change(periods=w)
+
+
+def _pct_change(s, n):
+    return s.pct_change(periods=n)
+
+
+def _safe_div(a, b):
+    return a / b.replace(0, np.nan)
+
+
+# ===== folder domain primitives =====
+def _equity_trajectory_scaled(field, scale):
+    return field / scale.replace(0, np.nan).abs()
+
+
+def _equity_trajectory_log(field):
+    return np.log(field.abs().replace(0, np.nan))
+
+
+def _equity_trajectory_per_share(field, sharesbas):
+    return field / sharesbas.replace(0, np.nan).abs()
+
+
+# 504d log of equity/marketcap
+def eqt_f41_equity_trajectory_log_per_marketcap_504d_base_v076_signal(equity, marketcap):
+    s = _equity_trajectory_scaled(equity, marketcap)
+    result = _mean(np.log(s.abs().replace(0, np.nan)), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d log of equity/equity
+def eqt_f41_equity_trajectory_log_per_equity_252d_base_v077_signal(equity):
+    s = _equity_trajectory_scaled(equity, equity)
+    result = _mean(np.log(s.abs().replace(0, np.nan)), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d log of equity/equity
+def eqt_f41_equity_trajectory_log_per_equity_504d_base_v078_signal(equity):
+    s = _equity_trajectory_scaled(equity, equity)
+    result = _mean(np.log(s.abs().replace(0, np.nan)), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# EWM(span=21) of equity times closeadj
+def eqt_f41_equity_trajectory_ewm_21d_base_v079_signal(equity, closeadj):
+    result = equity.ewm(span=21, min_periods=max(1, 21//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# EWM(span=63) of equity times closeadj
+def eqt_f41_equity_trajectory_ewm_63d_base_v080_signal(equity, closeadj):
+    result = equity.ewm(span=63, min_periods=max(1, 63//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# EWM(span=252) of equity times closeadj
+def eqt_f41_equity_trajectory_ewm_252d_base_v081_signal(equity, closeadj):
+    result = equity.ewm(span=252, min_periods=max(1, 252//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d rolling median of equity times closeadj
+def eqt_f41_equity_trajectory_med_63d_base_v082_signal(equity, closeadj):
+    result = equity.rolling(63, min_periods=max(1, 63//2)).median() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling median of equity times closeadj
+def eqt_f41_equity_trajectory_med_252d_base_v083_signal(equity, closeadj):
+    result = equity.rolling(252, min_periods=max(1, 252//2)).median() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling median of equity times closeadj
+def eqt_f41_equity_trajectory_med_504d_base_v084_signal(equity, closeadj):
+    result = equity.rolling(504, min_periods=max(1, 504//2)).median() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling skew of equity
+def eqt_f41_equity_trajectory_skew_252d_base_v085_signal(equity):
+    result = equity.rolling(252, min_periods=max(1, 252//2)).skew()
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling skew of equity
+def eqt_f41_equity_trajectory_skew_504d_base_v086_signal(equity):
+    result = equity.rolling(504, min_periods=max(1, 504//2)).skew()
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling kurtosis of equity
+def eqt_f41_equity_trajectory_kurt_252d_base_v087_signal(equity):
+    result = equity.rolling(252, min_periods=max(1, 252//2)).kurt()
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling kurtosis of equity
+def eqt_f41_equity_trajectory_kurt_504d_base_v088_signal(equity):
+    result = equity.rolling(504, min_periods=max(1, 504//2)).kurt()
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d percentile rank of equity times closeadj
+def eqt_f41_equity_trajectory_rank_252d_base_v089_signal(equity, closeadj):
+    def _rank(x):
+        if len(x) < 2: return np.nan
+        return (x.rank(pct=True).iloc[-1])
+    result = equity.rolling(252, min_periods=max(1, 252//2)).apply(_rank, raw=False) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d percentile rank of equity times closeadj
+def eqt_f41_equity_trajectory_rank_504d_base_v090_signal(equity, closeadj):
+    def _rank(x):
+        if len(x) < 2: return np.nan
+        return (x.rank(pct=True).iloc[-1])
+    result = equity.rolling(504, min_periods=max(1, 504//2)).apply(_rank, raw=False) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 1008d percentile rank of equity times closeadj
+def eqt_f41_equity_trajectory_rank_1008d_base_v091_signal(equity, closeadj):
+    def _rank(x):
+        if len(x) < 2: return np.nan
+        return (x.rank(pct=True).iloc[-1])
+    result = equity.rolling(1008, min_periods=max(1, 1008//2)).apply(_rank, raw=False) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# deviation of equity from 63d mean times closeadj
+def eqt_f41_equity_trajectory_devmean_63d_base_v092_signal(equity, closeadj):
+    m = _mean(equity, 63)
+    result = (equity - m) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# deviation of equity from 252d mean times closeadj
+def eqt_f41_equity_trajectory_devmean_252d_base_v093_signal(equity, closeadj):
+    m = _mean(equity, 252)
+    result = (equity - m) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# deviation of equity from 504d mean times closeadj
+def eqt_f41_equity_trajectory_devmean_504d_base_v094_signal(equity, closeadj):
+    m = _mean(equity, 504)
+    result = (equity - m) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d log-difference of equity times closeadj
+def eqt_f41_equity_trajectory_logdiff_21d_base_v095_signal(equity, closeadj):
+    lr = _equity_trajectory_log(equity)
+    result = _diff(lr, 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d log-difference of equity times closeadj
+def eqt_f41_equity_trajectory_logdiff_63d_base_v096_signal(equity, closeadj):
+    lr = _equity_trajectory_log(equity)
+    result = _diff(lr, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d log-difference of equity times closeadj
+def eqt_f41_equity_trajectory_logdiff_252d_base_v097_signal(equity, closeadj):
+    lr = _equity_trajectory_log(equity)
+    result = _diff(lr, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d rolling range of equity times closeadj
+def eqt_f41_equity_trajectory_range_63d_base_v098_signal(equity, closeadj):
+    hi = equity.rolling(63, min_periods=max(1, 63//2)).max()
+    lo = equity.rolling(63, min_periods=max(1, 63//2)).min()
+    result = (hi - lo) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling range of equity times closeadj
+def eqt_f41_equity_trajectory_range_252d_base_v099_signal(equity, closeadj):
+    hi = equity.rolling(252, min_periods=max(1, 252//2)).max()
+    lo = equity.rolling(252, min_periods=max(1, 252//2)).min()
+    result = (hi - lo) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling range of equity times closeadj
+def eqt_f41_equity_trajectory_range_504d_base_v100_signal(equity, closeadj):
+    hi = equity.rolling(504, min_periods=max(1, 504//2)).max()
+    lo = equity.rolling(504, min_periods=max(1, 504//2)).min()
+    result = (hi - lo) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# equity relative to 252d mean times closeadj
+def eqt_f41_equity_trajectory_rel_252d_base_v101_signal(equity, closeadj):
+    m = _mean(equity, 252).replace(0, np.nan)
+    result = (equity / m.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# equity relative to 504d mean times closeadj
+def eqt_f41_equity_trajectory_rel_504d_base_v102_signal(equity, closeadj):
+    m = _mean(equity, 504).replace(0, np.nan)
+    result = (equity / m.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# equity relative to 1008d mean times closeadj
+def eqt_f41_equity_trajectory_rel_1008d_base_v103_signal(equity, closeadj):
+    m = _mean(equity, 1008).replace(0, np.nan)
+    result = (equity / m.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized equity/assets 63d mean
+def eqt_f41_equity_trajectory_sqnorm_assets_63d_base_v104_signal(equity, assets):
+    r = _equity_trajectory_scaled(equity, assets)
+    result = _mean(r, 63) / np.sqrt(63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized equity/assets 252d mean
+def eqt_f41_equity_trajectory_sqnorm_assets_252d_base_v105_signal(equity, assets):
+    r = _equity_trajectory_scaled(equity, assets)
+    result = _mean(r, 252) / np.sqrt(252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized equity/marketcap 63d mean
+def eqt_f41_equity_trajectory_sqnorm_marketcap_63d_base_v106_signal(equity, marketcap):
+    r = _equity_trajectory_scaled(equity, marketcap)
+    result = _mean(r, 63) / np.sqrt(63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized equity/marketcap 252d mean
+def eqt_f41_equity_trajectory_sqnorm_marketcap_252d_base_v107_signal(equity, marketcap):
+    r = _equity_trajectory_scaled(equity, marketcap)
+    result = _mean(r, 252) / np.sqrt(252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized equity/equity 63d mean
+def eqt_f41_equity_trajectory_sqnorm_equity_63d_base_v108_signal(equity):
+    r = _equity_trajectory_scaled(equity, equity)
+    result = _mean(r, 63) / np.sqrt(63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized equity/equity 252d mean
+def eqt_f41_equity_trajectory_sqnorm_equity_252d_base_v109_signal(equity):
+    r = _equity_trajectory_scaled(equity, equity)
+    result = _mean(r, 252) / np.sqrt(252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d mean/std of equity times closeadj
+def eqt_f41_equity_trajectory_infrat_63d_base_v110_signal(equity, closeadj):
+    m = _mean(equity, 63)
+    s = _std(equity, 63).replace(0, np.nan)
+    result = (m / s) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d mean/std of equity times closeadj
+def eqt_f41_equity_trajectory_infrat_252d_base_v111_signal(equity, closeadj):
+    m = _mean(equity, 252)
+    s = _std(equity, 252).replace(0, np.nan)
+    result = (m / s) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d mean/std of equity times closeadj
+def eqt_f41_equity_trajectory_infrat_504d_base_v112_signal(equity, closeadj):
+    m = _mean(equity, 504)
+    s = _std(equity, 504).replace(0, np.nan)
+    result = (m / s) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d coefficient of variation of equity
+def eqt_f41_equity_trajectory_cv_252d_base_v113_signal(equity):
+    m = _mean(equity, 252).abs().replace(0, np.nan)
+    s = _std(equity, 252)
+    result = s / m
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d coefficient of variation of equity
+def eqt_f41_equity_trajectory_cv_504d_base_v114_signal(equity):
+    m = _mean(equity, 504).abs().replace(0, np.nan)
+    s = _std(equity, 504)
+    result = s / m
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d lagged equity times closeadj
+def eqt_f41_equity_trajectory_lag_5d_base_v115_signal(equity, closeadj):
+    result = equity.shift(5) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d lagged equity times closeadj
+def eqt_f41_equity_trajectory_lag_21d_base_v116_signal(equity, closeadj):
+    result = equity.shift(21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d lagged equity times closeadj
+def eqt_f41_equity_trajectory_lag_63d_base_v117_signal(equity, closeadj):
+    result = equity.shift(63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d lagged equity times closeadj
+def eqt_f41_equity_trajectory_lag_252d_base_v118_signal(equity, closeadj):
+    result = equity.shift(252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d cumsum(equity) / mean(assets) x closeadj
+def eqt_f41_equity_trajectory_cumper_assets_252d_base_v119_signal(equity, assets, closeadj):
+    s = equity.rolling(252, min_periods=max(1, 252//2)).sum()
+    d = _mean(assets, 252).replace(0, np.nan)
+    result = (s / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d cumsum(equity) / mean(assets) x closeadj
+def eqt_f41_equity_trajectory_cumper_assets_504d_base_v120_signal(equity, assets, closeadj):
+    s = equity.rolling(504, min_periods=max(1, 504//2)).sum()
+    d = _mean(assets, 504).replace(0, np.nan)
+    result = (s / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d cumsum(equity) / mean(marketcap) x closeadj
+def eqt_f41_equity_trajectory_cumper_marketcap_252d_base_v121_signal(equity, marketcap, closeadj):
+    s = equity.rolling(252, min_periods=max(1, 252//2)).sum()
+    d = _mean(marketcap, 252).replace(0, np.nan)
+    result = (s / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d cumsum(equity) / mean(marketcap) x closeadj
+def eqt_f41_equity_trajectory_cumper_marketcap_504d_base_v122_signal(equity, marketcap, closeadj):
+    s = equity.rolling(504, min_periods=max(1, 504//2)).sum()
+    d = _mean(marketcap, 504).replace(0, np.nan)
+    result = (s / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d mean of positive-only equity times closeadj
+def eqt_f41_equity_trajectory_pos_63d_base_v123_signal(equity, closeadj):
+    pos = equity.where(equity > 0, 0)
+    result = _mean(pos, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d mean of positive-only equity times closeadj
+def eqt_f41_equity_trajectory_pos_252d_base_v124_signal(equity, closeadj):
+    pos = equity.where(equity > 0, 0)
+    result = _mean(pos, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d mean of negative-only equity times closeadj
+def eqt_f41_equity_trajectory_neg_63d_base_v125_signal(equity, closeadj):
+    neg = equity.where(equity < 0, 0)
+    result = _mean(neg, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d mean of negative-only equity times closeadj
+def eqt_f41_equity_trajectory_neg_252d_base_v126_signal(equity, closeadj):
+    neg = equity.where(equity < 0, 0)
+    result = _mean(neg, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# halflife=21 EWM of equity times closeadj
+def eqt_f41_equity_trajectory_hl_21d_base_v127_signal(equity, closeadj):
+    result = equity.ewm(halflife=21, min_periods=max(1, 21//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# halflife=63 EWM of equity times closeadj
+def eqt_f41_equity_trajectory_hl_63d_base_v128_signal(equity, closeadj):
+    result = equity.ewm(halflife=63, min_periods=max(1, 63//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# halflife=252 EWM of equity times closeadj
+def eqt_f41_equity_trajectory_hl_252d_base_v129_signal(equity, closeadj):
+    result = equity.ewm(halflife=252, min_periods=max(1, 252//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d zscore of equity
+def eqt_f41_equity_trajectory_z_63d_base_v130_signal(equity):
+    result = _z(equity, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 126d zscore of equity
+def eqt_f41_equity_trajectory_z_126d_base_v131_signal(equity):
+    result = _z(equity, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 1008d zscore of equity
+def eqt_f41_equity_trajectory_z_1008d_base_v132_signal(equity):
+    result = _z(equity, 1008)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d/252d mean ratio of equity times closeadj
+def eqt_f41_equity_trajectory_st_lt_252_21d_base_v133_signal(equity, closeadj):
+    sm = _mean(equity, 21)
+    lm = _mean(equity, 252).replace(0, np.nan)
+    result = (sm / lm.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d/252d mean ratio of equity times closeadj
+def eqt_f41_equity_trajectory_st_lt_252_63d_base_v134_signal(equity, closeadj):
+    sm = _mean(equity, 63)
+    lm = _mean(equity, 252).replace(0, np.nan)
+    result = (sm / lm.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d/504d mean ratio of equity times closeadj
+def eqt_f41_equity_trajectory_st_lt_504_21d_base_v135_signal(equity, closeadj):
+    sm = _mean(equity, 21)
+    lm = _mean(equity, 504).replace(0, np.nan)
+    result = (sm / lm.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d/504d mean ratio of equity times closeadj
+def eqt_f41_equity_trajectory_st_lt_504_63d_base_v136_signal(equity, closeadj):
+    sm = _mean(equity, 63)
+    lm = _mean(equity, 504).replace(0, np.nan)
+    result = (sm / lm.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d lagged equity/assets times closeadj
+def eqt_f41_equity_trajectory_lag_per_assets_21d_base_v137_signal(equity, assets, closeadj):
+    r = _equity_trajectory_scaled(equity, assets)
+    result = r.shift(21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d lagged equity/assets times closeadj
+def eqt_f41_equity_trajectory_lag_per_assets_63d_base_v138_signal(equity, assets, closeadj):
+    r = _equity_trajectory_scaled(equity, assets)
+    result = r.shift(63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d lagged equity/assets times closeadj
+def eqt_f41_equity_trajectory_lag_per_assets_252d_base_v139_signal(equity, assets, closeadj):
+    r = _equity_trajectory_scaled(equity, assets)
+    result = r.shift(252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d lagged equity/marketcap times closeadj
+def eqt_f41_equity_trajectory_lag_per_marketcap_21d_base_v140_signal(equity, marketcap, closeadj):
+    r = _equity_trajectory_scaled(equity, marketcap)
+    result = r.shift(21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d lagged equity/marketcap times closeadj
+def eqt_f41_equity_trajectory_lag_per_marketcap_63d_base_v141_signal(equity, marketcap, closeadj):
+    r = _equity_trajectory_scaled(equity, marketcap)
+    result = r.shift(63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d lagged equity/marketcap times closeadj
+def eqt_f41_equity_trajectory_lag_per_marketcap_252d_base_v142_signal(equity, marketcap, closeadj):
+    r = _equity_trajectory_scaled(equity, marketcap)
+    result = r.shift(252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d sum of |equity| times closeadj
+def eqt_f41_equity_trajectory_abssum_63d_base_v143_signal(equity, closeadj):
+    result = equity.abs().rolling(63, min_periods=max(1, 63//2)).sum() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d sum of |equity| times closeadj
+def eqt_f41_equity_trajectory_abssum_252d_base_v144_signal(equity, closeadj):
+    result = equity.abs().rolling(252, min_periods=max(1, 252//2)).sum() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d sum of |equity| times closeadj
+def eqt_f41_equity_trajectory_abssum_504d_base_v145_signal(equity, closeadj):
+    result = equity.abs().rolling(504, min_periods=max(1, 504//2)).sum() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling autocorr(1) of equity
+def eqt_f41_equity_trajectory_acf1_252d_base_v146_signal(equity):
+    result = equity.rolling(252, min_periods=max(1, 252//2)).apply(lambda x: x.autocorr(lag=1) if len(x) > 2 else np.nan, raw=False)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling autocorr(1) of equity
+def eqt_f41_equity_trajectory_acf1_504d_base_v147_signal(equity):
+    result = equity.rolling(504, min_periods=max(1, 504//2)).apply(lambda x: x.autocorr(lag=1) if len(x) > 2 else np.nan, raw=False)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d position-in-range of equity
+def eqt_f41_equity_trajectory_posinrange_252d_base_v148_signal(equity):
+    m = _mean(equity, 252)
+    hi = equity.rolling(252, min_periods=max(1, 252//2)).max()
+    lo = equity.rolling(252, min_periods=max(1, 252//2)).min()
+    result = (m - lo) / (hi - lo).replace(0, np.nan)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d position-in-range of equity
+def eqt_f41_equity_trajectory_posinrange_504d_base_v149_signal(equity):
+    m = _mean(equity, 504)
+    hi = equity.rolling(504, min_periods=max(1, 504//2)).max()
+    lo = equity.rolling(504, min_periods=max(1, 504//2)).min()
+    result = (m - lo) / (hi - lo).replace(0, np.nan)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# halflife=5 EWM of equity times closeadj
+def eqt_f41_equity_trajectory_hl_5d_base_v150_signal(equity, closeadj):
+    result = equity.ewm(halflife=5, min_periods=max(1, 5//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)

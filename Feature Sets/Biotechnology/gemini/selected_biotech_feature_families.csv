@@ -1,0 +1,108 @@
+family,priority,include,source_tables,selection_note
+f001_cash_and_equivalents,1,yes,SF1,Core biotech liquidity and financing-risk signal.
+f002_short_term_investments,1,yes,SF1,Extends cash runway with investable liquidity.
+f003_cash_runway_quarters,1,yes,SF1,Direct runway proxy for pre-revenue companies.
+f004_net_cash_position,1,yes,SF1,Separates cash-rich balance sheets from debt-funded names.
+f005_current_liquidity,1,yes,SF1,Near-term solvency context.
+f006_quick_liquidity,1,yes,SF1,Conservative liquidity quality.
+f007_liabilities_coverage,1,yes,SF1,Balance-sheet stress filter.
+f008_cash_burn_rate,1,yes,SF1,Primary biotech survival metric.
+f009_free_cash_flow_burn,1,yes,SF1,Cash consumption after capex.
+f010_burn_acceleration,1,yes,SF1,Detects worsening spend trajectory.
+f011_financing_cash_flow,1,yes,SF1,Financing dependency and recent raises.
+f012_operating_cash_quality,1,yes,SF1,Quality of operating cash flows.
+f013_capex_and_manufacturing,2,yes,SF1,Manufacturing or facility buildout proxy.
+f014_cash_flow_volatility,2,yes,SF1,Stability of burn and financing flows.
+f015_cash_tax_and_interest_drag,2,yes,SF1,Non-operating cash drag.
+f016_rnd_level,1,yes,SF1,Core pipeline investment level.
+f017_rnd_growth,1,yes,SF1,R&D investment acceleration.
+f018_rnd_intensity,1,yes,SF1,R&D relative to scale.
+f019_rnd_share_of_burn,1,yes,SF1,Distinguishes pipeline spend from overhead burn.
+f020_sga_rnd_mix,1,yes,SF1,Commercial/admin burden versus R&D.
+f021_stock_compensation,2,yes,SF1,SBC dilution and compensation quality.
+f022_debt_level,1,yes,SF1,Debt burden.
+f023_debt_maturity_mix,1,yes,SF1,Current versus long-term debt pressure.
+f024_net_debt_leverage,1,yes,SF1,Leverage adjusted for cash.
+f025_interest_coverage,2,yes,SF1,Debt service risk; sparse for early biotech.
+f026_preferred_and_convertible_overhang,1,yes,SF1,Preferred/convertible claim overhang; source aliases fixed.
+f027_retained_deficit,1,yes,SF1,Cumulative deficit and maturity proxy.
+f028_deferred_revenue,2,yes,SF1,Partnership/upfront payment proxy.
+f029_equity_trajectory,1,yes,SF1,Book-equity deterioration or repair.
+f030_asset_liability_gap,1,yes,SF1,Solvency spread.
+f031_shares_basic,1,yes,SF1,Dilution denominator.
+f032_shares_diluted,1,yes,SF1,Diluted share pressure.
+f033_equity_issuance_cash,1,yes,SF1,Recent financing and dilution events.
+f034_share_factor_splits,2,yes,SF1,Split/reverse split context.
+f035_sbc_dilution_pressure,1,yes,SF1,SBC dilution pressure.
+f036_market_capitalization,1,yes,SF1,Size and investability context.
+f037_enterprise_value,1,yes,SF1,Valuation adjusted for cash/debt.
+f038_float_and_tradeable_scale,1,yes,SF1/SEP,Tradability and capacity filter.
+f039_asset_base,2,yes,SF1,Asset scale.
+f040_tangible_assets,2,yes,SF1,Tangible support.
+f041_intangibles_goodwill,2,yes,SF1,Intangible exposure; source aliases fixed.
+f042_ppne_and_facilities,2,yes,SF1,Facility/manufacturing footprint.
+f043_inventory_build,2,yes,SF1,Commercialization/manufacturing buildup.
+f044_receivables_build,2,yes,SF1,Commercial-stage collection risk.
+f045_payables_and_accruals,2,yes,SF1,Accrual and vendor financing pressure.
+f046_revenue_level,2,yes,SF1,Commercial-stage scale.
+f047_revenue_growth,2,yes,SF1,Commercial traction.
+f048_revenue_acceleration,2,yes,SF1,Commercial momentum.
+f049_revenue_stability,2,yes,SF1,Revenue durability.
+f050_revenue_quality,2,yes,SF1,Revenue/cash quality.
+f051_gross_profit_margin,2,yes,SF1,Product economics for commercial names.
+f052_operating_margin,2,yes,SF1,Operating profitability proxy; source aliases fixed.
+f053_ebitda_margin,3,yes,SF1,Lower priority for pre-revenue biotech.
+f054_net_margin,3,yes,SF1,Lower priority for pre-revenue biotech.
+f055_breakeven_distance,1,yes,SF1,Distance from self-funding.
+f056_eps_level,3,secondary,SF1,Often negative or noisy in biotech.
+f057_eps_growth,3,secondary,SF1,Often unstable around losses.
+f058_comprehensive_income_gap,2,yes,SF1,OCI/accounting noise.
+f059_accruals_quality,2,yes,SF1,Earnings quality.
+f060_non_cash_expense_mix,2,yes,SF1,Non-cash expense burden.
+f061_tax_asset_and_nol_proxy,2,yes,SF1,NOL/tax asset context.
+f062_impairment_risk_proxy,2,yes,SF1,Impairment/intangible risk; source aliases fixed.
+f063_return_on_assets,3,secondary,SF1,Less useful for pre-revenue names.
+f064_return_on_equity,3,secondary,SF1,Can be distorted by negative equity.
+f065_return_on_invested_capital,3,secondary,SF1,Lower priority before profitability.
+f066_asset_turnover,3,secondary,SF1,Commercial-stage only.
+f067_working_capital_efficiency,2,yes,SF1,Useful once revenue/inventory exists.
+f068_cash_conversion_cycle,2,yes,SF1,Commercial-stage cash discipline.
+f069_ev_sales_valuation,1,yes,SF1/DAILY,Preferred valuation for revenue-stage biotech.
+f070_ev_rnd_valuation,1,yes,SF1/DAILY,Key biotech valuation against pipeline spend.
+f071_price_book_valuation,1,yes,SF1/DAILY,Cash/book valuation context.
+f072_cash_adjusted_valuation,1,yes,SF1/DAILY,Best valuation family for cash-rich biotech.
+f073_earnings_multiples,3,secondary,SF1/DAILY,Sparse or invalid for loss-making names.
+f074_dividend_and_payout_valuation,3,secondary,SF1/ACTIONS,Mostly maturity flag in biotech; source aliases fixed.
+f075_fundamental_momentum,1,yes,SF1,Quarterly improvement/deterioration.
+f076_fundamental_volatility,2,yes,SF1,Fundamental stability.
+f077_regime_change,1,yes,SF1,Detects state shifts.
+f078_ttm_vs_annual_consistency,2,yes,SF1,Statement consistency.
+f079_reporting_recency,2,derived,SF1,Needs filingage derived from dates.
+f080_restatement_and_revision_proxy,3,derived,SF1,Needs revisioncount derived from filings.
+f081_company_identity_metadata,2,yes,TICKERS,Universe metadata.
+f082_sector_industry_biotech_filter,1,derived,TICKERS,Needs sector_rank/biotech flag derivation.
+f083_listing_status_and_dates,1,derived,TICKERS,Needs listingage derived from firstpricedate.
+f084_ticker_changes_and_permaticker,2,derived,TICKERS,Needs ticker-change derivation.
+f085_indicator_availability,2,derived,INDICATORS,Needs field coverage aggregation.
+f086_daily_market_metrics,1,yes,SEP/SFP,Daily price/volume behavior.
+f087_ohlcv_multi_year_lows,1,yes,SEP/SFP,Distress/rebound setup.
+f088_ohlcv_multi_year_highs,1,yes,SEP/SFP,Momentum/breakout setup.
+f089_volume_liquidity_context,1,yes,SEP/SFP,Liquidity/capacity context.
+f090_price_adjustment_context,2,yes,SEP/SFP,Adjustment and split context.
+f091_fund_prices_context,3,secondary,SFP,Useful only where fund-price context applies.
+f092_insider_transaction_flow,1,yes,SF2,Insider flow; transaction price source fixed.
+f093_insider_role_clusters,1,yes,SF2,Officer/director ownership behavior.
+f094_insider_ownership_after_trade,1,yes,SF2,Post-trade insider ownership.
+f095_institutional_ownership_level,1,yes,SF3/SF3A/SF3B,Institutional sponsorship.
+f096_holder_concentration,1,yes,SF3/SF3A/SF3B,Holder concentration risk.
+f097_specialist_fund_exposure,1,yes,SF3/SF3A/SF3B,Biotech specialist sponsorship proxy.
+f098_corporate_action_events,1,yes,ACTIONS,Corporate actions; action value source fixed.
+f099_sec_8k_event_density,2,derived,EVENTS,Needs eventcount derived from eventcodes.
+f100_index_membership_and_relative_context,2,yes,SP500/SEP,Index context and relative behavior.
+f101_market_momentum_risk,1,yes,METRICS,New source-backed beta/MA/range/return/volume context.
+f102_institutional_derivative_positioning,1,yes,SF3A/SF3B,New source-backed holder-type positioning across calls puts warrants debt preferred funds and non-common exposure.
+f103_insider_code_and_role_signals,1,yes,SF2,New source-backed insider code role derivative-security exercise and ownership-change signals.
+f104_event_action_categorical_signals,1,yes,EVENTS/ACTIONS/SP500,New source-backed event-code action-type distress split ticker-change M&A and index-change signals.
+f105_security_master_quality_flags,1,yes,TICKERS/FUNDAMENTALS/SEP/DAILY,New source-backed listing exchange universe quality and validated-fundamental flag signals.
+f106_underused_fundamental_fields,2,yes,FUNDAMENTALS,New source-backed signals for unused USD non-current OCI FX tax forward valuation and income-quality fields.
+f107_text_category_and_specialist_signals,2,yes,SF2/SF3/TICKERS/INDICATORS,New source-backed compact text and category signals for specialist investors officer titles ownership nature security types and metadata tags.

@@ -1,0 +1,717 @@
+import inspect
+import numpy as np
+import pandas as pd
+
+TRADING_DAYS_YEAR = 252
+TRADING_DAYS_HALF = 126
+TRADING_DAYS_QUARTER = 63
+TRADING_DAYS_MONTH = 21
+TRADING_DAYS_WEEK = 5
+
+
+def _z(s, w):
+    m = s.rolling(w, min_periods=max(1, w // 2)).mean()
+    sd = s.rolling(w, min_periods=max(1, w // 2)).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+
+def _mean(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).mean()
+
+
+def _std(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).std()
+
+
+def _safe_div(a, b):
+    return a / b.replace(0, np.nan)
+
+
+
+# ===== folder domain primitives =====
+def _f06_capex_per_revenue(capex, revenue):
+    return capex / revenue.replace(0, np.nan)
+
+
+def _f06_drilling_intensity(capex, ppnenet, w):
+    ratio = capex / ppnenet.replace(0, np.nan)
+    return ratio.rolling(w, min_periods=max(1, w // 2)).mean()
+
+
+def _f06_drilling_efficiency(capex, revenue, w):
+    inv = revenue / capex.replace(0, np.nan)
+    return inv.rolling(w, min_periods=max(1, w // 2)).mean()
+
+
+# ===== features =====
+
+# di sqxcl w=5
+def f06ede_f06_ep_drilling_efficiency_disqxcl_5d_base_v076_signal(capex, ppnenet, closeadj):
+    result = (_f06_drilling_intensity(capex, ppnenet, 5) ** 2) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di invxcl w=5
+def f06ede_f06_ep_drilling_efficiency_diinvxcl_5d_base_v077_signal(capex, ppnenet, closeadj):
+    result = (1.0 / _f06_drilling_intensity(capex, ppnenet, 5).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di ratiomean w=5
+def f06ede_f06_ep_drilling_efficiency_diratiomean_5d_base_v078_signal(capex, ppnenet, closeadj):
+    base = _f06_drilling_intensity(capex, ppnenet, 5)
+    result = (base / _mean(base, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di idxcl w=10
+def f06ede_f06_ep_drilling_efficiency_diidxcl_10d_base_v079_signal(capex, ppnenet, closeadj):
+    result = _f06_drilling_intensity(capex, ppnenet, 10) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di z252xcl w=10
+def f06ede_f06_ep_drilling_efficiency_diz252xcl_10d_base_v080_signal(capex, ppnenet, closeadj):
+    result = _z(_f06_drilling_intensity(capex, ppnenet, 10), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di std63xcl w=10
+def f06ede_f06_ep_drilling_efficiency_distd63xcl_10d_base_v081_signal(capex, ppnenet, closeadj):
+    result = _std(_f06_drilling_intensity(capex, ppnenet, 10), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di mean21xcl w=10
+def f06ede_f06_ep_drilling_efficiency_dimean21xcl_10d_base_v082_signal(capex, ppnenet, closeadj):
+    result = _mean(_f06_drilling_intensity(capex, ppnenet, 10), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di logxcl w=10
+def f06ede_f06_ep_drilling_efficiency_dilogxcl_10d_base_v083_signal(capex, ppnenet, closeadj):
+    result = np.log1p(_f06_drilling_intensity(capex, ppnenet, 10).abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di sqxcl w=10
+def f06ede_f06_ep_drilling_efficiency_disqxcl_10d_base_v084_signal(capex, ppnenet, closeadj):
+    result = (_f06_drilling_intensity(capex, ppnenet, 10) ** 2) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di invxcl w=10
+def f06ede_f06_ep_drilling_efficiency_diinvxcl_10d_base_v085_signal(capex, ppnenet, closeadj):
+    result = (1.0 / _f06_drilling_intensity(capex, ppnenet, 10).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di ratiomean w=10
+def f06ede_f06_ep_drilling_efficiency_diratiomean_10d_base_v086_signal(capex, ppnenet, closeadj):
+    base = _f06_drilling_intensity(capex, ppnenet, 10)
+    result = (base / _mean(base, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di idxcl w=21
+def f06ede_f06_ep_drilling_efficiency_diidxcl_21d_base_v087_signal(capex, ppnenet, closeadj):
+    result = _f06_drilling_intensity(capex, ppnenet, 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di z252xcl w=21
+def f06ede_f06_ep_drilling_efficiency_diz252xcl_21d_base_v088_signal(capex, ppnenet, closeadj):
+    result = _z(_f06_drilling_intensity(capex, ppnenet, 21), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di std63xcl w=21
+def f06ede_f06_ep_drilling_efficiency_distd63xcl_21d_base_v089_signal(capex, ppnenet, closeadj):
+    result = _std(_f06_drilling_intensity(capex, ppnenet, 21), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di mean21xcl w=21
+def f06ede_f06_ep_drilling_efficiency_dimean21xcl_21d_base_v090_signal(capex, ppnenet, closeadj):
+    result = _mean(_f06_drilling_intensity(capex, ppnenet, 21), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di logxcl w=21
+def f06ede_f06_ep_drilling_efficiency_dilogxcl_21d_base_v091_signal(capex, ppnenet, closeadj):
+    result = np.log1p(_f06_drilling_intensity(capex, ppnenet, 21).abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di sqxcl w=21
+def f06ede_f06_ep_drilling_efficiency_disqxcl_21d_base_v092_signal(capex, ppnenet, closeadj):
+    result = (_f06_drilling_intensity(capex, ppnenet, 21) ** 2) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di invxcl w=21
+def f06ede_f06_ep_drilling_efficiency_diinvxcl_21d_base_v093_signal(capex, ppnenet, closeadj):
+    result = (1.0 / _f06_drilling_intensity(capex, ppnenet, 21).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di ratiomean w=21
+def f06ede_f06_ep_drilling_efficiency_diratiomean_21d_base_v094_signal(capex, ppnenet, closeadj):
+    base = _f06_drilling_intensity(capex, ppnenet, 21)
+    result = (base / _mean(base, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di idxcl w=42
+def f06ede_f06_ep_drilling_efficiency_diidxcl_42d_base_v095_signal(capex, ppnenet, closeadj):
+    result = _f06_drilling_intensity(capex, ppnenet, 42) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di z252xcl w=42
+def f06ede_f06_ep_drilling_efficiency_diz252xcl_42d_base_v096_signal(capex, ppnenet, closeadj):
+    result = _z(_f06_drilling_intensity(capex, ppnenet, 42), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di std63xcl w=42
+def f06ede_f06_ep_drilling_efficiency_distd63xcl_42d_base_v097_signal(capex, ppnenet, closeadj):
+    result = _std(_f06_drilling_intensity(capex, ppnenet, 42), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di mean21xcl w=42
+def f06ede_f06_ep_drilling_efficiency_dimean21xcl_42d_base_v098_signal(capex, ppnenet, closeadj):
+    result = _mean(_f06_drilling_intensity(capex, ppnenet, 42), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di logxcl w=42
+def f06ede_f06_ep_drilling_efficiency_dilogxcl_42d_base_v099_signal(capex, ppnenet, closeadj):
+    result = np.log1p(_f06_drilling_intensity(capex, ppnenet, 42).abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di sqxcl w=42
+def f06ede_f06_ep_drilling_efficiency_disqxcl_42d_base_v100_signal(capex, ppnenet, closeadj):
+    result = (_f06_drilling_intensity(capex, ppnenet, 42) ** 2) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di invxcl w=42
+def f06ede_f06_ep_drilling_efficiency_diinvxcl_42d_base_v101_signal(capex, ppnenet, closeadj):
+    result = (1.0 / _f06_drilling_intensity(capex, ppnenet, 42).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di ratiomean w=42
+def f06ede_f06_ep_drilling_efficiency_diratiomean_42d_base_v102_signal(capex, ppnenet, closeadj):
+    base = _f06_drilling_intensity(capex, ppnenet, 42)
+    result = (base / _mean(base, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di idxcl w=63
+def f06ede_f06_ep_drilling_efficiency_diidxcl_63d_base_v103_signal(capex, ppnenet, closeadj):
+    result = _f06_drilling_intensity(capex, ppnenet, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di z252xcl w=63
+def f06ede_f06_ep_drilling_efficiency_diz252xcl_63d_base_v104_signal(capex, ppnenet, closeadj):
+    result = _z(_f06_drilling_intensity(capex, ppnenet, 63), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di std63xcl w=63
+def f06ede_f06_ep_drilling_efficiency_distd63xcl_63d_base_v105_signal(capex, ppnenet, closeadj):
+    result = _std(_f06_drilling_intensity(capex, ppnenet, 63), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di mean21xcl w=63
+def f06ede_f06_ep_drilling_efficiency_dimean21xcl_63d_base_v106_signal(capex, ppnenet, closeadj):
+    result = _mean(_f06_drilling_intensity(capex, ppnenet, 63), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di logxcl w=63
+def f06ede_f06_ep_drilling_efficiency_dilogxcl_63d_base_v107_signal(capex, ppnenet, closeadj):
+    result = np.log1p(_f06_drilling_intensity(capex, ppnenet, 63).abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di sqxcl w=63
+def f06ede_f06_ep_drilling_efficiency_disqxcl_63d_base_v108_signal(capex, ppnenet, closeadj):
+    result = (_f06_drilling_intensity(capex, ppnenet, 63) ** 2) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di invxcl w=63
+def f06ede_f06_ep_drilling_efficiency_diinvxcl_63d_base_v109_signal(capex, ppnenet, closeadj):
+    result = (1.0 / _f06_drilling_intensity(capex, ppnenet, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di ratiomean w=63
+def f06ede_f06_ep_drilling_efficiency_diratiomean_63d_base_v110_signal(capex, ppnenet, closeadj):
+    base = _f06_drilling_intensity(capex, ppnenet, 63)
+    result = (base / _mean(base, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di idxcl w=126
+def f06ede_f06_ep_drilling_efficiency_diidxcl_126d_base_v111_signal(capex, ppnenet, closeadj):
+    result = _f06_drilling_intensity(capex, ppnenet, 126) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di z252xcl w=126
+def f06ede_f06_ep_drilling_efficiency_diz252xcl_126d_base_v112_signal(capex, ppnenet, closeadj):
+    result = _z(_f06_drilling_intensity(capex, ppnenet, 126), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di std63xcl w=126
+def f06ede_f06_ep_drilling_efficiency_distd63xcl_126d_base_v113_signal(capex, ppnenet, closeadj):
+    result = _std(_f06_drilling_intensity(capex, ppnenet, 126), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di mean21xcl w=126
+def f06ede_f06_ep_drilling_efficiency_dimean21xcl_126d_base_v114_signal(capex, ppnenet, closeadj):
+    result = _mean(_f06_drilling_intensity(capex, ppnenet, 126), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di logxcl w=126
+def f06ede_f06_ep_drilling_efficiency_dilogxcl_126d_base_v115_signal(capex, ppnenet, closeadj):
+    result = np.log1p(_f06_drilling_intensity(capex, ppnenet, 126).abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di sqxcl w=126
+def f06ede_f06_ep_drilling_efficiency_disqxcl_126d_base_v116_signal(capex, ppnenet, closeadj):
+    result = (_f06_drilling_intensity(capex, ppnenet, 126) ** 2) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di invxcl w=126
+def f06ede_f06_ep_drilling_efficiency_diinvxcl_126d_base_v117_signal(capex, ppnenet, closeadj):
+    result = (1.0 / _f06_drilling_intensity(capex, ppnenet, 126).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di ratiomean w=126
+def f06ede_f06_ep_drilling_efficiency_diratiomean_126d_base_v118_signal(capex, ppnenet, closeadj):
+    base = _f06_drilling_intensity(capex, ppnenet, 126)
+    result = (base / _mean(base, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di idxcl w=189
+def f06ede_f06_ep_drilling_efficiency_diidxcl_189d_base_v119_signal(capex, ppnenet, closeadj):
+    result = _f06_drilling_intensity(capex, ppnenet, 189) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di z252xcl w=189
+def f06ede_f06_ep_drilling_efficiency_diz252xcl_189d_base_v120_signal(capex, ppnenet, closeadj):
+    result = _z(_f06_drilling_intensity(capex, ppnenet, 189), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di std63xcl w=189
+def f06ede_f06_ep_drilling_efficiency_distd63xcl_189d_base_v121_signal(capex, ppnenet, closeadj):
+    result = _std(_f06_drilling_intensity(capex, ppnenet, 189), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di mean21xcl w=189
+def f06ede_f06_ep_drilling_efficiency_dimean21xcl_189d_base_v122_signal(capex, ppnenet, closeadj):
+    result = _mean(_f06_drilling_intensity(capex, ppnenet, 189), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di logxcl w=189
+def f06ede_f06_ep_drilling_efficiency_dilogxcl_189d_base_v123_signal(capex, ppnenet, closeadj):
+    result = np.log1p(_f06_drilling_intensity(capex, ppnenet, 189).abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di sqxcl w=189
+def f06ede_f06_ep_drilling_efficiency_disqxcl_189d_base_v124_signal(capex, ppnenet, closeadj):
+    result = (_f06_drilling_intensity(capex, ppnenet, 189) ** 2) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di invxcl w=189
+def f06ede_f06_ep_drilling_efficiency_diinvxcl_189d_base_v125_signal(capex, ppnenet, closeadj):
+    result = (1.0 / _f06_drilling_intensity(capex, ppnenet, 189).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di ratiomean w=189
+def f06ede_f06_ep_drilling_efficiency_diratiomean_189d_base_v126_signal(capex, ppnenet, closeadj):
+    base = _f06_drilling_intensity(capex, ppnenet, 189)
+    result = (base / _mean(base, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di idxcl w=252
+def f06ede_f06_ep_drilling_efficiency_diidxcl_252d_base_v127_signal(capex, ppnenet, closeadj):
+    result = _f06_drilling_intensity(capex, ppnenet, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di z252xcl w=252
+def f06ede_f06_ep_drilling_efficiency_diz252xcl_252d_base_v128_signal(capex, ppnenet, closeadj):
+    result = _z(_f06_drilling_intensity(capex, ppnenet, 252), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di std63xcl w=252
+def f06ede_f06_ep_drilling_efficiency_distd63xcl_252d_base_v129_signal(capex, ppnenet, closeadj):
+    result = _std(_f06_drilling_intensity(capex, ppnenet, 252), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di mean21xcl w=252
+def f06ede_f06_ep_drilling_efficiency_dimean21xcl_252d_base_v130_signal(capex, ppnenet, closeadj):
+    result = _mean(_f06_drilling_intensity(capex, ppnenet, 252), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di logxcl w=252
+def f06ede_f06_ep_drilling_efficiency_dilogxcl_252d_base_v131_signal(capex, ppnenet, closeadj):
+    result = np.log1p(_f06_drilling_intensity(capex, ppnenet, 252).abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di sqxcl w=252
+def f06ede_f06_ep_drilling_efficiency_disqxcl_252d_base_v132_signal(capex, ppnenet, closeadj):
+    result = (_f06_drilling_intensity(capex, ppnenet, 252) ** 2) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di invxcl w=252
+def f06ede_f06_ep_drilling_efficiency_diinvxcl_252d_base_v133_signal(capex, ppnenet, closeadj):
+    result = (1.0 / _f06_drilling_intensity(capex, ppnenet, 252).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di ratiomean w=252
+def f06ede_f06_ep_drilling_efficiency_diratiomean_252d_base_v134_signal(capex, ppnenet, closeadj):
+    base = _f06_drilling_intensity(capex, ppnenet, 252)
+    result = (base / _mean(base, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di idxcl w=378
+def f06ede_f06_ep_drilling_efficiency_diidxcl_378d_base_v135_signal(capex, ppnenet, closeadj):
+    result = _f06_drilling_intensity(capex, ppnenet, 378) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di z252xcl w=378
+def f06ede_f06_ep_drilling_efficiency_diz252xcl_378d_base_v136_signal(capex, ppnenet, closeadj):
+    result = _z(_f06_drilling_intensity(capex, ppnenet, 378), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di std63xcl w=378
+def f06ede_f06_ep_drilling_efficiency_distd63xcl_378d_base_v137_signal(capex, ppnenet, closeadj):
+    result = _std(_f06_drilling_intensity(capex, ppnenet, 378), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di mean21xcl w=378
+def f06ede_f06_ep_drilling_efficiency_dimean21xcl_378d_base_v138_signal(capex, ppnenet, closeadj):
+    result = _mean(_f06_drilling_intensity(capex, ppnenet, 378), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di logxcl w=378
+def f06ede_f06_ep_drilling_efficiency_dilogxcl_378d_base_v139_signal(capex, ppnenet, closeadj):
+    result = np.log1p(_f06_drilling_intensity(capex, ppnenet, 378).abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di sqxcl w=378
+def f06ede_f06_ep_drilling_efficiency_disqxcl_378d_base_v140_signal(capex, ppnenet, closeadj):
+    result = (_f06_drilling_intensity(capex, ppnenet, 378) ** 2) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di invxcl w=378
+def f06ede_f06_ep_drilling_efficiency_diinvxcl_378d_base_v141_signal(capex, ppnenet, closeadj):
+    result = (1.0 / _f06_drilling_intensity(capex, ppnenet, 378).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di ratiomean w=378
+def f06ede_f06_ep_drilling_efficiency_diratiomean_378d_base_v142_signal(capex, ppnenet, closeadj):
+    base = _f06_drilling_intensity(capex, ppnenet, 378)
+    result = (base / _mean(base, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di idxcl w=504
+def f06ede_f06_ep_drilling_efficiency_diidxcl_504d_base_v143_signal(capex, ppnenet, closeadj):
+    result = _f06_drilling_intensity(capex, ppnenet, 504) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di z252xcl w=504
+def f06ede_f06_ep_drilling_efficiency_diz252xcl_504d_base_v144_signal(capex, ppnenet, closeadj):
+    result = _z(_f06_drilling_intensity(capex, ppnenet, 504), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di std63xcl w=504
+def f06ede_f06_ep_drilling_efficiency_distd63xcl_504d_base_v145_signal(capex, ppnenet, closeadj):
+    result = _std(_f06_drilling_intensity(capex, ppnenet, 504), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di mean21xcl w=504
+def f06ede_f06_ep_drilling_efficiency_dimean21xcl_504d_base_v146_signal(capex, ppnenet, closeadj):
+    result = _mean(_f06_drilling_intensity(capex, ppnenet, 504), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di logxcl w=504
+def f06ede_f06_ep_drilling_efficiency_dilogxcl_504d_base_v147_signal(capex, ppnenet, closeadj):
+    result = np.log1p(_f06_drilling_intensity(capex, ppnenet, 504).abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di sqxcl w=504
+def f06ede_f06_ep_drilling_efficiency_disqxcl_504d_base_v148_signal(capex, ppnenet, closeadj):
+    result = (_f06_drilling_intensity(capex, ppnenet, 504) ** 2) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di invxcl w=504
+def f06ede_f06_ep_drilling_efficiency_diinvxcl_504d_base_v149_signal(capex, ppnenet, closeadj):
+    result = (1.0 / _f06_drilling_intensity(capex, ppnenet, 504).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# di ratiomean w=504
+def f06ede_f06_ep_drilling_efficiency_diratiomean_504d_base_v150_signal(capex, ppnenet, closeadj):
+    base = _f06_drilling_intensity(capex, ppnenet, 504)
+    result = (base / _mean(base, 63).replace(0, np.nan)) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+_FEATURES = [
+    f06ede_f06_ep_drilling_efficiency_disqxcl_5d_base_v076_signal,
+    f06ede_f06_ep_drilling_efficiency_diinvxcl_5d_base_v077_signal,
+    f06ede_f06_ep_drilling_efficiency_diratiomean_5d_base_v078_signal,
+    f06ede_f06_ep_drilling_efficiency_diidxcl_10d_base_v079_signal,
+    f06ede_f06_ep_drilling_efficiency_diz252xcl_10d_base_v080_signal,
+    f06ede_f06_ep_drilling_efficiency_distd63xcl_10d_base_v081_signal,
+    f06ede_f06_ep_drilling_efficiency_dimean21xcl_10d_base_v082_signal,
+    f06ede_f06_ep_drilling_efficiency_dilogxcl_10d_base_v083_signal,
+    f06ede_f06_ep_drilling_efficiency_disqxcl_10d_base_v084_signal,
+    f06ede_f06_ep_drilling_efficiency_diinvxcl_10d_base_v085_signal,
+    f06ede_f06_ep_drilling_efficiency_diratiomean_10d_base_v086_signal,
+    f06ede_f06_ep_drilling_efficiency_diidxcl_21d_base_v087_signal,
+    f06ede_f06_ep_drilling_efficiency_diz252xcl_21d_base_v088_signal,
+    f06ede_f06_ep_drilling_efficiency_distd63xcl_21d_base_v089_signal,
+    f06ede_f06_ep_drilling_efficiency_dimean21xcl_21d_base_v090_signal,
+    f06ede_f06_ep_drilling_efficiency_dilogxcl_21d_base_v091_signal,
+    f06ede_f06_ep_drilling_efficiency_disqxcl_21d_base_v092_signal,
+    f06ede_f06_ep_drilling_efficiency_diinvxcl_21d_base_v093_signal,
+    f06ede_f06_ep_drilling_efficiency_diratiomean_21d_base_v094_signal,
+    f06ede_f06_ep_drilling_efficiency_diidxcl_42d_base_v095_signal,
+    f06ede_f06_ep_drilling_efficiency_diz252xcl_42d_base_v096_signal,
+    f06ede_f06_ep_drilling_efficiency_distd63xcl_42d_base_v097_signal,
+    f06ede_f06_ep_drilling_efficiency_dimean21xcl_42d_base_v098_signal,
+    f06ede_f06_ep_drilling_efficiency_dilogxcl_42d_base_v099_signal,
+    f06ede_f06_ep_drilling_efficiency_disqxcl_42d_base_v100_signal,
+    f06ede_f06_ep_drilling_efficiency_diinvxcl_42d_base_v101_signal,
+    f06ede_f06_ep_drilling_efficiency_diratiomean_42d_base_v102_signal,
+    f06ede_f06_ep_drilling_efficiency_diidxcl_63d_base_v103_signal,
+    f06ede_f06_ep_drilling_efficiency_diz252xcl_63d_base_v104_signal,
+    f06ede_f06_ep_drilling_efficiency_distd63xcl_63d_base_v105_signal,
+    f06ede_f06_ep_drilling_efficiency_dimean21xcl_63d_base_v106_signal,
+    f06ede_f06_ep_drilling_efficiency_dilogxcl_63d_base_v107_signal,
+    f06ede_f06_ep_drilling_efficiency_disqxcl_63d_base_v108_signal,
+    f06ede_f06_ep_drilling_efficiency_diinvxcl_63d_base_v109_signal,
+    f06ede_f06_ep_drilling_efficiency_diratiomean_63d_base_v110_signal,
+    f06ede_f06_ep_drilling_efficiency_diidxcl_126d_base_v111_signal,
+    f06ede_f06_ep_drilling_efficiency_diz252xcl_126d_base_v112_signal,
+    f06ede_f06_ep_drilling_efficiency_distd63xcl_126d_base_v113_signal,
+    f06ede_f06_ep_drilling_efficiency_dimean21xcl_126d_base_v114_signal,
+    f06ede_f06_ep_drilling_efficiency_dilogxcl_126d_base_v115_signal,
+    f06ede_f06_ep_drilling_efficiency_disqxcl_126d_base_v116_signal,
+    f06ede_f06_ep_drilling_efficiency_diinvxcl_126d_base_v117_signal,
+    f06ede_f06_ep_drilling_efficiency_diratiomean_126d_base_v118_signal,
+    f06ede_f06_ep_drilling_efficiency_diidxcl_189d_base_v119_signal,
+    f06ede_f06_ep_drilling_efficiency_diz252xcl_189d_base_v120_signal,
+    f06ede_f06_ep_drilling_efficiency_distd63xcl_189d_base_v121_signal,
+    f06ede_f06_ep_drilling_efficiency_dimean21xcl_189d_base_v122_signal,
+    f06ede_f06_ep_drilling_efficiency_dilogxcl_189d_base_v123_signal,
+    f06ede_f06_ep_drilling_efficiency_disqxcl_189d_base_v124_signal,
+    f06ede_f06_ep_drilling_efficiency_diinvxcl_189d_base_v125_signal,
+    f06ede_f06_ep_drilling_efficiency_diratiomean_189d_base_v126_signal,
+    f06ede_f06_ep_drilling_efficiency_diidxcl_252d_base_v127_signal,
+    f06ede_f06_ep_drilling_efficiency_diz252xcl_252d_base_v128_signal,
+    f06ede_f06_ep_drilling_efficiency_distd63xcl_252d_base_v129_signal,
+    f06ede_f06_ep_drilling_efficiency_dimean21xcl_252d_base_v130_signal,
+    f06ede_f06_ep_drilling_efficiency_dilogxcl_252d_base_v131_signal,
+    f06ede_f06_ep_drilling_efficiency_disqxcl_252d_base_v132_signal,
+    f06ede_f06_ep_drilling_efficiency_diinvxcl_252d_base_v133_signal,
+    f06ede_f06_ep_drilling_efficiency_diratiomean_252d_base_v134_signal,
+    f06ede_f06_ep_drilling_efficiency_diidxcl_378d_base_v135_signal,
+    f06ede_f06_ep_drilling_efficiency_diz252xcl_378d_base_v136_signal,
+    f06ede_f06_ep_drilling_efficiency_distd63xcl_378d_base_v137_signal,
+    f06ede_f06_ep_drilling_efficiency_dimean21xcl_378d_base_v138_signal,
+    f06ede_f06_ep_drilling_efficiency_dilogxcl_378d_base_v139_signal,
+    f06ede_f06_ep_drilling_efficiency_disqxcl_378d_base_v140_signal,
+    f06ede_f06_ep_drilling_efficiency_diinvxcl_378d_base_v141_signal,
+    f06ede_f06_ep_drilling_efficiency_diratiomean_378d_base_v142_signal,
+    f06ede_f06_ep_drilling_efficiency_diidxcl_504d_base_v143_signal,
+    f06ede_f06_ep_drilling_efficiency_diz252xcl_504d_base_v144_signal,
+    f06ede_f06_ep_drilling_efficiency_distd63xcl_504d_base_v145_signal,
+    f06ede_f06_ep_drilling_efficiency_dimean21xcl_504d_base_v146_signal,
+    f06ede_f06_ep_drilling_efficiency_dilogxcl_504d_base_v147_signal,
+    f06ede_f06_ep_drilling_efficiency_disqxcl_504d_base_v148_signal,
+    f06ede_f06_ep_drilling_efficiency_diinvxcl_504d_base_v149_signal,
+    f06ede_f06_ep_drilling_efficiency_diratiomean_504d_base_v150_signal,
+]
+
+
+def _inputs_for(fn):
+    sig = inspect.signature(fn)
+    return [p.name for p in sig.parameters.values()]
+
+
+REGISTRY = {fn.__name__: {"inputs": _inputs_for(fn), "func": fn} for fn in _FEATURES}
+F06_EP_DRILLING_EFFICIENCY_REGISTRY_076_150 = REGISTRY
+
+
+if __name__ == "__main__":
+    np.random.seed(42)
+    n = 1500
+    rets = np.random.normal(0.0005, 0.02, n)
+    closeadj = pd.Series(100.0 * np.exp(np.cumsum(rets)), name="closeadj")
+    high = closeadj * (1.0 + np.abs(np.random.normal(0, 0.01, n)))
+    low = closeadj * (1.0 - np.abs(np.random.normal(0, 0.01, n)))
+    high = pd.Series(high, name="high")
+    low = pd.Series(low, name="low")
+    volume = pd.Series(np.abs(np.random.normal(1e6, 3e5, n)), name="volume")
+
+    revenue = pd.Series(1e9 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="revenue")
+    ebitda  = pd.Series(2e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="ebitda")
+    ebit    = pd.Series(1.5e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="ebit")
+    netinc  = pd.Series(1e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.015, n))), name="netinc")
+    fcf     = pd.Series(8e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.015, n))), name="fcf")
+    ncfo    = pd.Series(1.2e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.014, n))), name="ncfo")
+    capex   = pd.Series(5e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.02, n))), name="capex")
+    depamor = pd.Series(4e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="depamor")
+    sgna    = pd.Series(2.5e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="sgna")
+    opex    = pd.Series(7e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="opex")
+    gp      = pd.Series(3.5e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="gp")
+    cor     = pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="cor")
+    rnd     = pd.Series(4e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="rnd")
+    assets       = pd.Series(2e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="assets")
+    assetsc      = pd.Series(8e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="assetsc")
+    assetsnc     = pd.Series(1.2e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="assetsnc")
+    liabilities  = pd.Series(1.1e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="liabilities")
+    liabilitiesc = pd.Series(5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="liabilitiesc")
+    liabilitiesnc= pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="liabilitiesnc")
+    equity       = pd.Series(9e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="equity")
+    equityusd    = pd.Series(9e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="equityusd")
+    debt         = pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="debt")
+    debtc        = pd.Series(1.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="debtc")
+    debtnc       = pd.Series(4.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="debtnc")
+    cashneq      = pd.Series(2.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="cashneq")
+    inventory    = pd.Series(2e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="inventory")
+    receivables  = pd.Series(2.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="receivables")
+    payables     = pd.Series(1.8e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="payables")
+    deferredrev  = pd.Series(1.0e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="deferredrev")
+    workingcapital = pd.Series(3e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="workingcapital")
+    ppnenet      = pd.Series(7e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="ppnenet")
+    intangibles  = pd.Series(3e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="intangibles")
+    tangibles    = pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="tangibles")
+    invcap       = pd.Series(1.4e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="invcap")
+    retearn      = pd.Series(5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="retearn")
+    sbcomp       = pd.Series(2e7 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="sbcomp")
+    sharesbas    = pd.Series(1e8 * np.exp(np.cumsum(np.random.normal(-0.00005, 0.003, n))), name="sharesbas")
+    shareswa     = pd.Series(1e8 * np.exp(np.cumsum(np.random.normal(-0.00005, 0.003, n))), name="shareswa")
+    shareswadil  = pd.Series(1.02e8 * np.exp(np.cumsum(np.random.normal(-0.00005, 0.003, n))), name="shareswadil")
+    eps          = pd.Series(1.0 + 0.5*np.cumsum(np.random.normal(0.0003, 0.01, n))/np.arange(1,n+1), name="eps")
+    epsdil       = pd.Series(0.98 + 0.5*np.cumsum(np.random.normal(0.0003, 0.01, n))/np.arange(1,n+1), name="epsdil")
+    bvps         = pd.Series(10.0 * np.exp(np.cumsum(np.random.normal(0.0002, 0.005, n))), name="bvps")
+    fcfps        = pd.Series(0.8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="fcfps")
+    sps          = pd.Series(10.0 * np.exp(np.cumsum(np.random.normal(0.0002, 0.005, n))), name="sps")
+    dps          = pd.Series(0.5 * np.exp(np.cumsum(np.random.normal(0.0002, 0.005, n))), name="dps")
+    marketcap    = pd.Series(closeadj * 1e8, name="marketcap")
+    ev           = pd.Series(closeadj * 1.2e8 + debt - cashneq, name="ev")
+    pe           = pd.Series(closeadj / eps.replace(0, np.nan).abs(), name="pe")
+    pb           = pd.Series(closeadj / bvps.replace(0, np.nan).abs(), name="pb")
+    ps           = pd.Series(closeadj / sps.replace(0, np.nan).abs(), name="ps")
+    evebit       = pd.Series(ev / ebit.replace(0, np.nan).abs(), name="evebit")
+    evebitda     = pd.Series(ev / ebitda.replace(0, np.nan).abs(), name="evebitda")
+    grossmargin  = pd.Series(0.30 + 0.05*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="grossmargin")
+    ebitdamargin = pd.Series(0.20 + 0.05*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="ebitdamargin")
+    netmargin    = pd.Series(0.10 + 0.04*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="netmargin")
+    roa          = pd.Series(0.07 + 0.03*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="roa")
+    roe          = pd.Series(0.12 + 0.04*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="roe")
+    roic         = pd.Series(0.10 + 0.04*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="roic")
+    ros          = pd.Series(0.08 + 0.03*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="ros")
+    currentratio = pd.Series(1.5 + 0.3*np.sin(np.arange(n)/250.0) + 0.05*np.random.randn(n), name="currentratio")
+    de           = pd.Series(0.6 + 0.2*np.sin(np.arange(n)/250.0) + 0.05*np.random.randn(n), name="de")
+    payoutratio  = pd.Series(0.3 + 0.1*np.sin(np.arange(n)/250.0) + 0.03*np.random.randn(n), name="payoutratio")
+    divyield     = pd.Series(0.02 + 0.005*np.sin(np.arange(n)/250.0) + 0.001*np.random.randn(n), name="divyield")
+    assetturnover= pd.Series(0.7 + 0.15*np.sin(np.arange(n)/250.0) + 0.02*np.random.randn(n), name="assetturnover")
+
+    cols = {
+        "closeadj": closeadj, "high": high, "low": low, "volume": volume,
+        "revenue": revenue, "ebitda": ebitda, "ebit": ebit, "netinc": netinc, "fcf": fcf,
+        "ncfo": ncfo, "capex": capex, "depamor": depamor, "sgna": sgna, "opex": opex,
+        "gp": gp, "cor": cor, "rnd": rnd,
+        "assets": assets, "assetsc": assetsc, "assetsnc": assetsnc,
+        "liabilities": liabilities, "liabilitiesc": liabilitiesc, "liabilitiesnc": liabilitiesnc,
+        "equity": equity, "equityusd": equityusd,
+        "debt": debt, "debtc": debtc, "debtnc": debtnc, "cashneq": cashneq,
+        "inventory": inventory, "receivables": receivables, "payables": payables,
+        "deferredrev": deferredrev, "workingcapital": workingcapital,
+        "ppnenet": ppnenet, "intangibles": intangibles, "tangibles": tangibles,
+        "invcap": invcap, "retearn": retearn, "sbcomp": sbcomp,
+        "sharesbas": sharesbas, "shareswa": shareswa, "shareswadil": shareswadil,
+        "eps": eps, "epsdil": epsdil, "bvps": bvps, "fcfps": fcfps, "sps": sps, "dps": dps,
+        "marketcap": marketcap, "ev": ev,
+        "pe": pe, "pb": pb, "ps": ps, "evebit": evebit, "evebitda": evebitda,
+        "grossmargin": grossmargin, "ebitdamargin": ebitdamargin, "netmargin": netmargin,
+        "roa": roa, "roe": roe, "roic": roic, "ros": ros,
+        "currentratio": currentratio, "de": de,
+        "payoutratio": payoutratio, "divyield": divyield, "assetturnover": assetturnover,
+    }
+
+    n_features = 0
+    nan_ok = 0
+    domain_primitives = ("_f06_capex_per_revenue", "_f06_drilling_intensity", "_f06_drilling_efficiency")
+    for name, meta in REGISTRY.items():
+        fn = meta["func"]
+        args = [cols[c] for c in meta["inputs"]]
+        y1 = fn(*args)
+        y2 = fn(*args)
+        pd.testing.assert_series_equal(y1, y2)
+        q = y1.iloc[504:].dropna()
+        assert len(q) > 0, name
+        assert q.nunique() > 50, f"{name} nunique={q.nunique()}"
+        assert q.std() > 0, name
+        assert not q.isna().all(), name
+        nan_ratio = y1.iloc[504:].isna().mean()
+        if nan_ratio < 0.5:
+            nan_ok += 1
+        src = inspect.getsource(fn)
+        assert any(p in src for p in domain_primitives), name
+        n_features += 1
+    assert n_features == 75, n_features
+    assert nan_ok >= int(0.8 * n_features), f"nan_ok={nan_ok}/{n_features}"
+    print(f"OK f06_ep_drilling_efficiency_base_076_150_claude: {n_features} features pass")

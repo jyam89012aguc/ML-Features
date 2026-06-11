@@ -1,0 +1,1472 @@
+"""f28_price_volume_divergence slope features 001-150 (1st derivative).
+
+Each function reconstructs the corresponding base formula inline and returns
+base.diff(k).replace([inf,-inf],nan). k follows the ROC bracket of the
+base's primary window:  <=5d:k=5;  6-21d:k=5 or 10;  22-63d:k=10 or 21;
+64-200d:k=21 or 63;  >200d:k=63. k is varied across features within each
+bracket. NaN policy: only the final replace().
+"""
+from __future__ import annotations
+
+import numpy as np
+import pandas as pd
+
+
+def _sma(s, n):
+    return s.rolling(n, min_periods=n).mean()
+
+
+def _ema(s, n):
+    return s.ewm(span=n, adjust=False, min_periods=n).mean()
+
+
+def _streak_idx(x):
+    idx = np.where(x > 0.5)[0]
+    if idx.size == 0:
+        return float(len(x))
+    return float(len(x) - 1 - idx[-1])
+
+
+def _slope_raw(x):
+    n = len(x); t = np.arange(n, dtype=float)
+    mt = t.mean(); mx = x.mean()
+    var = float(np.sum((t - mt) ** 2))
+    if var == 0.0:
+        return np.nan
+    return float(np.sum((t - mt) * (x - mx)) / var)
+
+
+# === SLOPES OF base 001-075 features =======================================
+
+
+def f28pd_f28_price_volume_divergence_sign_xor_close_vol_5d_slope_v001_signal(close, volume):
+    k = 5
+    sp = np.sign(close.diff(5)); sv = np.sign(volume.diff(5))
+    b = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return b.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_xor_count_20d_slope_v002_signal(close, volume):
+    k = 10
+    sp = np.sign(close.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return bit.rolling(20, min_periods=20).sum().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_xor_count_60d_slope_v003_signal(closeadj, volume):
+    k = 21
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return bit.rolling(60, min_periods=60).sum().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_xor_streak_40d_slope_v004_signal(closeadj, volume):
+    k = 10
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    def _consec(x):
+        c = 0
+        for v in x[::-1]:
+            if v > 0.5: c += 1
+            else: break
+        return float(c)
+    return bit.rolling(40, min_periods=40).apply(_consec, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_slope_diff_sign_15d_slope_v005_signal(close, volume):
+    k = 5
+    cs = close.rolling(15, min_periods=15).apply(_slope_raw, raw=True)
+    vs = volume.rolling(15, min_periods=15).apply(_slope_raw, raw=True)
+    return (np.sign(cs) * (-1.0) * np.sign(vs)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_slope_diff_45d_slope_v006_signal(closeadj, volume):
+    k = 21
+    lc = np.log(closeadj).rolling(45, min_periods=45).apply(_slope_raw, raw=True)
+    lv = np.log(volume.replace(0.0, np.nan)).rolling(45, min_periods=45).apply(_slope_raw, raw=True)
+    return (lc - lv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_slope_diff_abs_120d_slope_v007_signal(closeadj, volume):
+    k = 63
+    lc = np.log(closeadj).rolling(120, min_periods=120).apply(_slope_raw, raw=True)
+    lv = np.log(volume.replace(0.0, np.nan)).rolling(120, min_periods=120).apply(_slope_raw, raw=True)
+    return (lc - lv).abs().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_corr_pct_30d_slope_v008_signal(closeadj, volume):
+    k = 10
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    return rp.rolling(30, min_periods=30).corr(rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_corr_pct_90d_slope_v009_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    return rp.rolling(90, min_periods=90).corr(rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_corr_diff_45d_slope_v010_signal(closeadj, volume):
+    k = 10
+    return closeadj.diff().rolling(45, min_periods=45).corr(volume.diff()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_neg_corr_pct_60d_slope_v011_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    return (-1.0 * rp.rolling(60, min_periods=60).corr(rv)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_spearman_50d_slope_v012_signal(closeadj, volume):
+    k = 21
+    rc = closeadj.rolling(50, min_periods=50).rank(pct=False)
+    rv = volume.rolling(50, min_periods=50).rank(pct=False)
+    return rc.rolling(50, min_periods=50).corr(rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_spearman_100d_slope_v013_signal(closeadj, volume):
+    k = 63
+    rc = closeadj.rolling(100, min_periods=100).rank(pct=False)
+    rv = volume.rolling(100, min_periods=100).rank(pct=False)
+    return rc.rolling(100, min_periods=100).corr(rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_beta_vol_price_55d_slope_v014_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    cov = rp.rolling(55, min_periods=55).cov(rv)
+    var = rp.rolling(55, min_periods=55).var()
+    return (cov / var.replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_beta_sign_120d_slope_v015_signal(closeadj, volume):
+    k = 63
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    cov = rp.rolling(120, min_periods=120).cov(rv)
+    var = rp.rolling(120, min_periods=120).var()
+    beta = cov / var.replace(0.0, np.nan)
+    return np.sign(beta).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_bear_div_unconf_high_30d_slope_v016_signal(closeadj, volume):
+    k = 10
+    cmax = closeadj.rolling(30, min_periods=30).max()
+    vmax = volume.rolling(30, min_periods=30).max()
+    bit = ((closeadj >= cmax).astype(float) * (1.0 - (volume >= vmax).astype(float))).where(~cmax.isna() & ~vmax.isna())
+    return bit.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_bull_div_unconf_low_30d_slope_v017_signal(closeadj, volume):
+    k = 21
+    cmin = closeadj.rolling(30, min_periods=30).min()
+    vmin = volume.rolling(30, min_periods=30).min()
+    bit = ((closeadj <= cmin).astype(float) * (1.0 - (volume <= vmin).astype(float))).where(~cmin.isna() & ~vmin.isna())
+    return bit.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_days_since_unconf_high_60d_slope_v018_signal(closeadj, volume):
+    k = 21
+    cmax = closeadj.rolling(30, min_periods=30).max()
+    vmax = volume.rolling(30, min_periods=30).max()
+    bit = ((closeadj >= cmax).astype(float) * (1.0 - (volume >= vmax).astype(float))).where(~cmax.isna() & ~vmax.isna())
+    return bit.rolling(60, min_periods=60).apply(_streak_idx, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_days_since_unconf_low_80d_slope_v019_signal(closeadj, volume):
+    k = 63
+    cmin = closeadj.rolling(30, min_periods=30).min()
+    vmin = volume.rolling(30, min_periods=30).min()
+    bit = ((closeadj <= cmin).astype(float) * (1.0 - (volume <= vmin).astype(float))).where(~cmin.isna() & ~vmin.isna())
+    return bit.rolling(80, min_periods=80).apply(_streak_idx, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_skew_diff_50d_slope_v020_signal(closeadj, volume):
+    k = 21
+    rp = np.log(closeadj / closeadj.shift(1))
+    rv = np.log(volume / volume.shift(1)).replace([np.inf, -np.inf], np.nan)
+    return (rp.rolling(50, min_periods=50).skew() - rv.rolling(50, min_periods=50).skew()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_vol_ratio_log_60d_slope_v021_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    sp = rp.rolling(60, min_periods=60).std()
+    sv = rv.rolling(60, min_periods=60).std()
+    return np.log(sp / sv.replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_kurt_diff_80d_slope_v022_signal(closeadj, volume):
+    k = 63
+    rp = np.log(closeadj / closeadj.shift(1))
+    rv = np.log(volume / volume.shift(1)).replace([np.inf, -np.inf], np.nan)
+    return (rp.rolling(80, min_periods=80).kurt() - rv.rolling(80, min_periods=80).kurt()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_obv_close_slope_diff_45d_slope_v023_signal(closeadj, volume):
+    k = 21
+    obv = (np.sign(closeadj.diff()) * volume).cumsum()
+    def _sn(x):
+        n = len(x); t = np.arange(n, dtype=float)
+        mt = t.mean(); mx = x.mean()
+        var = float(np.sum((t - mt) ** 2))
+        if var == 0.0 or not np.isfinite(mx) or abs(mx) < 1e-15: return np.nan
+        return float((np.sum((t - mt) * (x - mx)) / var) / abs(mx))
+    so = obv.rolling(45, min_periods=45).apply(_sn, raw=True)
+    sc = closeadj.rolling(45, min_periods=45).apply(_sn, raw=True)
+    return (so - sc).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_obv_sign_disagree_30d_slope_v024_signal(closeadj, volume):
+    k = 10
+    obv = (np.sign(closeadj.diff()) * volume).cumsum()
+    return (np.sign(obv.diff(30)) - np.sign(closeadj.diff(30))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_tanh_div_signed_30d_slope_v025_signal(close, volume):
+    k = 10
+    rp = close.pct_change(5); rv = volume.pct_change(5)
+    sp = np.sign(rp); sv = np.sign(rv)
+    vmag = (volume - volume.rolling(30, min_periods=30).mean()) / volume.rolling(30, min_periods=30).std().replace(0.0, np.nan)
+    return np.tanh((sp - sv) * vmag * 0.5).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_arctan_slope_diff_50d_slope_v026_signal(closeadj, volume):
+    k = 21
+    sp = np.log(closeadj).rolling(50, min_periods=50).apply(_slope_raw, raw=True)
+    sv = np.log(volume.replace(0.0, np.nan)).rolling(50, min_periods=50).apply(_slope_raw, raw=True)
+    sig = sp.rolling(50, min_periods=50).std()
+    return np.arctan((sp - sv) / sig.replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_sigmoid_xor_freq_40d_slope_v027_signal(closeadj, volume):
+    k = 10
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    freq = bit.rolling(40, min_periods=40).mean()
+    z = 2.0 * (freq - 0.5)
+    return (1.0 / (1.0 + np.exp(-z.clip(-30.0, 30.0)))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+
+
+def f28pd_f28_price_volume_divergence_updown_vol_asym_100d_slope_v029_signal(closeadj, volume):
+    k = 63
+    up = (closeadj.diff(1) > 0).astype(float)
+    dn = (closeadj.diff(1) < 0).astype(float)
+    uv = (up * volume).rolling(100, min_periods=100).sum()
+    dv = (dn * volume).rolling(100, min_periods=100).sum()
+    return ((uv - dv) / (uv + dv).replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_max_neg_corr_window_60d_slope_v030_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c20 = rp.rolling(20, min_periods=20).corr(rv)
+    return c20.rolling(60, min_periods=60).min().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_corr_dev_from_mean_120d_slope_v031_signal(closeadj, volume):
+    k = 63
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c30 = rp.rolling(30, min_periods=30).corr(rv)
+    return (c30 - c30.rolling(120, min_periods=120).mean()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_resid_std_vol_on_price_50d_slope_v032_signal(closeadj, volume):
+    k = 21
+    n = 50
+    x = closeadj; y = volume
+    mx = x.rolling(n, min_periods=n).mean()
+    my = y.rolling(n, min_periods=n).mean()
+    vx = x.rolling(n, min_periods=n).var()
+    vy = y.rolling(n, min_periods=n).var()
+    cxy = x.rolling(n, min_periods=n).cov(y)
+    res_var = (vy - (cxy * cxy) / vx.replace(0.0, np.nan)).clip(lower=0.0)
+    return (np.sqrt(res_var) / my.abs().replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_rsq_vol_on_price_80d_slope_v033_signal(closeadj, volume):
+    k = 21
+    c = closeadj.rolling(80, min_periods=80).corr(volume)
+    return (c * c).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_cum_sign_diff_45d_slope_v034_signal(closeadj, volume):
+    k = 10
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    return (sp - sv).rolling(45, min_periods=45).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_cum_div_zscore_100d_slope_v035_signal(closeadj, volume):
+    k = 21
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    cum = (sp - sv).rolling(20, min_periods=20).sum()
+    z = (cum - cum.rolling(100, min_periods=100).mean()) / cum.rolling(100, min_periods=100).std().replace(0.0, np.nan)
+    return z.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_hidden_bull_25d_slope_v036_signal(close, volume):
+    k = 10
+    pmin = close.rolling(25, min_periods=25).min()
+    vmin = volume.rolling(25, min_periods=25).min()
+    pmin_prev = pmin.shift(13); vmin_prev = vmin.shift(13)
+    bit = ((pmin > pmin_prev).astype(float) * (vmin < vmin_prev).astype(float)).where(~pmin.isna() & ~pmin_prev.isna() & ~vmin_prev.isna())
+    return bit.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_hidden_bear_50d_slope_v037_signal(closeadj, volume):
+    k = 21
+    pmax = closeadj.rolling(50, min_periods=50).max()
+    vmax = volume.rolling(50, min_periods=50).max()
+    pmax_prev = pmax.shift(25); vmax_prev = vmax.shift(25)
+    bit = ((pmax < pmax_prev).astype(float) * (vmax > vmax_prev).astype(float)).where(~pmax.isna() & ~pmax_prev.isna() & ~vmax_prev.isna())
+    return bit.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_lead_lag_corr_diff_60d_slope_v038_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c_lag = rp.rolling(60, min_periods=60).corr(rv.shift(5))
+    c_lead = rp.rolling(60, min_periods=60).corr(rv.shift(-5))
+    return (c_lag - c_lead).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_corr_lag_minus_synced_45d_slope_v039_signal(closeadj, volume):
+    k = 10
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c_shift = rp.rolling(45, min_periods=45).corr(rv.shift(3))
+    c_sync = rp.rolling(45, min_periods=45).corr(rv)
+    return (c_shift - c_sync).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_xor_freq_pctrank_120d_slope_v040_signal(closeadj, volume):
+    k = 63
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    freq = bit.rolling(20, min_periods=20).mean()
+    return freq.rolling(120, min_periods=120).rank(pct=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_sharpe_div_30d_slope_v041_signal(close, volume):
+    k = 10
+    lp = np.log(close); lv = np.log(volume.replace(0.0, np.nan))
+    sp = lp.rolling(30, min_periods=30).apply(_slope_raw, raw=True)
+    sv = lv.rolling(30, min_periods=30).apply(_slope_raw, raw=True)
+    sd = lp.diff().rolling(30, min_periods=30).std()
+    return ((sp - sv).abs() / sd.replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_corr_sign_60d_slope_v042_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c = rp.rolling(60, min_periods=60).corr(rv)
+    return np.sign(c).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_neg_corr_frac_100d_slope_v043_signal(closeadj, volume):
+    k = 63
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c15 = rp.rolling(15, min_periods=15).corr(rv)
+    neg = (c15 < 0.0).astype(float).where(~c15.isna())
+    return neg.rolling(100, min_periods=100).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_down_day_vol_zscore_50d_slope_v044_signal(close, volume):
+    k = 21
+    is_dn = (close.diff(1) < 0).astype(float).where(~close.diff(1).isna())
+    vm = volume.rolling(50, min_periods=50).mean()
+    vs = volume.rolling(50, min_periods=50).std()
+    z = (volume - vm) / vs.replace(0.0, np.nan)
+    return (-1.0 * z * is_dn).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_up_day_low_vol_60d_slope_v045_signal(closeadj, volume):
+    k = 21
+    is_up = (closeadj.diff(1) > 0).astype(float).where(~closeadj.diff(1).isna())
+    vm = volume.rolling(60, min_periods=60).mean()
+    return (-np.log(volume / vm.replace(0.0, np.nan)) * is_up).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_high_unconf_5d_slope_v046_signal(high, volume):
+    k = 5
+    h5 = high.rolling(5, min_periods=5).max()
+    vm = volume.rolling(5, min_periods=5).mean()
+    bit = ((high >= h5).astype(float) * (volume < vm).astype(float)).where(~h5.isna() & ~vm.isna())
+    return bit.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_low_unconf_5d_slope_v047_signal(low, volume):
+    k = 5
+    l5 = low.rolling(5, min_periods=5).min()
+    vm = volume.rolling(5, min_periods=5).mean()
+    bit = ((low <= l5).astype(float) * (volume < vm).astype(float)).where(~l5.isna() & ~vm.isna())
+    return bit.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_neg_prod_sign_30d_slope_v048_signal(closeadj, volume):
+    k = 10
+    return (-1.0 * np.sign(closeadj.diff(30)) * np.sign(volume.diff(30))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_ema_diff_log_70d_slope_v049_signal(closeadj, volume):
+    k = 21
+    ec = _ema(closeadj, 70); ev = _ema(volume, 70)
+    return (np.log(ec / ec.shift(21)) - np.log(ev / ev.shift(21).replace(0.0, np.nan))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_sma_diff_log_25d_slope_v050_signal(close, volume):
+    k = 10
+    mc = _sma(close, 25); mv = _sma(volume, 25)
+    return (np.log(mc / mc.shift(10)) - np.log(mv / mv.shift(10).replace(0.0, np.nan))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_rank_diff_45d_slope_v051_signal(closeadj, volume):
+    k = 21
+    rc = closeadj.rolling(45, min_periods=45).rank(pct=True)
+    rv = volume.rolling(45, min_periods=45).rank(pct=True)
+    return (rc - rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_rank_diff_180d_slope_v052_signal(closeadj, volume):
+    k = 63
+    rc = closeadj.rolling(180, min_periods=180).rank(pct=True)
+    rv = volume.rolling(180, min_periods=180).rank(pct=True)
+    return (rc - rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_roc_ratio_log_22d_slope_v053_signal(close, volume):
+    k = 10
+    rp = close / close.shift(22)
+    rv = volume / volume.shift(22).replace(0.0, np.nan)
+    return np.log(rp / rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_bear_count_60d_slope_v054_signal(closeadj, volume):
+    k = 21
+    bear = ((closeadj.diff(1) > 0) & (volume.diff(1) < 0)).astype(float).where(~closeadj.diff(1).isna() & ~volume.diff(1).isna())
+    return bear.rolling(60, min_periods=60).sum().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_bull_count_60d_slope_v055_signal(closeadj, volume):
+    k = 21
+    bull = ((closeadj.diff(1) < 0) & (volume.diff(1) > 0)).astype(float).where(~closeadj.diff(1).isna() & ~volume.diff(1).isna())
+    return bull.rolling(60, min_periods=60).sum().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_bear_minus_bull_120d_slope_v056_signal(closeadj, volume):
+    k = 63
+    bear = ((closeadj.diff(1) > 0) & (volume.diff(1) < 0)).astype(float).where(~closeadj.diff(1).isna() & ~volume.diff(1).isna())
+    bull = ((closeadj.diff(1) < 0) & (volume.diff(1) > 0)).astype(float).where(~closeadj.diff(1).isna() & ~volume.diff(1).isna())
+    return (bear - bull).rolling(120, min_periods=120).sum().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_mom_diff_signed_45d_slope_v057_signal(closeadj, volume):
+    k = 21
+    pc = closeadj.pct_change(45); vc = volume.pct_change(45)
+    return (pc - vc).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_integral_abs_30d_slope_v058_signal(close, volume):
+    k = 10
+    pd_ = close.diff(1); vd = volume.diff(1)
+    zp = (pd_ - pd_.rolling(30, min_periods=30).mean()) / pd_.rolling(30, min_periods=30).std().replace(0.0, np.nan)
+    zv = (vd - vd.rolling(30, min_periods=30).mean()) / vd.rolling(30, min_periods=30).std().replace(0.0, np.nan)
+    return (zp - zv).abs().rolling(30, min_periods=30).sum().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_vwap_dev_65d_slope_v059_signal(closeadj, volume):
+    k = 21
+    n = 65
+    vwap = (closeadj * volume).rolling(n, min_periods=n).sum() / volume.rolling(n, min_periods=n).sum().replace(0.0, np.nan)
+    return ((closeadj - vwap) / closeadj).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_streak_disagree_5d_slope_v060_signal(close, volume):
+    k = 5
+    sp = np.sign(close.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    def _consec(x):
+        c = 0
+        for v in x[::-1]:
+            if v > 0.5: c += 1
+            else: break
+        return float(c)
+    return bit.rolling(5, min_periods=5).apply(_consec, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_xor_freq_excess_80d_slope_v061_signal(closeadj, volume):
+    k = 21
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    freq = bit.rolling(20, min_periods=20).mean()
+    return (freq - freq.rolling(80, min_periods=80).mean()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_counter_extreme_vol_45d_slope_v062_signal(closeadj, volume):
+    k = 10
+    rp = closeadj.diff(1)
+    sgn_avg = np.sign(closeadj.diff(45))
+    counter = (np.sign(rp) != sgn_avg).astype(float).where(~rp.isna() & ~sgn_avg.isna())
+    vm = volume.rolling(45, min_periods=45).mean()
+    vs = volume.rolling(45, min_periods=45).std()
+    zv = (volume - vm) / vs.replace(0.0, np.nan)
+    return (counter * zv).rolling(45, min_periods=45).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_z_diff_25d_slope_v063_signal(close, volume):
+    k = 10
+    rp = close.pct_change(); rv = volume.pct_change()
+    zp = (rp - rp.rolling(25, min_periods=25).mean()) / rp.rolling(25, min_periods=25).std().replace(0.0, np.nan)
+    zv = (rv - rv.rolling(25, min_periods=25).mean()) / rv.rolling(25, min_periods=25).std().replace(0.0, np.nan)
+    return (zp - zv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_peakgap_120d_slope_v064_signal(closeadj, volume):
+    k = 63
+    a_idx = closeadj.rolling(120, min_periods=120).apply(lambda x: float(int(np.argmax(x))), raw=True)
+    b_idx = volume.rolling(120, min_periods=120).apply(lambda x: float(int(np.argmax(x))), raw=True)
+    return (a_idx - b_idx).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_troughgap_60d_slope_v065_signal(closeadj, volume):
+    k = 21
+    a_idx = closeadj.rolling(60, min_periods=60).apply(lambda x: float(int(np.argmin(x))), raw=True)
+    b_idx = volume.rolling(60, min_periods=60).apply(lambda x: float(int(np.argmin(x))), raw=True)
+    return (a_idx - b_idx).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_slope_sign_diff_80d_slope_v066_signal(closeadj, volume):
+    k = 63
+    sc = closeadj.rolling(80, min_periods=80).apply(_slope_raw, raw=True)
+    sv = volume.rolling(80, min_periods=80).apply(_slope_raw, raw=True)
+    return (np.sign(sc) - np.sign(sv)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_absslope_diff_rank_60d_slope_v067_signal(closeadj, volume):
+    k = 21
+    sp = np.log(closeadj).rolling(30, min_periods=30).apply(_slope_raw, raw=True)
+    sv = np.log(volume.replace(0.0, np.nan)).rolling(30, min_periods=30).apply(_slope_raw, raw=True)
+    return (sp - sv).abs().rolling(60, min_periods=60).rank(pct=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_downvol_frac_75d_slope_v068_signal(closeadj, volume):
+    k = 21
+    dn = (closeadj.diff(1) < 0).astype(float)
+    dv = (dn * volume).rolling(75, min_periods=75).sum()
+    tv = volume.rolling(75, min_periods=75).sum()
+    return (dv / tv.replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_minmax_dev_45d_slope_v069_signal(closeadj, volume):
+    k = 10
+    cmin = closeadj.rolling(45, min_periods=45).min()
+    cmax = closeadj.rolling(45, min_periods=45).max()
+    vmin = volume.rolling(45, min_periods=45).min()
+    vmax = volume.rolling(45, min_periods=45).max()
+    cp = (closeadj - cmin) / (cmax - cmin).replace(0.0, np.nan)
+    vp = (volume - vmin) / (vmax - vmin).replace(0.0, np.nan)
+    return (cp - vp).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_vol_shock_flat_50d_slope_v070_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change()
+    sd = rp.rolling(50, min_periods=50).std()
+    flat = (rp.abs() < 0.2 * sd).astype(float).where(~rp.isna() & ~sd.isna())
+    vm = volume.rolling(50, min_periods=50).mean()
+    vs = volume.rolling(50, min_periods=50).std()
+    zv = (volume - vm) / vs.replace(0.0, np.nan)
+    return (flat * zv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_logvol_resid_close_60d_slope_v071_signal(closeadj, volume):
+    k = 21
+    n = 60
+    lp = np.log(closeadj); lv = np.log(volume.replace(0.0, np.nan))
+    mx = lp.rolling(n, min_periods=n).mean()
+    my = lv.rolling(n, min_periods=n).mean()
+    vx = lp.rolling(n, min_periods=n).var()
+    cxy = lp.rolling(n, min_periods=n).cov(lv)
+    b = cxy / vx.replace(0.0, np.nan)
+    a = my - b * mx
+    return (lv - (a + b * lp)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_range_vol_expand_40d_slope_v072_signal(high, low, volume):
+    k = 10
+    rng = high - low
+    rng_norm = rng / rng.rolling(40, min_periods=40).mean()
+    vol_norm = volume / volume.rolling(40, min_periods=40).mean()
+    return (np.log(rng_norm) - np.log(vol_norm.replace(0.0, np.nan))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_corr_volatility_70d_slope_v073_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c20 = rp.rolling(20, min_periods=20).corr(rv)
+    return c20.rolling(70, min_periods=70).std().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_days_since_bear_event_60d_slope_v074_signal(closeadj, volume):
+    k = 21
+    up5 = (closeadj.diff(5) > 0).astype(float)
+    dn5v = (volume.diff(5) < 0).astype(float)
+    ev = (up5 * dn5v).where(~closeadj.diff(5).isna() & ~volume.diff(5).isna())
+    return ev.rolling(60, min_periods=60).apply(_streak_idx, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_days_since_bull_event_100d_slope_v075_signal(closeadj, volume):
+    k = 63
+    dn5 = (closeadj.diff(5) < 0).astype(float)
+    up5v = (volume.diff(5) > 0).astype(float)
+    ev = (dn5 * up5v).where(~closeadj.diff(5).isna() & ~volume.diff(5).isna())
+    return ev.rolling(100, min_periods=100).apply(_streak_idx, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+# === SLOPES OF base 076-150 features =======================================
+
+
+def f28pd_f28_price_volume_divergence_xor_count_180d_slope_v076_signal(closeadj, volume):
+    k = 63
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return bit.rolling(180, min_periods=180).sum().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_xor_ema_freq_45d_slope_v077_signal(closeadj, volume):
+    k = 10
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return bit.ewm(span=45, adjust=False, min_periods=45).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_median_diff_log_50d_slope_v078_signal(closeadj, volume):
+    k = 21
+    mc = closeadj.rolling(50, min_periods=50).median()
+    mv = volume.rolling(50, min_periods=50).median()
+    return (np.log(mc / mc.shift(21)) - np.log(mv / mv.shift(21).replace(0.0, np.nan))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_median_rank_diff_80d_slope_v079_signal(closeadj, volume):
+    k = 63
+    mc = closeadj.rolling(20, min_periods=20).median()
+    mv = volume.rolling(20, min_periods=20).median()
+    return (mc.rolling(80, min_periods=80).rank(pct=True) - mv.rolling(80, min_periods=80).rank(pct=True)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_concord_frac_35d_slope_v080_signal(closeadj, volume):
+    k = 21
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    same = (sp == sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return same.rolling(35, min_periods=35).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_ewm_corr_45d_slope_v081_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    return rp.ewm(span=45, min_periods=45).corr(rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_ewm_corr_neg_115d_slope_v082_signal(closeadj, volume):
+    k = 63
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    return (-1.0 * rp.ewm(span=115, min_periods=115).corr(rv)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_spearman_200d_slope_v083_signal(closeadj, volume):
+    k = 63
+    rc = closeadj.rolling(200, min_periods=200).rank(pct=False)
+    rv = volume.rolling(200, min_periods=200).rank(pct=False)
+    return rc.rolling(200, min_periods=200).corr(rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_beta_logvolume_logreturn_75d_slope_v084_signal(closeadj, volume):
+    k = 21
+    rp = np.log(closeadj).diff()
+    rv = np.log(volume.replace(0.0, np.nan)).diff()
+    cov = rp.rolling(75, min_periods=75).cov(rv)
+    var = rp.rolling(75, min_periods=75).var()
+    return (cov / var.replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_beta_dev_from_baseline_200d_slope_v085_signal(closeadj, volume):
+    k = 63
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    cov = rp.rolling(30, min_periods=30).cov(rv)
+    var = rp.rolling(30, min_periods=30).var()
+    b = cov / var.replace(0.0, np.nan)
+    return (b - b.rolling(200, min_periods=200).mean()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_high_unconf_long_120d_slope_v086_signal(closeadj, volume):
+    k = 63
+    cmax = closeadj.rolling(120, min_periods=120).max()
+    vmed = volume.rolling(120, min_periods=120).median()
+    bit = ((closeadj >= cmax).astype(float) * (volume < vmed).astype(float)).where(~cmax.isna() & ~vmed.isna())
+    return bit.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_low_unconf_long_120d_slope_v087_signal(closeadj, volume):
+    k = 63
+    cmin = closeadj.rolling(120, min_periods=120).min()
+    vmed = volume.rolling(120, min_periods=120).median()
+    bit = ((closeadj <= cmin).astype(float) * (volume < vmed).astype(float)).where(~cmin.isna() & ~vmed.isna())
+    return bit.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_sign_entropy_60d_slope_v088_signal(closeadj, volume):
+    k = 21
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    code = (sp > 0).astype(float) * 2 + (sv > 0).astype(float)
+    code = code.where(~sp.isna() & ~sv.isna())
+    def _ent(x):
+        if len(x) == 0 or not np.all(np.isfinite(x)): return np.nan
+        u, c = np.unique(x, return_counts=True)
+        p = c / c.sum(); p = p[p > 0]
+        return float(-np.sum(p * np.log2(p)))
+    return code.rolling(60, min_periods=60).apply(_ent, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_ewm_log_ratio_short_long_slope_v089_signal(closeadj, volume):
+    k = 10
+    return (np.log(_ema(closeadj, 12) / _ema(closeadj, 40)) - np.log(_ema(volume, 12) / _ema(volume, 40))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_ewm_log_ratio_mid_long_slope_v090_signal(closeadj, volume):
+    k = 21
+    return (np.log(_ema(closeadj, 30) / _ema(closeadj, 90)) - np.log(_ema(volume, 30) / _ema(volume, 90))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_mad_div_45d_slope_v091_signal(closeadj, volume):
+    k = 10
+    cp = closeadj.diff(1); cv = volume.diff(1)
+    mc = cp.rolling(45, min_periods=45).median()
+    mv = cv.rolling(45, min_periods=45).median()
+    return ((cp - mc).abs() - (cv - mv).abs()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_xor_autocorr_lag1_80d_slope_v092_signal(closeadj, volume):
+    k = 63
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return bit.rolling(80, min_periods=80).apply(lambda x: float(pd.Series(x).autocorr(lag=1)) if pd.Series(x).std() > 0 else np.nan, raw=False).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_updown_vol_diff_zscore_45d_slope_v093_signal(closeadj, volume):
+    k = 10
+    up5 = ((closeadj.diff(1) > 0).astype(float) * volume).rolling(5, min_periods=5).sum()
+    dn5 = ((closeadj.diff(1) < 0).astype(float) * volume).rolling(5, min_periods=5).sum()
+    diff = up5 - dn5
+    return ((diff - diff.rolling(45, min_periods=45).mean()) / diff.rolling(45, min_periods=45).std().replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_vwret_unwret_diff_30d_slope_v094_signal(close, volume):
+    k = 10
+    r = close.pct_change()
+    vw = (r * volume).rolling(30, min_periods=30).sum() / volume.rolling(30, min_periods=30).sum().replace(0.0, np.nan)
+    uw = r.rolling(30, min_periods=30).mean()
+    return (vw - uw).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_vwret_unwret_diff_120d_slope_v095_signal(closeadj, volume):
+    k = 63
+    r = closeadj.pct_change()
+    vw = (r * volume).rolling(120, min_periods=120).sum() / volume.rolling(120, min_periods=120).sum().replace(0.0, np.nan)
+    uw = r.rolling(120, min_periods=120).mean()
+    return (vw - uw).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_sma_diff_sign_30d_slope_v096_signal(closeadj, volume):
+    k = 21
+    mc = _sma(closeadj, 30); mv = _sma(volume, 30)
+    sgnp = np.sign(np.log(mc / mc.shift(15)))
+    sgnv = np.sign(np.log(mv / mv.shift(15)))
+    return (sgnp - sgnv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_xor_freq_std_60d_slope_v097_signal(closeadj, volume):
+    k = 21
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    freq = bit.rolling(20, min_periods=20).mean()
+    return freq.rolling(60, min_periods=60).std().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_rank_ret_rank_volret_diff_50d_slope_v098_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    return (rp.rolling(50, min_periods=50).rank(pct=True) - rv.rolling(50, min_periods=50).rank(pct=True)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_unconf_high_rate_252d_slope_v099_signal(closeadj, volume):
+    k = 63
+    cmax = closeadj.rolling(20, min_periods=20).max()
+    vmax = volume.rolling(20, min_periods=20).max()
+    bit = ((closeadj >= cmax).astype(float) * (1.0 - (volume >= vmax).astype(float))).where(~cmax.isna() & ~vmax.isna())
+    return bit.rolling(252, min_periods=252).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_unconf_low_rate_252d_slope_v100_signal(closeadj, volume):
+    k = 63
+    cmin = closeadj.rolling(20, min_periods=20).min()
+    vmin = volume.rolling(20, min_periods=20).min()
+    bit = ((closeadj <= cmin).astype(float) * (1.0 - (volume <= vmin).astype(float))).where(~cmin.isna() & ~vmin.isna())
+    return bit.rolling(252, min_periods=252).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_big_move_xor_60d_slope_v101_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change()
+    big = (rp.abs() > rp.rolling(60, min_periods=60).std()).astype(float)
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return (big * bit).rolling(60, min_periods=60).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_log_range_diff_40d_slope_v102_signal(closeadj, volume):
+    k = 10
+    pr = (closeadj.rolling(40, min_periods=40).max() - closeadj.rolling(40, min_periods=40).min()) / closeadj
+    vr = (volume.rolling(40, min_periods=40).max() - volume.rolling(40, min_periods=40).min()) / volume.rolling(40, min_periods=40).mean()
+    return (np.log(pr) - np.log(vr.replace(0.0, np.nan))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_z_peak_asym_70d_slope_v103_signal(closeadj, volume):
+    k = 21
+    n = 70
+    zc = (closeadj - closeadj.rolling(n, min_periods=n).mean()) / closeadj.rolling(n, min_periods=n).std().replace(0.0, np.nan)
+    zv = (volume - volume.rolling(n, min_periods=n).mean()) / volume.rolling(n, min_periods=n).std().replace(0.0, np.nan)
+    return (zc - zv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_cum_neg_prod_60d_slope_v104_signal(closeadj, volume):
+    """Slope of MAGNITUDE-WEIGHTED neg-prod: -mean(z(p.diff)*z(v.diff)) over 60d. k=21.
+    Uses magnitudes (z-scores) not just signs, decorrelating from XOR-count slope."""
+    k = 21
+    pd_ = closeadj.diff(1)
+    vd = volume.diff(1)
+    zp = (pd_ - pd_.rolling(60, min_periods=60).mean()) / pd_.rolling(60, min_periods=60).std().replace(0.0, np.nan)
+    zv = (vd - vd.rolling(60, min_periods=60).mean()) / vd.rolling(60, min_periods=60).std().replace(0.0, np.nan)
+    b = -1.0 * (zp * zv).rolling(60, min_periods=60).mean()
+    return b.diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_wide_range_lowvol_30d_slope_v105_signal(high, low, closeadj, volume):
+    k = 10
+    rng = (high - low) / closeadj
+    wide = (rng > 1.5 * rng.rolling(30, min_periods=30).mean()).astype(float)
+    low_vol = (volume < volume.rolling(30, min_periods=30).median()).astype(float)
+    bit = (wide * low_vol).where(~rng.rolling(30, min_periods=30).mean().isna() & ~volume.rolling(30, min_periods=30).median().isna())
+    return bit.rolling(30, min_periods=30).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_abs_signdiff_mean_75d_slope_v106_signal(closeadj, volume):
+    k = 21
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    return (sp - sv).abs().rolling(75, min_periods=75).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_med_updown_vol_logratio_55d_slope_v107_signal(closeadj, volume):
+    k = 21
+    is_up = (closeadj.diff(1) > 0); is_dn = (closeadj.diff(1) < 0)
+    vol_up = volume.where(is_up); vol_dn = volume.where(is_dn)
+    mu = vol_up.rolling(55, min_periods=10).median()
+    md = vol_dn.rolling(55, min_periods=10).median()
+    return np.log(mu / md.replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_range_low_vol_zscore_55d_slope_v108_signal(high, low, closeadj, volume):
+    k = 21
+    rng = (high - low) / closeadj
+    zr = (rng - rng.rolling(55, min_periods=55).mean()) / rng.rolling(55, min_periods=55).std().replace(0.0, np.nan)
+    zv = (volume - volume.rolling(55, min_periods=55).mean()) / volume.rolling(55, min_periods=55).std().replace(0.0, np.nan)
+    lowvol = (zv < 0.0).astype(float).where(~zv.isna())
+    return (lowvol * zr).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_money_flow_diff_45d_slope_v109_signal(high, low, closeadj, volume):
+    k = 21
+    typ = (high + low + closeadj) / 3.0
+    up = (typ.diff(1) > 0).astype(float); dn = (typ.diff(1) < 0).astype(float)
+    mf_up = (up * typ * volume).rolling(45, min_periods=45).sum()
+    mf_dn = (dn * typ * volume).rolling(45, min_periods=45).sum()
+    return (np.log(mf_up / mf_dn.replace(0.0, np.nan)) - np.log(closeadj / closeadj.shift(45))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_vol_of_vol_diff_100d_slope_v110_signal(closeadj, volume):
+    k = 63
+    sp = closeadj.pct_change().rolling(20, min_periods=20).std()
+    sv = volume.pct_change().rolling(20, min_periods=20).std()
+    return (sp.rolling(100, min_periods=100).std() - sv.rolling(100, min_periods=100).std()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_big_price_no_big_vol_60d_slope_v111_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change().abs()
+    p95 = rp.rolling(60, min_periods=60).quantile(0.95)
+    p50v = volume.rolling(60, min_periods=60).quantile(0.50)
+    bit = ((rp > p95).astype(float) * (volume < p50v).astype(float)).where(~p95.isna() & ~p50v.isna())
+    return bit.rolling(60, min_periods=60).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_big_vol_no_big_price_80d_slope_v112_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change().abs()
+    p95v = volume.rolling(80, min_periods=80).quantile(0.95)
+    p50r = rp.rolling(80, min_periods=80).quantile(0.50)
+    bit = ((volume > p95v).astype(float) * (rp < p50r).astype(float)).where(~p95v.isna() & ~p50r.isna())
+    return bit.rolling(80, min_periods=80).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_tanh_disagree_15d_slope_v113_signal(close, volume):
+    k = 5
+    return np.tanh(0.5 * (np.sign(close.diff(15)) - np.sign(volume.diff(15)))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_corr_std_minus_level_50d_slope_v114_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c15 = rp.rolling(15, min_periods=15).corr(rv)
+    return (c15.rolling(50, min_periods=50).std() - c15.rolling(50, min_periods=50).mean()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_log_sumvol_up_down_diff_20d_slope_v115_signal(close, volume):
+    k = 10
+    up = (close.diff(1) > 0).astype(float); dn = (close.diff(1) < 0).astype(float)
+    su = (up * volume).rolling(20, min_periods=20).sum()
+    sd = (dn * volume).rolling(20, min_periods=20).sum()
+    return (np.log(su.replace(0.0, np.nan)) - np.log(sd.replace(0.0, np.nan))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_z_close_z_vol_prod_55d_slope_v116_signal(closeadj, volume):
+    k = 21
+    zc = (closeadj - closeadj.rolling(55, min_periods=55).mean()) / closeadj.rolling(55, min_periods=55).std().replace(0.0, np.nan)
+    zv = (volume - volume.rolling(55, min_periods=55).mean()) / volume.rolling(55, min_periods=55).std().replace(0.0, np.nan)
+    return (-1.0 * zc * zv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_spearman_diff_45d_slope_v117_signal(closeadj, volume):
+    k = 10
+    rp = closeadj.diff().rolling(45, min_periods=45).rank(pct=False)
+    rv = volume.diff().rolling(45, min_periods=45).rank(pct=False)
+    return rp.rolling(45, min_periods=45).corr(rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_long_lead_lag_90d_slope_v118_signal(closeadj, volume):
+    k = 63
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    cl = rp.rolling(90, min_periods=90).corr(rv.shift(10))
+    cn = rp.rolling(90, min_periods=90).corr(rv.shift(-10))
+    return (cl - cn).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_dir_disagree_entropy_45d_slope_v119_signal(closeadj, volume):
+    k = 10
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    val = (sp - sv).abs().where(~sp.isna() & ~sv.isna())
+    def _ent(x):
+        if len(x) == 0 or not np.all(np.isfinite(x)): return np.nan
+        u, c = np.unique(x, return_counts=True)
+        p = c / c.sum(); p = p[p > 0]
+        return float(-np.sum(p * np.log2(p)))
+    return val.rolling(45, min_periods=45).apply(_ent, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_cov_normalized_30d_slope_v120_signal(close, volume):
+    """Slope of -cov(rp,rv,30)/(std_price * mean_volume). k=5 (shorter than v008) to decorrelate."""
+    k = 5
+    rp = close.pct_change(); rv = volume.pct_change()
+    c = rp.rolling(30, min_periods=30).cov(rv)
+    sp = rp.rolling(30, min_periods=30).std()
+    mv = volume.rolling(30, min_periods=30).mean()
+    return (-1.0 * c / (sp * mv).replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_min_corr_30in120d_slope_v121_signal(closeadj, volume):
+    k = 63
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c30 = rp.rolling(30, min_periods=30).corr(rv)
+    return c30.rolling(120, min_periods=120).min().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_abs_corr_neg_50d_slope_v122_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c = rp.rolling(50, min_periods=50).corr(rv)
+    return (-1.0 * c.abs()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_obv_price_slope_diff_100d_slope_v123_signal(closeadj, volume):
+    k = 63
+    obv = (np.sign(closeadj.diff()) * volume).cumsum()
+    so = obv.rolling(100, min_periods=100).apply(_slope_raw, raw=True) / obv.rolling(100, min_periods=100).std().replace(0.0, np.nan)
+    sc = closeadj.rolling(100, min_periods=100).apply(_slope_raw, raw=True) / closeadj.rolling(100, min_periods=100).std().replace(0.0, np.nan)
+    return (so - sc).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_disagree_persistence_140d_slope_v124_signal(closeadj, volume):
+    k = 63
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    same = (sp == sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return (1.0 - same).rolling(140, min_periods=140).sum().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_hurst_xor_60d_slope_v125_signal(closeadj, volume):
+    k = 21
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    def _hurst(x):
+        n = len(x)
+        if n < 16 or not np.all(np.isfinite(x)): return np.nan
+        y = np.asarray(x, dtype=float)
+        m = y.mean(); d = y - m; z = np.cumsum(d)
+        R = z.max() - z.min(); S = y.std(ddof=0)
+        if S == 0.0 or R / S <= 0.0: return np.nan
+        return float(np.log(R / S) / np.log(n))
+    return bit.rolling(60, min_periods=60).apply(_hurst, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_mom_align_sign_22d_slope_v126_signal(close, volume):
+    k = 10
+    return (-1.0 * np.sign(close.diff(22)) * np.sign(volume.diff(22))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_neg_corr_mag_40d_slope_v127_signal(closeadj, volume):
+    k = 10
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c = rp.rolling(40, min_periods=40).corr(rv)
+    return c.clip(upper=0.0).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_dsince_unconf_high_120d_slope_v128_signal(closeadj, volume):
+    k = 63
+    cmax = closeadj.rolling(60, min_periods=60).max()
+    vmed = volume.rolling(60, min_periods=60).median()
+    ev = ((closeadj >= cmax).astype(float) * (volume < vmed).astype(float)).where(~cmax.isna() & ~vmed.isna())
+    return ev.rolling(120, min_periods=120).apply(_streak_idx, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_bear_bull_ratio_80d_slope_v129_signal(closeadj, volume):
+    k = 21
+    bear = ((closeadj.diff(1) > 0) & (volume.diff(1) < 0)).astype(float).where(~closeadj.diff(1).isna() & ~volume.diff(1).isna())
+    bull = ((closeadj.diff(1) < 0) & (volume.diff(1) > 0)).astype(float).where(~closeadj.diff(1).isna() & ~volume.diff(1).isna())
+    bc = bear.rolling(80, min_periods=80).sum()
+    blc = bull.rolling(80, min_periods=80).sum()
+    return np.log((1.0 + bc) / (1.0 + blc)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_q75_minus_q25_logdiff_70d_slope_v130_signal(closeadj, volume):
+    k = 21
+    pq75 = closeadj.rolling(70, min_periods=70).quantile(0.75)
+    pq25 = closeadj.rolling(70, min_periods=70).quantile(0.25)
+    vq75 = volume.rolling(70, min_periods=70).quantile(0.75)
+    vq25 = volume.rolling(70, min_periods=70).quantile(0.25)
+    return ((pq75 - pq25) / closeadj - (vq75 - vq25) / volume.rolling(70, min_periods=70).mean().replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_zclose_zvol_diff_signed_35d_slope_v131_signal(close, volume):
+    k = 21
+    zc = (close - close.rolling(35, min_periods=35).mean()) / close.rolling(35, min_periods=35).std().replace(0.0, np.nan)
+    zv = (volume - volume.rolling(35, min_periods=35).mean()) / volume.rolling(35, min_periods=35).std().replace(0.0, np.nan)
+    return (zc - zv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_neg_corr_zscore_125d_slope_v132_signal(closeadj, volume):
+    k = 63
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    nc = -rp.rolling(25, min_periods=25).corr(rv)
+    return ((nc - nc.rolling(125, min_periods=125).mean()) / nc.rolling(125, min_periods=125).std().replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_vwap_cross_freq_120d_slope_v133_signal(closeadj, volume):
+    k = 63
+    n = 30
+    vwap = (closeadj * volume).rolling(n, min_periods=n).sum() / volume.rolling(n, min_periods=n).sum().replace(0.0, np.nan)
+    s = np.sign(closeadj - vwap)
+    flip = (s != s.shift(1)).astype(float).where(~s.isna() & ~s.shift(1).isna())
+    return flip.rolling(120, min_periods=120).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_max_streak_xor_140d_slope_v134_signal(closeadj, volume):
+    k = 63
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    def _max_streak(x):
+        m = 0; c = 0
+        for v in x:
+            if v > 0.5:
+                c += 1
+                if c > m: m = c
+            else: c = 0
+        return float(m)
+    return bit.rolling(140, min_periods=140).apply(_max_streak, raw=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_pricerise_volfall_pctrank_100d_slope_v135_signal(closeadj, volume):
+    k = 63
+    return (closeadj.pct_change(22) - volume.pct_change(22)).rolling(100, min_periods=100).rank(pct=True).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_obv_accel_minus_price_accel_60d_slope_v136_signal(closeadj, volume):
+    k = 21
+    obv = (np.sign(closeadj.diff()) * volume).cumsum()
+    oa = (obv.diff(21) - obv.diff(21).shift(21)) / obv.rolling(60, min_periods=60).std().replace(0.0, np.nan)
+    ca = (closeadj.diff(21) - closeadj.diff(21).shift(21)) / closeadj.rolling(60, min_periods=60).std().replace(0.0, np.nan)
+    return (oa - ca).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_down_close_high_vol_50d_slope_v137_signal(high, low, closeadj, volume):
+    k = 21
+    mid = 0.5 * (high + low)
+    dn_bar = (closeadj < mid).astype(float)
+    zv = (volume - volume.rolling(50, min_periods=50).mean()) / volume.rolling(50, min_periods=50).std().replace(0.0, np.nan)
+    return (dn_bar * zv).rolling(50, min_periods=50).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_xor_freq_4d_slope_v138_signal(close, volume):
+    k = 5
+    sp = np.sign(close.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return bit.rolling(4, min_periods=4).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_corr_dev_from_zero_252d_slope_v139_signal(closeadj, volume):
+    k = 63
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    return rp.rolling(252, min_periods=252).corr(rv).abs().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_arctan_logvol_res_75d_slope_v140_signal(closeadj, volume):
+    """Slope of arctan(res/std). k=63 (longer bracket than v071's k=21) to decorrelate from raw-residual slope."""
+    k = 63
+    n = 75
+    lp = np.log(closeadj); lv = np.log(volume.replace(0.0, np.nan))
+    mx = lp.rolling(n, min_periods=n).mean()
+    my = lv.rolling(n, min_periods=n).mean()
+    vx = lp.rolling(n, min_periods=n).var()
+    cxy = lp.rolling(n, min_periods=n).cov(lv)
+    b = cxy / vx.replace(0.0, np.nan)
+    a = my - b * mx
+    res = lv - (a + b * lp)
+    sd = res.rolling(n, min_periods=n).std()
+    return np.arctan(res / sd.replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_signed_div_sharpe_85d_slope_v141_signal(closeadj, volume):
+    k = 63
+    zp = (closeadj - closeadj.rolling(85, min_periods=85).mean()) / closeadj.rolling(85, min_periods=85).std().replace(0.0, np.nan)
+    zv = (volume - volume.rolling(85, min_periods=85).mean()) / volume.rolling(85, min_periods=85).std().replace(0.0, np.nan)
+    gap = zp - zv
+    return (gap.rolling(85, min_periods=85).mean() / gap.rolling(85, min_periods=85).std().replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_atr_vol_logratio_25d_slope_v142_signal(high, low, close, volume):
+    k = 10
+    tr = pd.concat([high - low, (high - close.shift(1)).abs(), (low - close.shift(1)).abs()], axis=1).max(axis=1)
+    atr = tr.rolling(14, min_periods=14).mean()
+    return (np.log(atr / atr.rolling(25, min_periods=25).mean()) - np.log(volume / volume.rolling(25, min_periods=25).mean())).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_vol_weighted_dir_change_45d_slope_v143_signal(closeadj, volume):
+    k = 21
+    s = np.sign(closeadj.diff(1))
+    flip = (s != s.shift(1)).astype(float).where(~s.isna() & ~s.shift(1).isna())
+    weighted = (flip * volume).rolling(45, min_periods=45).mean()
+    mv = volume.rolling(45, min_periods=45).mean()
+    return (weighted / mv.replace(0.0, np.nan)).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_angle_atan2_50d_slope_v144_signal(closeadj, volume):
+    k = 21
+    sp = np.log(closeadj).rolling(50, min_periods=50).apply(_slope_raw, raw=True)
+    sv = np.log(volume.replace(0.0, np.nan)).rolling(50, min_periods=50).apply(_slope_raw, raw=True)
+    out = pd.Series(np.arctan2(sv.values, sp.values), index=closeadj.index)
+    return out.where(~sp.isna() & ~sv.isna()).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_zret_zvolret_cov_60d_slope_v145_signal(closeadj, volume):
+    """Slope of 60d cov of z-scored returns. k=63 (different bracket) to decorrelate from v011."""
+    k = 63
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    zp = (rp - rp.rolling(60, min_periods=60).mean()) / rp.rolling(60, min_periods=60).std().replace(0.0, np.nan)
+    zv = (rv - rv.rolling(60, min_periods=60).mean()) / rv.rolling(60, min_periods=60).std().replace(0.0, np.nan)
+    return zp.rolling(60, min_periods=60).cov(zv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_rank_at_peak_diff_90d_slope_v146_signal(closeadj, volume):
+    k = 21
+    pr = closeadj.rolling(90, min_periods=90).apply(lambda x: float(np.argmax(x) + 1) / float(len(x)), raw=True)
+    vr = volume.rolling(90, min_periods=90).apply(lambda x: float(np.argmax(x) + 1) / float(len(x)), raw=True)
+    return (pr - vr).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_xor_ewm_long_150d_slope_v147_signal(closeadj, volume):
+    k = 63
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    return bit.ewm(span=150, adjust=False, min_periods=150).mean().diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_spearman_lag_60d_slope_v148_signal(closeadj, volume):
+    k = 21
+    rc = closeadj.rolling(60, min_periods=60).rank(pct=False)
+    rv = volume.shift(5).rolling(60, min_periods=60).rank(pct=False)
+    return rc.rolling(60, min_periods=60).corr(rv).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_energy_price_minus_vol_45d_slope_v149_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    ep = (rp ** 2).rolling(45, min_periods=45).sum()
+    ev = (rv ** 2).rolling(45, min_periods=45).sum()
+    return (np.log(ep.replace(0.0, np.nan)) - np.log(ev.replace(0.0, np.nan))).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+def f28pd_f28_price_volume_divergence_composite_tanh_70d_slope_v150_signal(closeadj, volume):
+    k = 21
+    rp = closeadj.pct_change(); rv = volume.pct_change()
+    c = rp.rolling(70, min_periods=70).corr(rv)
+    sp = np.sign(closeadj.diff(1)); sv = np.sign(volume.diff(1))
+    bit = (sp != sv).astype(float).where(~sp.isna() & ~sv.isna())
+    f = bit.rolling(70, min_periods=70).mean() - 0.5
+    return np.tanh((-c) + f).diff(k).replace([np.inf, -np.inf], np.nan)
+
+
+# ---------------------------------------------------------------------------
+# Registry
+# ---------------------------------------------------------------------------
+
+
+_P = "f28pd_f28_price_volume_divergence_"
+_C = ["close", "volume"]; _A = ["closeadj", "volume"]
+_HV = ["high", "volume"]; _LV = ["low", "volume"]
+_HLAV = ["high", "low", "closeadj", "volume"]
+_HLV = ["high", "low", "volume"]; _HLCV = ["high", "low", "close", "volume"]
+
+_SPEC = [
+    ("sign_xor_close_vol_5d_slope_v001_signal", _C),
+    ("xor_count_20d_slope_v002_signal", _C),
+    ("xor_count_60d_slope_v003_signal", _A),
+    ("xor_streak_40d_slope_v004_signal", _A),
+    ("slope_diff_sign_15d_slope_v005_signal", _C),
+    ("slope_diff_45d_slope_v006_signal", _A),
+    ("slope_diff_abs_120d_slope_v007_signal", _A),
+    ("corr_pct_30d_slope_v008_signal", _A),
+    ("corr_pct_90d_slope_v009_signal", _A),
+    ("corr_diff_45d_slope_v010_signal", _A),
+    ("neg_corr_pct_60d_slope_v011_signal", _A),
+    ("spearman_50d_slope_v012_signal", _A),
+    ("spearman_100d_slope_v013_signal", _A),
+    ("beta_vol_price_55d_slope_v014_signal", _A),
+    ("beta_sign_120d_slope_v015_signal", _A),
+    ("bear_div_unconf_high_30d_slope_v016_signal", _A),
+    ("bull_div_unconf_low_30d_slope_v017_signal", _A),
+    ("days_since_unconf_high_60d_slope_v018_signal", _A),
+    ("days_since_unconf_low_80d_slope_v019_signal", _A),
+    ("skew_diff_50d_slope_v020_signal", _A),
+    ("vol_ratio_log_60d_slope_v021_signal", _A),
+    ("kurt_diff_80d_slope_v022_signal", _A),
+    ("obv_close_slope_diff_45d_slope_v023_signal", _A),
+    ("obv_sign_disagree_30d_slope_v024_signal", _A),
+    ("tanh_div_signed_30d_slope_v025_signal", _C),
+    ("arctan_slope_diff_50d_slope_v026_signal", _A),
+    ("sigmoid_xor_freq_40d_slope_v027_signal", _A),
+    ("updown_vol_asym_100d_slope_v029_signal", _A),
+    ("max_neg_corr_window_60d_slope_v030_signal", _A),
+    ("corr_dev_from_mean_120d_slope_v031_signal", _A),
+    ("resid_std_vol_on_price_50d_slope_v032_signal", _A),
+    ("rsq_vol_on_price_80d_slope_v033_signal", _A),
+    ("cum_sign_diff_45d_slope_v034_signal", _A),
+    ("cum_div_zscore_100d_slope_v035_signal", _A),
+    ("hidden_bull_25d_slope_v036_signal", _C),
+    ("hidden_bear_50d_slope_v037_signal", _A),
+    ("lead_lag_corr_diff_60d_slope_v038_signal", _A),
+    ("corr_lag_minus_synced_45d_slope_v039_signal", _A),
+    ("xor_freq_pctrank_120d_slope_v040_signal", _A),
+    ("sharpe_div_30d_slope_v041_signal", _C),
+    ("corr_sign_60d_slope_v042_signal", _A),
+    ("neg_corr_frac_100d_slope_v043_signal", _A),
+    ("down_day_vol_zscore_50d_slope_v044_signal", _C),
+    ("up_day_low_vol_60d_slope_v045_signal", _A),
+    ("high_unconf_5d_slope_v046_signal", _HV),
+    ("low_unconf_5d_slope_v047_signal", _LV),
+    ("neg_prod_sign_30d_slope_v048_signal", _A),
+    ("ema_diff_log_70d_slope_v049_signal", _A),
+    ("sma_diff_log_25d_slope_v050_signal", _C),
+    ("rank_diff_45d_slope_v051_signal", _A),
+    ("rank_diff_180d_slope_v052_signal", _A),
+    ("roc_ratio_log_22d_slope_v053_signal", _C),
+    ("bear_count_60d_slope_v054_signal", _A),
+    ("bull_count_60d_slope_v055_signal", _A),
+    ("bear_minus_bull_120d_slope_v056_signal", _A),
+    ("mom_diff_signed_45d_slope_v057_signal", _A),
+    ("integral_abs_30d_slope_v058_signal", _C),
+    ("vwap_dev_65d_slope_v059_signal", _A),
+    ("streak_disagree_5d_slope_v060_signal", _C),
+    ("xor_freq_excess_80d_slope_v061_signal", _A),
+    ("counter_extreme_vol_45d_slope_v062_signal", _A),
+    ("z_diff_25d_slope_v063_signal", _C),
+    ("peakgap_120d_slope_v064_signal", _A),
+    ("troughgap_60d_slope_v065_signal", _A),
+    ("slope_sign_diff_80d_slope_v066_signal", _A),
+    ("absslope_diff_rank_60d_slope_v067_signal", _A),
+    ("downvol_frac_75d_slope_v068_signal", _A),
+    ("minmax_dev_45d_slope_v069_signal", _A),
+    ("vol_shock_flat_50d_slope_v070_signal", _A),
+    ("logvol_resid_close_60d_slope_v071_signal", _A),
+    ("range_vol_expand_40d_slope_v072_signal", _HLV),
+    ("corr_volatility_70d_slope_v073_signal", _A),
+    ("days_since_bear_event_60d_slope_v074_signal", _A),
+    ("days_since_bull_event_100d_slope_v075_signal", _A),
+    ("xor_count_180d_slope_v076_signal", _A),
+    ("xor_ema_freq_45d_slope_v077_signal", _A),
+    ("median_diff_log_50d_slope_v078_signal", _A),
+    ("median_rank_diff_80d_slope_v079_signal", _A),
+    ("concord_frac_35d_slope_v080_signal", _A),
+    ("ewm_corr_45d_slope_v081_signal", _A),
+    ("ewm_corr_neg_115d_slope_v082_signal", _A),
+    ("spearman_200d_slope_v083_signal", _A),
+    ("beta_logvolume_logreturn_75d_slope_v084_signal", _A),
+    ("beta_dev_from_baseline_200d_slope_v085_signal", _A),
+    ("high_unconf_long_120d_slope_v086_signal", _A),
+    ("low_unconf_long_120d_slope_v087_signal", _A),
+    ("sign_entropy_60d_slope_v088_signal", _A),
+    ("ewm_log_ratio_short_long_slope_v089_signal", _A),
+    ("ewm_log_ratio_mid_long_slope_v090_signal", _A),
+    ("mad_div_45d_slope_v091_signal", _A),
+    ("xor_autocorr_lag1_80d_slope_v092_signal", _A),
+    ("updown_vol_diff_zscore_45d_slope_v093_signal", _A),
+    ("vwret_unwret_diff_30d_slope_v094_signal", _C),
+    ("vwret_unwret_diff_120d_slope_v095_signal", _A),
+    ("sma_diff_sign_30d_slope_v096_signal", _A),
+    ("xor_freq_std_60d_slope_v097_signal", _A),
+    ("rank_ret_rank_volret_diff_50d_slope_v098_signal", _A),
+    ("unconf_high_rate_252d_slope_v099_signal", _A),
+    ("unconf_low_rate_252d_slope_v100_signal", _A),
+    ("big_move_xor_60d_slope_v101_signal", _A),
+    ("log_range_diff_40d_slope_v102_signal", _A),
+    ("z_peak_asym_70d_slope_v103_signal", _A),
+    ("cum_neg_prod_60d_slope_v104_signal", _A),
+    ("wide_range_lowvol_30d_slope_v105_signal", _HLAV),
+    ("abs_signdiff_mean_75d_slope_v106_signal", _A),
+    ("med_updown_vol_logratio_55d_slope_v107_signal", _A),
+    ("range_low_vol_zscore_55d_slope_v108_signal", _HLAV),
+    ("money_flow_diff_45d_slope_v109_signal", _HLAV),
+    ("vol_of_vol_diff_100d_slope_v110_signal", _A),
+    ("big_price_no_big_vol_60d_slope_v111_signal", _A),
+    ("big_vol_no_big_price_80d_slope_v112_signal", _A),
+    ("tanh_disagree_15d_slope_v113_signal", _C),
+    ("corr_std_minus_level_50d_slope_v114_signal", _A),
+    ("log_sumvol_up_down_diff_20d_slope_v115_signal", _C),
+    ("z_close_z_vol_prod_55d_slope_v116_signal", _A),
+    ("spearman_diff_45d_slope_v117_signal", _A),
+    ("long_lead_lag_90d_slope_v118_signal", _A),
+    ("dir_disagree_entropy_45d_slope_v119_signal", _A),
+    ("cov_normalized_30d_slope_v120_signal", _C),
+    ("min_corr_30in120d_slope_v121_signal", _A),
+    ("abs_corr_neg_50d_slope_v122_signal", _A),
+    ("obv_price_slope_diff_100d_slope_v123_signal", _A),
+    ("disagree_persistence_140d_slope_v124_signal", _A),
+    ("hurst_xor_60d_slope_v125_signal", _A),
+    ("mom_align_sign_22d_slope_v126_signal", _C),
+    ("neg_corr_mag_40d_slope_v127_signal", _A),
+    ("dsince_unconf_high_120d_slope_v128_signal", _A),
+    ("bear_bull_ratio_80d_slope_v129_signal", _A),
+    ("q75_minus_q25_logdiff_70d_slope_v130_signal", _A),
+    ("zclose_zvol_diff_signed_35d_slope_v131_signal", _C),
+    ("neg_corr_zscore_125d_slope_v132_signal", _A),
+    ("vwap_cross_freq_120d_slope_v133_signal", _A),
+    ("max_streak_xor_140d_slope_v134_signal", _A),
+    ("pricerise_volfall_pctrank_100d_slope_v135_signal", _A),
+    ("obv_accel_minus_price_accel_60d_slope_v136_signal", _A),
+    ("down_close_high_vol_50d_slope_v137_signal", _HLAV),
+    ("xor_freq_4d_slope_v138_signal", _C),
+    ("corr_dev_from_zero_252d_slope_v139_signal", _A),
+    ("arctan_logvol_res_75d_slope_v140_signal", _A),
+    ("signed_div_sharpe_85d_slope_v141_signal", _A),
+    ("atr_vol_logratio_25d_slope_v142_signal", _HLCV),
+    ("vol_weighted_dir_change_45d_slope_v143_signal", _A),
+    ("angle_atan2_50d_slope_v144_signal", _A),
+    ("zret_zvolret_cov_60d_slope_v145_signal", _A),
+    ("rank_at_peak_diff_90d_slope_v146_signal", _A),
+    ("xor_ewm_long_150d_slope_v147_signal", _A),
+    ("spearman_lag_60d_slope_v148_signal", _A),
+    ("energy_price_minus_vol_45d_slope_v149_signal", _A),
+    ("composite_tanh_70d_slope_v150_signal", _A),
+]
+
+
+f28_price_volume_divergence_slope_001_150_REGISTRY = {
+    _P + nm: {"inputs": ins, "func": globals()[_P + nm]}
+    for nm, ins in _SPEC
+}
+
+
+# ---------------------------------------------------------------------------
+# Self-test
+# ---------------------------------------------------------------------------
+
+
+def _synthetic_inputs(n: int = 800, seed: int = 42) -> pd.DataFrame:
+    rng = np.random.default_rng(seed)
+    seg = n // 4
+    rest = n - 3 * seg
+    ret = np.concatenate([
+        rng.normal(0.0012, 0.011, seg),
+        rng.normal(-0.0005, 0.018, seg),
+        rng.normal(-0.0010, 0.014, seg),
+        rng.normal(0.0008, 0.012, rest),
+    ])
+    close = 50.0 * np.exp(np.cumsum(ret))
+    adj_drift = rng.normal(0.0, 0.0003, size=n).cumsum()
+    closeadj = close * np.exp(adj_drift)
+    intraday = rng.normal(0.0, 0.008, size=n)
+    open_ = close * np.exp(-intraday * 0.5)
+    high = np.maximum(close, open_) * np.exp(np.abs(rng.normal(0.0, 0.006, size=n)))
+    low = np.minimum(close, open_) * np.exp(-np.abs(rng.normal(0.0, 0.006, size=n)))
+    volume = rng.lognormal(mean=13.0, sigma=0.6, size=n)
+    idx = pd.RangeIndex(n)
+    return pd.DataFrame({
+        "open": pd.Series(open_, index=idx, dtype=float),
+        "high": pd.Series(high, index=idx, dtype=float),
+        "low": pd.Series(low, index=idx, dtype=float),
+        "close": pd.Series(close, index=idx, dtype=float),
+        "closeadj": pd.Series(closeadj, index=idx, dtype=float),
+        "volume": pd.Series(volume, index=idx, dtype=float),
+    })
+
+
+def _self_test() -> None:
+    df = _synthetic_inputs(n=800, seed=42)
+    results: dict[str, pd.Series] = {}
+    for name, entry in f28_price_volume_divergence_slope_001_150_REGISTRY.items():
+        args = [df[col] for col in entry["inputs"]]
+        out = entry["func"](*args)
+        assert isinstance(out, pd.Series), f"{name}: not a Series"
+        assert len(out) == len(df), f"{name}: length mismatch"
+        clean = out.dropna()
+        assert len(clean) > 0, f"{name}: all NaN"
+        assert float(clean.std()) > 0.0 or clean.nunique() > 1, f"{name}: constant/all-zero"
+        results[name] = out
+
+    warm = 252
+    coverage_ok = sum(1 for s in results.values() if s.iloc[warm:].isna().mean() < 0.5)
+    frac = coverage_ok / len(results)
+    assert frac >= 0.80, f"NaN-coverage too low: {frac:.2%} have <50% NaN after warm-up"
+
+    aligned = pd.concat({n: results[n] for n in results}, axis=1).iloc[warm:]
+    aligned = aligned.replace([np.inf, -np.inf], np.nan)
+    corr = aligned.corr(min_periods=50).abs()
+    np.fill_diagonal(corr.values, 0.0)
+    max_corr = float(corr.max().max())
+    if max_corr > 0.95:
+        print(f"FAILING max |corr| = {max_corr:.4f}. Top pairs:")
+        for i, a in enumerate(corr.columns):
+            for j, b in enumerate(corr.columns):
+                if j > i and corr.iloc[i, j] > 0.94:
+                    print(f"  {a}  vs  {b}  ->  {corr.iloc[i, j]:.4f}")
+    assert max_corr <= 0.95 + 1e-9, f"max pairwise |corr|={max_corr:.4f} exceeds 0.95"
+    print(f"OK slope_001_150: {len(results)} features, max |corr|={max_corr:.4f}, coverage_ok={frac:.2%}")
+
+
+if __name__ == "__main__":
+    _self_test()

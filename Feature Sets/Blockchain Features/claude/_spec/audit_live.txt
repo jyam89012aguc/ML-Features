@@ -1,0 +1,26 @@
+universe: 21 names with data: ['MARA', 'RIOT', 'CLSK', 'HUT', 'BITF', 'CIFR', 'WULF', 'HIVE', 'IREN', 'BTDR', 'CORZ', 'BTBT', 'COIN', 'MSTR', 'CAN', 'BKKT', 'GREE', 'ARBK', 'SDIG', 'BTM', 'APLD']
+f01_crypto_beta_momentum           contam(med|>.9)=0.28|0%  redund=0.37 dup95=1%  nan=8%  ic252|med|=0.036 strong(IR>2)=12% best=0.230
+f02_halving_cycle_phase            contam(med|>.9)=0.58|0%  redund=0.47 dup95=1%  nan=28%  ic252|med|=0.044 strong(IR>2)=15% best=0.251
+f03_parabolic_blowoff_top          contam(med|>.9)=0.17|0%  redund=0.40 dup95=1%  nan=3%  ic252|med|=0.034 strong(IR>2)=2% best=0.146
+f04_crypto_winter_drawdown         contam(med|>.9)=0.35|0%  redund=0.29 dup95=1%  nan=9%  ic252|med|=0.038 strong(IR>2)=9% best=0.295
+f05_reflexive_volatility_regime    contam(med|>.9)=0.19|0%  redund=0.31 dup95=0%  nan=5%  ic252|med|=0.027 strong(IR>2)=17% best=0.216
+f06_volatility_squeeze_breakout    contam(med|>.9)=0.17|0%  redund=0.25 dup95=1%  nan=5%  ic252|med|=0.033 strong(IR>2)=14% best=0.200
+f07_overnight_gap_dynamics         contam(med|>.9)=0.23|0%  redund=0.19 dup95=0%  nan=3%  ic252|med|=0.054 strong(IR>2)=28% best=0.214
+f08_capitulation_volume_spike      contam(med|>.9)=0.13|0%  redund=0.30 dup95=0%  nan=4%  ic252|med|=0.043 strong(IR>2)=23% best=0.278
+f09_range_expansion_atr            contam(med|>.9)=0.28|0%  redund=0.25 dup95=1%  nan=3%  ic252|med|=0.044 strong(IR>2)=21% best=0.259
+f10_relative_strength_leadership   contam(med|>.9)=0.34|0%  redund=0.51 dup95=1%  nan=9%  ic252|med|=0.030 strong(IR>2)=3% best=0.127
+f11_trend_persistence              contam(med|>.9)=0.27|0%  redund=0.25 dup95=1%  nan=5%  ic252|med|=0.022 strong(IR>2)=7% best=0.166
+f12_oversold_reversion_oscillator  contam(med|>.9)=0.20|0%  redund=0.55 dup95=2%  nan=2%  ic252|med|=0.040 strong(IR>2)=8% best=0.120
+f13_liquidity_dollar_volume        contam(med|>.9)=0.27|0%  redund=0.26 dup95=1%  nan=6%  ic252|med|=0.083 strong(IR>2)=51% best=0.290
+f14_short_squeeze_thrust           contam(med|>.9)=0.13|0%  redund=0.35 dup95=0%  nan=2%  ic252|med|=0.024 strong(IR>2)=1% best=0.095
+f15_accumulation_distribution_flow contam(med|>.9)=0.22|0%  redund=0.27 dup95=0%  nan=9%  ic252|med|=0.050 strong(IR>2)=23% best=0.250
+f16_bitcoin_treasury_premium       contam(med|>.9)=0.31|0%  redund=0.27 dup95=0%  nan=13%  ic252|med|=0.042 strong(IR>2)=19% best=0.194
+f17_share_dilution_machine         contam(med|>.9)=0.27|0%  redund=0.23 dup95=0%  nan=18%  ic252|med|=0.038 strong(IR>2)=14% best=0.196
+f18_cash_burn_runway               contam(med|>.9)=0.29|0%  redund=0.14 dup95=0%  nan=14%  ic252|med|=0.057 strong(IR>2)=31% best=0.189
+f19_mining_capex_intensity         contam(med|>.9)=0.32|0%  redund=0.26 dup95=0%  nan=22%  ic252|med|=0.079 strong(IR>2)=50% best=0.314
+f20_operating_leverage_to_crypto   contam(med|>.9)=0.21|0%  redund=0.18 dup95=0%  nan=19%  ic252|med|=0.052 strong(IR>2)=31% best=0.189
+f21_gross_margin_volatility        contam(med|>.9)=0.26|0%  redund=0.23 dup95=1%  nan=19%  ic252|med|=0.119 strong(IR>2)=63% best=0.269
+f22_balance_sheet_leverage         contam(med|>.9)=0.28|0%  redund=0.21 dup95=0%  nan=9%  ic252|med|=0.043 strong(IR>2)=24% best=0.245
+f23_revenue_hypergrowth            contam(med|>.9)=0.24|0%  redund=0.24 dup95=0%  nan=25%  ic252|med|=0.054 strong(IR>2)=25% best=0.240
+f24_cash_earnings_divergence       contam(med|>.9)=0.28|0%  redund=0.17 dup95=0%  nan=18%  ic252|med|=0.067 strong(IR>2)=37% best=0.221
+f25_dilution_adjusted_growth       contam(med|>.9)=0.26|0%  redund=0.17 dup95=0%  nan=26%  ic252|med|=0.046 strong(IR>2)=21% best=0.261

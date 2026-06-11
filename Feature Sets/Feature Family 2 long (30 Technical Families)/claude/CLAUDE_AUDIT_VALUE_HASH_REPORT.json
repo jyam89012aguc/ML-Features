@@ -1,0 +1,1578 @@
+{
+  "value_groups_total": 111,
+  "nonconstant_groups": [
+    [
+      {
+        "file": "f01_moving_average_systems\\f01_moving_average_systems_base_001_075_claude.py",
+        "name": "f01ms_f01_moving_average_systems_return_skew_50d_base_v045_signal",
+        "hash": "2ba3d75662d7a88252345a77503d8d3fb94037fc8845d1b033a3948b46efa49f",
+        "constant": false
+      },
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_076_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_logretskew_50d_base_v097_signal",
+        "hash": "2ba3d75662d7a88252345a77503d8d3fb94037fc8845d1b033a3948b46efa49f",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f01_moving_average_systems\\f01_moving_average_systems_base_001_075_claude.py",
+        "name": "f01ms_f01_moving_average_systems_ker_80d_base_v074_signal",
+        "hash": "98903352c697969b738a368781a1778b9132719daf5107a8d1edebdc0e199bfd",
+        "constant": false
+      },
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kefr_80d_base_v092_signal",
+        "hash": "98903352c697969b738a368781a1778b9132719daf5107a8d1edebdc0e199bfd",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f01_moving_average_systems\\f01_moving_average_systems_base_076_150_claude.py",
+        "name": "f01ms_f01_moving_average_systems_rank_logclose_sma20_120d_base_v100_signal",
+        "hash": "4c099758bf707a8e0ace26e81873267f715af0c3690d9db3f9a0a72abdad5c79",
+        "constant": false
+      },
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_base_001_075_claude.py",
+        "name": "f12os_f12_oscillator_family_biaspct_30d_base_v069_signal",
+        "hash": "4c099758bf707a8e0ace26e81873267f715af0c3690d9db3f9a0a72abdad5c79",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f01_moving_average_systems\\f01_moving_average_systems_jerk_001_150_claude.py",
+        "name": "f01ms_f01_moving_average_systems_ker_80d_jerk_v074_signal",
+        "hash": "5876e4f73a1d1980f255e49cdfb76818ae0f961c56215ad1c659155b3317732d",
+        "constant": false
+      },
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kefr_80d_jerk_v092_signal",
+        "hash": "5876e4f73a1d1980f255e49cdfb76818ae0f961c56215ad1c659155b3317732d",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f01_moving_average_systems\\f01_moving_average_systems_slope_001_150_claude.py",
+        "name": "f01ms_f01_moving_average_systems_fracabove_sma20_30d_slope_v048_signal",
+        "hash": "d1694eea55d68eeb32797cdf97a4f8d8683889fc495077831f5667f8de3913bc",
+        "constant": false
+      },
+      {
+        "file": "f05_moving_average_envelope\\f05_moving_average_envelope_slope_001_150_claude.py",
+        "name": "f05me_f05_moving_average_envelope_bbsamesign_30d_slope_v139_signal",
+        "hash": "d1694eea55d68eeb32797cdf97a4f8d8683889fc495077831f5667f8de3913bc",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_base_001_075_claude.py",
+        "name": "f02pc_f02_price_channel_position_chwid_20d_base_v007_signal",
+        "hash": "faadb9342345da8e17fa70eca70237aa80164c818ade227520907164d0d9e6d7",
+        "constant": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_076_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_donchwid_20d_base_v122_signal",
+        "hash": "faadb9342345da8e17fa70eca70237aa80164c818ade227520907164d0d9e6d7",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_base_001_075_claude.py",
+        "name": "f02pc_f02_price_channel_position_brkup_20d_base_v017_signal",
+        "hash": "22d14f681e8f9edc47725262aad4bf67a873f8584f6b52a9f5681a95b96879b0",
+        "constant": false
+      },
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_001_075_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_sigbo_20d_base_v040_signal",
+        "hash": "22d14f681e8f9edc47725262aad4bf67a873f8584f6b52a9f5681a95b96879b0",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_base_001_075_claude.py",
+        "name": "f02pc_f02_price_channel_position_stoK_14d_base_v027_signal",
+        "hash": "93d3a90dd4fea9145382ead6368c0a2f5de5dec898633df21d14bd20280d7d74",
+        "constant": false
+      },
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_base_001_075_claude.py",
+        "name": "f12os_f12_oscillator_family_stochk_14d_base_v017_signal",
+        "hash": "93d3a90dd4fea9145382ead6368c0a2f5de5dec898633df21d14bd20280d7d74",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_base_076_150_claude.py",
+        "name": "f02pc_f02_price_channel_position_ohlcrng_30d_base_v078_signal",
+        "hash": "a760f66e59708125bf4b36aebb7e6e41992d850c5962a419399eefe6a42c3f57",
+        "constant": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_076_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_rngdonchrat_30d_base_v123_signal",
+        "hash": "a760f66e59708125bf4b36aebb7e6e41992d850c5962a419399eefe6a42c3f57",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_jerk_001_150_claude.py",
+        "name": "f02pc_f02_price_channel_position_chwid_20d_jerk_v007_signal",
+        "hash": "cb75690b392e743461e25e9be9691779c2974f94f5f1a7ea9de79dd0be6f9ea3",
+        "constant": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_donchwid_20d_jerk_v122_signal",
+        "hash": "cb75690b392e743461e25e9be9691779c2974f94f5f1a7ea9de79dd0be6f9ea3",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_jerk_001_150_claude.py",
+        "name": "f02pc_f02_price_channel_position_brkup_20d_jerk_v017_signal",
+        "hash": "5b0f23814f30700dc7e003dee119ca6a82666448040432203fb66279e18cc4b2",
+        "constant": false
+      },
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_jerk_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_sigbo_20d_jerk_v040_signal",
+        "hash": "5b0f23814f30700dc7e003dee119ca6a82666448040432203fb66279e18cc4b2",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_slope_001_150_claude.py",
+        "name": "f02pc_f02_price_channel_position_brkup_20d_slope_v017_signal",
+        "hash": "6dc0d605efb60196955e49712014a2854458fcf2043310a97eba3b937ac63025",
+        "constant": false
+      },
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_slope_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_sigbo_20d_slope_v040_signal",
+        "hash": "6dc0d605efb60196955e49712014a2854458fcf2043310a97eba3b937ac63025",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_slope_001_150_claude.py",
+        "name": "f02pc_f02_price_channel_position_ohlcrng_30d_slope_v078_signal",
+        "hash": "47ab129a8be0c8a0b0662d7df74a3c519c7f06ea80314524cfcb982890eab5b6",
+        "constant": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_rngdonchrat_30d_slope_v123_signal",
+        "hash": "47ab129a8be0c8a0b0662d7df74a3c519c7f06ea80314524cfcb982890eab5b6",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_001_075_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kst_30d_base_v022_signal",
+        "hash": "bb76ce7d07139d25d401e36777dd436dc6daa494d9f1493d4dbdf29c2570af75",
+        "constant": false
+      },
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_base_076_150_claude.py",
+        "name": "f13mc_f13_macd_variants_kst_sum_base_v117_signal",
+        "hash": "bb76ce7d07139d25d401e36777dd436dc6daa494d9f1493d4dbdf29c2570af75",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_001_075_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kefr_120d_base_v026_signal",
+        "hash": "fa39e4ca5ca8015f8319bc1d550f9fb35573de96b77c0b66fe120fdceb70dc6f",
+        "constant": false
+      },
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_076_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_efficiency_120d_base_v104_signal",
+        "hash": "fa39e4ca5ca8015f8319bc1d550f9fb35573de96b77c0b66fe120fdceb70dc6f",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_atrtrend_30d_base_v123_signal",
+        "hash": "802cf60fd92cd831a9a16a1f68abd3a6a8a6b3164bd101d3f83542274672f494",
+        "constant": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_001_075_claude.py",
+        "name": "f19an_f19_atr_normalized_price_cumret_cumatr_30d_base_v028_signal",
+        "hash": "802cf60fd92cd831a9a16a1f68abd3a6a8a6b3164bd101d3f83542274672f494",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signskew_60d_base_v137_signal",
+        "hash": "540cc889dfad18e94c6cc247dd6468a21d91e089dfc6e541dd4b5d4d5ee4c799",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_076_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_skewlog_60d_base_v079_signal",
+        "hash": "540cc889dfad18e94c6cc247dd6468a21d91e089dfc6e541dd4b5d4d5ee4c799",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signkurt_60d_base_v138_signal",
+        "hash": "b228ea4e2a589253a8c90525d133ff343675a860547abec3c87912e212ab048e",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_076_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_kurtlog_60d_base_v080_signal",
+        "hash": "b228ea4e2a589253a8c90525d133ff343675a860547abec3c87912e212ab048e",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kefr_120d_jerk_v026_signal",
+        "hash": "929c6a13c869be1d50fc32514d320a829d90087d53219e15582ef541ae055404",
+        "constant": false
+      },
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_jerk_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_efficiency_120d_jerk_v104_signal",
+        "hash": "929c6a13c869be1d50fc32514d320a829d90087d53219e15582ef541ae055404",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signskew_60d_jerk_v137_signal",
+        "hash": "555ad0179b373b96da06aa4d38a500d5c2d3c9ffc32669e8d6e845e8337e30ea",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_jerk_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_skewlog_60d_jerk_v079_signal",
+        "hash": "555ad0179b373b96da06aa4d38a500d5c2d3c9ffc32669e8d6e845e8337e30ea",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signkurt_60d_jerk_v138_signal",
+        "hash": "8cfc3d534806f64d1a31c8e34f3655eebbdffc2c969c931dc5e7518daa47c397",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_jerk_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_kurtlog_60d_jerk_v080_signal",
+        "hash": "8cfc3d534806f64d1a31c8e34f3655eebbdffc2c969c931dc5e7518daa47c397",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kefr_120d_slope_v026_signal",
+        "hash": "6d0ab42ae1d56c2810d134dfecd894724441974e0c0fd44fbe991c8d5e20ec82",
+        "constant": false
+      },
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_slope_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_efficiency_120d_slope_v104_signal",
+        "hash": "6d0ab42ae1d56c2810d134dfecd894724441974e0c0fd44fbe991c8d5e20ec82",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signskew_60d_slope_v137_signal",
+        "hash": "bbd67a469a9249173818ddea846ef496459fa6fc01a37316eb46a0d894783408",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_slope_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_skewlog_60d_slope_v079_signal",
+        "hash": "bbd67a469a9249173818ddea846ef496459fa6fc01a37316eb46a0d894783408",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signkurt_60d_slope_v138_signal",
+        "hash": "7e9a984e86efe63090f44fabcff9b4a593da1629286d4a177aa6c93e5decb0c1",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_slope_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_kurtlog_60d_slope_v080_signal",
+        "hash": "7e9a984e86efe63090f44fabcff9b4a593da1629286d4a177aa6c93e5decb0c1",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_001_075_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_dshi_252d_base_v008_signal",
+        "hash": "8bfcb680ca243590b458a9a69a60812c1c215cf1581ab8d87cb0a5b5000829e7",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_076_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_durdd_252d_base_v107_signal",
+        "hash": "8bfcb680ca243590b458a9a69a60812c1c215cf1581ab8d87cb0a5b5000829e7",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_001_075_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_ddmpv_1d_base_v067_signal",
+        "hash": "fc7950f961bd50191fb32c3afec0d55c5e526a2a9785dfb667d29ee57c80520f",
+        "constant": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+        "name": "f09cp_f09_close_position_within_range_prevbarpos_1d_base_v068_signal",
+        "hash": "fc7950f961bd50191fb32c3afec0d55c5e526a2a9785dfb667d29ee57c80520f",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_jerk_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_dshi_252d_jerk_v008_signal",
+        "hash": "b68c30d756959e091c442224db1bf455258ebbdc4b2dd9fa725a8b162c81b10b",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_jerk_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_durdd_252d_jerk_v107_signal",
+        "hash": "b68c30d756959e091c442224db1bf455258ebbdc4b2dd9fa725a8b162c81b10b",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_jerk_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_ddmpv_1d_jerk_v067_signal",
+        "hash": "c83f8e35ec3dd83e4dddf0ae71c6c30032a6420b257c4e93a0c0494905203c0f",
+        "constant": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_jerk_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_prevbarpos_1d_jerk_v068_signal",
+        "hash": "c83f8e35ec3dd83e4dddf0ae71c6c30032a6420b257c4e93a0c0494905203c0f",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_slope_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_dshi_252d_slope_v008_signal",
+        "hash": "86fe0929afd4e1398459c4dc699e70ddcfbdc58874a46436c93239fa4aff8b2e",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_slope_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_durdd_252d_slope_v107_signal",
+        "hash": "86fe0929afd4e1398459c4dc699e70ddcfbdc58874a46436c93239fa4aff8b2e",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_slope_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_ddmpv_1d_slope_v067_signal",
+        "hash": "92c44db22060a1a42dd1231f1f44501e921907b8c6f3e57d27bcce9c68009096",
+        "constant": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_prevbarpos_1d_slope_v068_signal",
+        "hash": "92c44db22060a1a42dd1231f1f44501e921907b8c6f3e57d27bcce9c68009096",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_slope_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_dath_all_slope_v070_signal",
+        "hash": "ba403fc902e5edbaa055bbf99853d0aa22f6790eba6067e8672324db509c199c",
+        "constant": false
+      },
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_001_075_claude.py",
+        "name": "f11rc_f11_raw_roc_family_logret_63d_base_v006_signal",
+        "hash": "ba403fc902e5edbaa055bbf99853d0aa22f6790eba6067e8672324db509c199c",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_base_076_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_atr_norm_14d_base_v112_signal",
+        "hash": "0e0613fad4444e70b3189e4115d6c3518792fb58b1b2277c4d5f279f7b218c3d",
+        "constant": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_atrwild_14d_base_v006_signal",
+        "hash": "0e0613fad4444e70b3189e4115d6c3518792fb58b1b2277c4d5f279f7b218c3d",
+        "constant": false
+      },
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_base_001_075_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_atr_wilder_14d_base_v016_signal",
+        "hash": "0e0613fad4444e70b3189e4115d6c3518792fb58b1b2277c4d5f279f7b218c3d",
+        "constant": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_076_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_atr_pct_close_25d_base_v088_signal",
+        "hash": "0e0613fad4444e70b3189e4115d6c3518792fb58b1b2277c4d5f279f7b218c3d",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_base_076_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_color_entropy_30d_base_v129_signal",
+        "hash": "7f5da9a9f9115e0dd68960090160b43e6e8f1e5f1666a807bca9a369d04a9936",
+        "constant": false
+      },
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_076_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_seqent_30d_base_v119_signal",
+        "hash": "7f5da9a9f9115e0dd68960090160b43e6e8f1e5f1666a807bca9a369d04a9936",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_jerk_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_clpos_1d_jerk_v028_signal",
+        "hash": "dcd23e3d20bbb5dab4e20100d36b4d176d24597c1450c16b17d9b77bb90a2fbe",
+        "constant": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_jerk_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cp_1d_jerk_v001_signal",
+        "hash": "dcd23e3d20bbb5dab4e20100d36b4d176d24597c1450c16b17d9b77bb90a2fbe",
+        "constant": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cpdiff_5d_slope_v036_signal",
+        "hash": "dcd23e3d20bbb5dab4e20100d36b4d176d24597c1450c16b17d9b77bb90a2fbe",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_jerk_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_oppos_1d_jerk_v029_signal",
+        "hash": "3366fd16bdb9ddd90b8b07061e5cb1cfd9d15bf875d36b1e50f490c6ec704ea3",
+        "constant": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_jerk_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_op_1d_jerk_v007_signal",
+        "hash": "3366fd16bdb9ddd90b8b07061e5cb1cfd9d15bf875d36b1e50f490c6ec704ea3",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_jerk_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_atr_norm_14d_jerk_v112_signal",
+        "hash": "c0b0e50fe35063ae0d6b5bc6fe306731d985d62efbbcee32d42a296cf13ca847",
+        "constant": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_atrwild_14d_jerk_v006_signal",
+        "hash": "c0b0e50fe35063ae0d6b5bc6fe306731d985d62efbbcee32d42a296cf13ca847",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_slope_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_clpos_1d_slope_v028_signal",
+        "hash": "5bfc56c3c208e9b0f1ea5bbad63eb7f0e78e679f7829d742b94d836957b2003d",
+        "constant": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cpdiff_5d_base_v036_signal",
+        "hash": "5bfc56c3c208e9b0f1ea5bbad63eb7f0e78e679f7829d742b94d836957b2003d",
+        "constant": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cp_1d_slope_v001_signal",
+        "hash": "5bfc56c3c208e9b0f1ea5bbad63eb7f0e78e679f7829d742b94d836957b2003d",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_slope_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_oppos_1d_slope_v029_signal",
+        "hash": "70280c70b05b75b91bcb408354393fbd9473de5f83635d947ef7780b744c833a",
+        "constant": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_op_1d_slope_v007_signal",
+        "hash": "70280c70b05b75b91bcb408354393fbd9473de5f83635d947ef7780b744c833a",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_slope_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_atr_norm_14d_slope_v112_signal",
+        "hash": "57ea8cfe67a12bce8195b165495b662933ff2935ab9096ef0c736aba20b08109",
+        "constant": false
+      },
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_slope_001_150_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_atr_wilder_14d_slope_v016_signal",
+        "hash": "57ea8cfe67a12bce8195b165495b662933ff2935ab9096ef0c736aba20b08109",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_relrng_1d_base_v001_signal",
+        "hash": "43924ba426f2956729b2521923320d465d8b8b324d2cd1359212343d6e513293",
+        "constant": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_076_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hlrange_5d_base_v133_signal",
+        "hash": "43924ba426f2956729b2521923320d465d8b8b324d2cd1359212343d6e513293",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_atrsma_50d_base_v007_signal",
+        "hash": "71f7313421f24a747e94b008a2f4e83bd2c0ca7a44da9a5a8c4ac1f0ab4233ea",
+        "constant": false
+      },
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_base_001_075_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_atr_sma_50d_base_v017_signal",
+        "hash": "71f7313421f24a747e94b008a2f4e83bd2c0ca7a44da9a5a8c4ac1f0ab4233ea",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr4_1d_base_v030_signal",
+        "hash": "b8bc2aea0f66618d5527f151a95e565006df12f57f3531ee82cdaad73da14358",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr4_v014_signal",
+        "hash": "b8bc2aea0f66618d5527f151a95e565006df12f57f3531ee82cdaad73da14358",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr7_1d_base_v031_signal",
+        "hash": "b3031299ab71299140ea571b3af61d8f250fdecdb805bc92cc299726417ff5ba",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr7_v015_signal",
+        "hash": "b3031299ab71299140ea571b3af61d8f250fdecdb805bc92cc299726417ff5ba",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_insidecnt_30d_base_v034_signal",
+        "hash": "dc115afcc4bbaa55bb4f666f8f4b6e0e30486a76f3edb74feb13ac0f3b9028a4",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_inside_bar_count_30d_v019_signal",
+        "hash": "dc115afcc4bbaa55bb4f666f8f4b6e0e30486a76f3edb74feb13ac0f3b9028a4",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_outsidecnt_30d_base_v035_signal",
+        "hash": "9a47a469c667ae37c18a80ee496d7845e688713558f1c84bed4203f2f2d26198",
+        "constant": false
+      },
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_001_075_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_outcnt_30d_base_v019_signal",
+        "hash": "9a47a469c667ae37c18a80ee496d7845e688713558f1c84bed4203f2f2d26198",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_relrng_1d_jerk_v001_signal",
+        "hash": "552bec9865baf7cbe81f30697508fa27197e18a9710a61069198d5767133bf9b",
+        "constant": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_jerk_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hlrange_5d_jerk_v133_signal",
+        "hash": "552bec9865baf7cbe81f30697508fa27197e18a9710a61069198d5767133bf9b",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr4_1d_jerk_v030_signal",
+        "hash": "ce039df10f8143b5dddd9ad05bd34bd8ccf4a6bf5f84758dde53f3d93f4e2177",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr4_jerk_v014_signal",
+        "hash": "ce039df10f8143b5dddd9ad05bd34bd8ccf4a6bf5f84758dde53f3d93f4e2177",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr7_1d_jerk_v031_signal",
+        "hash": "860148cf033695359db74602ccab82ad03b0882eac93eb8c06b3a6f329199c65",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr7_jerk_v015_signal",
+        "hash": "860148cf033695359db74602ccab82ad03b0882eac93eb8c06b3a6f329199c65",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_relrng_1d_slope_v001_signal",
+        "hash": "67a9aecbe164ee4316848b734248591bc2ce54db086e33fb4c6ed2cf1b3e12e4",
+        "constant": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hlrange_5d_slope_v133_signal",
+        "hash": "67a9aecbe164ee4316848b734248591bc2ce54db086e33fb4c6ed2cf1b3e12e4",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_atrwild_14d_slope_v006_signal",
+        "hash": "8628adfe560fa59070057f06a5fca2bd33fbf4d3b6b9c6e706d9ff051e4985a8",
+        "constant": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_slope_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_atr_pct_close_14d_slope_v088_signal",
+        "hash": "8628adfe560fa59070057f06a5fca2bd33fbf4d3b6b9c6e706d9ff051e4985a8",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr4_1d_slope_v030_signal",
+        "hash": "1fb6386c7e580f61d1ae252dc58d1d62ce9b309f3ed60caebfbd7e44d9dbc79f",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr4_slope_v014_signal",
+        "hash": "1fb6386c7e580f61d1ae252dc58d1d62ce9b309f3ed60caebfbd7e44d9dbc79f",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr7_1d_slope_v031_signal",
+        "hash": "879f93ccb91d17cfdecb4635417e92ba4503bcb557d19d228f12d8d5be1b8adc",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr7_slope_v015_signal",
+        "hash": "879f93ccb91d17cfdecb4635417e92ba4503bcb557d19d228f12d8d5be1b8adc",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_insidecnt_30d_slope_v034_signal",
+        "hash": "c617106a25e90903ee30aba6fd5486d5e449c6bafe2d94d650a7763eb0e78c06",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_inside_bar_count_30d_slope_v019_signal",
+        "hash": "c617106a25e90903ee30aba6fd5486d5e449c6bafe2d94d650a7763eb0e78c06",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_outsidecnt_30d_slope_v035_signal",
+        "hash": "b134b2406e0279cae8980f1c9ba1aed0a47f6b7e8c457a7f31dd8a2dc9b67fe2",
+        "constant": false
+      },
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_slope_001_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_outcnt_30d_slope_v019_signal",
+        "hash": "b134b2406e0279cae8980f1c9ba1aed0a47f6b7e8c457a7f31dd8a2dc9b67fe2",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cpsgn_1d_base_v003_signal",
+        "hash": "dba95fd4093e9eaccfdd92b98cb801ec59a96c47cefbab697bec87eef8441895",
+        "constant": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_clv_sign_1d_base_v002_signal",
+        "hash": "dba95fd4093e9eaccfdd92b98cb801ec59a96c47cefbab697bec87eef8441895",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+        "name": "f09cp_f09_close_position_within_range_streakhi_15d_base_v029_signal",
+        "hash": "90879e2ad75615152f03a38bd3382d5bb7a23f794b13f58e40991c6255c9cce3",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_076_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_mfv_sign_streak_20d_base_v079_signal",
+        "hash": "90879e2ad75615152f03a38bd3382d5bb7a23f794b13f58e40991c6255c9cce3",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_jerk_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cpsgn_1d_jerk_v003_signal",
+        "hash": "e5d9992be51dcaf67f55d3c3e1882a022daab31eb3eb73c67c31101cd2af0430",
+        "constant": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_clv_sign_1d_jerk_v002_signal",
+        "hash": "e5d9992be51dcaf67f55d3c3e1882a022daab31eb3eb73c67c31101cd2af0430",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cpsgn_1d_slope_v003_signal",
+        "hash": "de90dca0e13f905be6a6a63fa87aba365b41e7f246557905fc0e105220fdef70",
+        "constant": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_clv_sign_1d_slope_v002_signal",
+        "hash": "de90dca0e13f905be6a6a63fa87aba365b41e7f246557905fc0e105220fdef70",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_001_075_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_insstk_2d_base_v020_signal",
+        "hash": "79cb78ae46587087915d9c329f4ab6220d8ea1492982c7bfb35a2861152b912c",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_inside_bar_streak_v016_signal",
+        "hash": "79cb78ae46587087915d9c329f4ab6220d8ea1492982c7bfb35a2861152b912c",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_001_075_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_outstk_2d_base_v021_signal",
+        "hash": "befe828a943795d0cee11185b275b6db4a3195d24a1cc666ad9748e095945163",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_outside_bar_streak_v017_signal",
+        "hash": "befe828a943795d0cee11185b275b6db4a3195d24a1cc666ad9748e095945163",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_076_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_upclstk_2d_base_v102_signal",
+        "hash": "934d7fe6cf89b3652520e12309c366f649616b06248a6725f5cb702f32832231",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_001_075_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_winstrk_60d_base_v062_signal",
+        "hash": "934d7fe6cf89b3652520e12309c366f649616b06248a6725f5cb702f32832231",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_001_075_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_upstreak_40d_base_v063_signal",
+        "hash": "934d7fe6cf89b3652520e12309c366f649616b06248a6725f5cb702f32832231",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_076_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_dnclstk_2d_base_v103_signal",
+        "hash": "9f175bb47331a7caefef7a1678da6bf07ecfc124c279196b320bb77604407fc8",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_001_075_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_losstrk_60d_base_v063_signal",
+        "hash": "9f175bb47331a7caefef7a1678da6bf07ecfc124c279196b320bb77604407fc8",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_jerk_001_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_insstk_2d_jerk_v020_signal",
+        "hash": "3fbb21508da111105046a436f2400d5f2e0ae6b3a066c2dfe38a9b1c2c43d781",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_inside_bar_streak_jerk_v016_signal",
+        "hash": "3fbb21508da111105046a436f2400d5f2e0ae6b3a066c2dfe38a9b1c2c43d781",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_jerk_001_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_outstk_2d_jerk_v021_signal",
+        "hash": "b81c685ffa101377f3a6ffe19a106038e542c37547dfab653e75f7901bf429e2",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_outside_bar_streak_jerk_v017_signal",
+        "hash": "b81c685ffa101377f3a6ffe19a106038e542c37547dfab653e75f7901bf429e2",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_slope_001_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_insstk_2d_slope_v020_signal",
+        "hash": "4b5ccca21cf869d1f57692bef3ea7fbcf9708e33e317f3701794013362ad2a85",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_inside_bar_streak_slope_v016_signal",
+        "hash": "4b5ccca21cf869d1f57692bef3ea7fbcf9708e33e317f3701794013362ad2a85",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_slope_001_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_outstk_2d_slope_v021_signal",
+        "hash": "006982cb321faf02d03aca18ce047b1ac6aca2392d4bef6bdb72fdb50530ca5d",
+        "constant": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_outside_bar_streak_slope_v017_signal",
+        "hash": "006982cb321faf02d03aca18ce047b1ac6aca2392d4bef6bdb72fdb50530ca5d",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_001_075_claude.py",
+        "name": "f11rc_f11_raw_roc_family_hurstret_80d_base_v037_signal",
+        "hash": "59a4cdc04cc730dc1dd5d8608af212bc56e68d73fa03ea350d9a56ae2f678620",
+        "constant": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_001_075_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hurstret_80d_base_v051_signal",
+        "hash": "59a4cdc04cc730dc1dd5d8608af212bc56e68d73fa03ea350d9a56ae2f678620",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_001_075_claude.py",
+        "name": "f11rc_f11_raw_roc_family_signflip_30d_base_v072_signal",
+        "hash": "e1801c90303742b92da80a19a6ec5be159ad836b48bd67de0c8c436db1cc5d45",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_001_075_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_signflip_count_30d_base_v039_signal",
+        "hash": "e1801c90303742b92da80a19a6ec5be159ad836b48bd67de0c8c436db1cc5d45",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_076_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_signac1_60d_base_v101_signal",
+        "hash": "87e5358d4377d54f68d678b28ca5eb0cb74b696e1e4afe65c3d9e7e1888d9766",
+        "constant": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_076_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_signac_60d_base_v129_signal",
+        "hash": "87e5358d4377d54f68d678b28ca5eb0cb74b696e1e4afe65c3d9e7e1888d9766",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_jerk_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_hurstret_80d_jerk_v037_signal",
+        "hash": "48ab387a3899ccc55962dc1da5c02d438ece38f9198748ece005101317bab510",
+        "constant": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_jerk_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hurstret_80d_jerk_v051_signal",
+        "hash": "48ab387a3899ccc55962dc1da5c02d438ece38f9198748ece005101317bab510",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_jerk_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_signflip_30d_jerk_v072_signal",
+        "hash": "4e5d0a132a4538df0ebb1516e146643fecf00c8ead99c92b7b3f5c55c57e4221",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_jerk_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_signflip_count_30d_jerk_v039_signal",
+        "hash": "4e5d0a132a4538df0ebb1516e146643fecf00c8ead99c92b7b3f5c55c57e4221",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_slope_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_hurstret_80d_slope_v037_signal",
+        "hash": "8e3305fc3195b6c61045cc427bc7eaa2877867918c63122da93b33afc83d18a9",
+        "constant": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hurstret_80d_slope_v051_signal",
+        "hash": "8e3305fc3195b6c61045cc427bc7eaa2877867918c63122da93b33afc83d18a9",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_slope_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_signflip_30d_slope_v072_signal",
+        "hash": "5aaeb71d8297767d3bbd6bfc336ca391993d67e2d514e079bfeb0d247a4010c1",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_signflip_count_30d_slope_v039_signal",
+        "hash": "5aaeb71d8297767d3bbd6bfc336ca391993d67e2d514e079bfeb0d247a4010c1",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_base_001_075_claude.py",
+        "name": "f12os_f12_oscillator_family_chaikin_3_10_base_v045_signal",
+        "hash": "862fa1d36362777ba3139350de53854d335cc26380673c9b7240282a10b4a04b",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_076_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_chaikin_osc_base_v076_signal",
+        "hash": "862fa1d36362777ba3139350de53854d335cc26380673c9b7240282a10b4a04b",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_base_001_075_claude.py",
+        "name": "f12os_f12_oscillator_family_chaikinsign_40d_base_v073_signal",
+        "hash": "2be4d102045cd8da4a0f3e8a90ca2fe9018f27c0eb880209ca941848bd8207ce",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_076_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_sign_chaikin_osc_base_v078_signal",
+        "hash": "2be4d102045cd8da4a0f3e8a90ca2fe9018f27c0eb880209ca941848bd8207ce",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_base_076_150_claude.py",
+        "name": "f12os_f12_oscillator_family_willrslp_50d_base_v093_signal",
+        "hash": "550424ee67a69ef82ba206a86044fc786a5079ca0c6ecd7f99775373211e4ea3",
+        "constant": false
+      },
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_slope_001_150_claude.py",
+        "name": "f12os_f12_oscillator_family_willr_28d_slope_v092_signal",
+        "hash": "550424ee67a69ef82ba206a86044fc786a5079ca0c6ecd7f99775373211e4ea3",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_jerk_001_150_claude.py",
+        "name": "f12os_f12_oscillator_family_chaikin_3_10_jerk_v045_signal",
+        "hash": "af2e8d6338c7710d0a5da74c2dd322c2ae4e02bd0c44d13b17f5049e5894ba2e",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_jerk_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_chaikin_osc_jerk_v076_signal",
+        "hash": "af2e8d6338c7710d0a5da74c2dd322c2ae4e02bd0c44d13b17f5049e5894ba2e",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_slope_001_150_claude.py",
+        "name": "f12os_f12_oscillator_family_chaikin_3_10_slope_v045_signal",
+        "hash": "443f4519cb6dff8d571d41dfcb165512cf08e4d6949e9e5c3f5c3fa18e8e33f0",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_chaikin_osc_slope_v076_signal",
+        "hash": "443f4519cb6dff8d571d41dfcb165512cf08e4d6949e9e5c3f5c3fa18e8e33f0",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_slope_001_150_claude.py",
+        "name": "f12os_f12_oscillator_family_mfirank_120d_slope_v144_signal",
+        "hash": "d4f5ce234b7a29b62872c42c7388d39652ef848df5180b601818a4744af01b7a",
+        "constant": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_mfi14_rank_120d_slope_v104_signal",
+        "hash": "d4f5ce234b7a29b62872c42c7388d39652ef848df5180b601818a4744af01b7a",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_base_001_075_claude.py",
+        "name": "f13mc_f13_macd_variants_signxzero_12_26_base_v017_signal",
+        "hash": "020217b8fc45c97a75d9d600f6809c172e5b0a8c5386d1c08f295f09144dbb6d",
+        "constant": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_001_075_claude.py",
+        "name": "f19an_f19_atr_normalized_price_sign_macd_atr14_base_v066_signal",
+        "hash": "020217b8fc45c97a75d9d600f6809c172e5b0a8c5386d1c08f295f09144dbb6d",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_base_076_150_claude.py",
+        "name": "f13mc_f13_macd_variants_histposfrac_12_26_9_60d_base_v133_signal",
+        "hash": "392c7e99b0f390b43e35fda7ab4b8519ce607e941473a85f607acde58fc30118",
+        "constant": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_001_075_claude.py",
+        "name": "f19an_f19_atr_normalized_price_macd_above_signal_atr_60d_base_v073_signal",
+        "hash": "392c7e99b0f390b43e35fda7ab4b8519ce607e941473a85f607acde58fc30118",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_jerk_001_150_claude.py",
+        "name": "f13mc_f13_macd_variants_signxzero_12_26_jerk_v017_signal",
+        "hash": "192d520552a206115b7dc57a655cf3c877e0621188478e0c963493310228ba9f",
+        "constant": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_jerk_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_sign_macd_atr14_jerk_v066_signal",
+        "hash": "192d520552a206115b7dc57a655cf3c877e0621188478e0c963493310228ba9f",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_jerk_001_150_claude.py",
+        "name": "f13mc_f13_macd_variants_histposfrac_12_26_9_60d_jerk_v133_signal",
+        "hash": "01bab8d027bd7f9c213a2468d9f2bcfa78662ea104c3a299e9f4e00010137887",
+        "constant": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_jerk_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_macd_above_signal_60d_jerk_v073_signal",
+        "hash": "01bab8d027bd7f9c213a2468d9f2bcfa78662ea104c3a299e9f4e00010137887",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_slope_001_150_claude.py",
+        "name": "f13mc_f13_macd_variants_signxzero_12_26_slope_v017_signal",
+        "hash": "168547d7eaa9d899f734e78fa7f0b7d2b7641e73a7699d5260ac7daa1e9c510a",
+        "constant": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_slope_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_sign_macd_atr14_slope_v066_signal",
+        "hash": "168547d7eaa9d899f734e78fa7f0b7d2b7641e73a7699d5260ac7daa1e9c510a",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_slope_001_150_claude.py",
+        "name": "f13mc_f13_macd_variants_histposfrac_12_26_9_60d_slope_v133_signal",
+        "hash": "c7a661682dbd0f24bb6fb76babf1931ac7c78b2cb0fc95ad8607d088c5895caa",
+        "constant": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_slope_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_macd_above_signal_60d_slope_v073_signal",
+        "hash": "c7a661682dbd0f24bb6fb76babf1931ac7c78b2cb0fc95ad8607d088c5895caa",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_jerk_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_winstrk_60d_jerk_v062_signal",
+        "hash": "d798a5d3778f4643aae801997a9b13acb1f492bc65c3c1acd6344265bf8b40d5",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_jerk_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_upstreak_40d_jerk_v063_signal",
+        "hash": "d798a5d3778f4643aae801997a9b13acb1f492bc65c3c1acd6344265bf8b40d5",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_slope_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_winstrk_60d_slope_v062_signal",
+        "hash": "499767f0aa764e3f9dfde14069f2a3f5f5d11eb64f1e8dbe8d7ad9bdf80fece3",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_upstreak_40d_slope_v063_signal",
+        "hash": "499767f0aa764e3f9dfde14069f2a3f5f5d11eb64f1e8dbe8d7ad9bdf80fece3",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_076_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_ewmavol_lam94_base_v076_signal",
+        "hash": "d4007c6ea528a1b8a23bb603b116d17a67df577ea82790d423d7f8edb2e2d0e2",
+        "constant": false
+      },
+      {
+        "file": "f17_volatility_regime\\f17_volatility_regime_base_001_075_claude.py",
+        "name": "f17vr_f17_volatility_regime_ewmavol_lam94_base_v030_signal",
+        "hash": "d4007c6ea528a1b8a23bb603b116d17a67df577ea82790d423d7f8edb2e2d0e2",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_076_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_vovslope_base_v118_signal",
+        "hash": "bf4a95240a02bd4613f0e78404e6f86c2a8344d98e5f35efae47da72bd997e2c",
+        "constant": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_volofvol_21d_slope_v056_signal",
+        "hash": "bf4a95240a02bd4613f0e78404e6f86c2a8344d98e5f35efae47da72bd997e2c",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_jerk_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_volofvol_21d_jerk_v056_signal",
+        "hash": "73f3f8addbcd6860aa2218e63f214c0af655a3f14a14429c7ab490caa2443e98",
+        "constant": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_vovslope_slope_v118_signal",
+        "hash": "73f3f8addbcd6860aa2218e63f214c0af655a3f14a14429c7ab490caa2443e98",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_base_076_150_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_gk_velocity_30_5d_base_v130_signal",
+        "hash": "1abe576c13bdf2af305918e73f5c6d33c69f28061e345192f9514850a845f168",
+        "constant": false
+      },
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_slope_001_150_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_gk_10d_slope_v005_signal",
+        "hash": "1abe576c13bdf2af305918e73f5c6d33c69f28061e345192f9514850a845f168",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_jerk_001_150_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_atr_wilder_14d_jerk_v016_signal",
+        "hash": "d8b3f2ca388035ae664b98258ea03f8cb0ac36e23205940f63f5f6553b52e8ea",
+        "constant": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_jerk_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_atr_pct_close_14d_jerk_v088_signal",
+        "hash": "d8b3f2ca388035ae664b98258ea03f8cb0ac36e23205940f63f5f6553b52e8ea",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_base_076_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_roc_today_vs_5d_ago_base_v119_signal",
+        "hash": "97905bc0884dbdf971a92864591575a617f302fb2bbf4c5c09cbce348a92ecf1",
+        "constant": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_base_001_075_claude.py",
+        "name": "f27vr_f27_volume_regime_logv_diff_5d_base_v013_signal",
+        "hash": "97905bc0884dbdf971a92864591575a617f302fb2bbf4c5c09cbce348a92ecf1",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_jerk_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_skew_60d_21d_jerk_v011_signal",
+        "hash": "f8c26b23298ed07a177290afba56d9218ddf02b3b42e231ab811b585ecf320ab",
+        "constant": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_jerk_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_v_skew_60d_jerk_v078_signal",
+        "hash": "f8c26b23298ed07a177290afba56d9218ddf02b3b42e231ab811b585ecf320ab",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_jerk_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_max_to_min_30d_10d_jerk_v049_signal",
+        "hash": "e1eaf2eff8108389e25eca9d922c3145e5607b2738807f4f1ba923ac286c3328",
+        "constant": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_jerk_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_log_minmax_range_30d_jerk_v142_signal",
+        "hash": "e1eaf2eff8108389e25eca9d922c3145e5607b2738807f4f1ba923ac286c3328",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_jerk_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_roc_today_vs_5d_ago_5d_jerk_v119_signal",
+        "hash": "24e22629568174bda1c3ce3b414c23bbc9c4ec647156d5fbe1dc361a0840ce1c",
+        "constant": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_slope_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_logv_accel_5_5_slope_v128_signal",
+        "hash": "24e22629568174bda1c3ce3b414c23bbc9c4ec647156d5fbe1dc361a0840ce1c",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_slope_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_skew_60d_21d_slope_v011_signal",
+        "hash": "59ba68bb8b1070cf9fb45fa5933545287ad38434cb169736aca99c364ce99004",
+        "constant": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_slope_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_v_skew_60d_slope_v078_signal",
+        "hash": "59ba68bb8b1070cf9fb45fa5933545287ad38434cb169736aca99c364ce99004",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_slope_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_max_to_min_30d_10d_slope_v049_signal",
+        "hash": "62dc540fa36e7d2ed4dd7a8f60d6f11d04ebbe1cc07cd8b298d4f16fab47b365",
+        "constant": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_slope_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_log_minmax_range_30d_slope_v142_signal",
+        "hash": "62dc540fa36e7d2ed4dd7a8f60d6f11d04ebbe1cc07cd8b298d4f16fab47b365",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_slope_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_roc_today_vs_5d_ago_5d_slope_v119_signal",
+        "hash": "58b0ae91304183875d324606ee5903a1ed2bc90048432d725b952b32c570d96a",
+        "constant": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_base_076_150_claude.py",
+        "name": "f27vr_f27_volume_regime_logv_accel_5_5_base_v128_signal",
+        "hash": "58b0ae91304183875d324606ee5903a1ed2bc90048432d725b952b32c570d96a",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f22_volume_trend\\f22_volume_trend_base_001_075_claude.py",
+        "name": "f22vt_f22_volume_trend_upvol_downvol_diff_sma_30d_base_v034_signal",
+        "hash": "6f71b693b6ea27e284a6ed0461abbfd101e318f42728d32b884a153d2db81b81",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_001_075_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_netfrac_30d_base_v049_signal",
+        "hash": "6f71b693b6ea27e284a6ed0461abbfd101e318f42728d32b884a153d2db81b81",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f22_volume_trend\\f22_volume_trend_slope_001_150_claude.py",
+        "name": "f22vt_f22_volume_trend_upvol_downvol_diff_sma_30d_slope_v034_signal",
+        "hash": "21577d380d3f55648059e349c9a1bfc7fcf8279eae271520080819d22270580b",
+        "constant": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_netfrac_30d_slope_v049_signal",
+        "hash": "21577d380d3f55648059e349c9a1bfc7fcf8279eae271520080819d22270580b",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_base_001_075_claude.py",
+        "name": "f24vp_f24_volume_price_confirmation_updn_vol_ratio_log_30d_base_v014_signal",
+        "hash": "40373fdc8316b63c68d3b4d468385b4d67abf51c6f2024e8a9eedeb90a48bce1",
+        "constant": false
+      },
+      {
+        "file": "f28_price_volume_divergence\\f28_price_volume_divergence_base_001_075_claude.py",
+        "name": "f28pd_f28_price_volume_divergence_updown_vol_ratio_30d_base_v028_signal",
+        "hash": "40373fdc8316b63c68d3b4d468385b4d67abf51c6f2024e8a9eedeb90a48bce1",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_jerk_001_150_claude.py",
+        "name": "f24vp_f24_volume_price_confirmation_updn_vol_ratio_log_30d_jerk_v014_signal",
+        "hash": "63e9f87111966b8471851053d3a765b4c40fb70cdfb9cc9c436d1c227d2e3375",
+        "constant": false
+      },
+      {
+        "file": "f28_price_volume_divergence\\f28_price_volume_divergence_jerk_001_150_claude.py",
+        "name": "f28pd_f28_price_volume_divergence_updown_vol_ratio_30d_jerk_v028_signal",
+        "hash": "63e9f87111966b8471851053d3a765b4c40fb70cdfb9cc9c436d1c227d2e3375",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_slope_001_150_claude.py",
+        "name": "f24vp_f24_volume_price_confirmation_updn_vol_ratio_log_30d_slope_v014_signal",
+        "hash": "4691412f2ba8f8b224329b9dd0272c1883d485189cc28719d2aeef52f8b41225",
+        "constant": false
+      },
+      {
+        "file": "f28_price_volume_divergence\\f28_price_volume_divergence_slope_001_150_claude.py",
+        "name": "f28pd_f28_price_volume_divergence_updown_vol_ratio_30d_slope_v028_signal",
+        "hash": "4691412f2ba8f8b224329b9dd0272c1883d485189cc28719d2aeef52f8b41225",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_cmf21_slope_10d_base_v034_signal",
+        "hash": "4102afe6bbcc1e5ce404cd97d417dedf1a081b7165ea8d9eeb8723b76d4cdc7d",
+        "constant": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_cmf_21d_slope_v007_signal",
+        "hash": "4102afe6bbcc1e5ce404cd97d417dedf1a081b7165ea8d9eeb8723b76d4cdc7d",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_chaikin_3_10_slope_5d_base_v069_signal",
+        "hash": "b7d8763fb82838b30a75b9852210f2d0dc415d6f20315a86046820ce3d3b2aa4",
+        "constant": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_chaikin_osc_3_10_slope_v017_signal",
+        "hash": "b7d8763fb82838b30a75b9852210f2d0dc415d6f20315a86046820ce3d3b2aa4",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_cmf_21d_jerk_v007_signal",
+        "hash": "136ae97f2398ee8844c05caf2ef33b71099ddc2b9057339ab2d2750a58fff340",
+        "constant": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_cmf21_slope_10d_slope_v034_signal",
+        "hash": "136ae97f2398ee8844c05caf2ef33b71099ddc2b9057339ab2d2750a58fff340",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_chaikin_osc_3_10_jerk_v017_signal",
+        "hash": "d7e8da10cf4abadfe7515e66bda671b46965d140b8fdd4d0a7238c5a3701e8fd",
+        "constant": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_chaikin_3_10_slope_5d_slope_v069_signal",
+        "hash": "d7e8da10cf4abadfe7515e66bda671b46965d140b8fdd4d0a7238c5a3701e8fd",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_jerk_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_logv_roc_21d_jerk_v080_signal",
+        "hash": "845b41d0bb1e299668d15f3d6af6c2c79367b866383a3bc8ed0910993d420ebc",
+        "constant": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_slope_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_logv_roc_21d_slope_v080_signal",
+        "hash": "845b41d0bb1e299668d15f3d6af6c2c79367b866383a3bc8ed0910993d420ebc",
+        "constant": false
+      }
+    ],
+    [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_base_001_075_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_rs_accel_diff_base_v047_signal",
+        "hash": "9d99a7a92d71afab027c859957571e82734b0c55a072041e7a4f0a91aec41a6d",
+        "constant": false
+      },
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_log_rs_ratio_jerk_v004_signal",
+        "hash": "9d99a7a92d71afab027c859957571e82734b0c55a072041e7a4f0a91aec41a6d",
+        "constant": false
+      }
+    ]
+  ],
+  "constant_groups_count": 1,
+  "errors": [],
+  "seconds": 89.66478228569031
+}

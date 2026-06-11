@@ -1,0 +1,91 @@
+"""leverage_buildup_acceleration d1 features 151-225 — first-derivative wrappers (gap-fill extension)."""
+import numpy as np
+import pandas as pd
+
+QQTRS = 4
+QQTRS_2Y = 8
+QQTRS_3Y = 12
+QQTRS_5Y = 20
+
+
+def _safe_log(s, eps=1e-12):
+    if isinstance(s, pd.Series):
+        return np.log(s.where(s > eps, np.nan))
+    arr = np.where(s > eps, s, np.nan)
+    return np.log(arr)
+
+
+def _safe_div(num, den):
+    if isinstance(den, pd.Series):
+        d = den.replace(0, np.nan)
+    else:
+        d = np.where(den == 0, np.nan, den)
+    out = num / d
+    if isinstance(out, pd.Series):
+        return out.replace([np.inf, -np.inf], np.nan)
+    idx = num.index if hasattr(num, "index") else None
+    return pd.Series(out, index=idx).replace([np.inf, -np.inf], np.nan)
+
+
+def _rolling_zscore(s, window, min_periods=None):
+    if min_periods is None:
+        min_periods = max(window // 3, 2)
+    m = s.rolling(window, min_periods=min_periods).mean()
+    sd = s.rolling(window, min_periods=min_periods).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+
+def f32_lbac_151_issuance_on_distress_indicator_q_d1(debt: pd.Series, marketcap: pd.Series) -> pd.Series:
+    if debt is None or marketcap is None:
+        return pd.Series(np.nan)
+    debt_qoq = debt.diff()
+    debt_z = _rolling_zscore(debt_qoq, QQTRS_2Y, min_periods=4)
+    mc_max4 = marketcap.rolling(QQTRS, min_periods=2).max()
+    dd = 1.0 - _safe_div(marketcap, mc_max4)
+    cond = (debt_z > 2.0) & (dd > 0.30)
+    out = cond.astype(float)
+    return out.where(debt_z.notna() & dd.notna(), np.nan).diff()
+
+
+def f32_lbac_152_net_debt_sign_flip_then_accel_q_d1(debt: pd.Series, cashneq: pd.Series) -> pd.Series:
+    if debt is None or cashneq is None:
+        return pd.Series(np.nan)
+    net_debt = debt - cashneq
+    nd_ch = net_debt.diff()
+    decl1 = nd_ch.shift(1) < 0
+    decl2 = nd_ch.shift(2) < 0
+    decl3 = nd_ch.shift(3) < 0
+    decl4 = nd_ch.shift(4) < 0
+    declining = decl1 & decl2 & decl3 & decl4
+    prior_sd = nd_ch.shift(1).rolling(QQTRS, min_periods=2).std()
+    cond_jump = nd_ch > (2.0 * prior_sd)
+    out = (declining & cond_jump).astype(float)
+    return out.where(prior_sd.notna() & nd_ch.notna(), np.nan).diff()
+
+
+def f32_lbac_153_leverage_regime_2state_posterior_d1(debt: pd.Series, ebitda: pd.Series, ebit: pd.Series, intexp: pd.Series) -> pd.Series:
+    if debt is None or ebitda is None or ebit is None or intexp is None:
+        return pd.Series(np.nan)
+    lev = _safe_div(debt, ebitda)
+    icov = _safe_div(ebit, intexp)
+    df = pd.concat([lev, icov], axis=1)
+    df.columns = ["a", "b"]
+    a_med = df["a"].rolling(QQTRS_2Y, min_periods=4).median()
+    b_med = df["b"].rolling(QQTRS_2Y, min_periods=4).median()
+    a_dist = df["a"].rolling(QQTRS_2Y, min_periods=4).max()
+    b_dist = df["b"].rolling(QQTRS_2Y, min_periods=4).min()
+    a_sd = df["a"].rolling(QQTRS_2Y, min_periods=4).std().replace(0, np.nan)
+    b_sd = df["b"].rolling(QQTRS_2Y, min_periods=4).std().replace(0, np.nan)
+    dist_h = np.sqrt(((df["a"] - a_med) / a_sd) ** 2 + ((df["b"] - b_med) / b_sd) ** 2)
+    dist_d = np.sqrt(((df["a"] - a_dist) / a_sd) ** 2 + ((df["b"] - b_dist) / b_sd) ** 2)
+    inv_h = 1.0 / dist_h.replace(0, np.nan)
+    inv_d = 1.0 / dist_d.replace(0, np.nan)
+    denom = (inv_h + inv_d).replace(0, np.nan)
+    return _safe_div(inv_d, denom).diff()
+
+
+LEVERAGE_BUILDUP_ACCELERATION_D1_REGISTRY_151_225 = {
+    "f32_lbac_151_issuance_on_distress_indicator_q_d1": {"inputs": ["debt", "marketcap"], "func": f32_lbac_151_issuance_on_distress_indicator_q_d1},
+    "f32_lbac_152_net_debt_sign_flip_then_accel_q_d1": {"inputs": ["debt", "cashneq"], "func": f32_lbac_152_net_debt_sign_flip_then_accel_q_d1},
+    "f32_lbac_153_leverage_regime_2state_posterior_d1": {"inputs": ["debt", "ebitda", "ebit", "intexp"], "func": f32_lbac_153_leverage_regime_2state_posterior_d1},
+}

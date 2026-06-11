@@ -1,0 +1,113 @@
+f01_crypto_beta_momentum             |ic252|med=0.036 hac|t|>2=6% robust=0% (null=1%)  ls&ic252signOK in robust  horizonsignagree=34% |ic504|med=0.045
+f02_halving_cycle_phase              |ic252|med=0.044 hac|t|>2=6% robust=1% (null=1%)  ls&ic252signOK in robust  horizonsignagree=71% |ic504|med=0.075
+f03_parabolic_blowoff_top            |ic252|med=0.034 hac|t|>2=3% robust=0% (null=0%)  ls&ic252signOK in robust  horizonsignagree=45% |ic504|med=0.031
+f04_crypto_winter_drawdown           |ic252|med=0.038 hac|t|>2=2% robust=0% (null=5%)  ls&ic252signOK in robust  horizonsignagree=65% |ic504|med=0.050
+f05_reflexive_volatility_regime      |ic252|med=0.027 hac|t|>2=9% robust=0% (null=0%)  ls&ic252signOK in robust  horizonsignagree=53% |ic504|med=0.076
+f06_volatility_squeeze_breakout      |ic252|med=0.033 hac|t|>2=13% robust=0% (null=3%)  ls&ic252signOK in robust  horizonsignagree=61% |ic504|med=0.058
+f07_overnight_gap_dynamics           |ic252|med=0.054 hac|t|>2=5% robust=0% (null=1%)  ls&ic252signOK in robust  horizonsignagree=87% |ic504|med=0.131
+f08_capitulation_volume_spike        |ic252|med=0.043 hac|t|>2=12% robust=0% (null=1%)  ls&ic252signOK in robust  horizonsignagree=75% |ic504|med=0.051
+f09_range_expansion_atr              |ic252|med=0.045 hac|t|>2=9% robust=0% (null=4%)  ls&ic252signOK in robust  horizonsignagree=59% |ic504|med=0.066
+f10_relative_strength_leadership     |ic252|med=0.031 hac|t|>2=1% robust=0% (null=3%)  ls&ic252signOK in robust  horizonsignagree=40% |ic504|med=0.049
+f11_trend_persistence                |ic252|med=0.022 hac|t|>2=2% robust=0% (null=3%)  ls&ic252signOK in robust  horizonsignagree=47% |ic504|med=0.048
+f12_oversold_reversion_oscillator    |ic252|med=0.040 hac|t|>2=13% robust=0% (null=0%)  ls&ic252signOK in robust  horizonsignagree=63% |ic504|med=0.044
+f13_liquidity_dollar_volume          |ic252|med=0.083 hac|t|>2=32% robust=1% (null=0%)  ls&ic252signOK in robust  horizonsignagree=78% |ic504|med=0.096
+f14_short_squeeze_thrust             |ic252|med=0.026 hac|t|>2=3% robust=0% (null=1%)  ls&ic252signOK in robust  horizonsignagree=55% |ic504|med=0.044
+f15_accumulation_distribution_flow   |ic252|med=0.049 hac|t|>2=17% robust=0% (null=3%)  ls&ic252signOK in robust  horizonsignagree=77% |ic504|med=0.055
+f16_bitcoin_treasury_premium         |ic252|med=0.043 hac|t|>2=7% robust=0% (null=5%)  ls&ic252signOK in robust  horizonsignagree=71% |ic504|med=0.089
+f17_share_dilution_machine           |ic252|med=0.042 hac|t|>2=8% robust=1% (null=5%)  ls&ic252signOK in robust  horizonsignagree=79% |ic504|med=0.060
+f18_cash_burn_runway                 |ic252|med=0.058 hac|t|>2=9% robust=0% (null=2%)  ls&ic252signOK in robust  horizonsignagree=71% |ic504|med=0.095
+f19_mining_capex_intensity           |ic252|med=0.080 hac|t|>2=25% robust=2% (null=0%)  ls&ic252signOK in robust  horizonsignagree=88% |ic504|med=0.101
+f20_operating_leverage_to_crypto     |ic252|med=0.051 hac|t|>2=14% robust=0% (null=2%)  ls&ic252signOK in robust  horizonsignagree=77% |ic504|med=0.057
+f21_gross_margin_volatility          |ic252|med=0.119 hac|t|>2=24% robust=3% (null=2%)  ls&ic252signOK in robust  horizonsignagree=94% |ic504|med=0.112
+f22_balance_sheet_leverage           |ic252|med=0.044 hac|t|>2=7% robust=0% (null=5%)  ls&ic252signOK in robust  horizonsignagree=73% |ic504|med=0.098
+f23_revenue_hypergrowth              |ic252|med=nan hac|t|>2=12% robust=1% (null=15%)  ls&ic252signOK in robust  horizonsignagree=65% |ic504|med=nan
+f24_cash_earnings_divergence         |ic252|med=0.067 hac|t|>2=3% robust=0% (null=2%)  ls&ic252signOK in robust  horizonsignagree=91% |ic504|med=0.165
+f25_dilution_adjusted_growth         |ic252|med=0.046 hac|t|>2=11% robust=3% (null=14%)  ls&ic252signOK in robust  horizonsignagree=73% |ic504|med=0.065
+f26_ev_valuation_regime              |ic252|med=0.067 hac|t|>2=21% robust=2% (null=5%)  ls&ic252signOK in robust  horizonsignagree=61% |ic504|med=0.090
+f27_speculative_multiple_decay       |ic252|med=0.043 hac|t|>2=9% robust=0% (null=10%)  ls&ic252signOK in robust  horizonsignagree=77% |ic504|med=0.060
+f28_institutional_accumulation       |ic252|med=0.036 hac|t|>2=5% robust=1% (null=3%)  ls&ic252signOK in robust  horizonsignagree=74% |ic504|med=0.061
+f29_ownership_concentration          |ic252|med=nan hac|t|>2=34% robust=12% (null=6%)  ls&ic252signOK in robust  horizonsignagree=73% |ic504|med=nan
+f30_smart_money_positioning          |ic252|med=0.038 hac|t|>2=3% robust=0% (null=7%)  ls&ic252signOK in robust  horizonsignagree=66% |ic504|med=0.053
+f31_insider_buying_pressure          |ic252|med=nan hac|t|>2=41% robust=3% (null=5%)  ls&ic252signOK in robust  horizonsignagree=65% |ic504|med=nan
+f32_insider_conviction_quality       |ic252|med=nan hac|t|>2=48% robust=3% (null=9%)  ls&ic252signOK in robust  horizonsignagree=58% |ic504|med=nan
+f33_insider_distribution_selling     |ic252|med=nan hac|t|>2=37% robust=3% (null=0%)  ls&ic252signOK in robust  horizonsignagree=74% |ic504|med=nan
+f34_institutional_breadth_churn      |ic252|med=0.051 hac|t|>2=11% robust=0% (null=3%)  ls&ic252signOK in robust  horizonsignagree=73% |ic504|med=0.082
+f35_financial_distress_score         |ic252|med=0.073 hac|t|>2=7% robust=0% (null=4%)  ls&ic252signOK in robust  horizonsignagree=83% |ic504|med=0.124
+f36_earnings_manipulation_score      |ic252|med=0.070 hac|t|>2=9% robust=0% (null=6%)  ls&ic252signOK in robust  horizonsignagree=76% |ic504|med=0.059
+f37_crypto_sector_relative_strength  |ic252|med=0.044 hac|t|>2=9% robust=0% (null=0%)  ls&ic252signOK in robust  horizonsignagree=45% |ic504|med=0.064
+=== SUMMARY ===
+                             family   n  ic252_absmed  ic504_absmed  hac_strong  robust  null_robust  null_hac
+        f29_ownership_concentration 150           NaN           NaN       0.336   0.120        0.060     0.210
+   f33_insider_distribution_selling 150           NaN           NaN       0.368   0.033        0.000     0.094
+     f32_insider_conviction_quality 150           NaN           NaN       0.484   0.033        0.087     0.378
+        f21_gross_margin_volatility 150         0.119         0.112       0.240   0.027        0.020     0.067
+       f25_dilution_adjusted_growth 150         0.046         0.065       0.107   0.027        0.140     0.207
+        f31_insider_buying_pressure 150           NaN           NaN       0.405   0.027        0.053     0.248
+            f26_ev_valuation_regime 150         0.067         0.090       0.207   0.020        0.053     0.213
+         f19_mining_capex_intensity 150         0.080         0.101       0.247   0.020        0.000     0.047
+            f23_revenue_hypergrowth 150           NaN           NaN       0.122   0.007        0.147     0.236
+            f02_halving_cycle_phase 150         0.044         0.075       0.060   0.007        0.007     0.047
+     f28_institutional_accumulation 150         0.036         0.061       0.053   0.007        0.033     0.073
+        f13_liquidity_dollar_volume 150         0.083         0.096       0.320   0.007        0.000     0.047
+         f17_share_dilution_machine 150         0.042         0.060       0.081   0.007        0.047     0.154
+    f05_reflexive_volatility_regime 150         0.027         0.076       0.087   0.000        0.000     0.253
+         f04_crypto_winter_drawdown 150         0.038         0.050       0.020   0.000        0.047     0.153
+          f03_parabolic_blowoff_top 150         0.034         0.031       0.027   0.000        0.000     0.053
+           f01_crypto_beta_momentum 150         0.036         0.045       0.060   0.000        0.007     0.073
+            f09_range_expansion_atr 150         0.045         0.066       0.087   0.000        0.040     0.213
+    f06_volatility_squeeze_breakout 150         0.033         0.058       0.133   0.000        0.033     0.120
+      f08_capitulation_volume_spike 150         0.043         0.051       0.120   0.000        0.007     0.087
+         f07_overnight_gap_dynamics 150         0.054         0.131       0.053   0.000        0.013     0.107
+   f20_operating_leverage_to_crypto 150         0.051         0.057       0.140   0.000        0.020     0.100
+               f18_cash_burn_runway 150         0.058         0.095       0.093   0.000        0.020     0.053
+ f15_accumulation_distribution_flow 150         0.049         0.055       0.173   0.000        0.027     0.080
+       f16_bitcoin_treasury_premium 150         0.043         0.089       0.073   0.000        0.047     0.073
+           f14_short_squeeze_thrust 150         0.026         0.044       0.033   0.000        0.007     0.087
+   f10_relative_strength_leadership 150         0.031         0.049       0.007   0.000        0.033     0.100
+              f11_trend_persistence 150         0.022         0.048       0.020   0.000        0.033     0.087
+  f12_oversold_reversion_oscillator 150         0.040         0.044       0.133   0.000        0.000     0.040
+     f27_speculative_multiple_decay 150         0.043         0.060       0.093   0.000        0.100     0.173
+       f24_cash_earnings_divergence 150         0.067         0.165       0.033   0.000        0.020     0.053
+         f22_balance_sheet_leverage 150         0.044         0.098       0.073   0.000        0.047     0.133
+        f30_smart_money_positioning 150         0.038         0.053       0.027   0.000        0.067     0.100
+    f34_institutional_breadth_churn 150         0.051         0.082       0.107   0.000        0.027     0.087
+       f35_financial_distress_score 150         0.073         0.124       0.073   0.000        0.040     0.133
+    f36_earnings_manipulation_score 101         0.070         0.059       0.089   0.000        0.059     0.119
+f37_crypto_sector_relative_strength 150         0.044         0.064       0.093   0.000        0.000     0.167
+
+==== OVERALL (deep) ====
+families: 37
+median |IC| (252d): 0.044   median |IC| (504d): 0.063
+OBSERVED robust-feature share: 0.9%
+NULL (permuted) robust share : 3.6%   <- false-positive floor
+observed HAC|t|>2 share: 13.2%   null HAC|t|>2 share: 12.6%
+signal lift over chance (robust): 0.3x
+families clearly above null (robust > 3x null): 1/37
+
+Top 20 robust features (by HAC |t|):
+  |t|=15.2 ic252=+0.313 ic504=+0.355  f29oc_f29_ownership_concentration_concraw_10d_base_v006_signal
+  |t|=15.2 ic252=+0.313 ic504=+0.355  f29oc_f29_ownership_concentration_conc_5d_base_v005_signal
+  |t|=13.1 ic252=+0.318 ic504=+0.340  f29oc_f29_ownership_concentration_conc_21d_base_v001_signal
+  |t|=10.1 ic252=+0.315 ic504=+0.330  f29oc_f29_ownership_concentration_conc_42d_base_v076_signal
+  |t|= 8.2 ic252=+0.400 ic504=+0.463  f32ic_f32_insider_conviction_quality_convperbuy_252d_base_v144_signal
+  |t|= 7.9 ic252=+0.311 ic504=+0.312  f29oc_f29_ownership_concentration_conc_84d_base_v077_signal
+  |t|= 6.9 ic252=+0.308 ic504=+0.333  f29oc_f29_ownership_concentration_disp_84d_base_v090_signal
+  |t|= 6.8 ic252=+0.308 ic504=+0.307  f29oc_f29_ownership_concentration_concmix_84d_base_v126_signal
+  |t|= 6.3 ic252=+0.282 ic504=+0.234  f29oc_f29_ownership_concentration_kurt_126d_base_v059_signal
+  |t|= 6.3 ic252=+0.317 ic504=+0.304  f29oc_f29_ownership_concentration_loglvl_126d_base_v131_signal
+  |t|= 6.3 ic252=+0.317 ic504=+0.304  f29oc_f29_ownership_concentration_conc_126d_base_v003_signal
+  |t|= 5.8 ic252=+0.316 ic504=+0.313  f29oc_f29_ownership_concentration_disp_126d_base_v031_signal
+  |t|= 5.6 ic252=+0.211 ic504=+0.163  f19mc_f19_mining_capex_intensity_zgmproxy_252d_base_v115_signal
+  |t|= 5.3 ic252=-0.237 ic504=-0.572  f32ic_f32_insider_conviction_quality_dirshare_252d_base_v007_signal
+  |t|= 5.0 ic252=-0.483 ic504=-0.499  f32ic_f32_insider_conviction_quality_buysharesint_504d_base_v115_signal
+  |t|= 4.9 ic252=+0.288 ic504=+0.322  f29oc_f29_ownership_concentration_disp_63d_base_v030_signal
+  |t|= 4.8 ic252=-0.533 ic504=-0.328  f32ic_f32_insider_conviction_quality_buysharesint_252d_base_v054_signal
+  |t|= 4.6 ic252=-0.245 ic504=-0.277  f33id_f33_insider_distribution_selling_countrate_63d_base_v043_signal
+  |t|= 4.1 ic252=+0.181 ic504=+0.166  f21gm_f21_gross_margin_volatility_gmiqrvol_252d_base_v145_signal
+  |t|= 4.1 ic252=+0.134 ic504=+0.600  f29oc_f29_ownership_concentration_trend_504d_base_v088_signal
+
+total robust base features: 51 of ~5501
+=== PCA ===
+PCA on 1467 sampled base features, 26261 obs
+effective dimensionality: 139 PCs -> 80% var | 265 -> 90% | 404 -> 95%
+top PC explains 10.4%; top 5 PCs explain 25.8%; top 10 34.8%

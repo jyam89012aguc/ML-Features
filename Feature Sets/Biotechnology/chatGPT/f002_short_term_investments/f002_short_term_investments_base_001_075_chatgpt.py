@@ -1,0 +1,539 @@
+"""Family f002 - SF1 liquid securities buffer (Liquidity and Runway) | Sharadar tables: SF1 | fields: investmentsc, investments, cashneq, assets | base 001-075"""
+import inspect
+import numpy as np
+import pandas as pd
+
+TRADING_DAYS_YEAR = 252
+TRADING_DAYS_HALF = 126
+TRADING_DAYS_QUARTER = 63
+TRADING_DAYS_MONTH = 21
+TRADING_DAYS_WEEK = 5
+
+
+def _z(s, w):
+    m = s.rolling(w, min_periods=max(1, w // 2)).mean()
+    sd = s.rolling(w, min_periods=max(1, w // 2)).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+
+def _mean(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).mean()
+
+
+def _std(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).std()
+
+
+def _diff(s, n):
+    return s.diff(periods=n)
+
+
+def _slope_diff_norm(s, w):
+    return s.diff(periods=w) / s.abs().replace(0, np.nan)
+
+
+def _slope_pct(s, w):
+    return s.pct_change(periods=w)
+
+
+def _pct_change(s, n):
+    return s.pct_change(periods=n)
+
+
+def _safe_div(a, b):
+    return a / b.replace(0, np.nan)
+
+
+# ===== folder domain primitives =====
+def _short_term_investments_scaled(field, scale):
+    return field / scale.replace(0, np.nan).abs()
+
+
+def _short_term_investments_log(field):
+    return np.log(field.abs().replace(0, np.nan))
+
+
+def _short_term_investments_per_share(field, sharesbas):
+    return field / sharesbas.replace(0, np.nan).abs()
+
+
+# 21d smoothed investmentsc times closeadj
+def sti_f002_short_term_investments_raw_21d_base_v001_signal(investmentsc, closeadj):
+    result = _mean(investmentsc, 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d smoothed investmentsc times closeadj
+def sti_f002_short_term_investments_raw_63d_base_v002_signal(investmentsc, closeadj):
+    result = _mean(investmentsc, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 126d smoothed investmentsc times closeadj
+def sti_f002_short_term_investments_raw_126d_base_v003_signal(investmentsc, closeadj):
+    result = _mean(investmentsc, 126) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d smoothed investmentsc times closeadj
+def sti_f002_short_term_investments_raw_252d_base_v004_signal(investmentsc, closeadj):
+    result = _mean(investmentsc, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d smoothed investmentsc times closeadj
+def sti_f002_short_term_investments_raw_504d_base_v005_signal(investmentsc, closeadj):
+    result = _mean(investmentsc, 504) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d smoothed log(investmentsc) times closeadj
+def sti_f002_short_term_investments_log_21d_base_v006_signal(investmentsc, closeadj):
+    result = _mean(_short_term_investments_log(investmentsc), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d smoothed log(investmentsc) times closeadj
+def sti_f002_short_term_investments_log_63d_base_v007_signal(investmentsc, closeadj):
+    result = _mean(_short_term_investments_log(investmentsc), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 126d smoothed log(investmentsc) times closeadj
+def sti_f002_short_term_investments_log_126d_base_v008_signal(investmentsc, closeadj):
+    result = _mean(_short_term_investments_log(investmentsc), 126) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d smoothed log(investmentsc) times closeadj
+def sti_f002_short_term_investments_log_252d_base_v009_signal(investmentsc, closeadj):
+    result = _mean(_short_term_investments_log(investmentsc), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d smoothed log(investmentsc) times closeadj
+def sti_f002_short_term_investments_log_504d_base_v010_signal(investmentsc, closeadj):
+    result = _mean(_short_term_investments_log(investmentsc), 504) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d investmentsc/investments mean
+def sti_f002_short_term_investments_per_investments_63d_base_v011_signal(investmentsc, investments):
+    result = _mean(_short_term_investments_scaled(investmentsc, investments), 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d investmentsc/investments mean
+def sti_f002_short_term_investments_per_investments_252d_base_v012_signal(investmentsc, investments):
+    result = _mean(_short_term_investments_scaled(investmentsc, investments), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d investmentsc/investments mean
+def sti_f002_short_term_investments_per_investments_504d_base_v013_signal(investmentsc, investments):
+    result = _mean(_short_term_investments_scaled(investmentsc, investments), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d investmentsc/cashneq mean
+def sti_f002_short_term_investments_per_cashneq_63d_base_v014_signal(investmentsc, cashneq):
+    result = _mean(_short_term_investments_scaled(investmentsc, cashneq), 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d investmentsc/cashneq mean
+def sti_f002_short_term_investments_per_cashneq_252d_base_v015_signal(investmentsc, cashneq):
+    result = _mean(_short_term_investments_scaled(investmentsc, cashneq), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d investmentsc/cashneq mean
+def sti_f002_short_term_investments_per_cashneq_504d_base_v016_signal(investmentsc, cashneq):
+    result = _mean(_short_term_investments_scaled(investmentsc, cashneq), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d investmentsc/assets mean
+def sti_f002_short_term_investments_per_assets_63d_base_v017_signal(investmentsc, assets):
+    result = _mean(_short_term_investments_scaled(investmentsc, assets), 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d investmentsc/assets mean
+def sti_f002_short_term_investments_per_assets_252d_base_v018_signal(investmentsc, assets):
+    result = _mean(_short_term_investments_scaled(investmentsc, assets), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d investmentsc/assets mean
+def sti_f002_short_term_investments_per_assets_504d_base_v019_signal(investmentsc, assets):
+    result = _mean(_short_term_investments_scaled(investmentsc, assets), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d investmentsc/marketcap mean
+def sti_f002_short_term_investments_per_marketcap_63d_base_v020_signal(investmentsc, marketcap):
+    result = _mean(_short_term_investments_scaled(investmentsc, marketcap), 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d investmentsc/marketcap mean
+def sti_f002_short_term_investments_per_marketcap_252d_base_v021_signal(investmentsc, marketcap):
+    result = _mean(_short_term_investments_scaled(investmentsc, marketcap), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d investmentsc/marketcap mean
+def sti_f002_short_term_investments_per_marketcap_504d_base_v022_signal(investmentsc, marketcap):
+    result = _mean(_short_term_investments_scaled(investmentsc, marketcap), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d investmentsc/equity mean
+def sti_f002_short_term_investments_per_equity_63d_base_v023_signal(investmentsc, equity):
+    result = _mean(_short_term_investments_scaled(investmentsc, equity), 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d investmentsc/equity mean
+def sti_f002_short_term_investments_per_equity_252d_base_v024_signal(investmentsc, equity):
+    result = _mean(_short_term_investments_scaled(investmentsc, equity), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d investmentsc/equity mean
+def sti_f002_short_term_investments_per_equity_504d_base_v025_signal(investmentsc, equity):
+    result = _mean(_short_term_investments_scaled(investmentsc, equity), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d investmentsc per share times closeadj
+def sti_f002_short_term_investments_pershare_21d_base_v026_signal(investmentsc, sharesbas, closeadj):
+    ps = _short_term_investments_per_share(investmentsc, sharesbas)
+    result = _mean(ps, 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d investmentsc per share times closeadj
+def sti_f002_short_term_investments_pershare_63d_base_v027_signal(investmentsc, sharesbas, closeadj):
+    ps = _short_term_investments_per_share(investmentsc, sharesbas)
+    result = _mean(ps, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 126d investmentsc per share times closeadj
+def sti_f002_short_term_investments_pershare_126d_base_v028_signal(investmentsc, sharesbas, closeadj):
+    ps = _short_term_investments_per_share(investmentsc, sharesbas)
+    result = _mean(ps, 126) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d investmentsc per share times closeadj
+def sti_f002_short_term_investments_pershare_252d_base_v029_signal(investmentsc, sharesbas, closeadj):
+    ps = _short_term_investments_per_share(investmentsc, sharesbas)
+    result = _mean(ps, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d investmentsc per share times closeadj
+def sti_f002_short_term_investments_pershare_504d_base_v030_signal(investmentsc, sharesbas, closeadj):
+    ps = _short_term_investments_per_share(investmentsc, sharesbas)
+    result = _mean(ps, 504) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d rolling std of investmentsc times closeadj
+def sti_f002_short_term_investments_std_63d_base_v031_signal(investmentsc, closeadj):
+    result = _std(investmentsc, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling std of investmentsc times closeadj
+def sti_f002_short_term_investments_std_252d_base_v032_signal(investmentsc, closeadj):
+    result = _std(investmentsc, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling std of investmentsc times closeadj
+def sti_f002_short_term_investments_std_504d_base_v033_signal(investmentsc, closeadj):
+    result = _std(investmentsc, 504) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d zscore of investmentsc
+def sti_f002_short_term_investments_z_252d_base_v034_signal(investmentsc):
+    result = _z(investmentsc, 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d zscore of investmentsc
+def sti_f002_short_term_investments_z_504d_base_v035_signal(investmentsc):
+    result = _z(investmentsc, 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d zscore of log(investmentsc)
+def sti_f002_short_term_investments_logz_252d_base_v036_signal(investmentsc):
+    result = _z(_short_term_investments_log(investmentsc), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d zscore of log(investmentsc)
+def sti_f002_short_term_investments_logz_504d_base_v037_signal(investmentsc):
+    result = _z(_short_term_investments_log(investmentsc), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d mean of investmentsc^2 times closeadj
+def sti_f002_short_term_investments_sq_63d_base_v038_signal(investmentsc, closeadj):
+    result = _mean(investmentsc * investmentsc, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d mean of investmentsc^2 times closeadj
+def sti_f002_short_term_investments_sq_252d_base_v039_signal(investmentsc, closeadj):
+    result = _mean(investmentsc * investmentsc, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d mean of sign(investmentsc) times closeadj
+def sti_f002_short_term_investments_sign_21d_base_v040_signal(investmentsc, closeadj):
+    result = _mean(np.sign(investmentsc), 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d mean of sign(investmentsc) times closeadj
+def sti_f002_short_term_investments_sign_63d_base_v041_signal(investmentsc, closeadj):
+    result = _mean(np.sign(investmentsc), 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d mean of sign(investmentsc) times closeadj
+def sti_f002_short_term_investments_sign_252d_base_v042_signal(investmentsc, closeadj):
+    result = _mean(np.sign(investmentsc), 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d investmentsc/opex mean
+def sti_f002_short_term_investments_per_opex_63d_base_v043_signal(investmentsc, opex):
+    result = _mean(_short_term_investments_scaled(investmentsc, opex), 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d investmentsc/opex mean
+def sti_f002_short_term_investments_per_opex_252d_base_v044_signal(investmentsc, opex):
+    result = _mean(_short_term_investments_scaled(investmentsc, opex), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d investmentsc/ebitda mean
+def sti_f002_short_term_investments_per_ebitda_63d_base_v045_signal(investmentsc, ebitda):
+    result = _mean(_short_term_investments_scaled(investmentsc, ebitda), 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d investmentsc/ebitda mean
+def sti_f002_short_term_investments_per_ebitda_252d_base_v046_signal(investmentsc, ebitda):
+    result = _mean(_short_term_investments_scaled(investmentsc, ebitda), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d investmentsc/capex mean
+def sti_f002_short_term_investments_per_capex_63d_base_v047_signal(investmentsc, capex):
+    result = _mean(_short_term_investments_scaled(investmentsc, capex), 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d investmentsc/capex mean
+def sti_f002_short_term_investments_per_capex_252d_base_v048_signal(investmentsc, capex):
+    result = _mean(_short_term_investments_scaled(investmentsc, capex), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d investmentsc/liabilities mean
+def sti_f002_short_term_investments_per_liabilities_63d_base_v049_signal(investmentsc, liabilities):
+    result = _mean(_short_term_investments_scaled(investmentsc, liabilities), 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d investmentsc/liabilities mean
+def sti_f002_short_term_investments_per_liabilities_252d_base_v050_signal(investmentsc, liabilities):
+    result = _mean(_short_term_investments_scaled(investmentsc, liabilities), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# investmentsc relative to 252d max times closeadj
+def sti_f002_short_term_investments_relmax_252d_base_v051_signal(investmentsc, closeadj):
+    peak = investmentsc.rolling(252, min_periods=63).max().replace(0, np.nan)
+    result = (investmentsc / peak.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# investmentsc relative to 504d max times closeadj
+def sti_f002_short_term_investments_relmax_504d_base_v052_signal(investmentsc, closeadj):
+    peak = investmentsc.rolling(504, min_periods=63).max().replace(0, np.nan)
+    result = (investmentsc / peak.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# investmentsc relative to 252d min times closeadj
+def sti_f002_short_term_investments_relmin_252d_base_v053_signal(investmentsc, closeadj):
+    trough = investmentsc.rolling(252, min_periods=63).min().replace(0, np.nan)
+    result = (investmentsc / trough.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# investmentsc relative to 504d min times closeadj
+def sti_f002_short_term_investments_relmin_504d_base_v054_signal(investmentsc, closeadj):
+    trough = investmentsc.rolling(504, min_periods=63).min().replace(0, np.nan)
+    result = (investmentsc / trough.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d pct-change of investmentsc times closeadj
+def sti_f002_short_term_investments_pct_21d_base_v055_signal(investmentsc, closeadj):
+    result = _pct_change(investmentsc, 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d pct-change of investmentsc times closeadj
+def sti_f002_short_term_investments_pct_63d_base_v056_signal(investmentsc, closeadj):
+    result = _pct_change(investmentsc, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d pct-change of investmentsc times closeadj
+def sti_f002_short_term_investments_pct_252d_base_v057_signal(investmentsc, closeadj):
+    result = _pct_change(investmentsc, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d rolling sum of investmentsc times closeadj
+def sti_f002_short_term_investments_sum_63d_base_v058_signal(investmentsc, closeadj):
+    result = investmentsc.rolling(63, min_periods=max(1, 63//2)).sum() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling sum of investmentsc times closeadj
+def sti_f002_short_term_investments_sum_252d_base_v059_signal(investmentsc, closeadj):
+    result = investmentsc.rolling(252, min_periods=max(1, 252//2)).sum() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling sum of investmentsc times closeadj
+def sti_f002_short_term_investments_sum_504d_base_v060_signal(investmentsc, closeadj):
+    result = investmentsc.rolling(504, min_periods=max(1, 504//2)).sum() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# smoothed investmentsc(63d) / smoothed investments(252d) x closeadj
+def sti_f002_short_term_investments_rom_investments_252_63d_base_v061_signal(investmentsc, investments, closeadj):
+    n = _mean(investmentsc, 63)
+    d = _mean(investments, 252).replace(0, np.nan)
+    result = (n / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# smoothed investmentsc(126d) / smoothed investments(504d) x closeadj
+def sti_f002_short_term_investments_rom_investments_504_126d_base_v062_signal(investmentsc, investments, closeadj):
+    n = _mean(investmentsc, 126)
+    d = _mean(investments, 504).replace(0, np.nan)
+    result = (n / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# smoothed investmentsc(63d) / smoothed cashneq(252d) x closeadj
+def sti_f002_short_term_investments_rom_cashneq_252_63d_base_v063_signal(investmentsc, cashneq, closeadj):
+    n = _mean(investmentsc, 63)
+    d = _mean(cashneq, 252).replace(0, np.nan)
+    result = (n / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# smoothed investmentsc(126d) / smoothed cashneq(504d) x closeadj
+def sti_f002_short_term_investments_rom_cashneq_504_126d_base_v064_signal(investmentsc, cashneq, closeadj):
+    n = _mean(investmentsc, 126)
+    d = _mean(cashneq, 504).replace(0, np.nan)
+    result = (n / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# smoothed investmentsc(63d) / smoothed assets(252d) x closeadj
+def sti_f002_short_term_investments_rom_assets_252_63d_base_v065_signal(investmentsc, assets, closeadj):
+    n = _mean(investmentsc, 63)
+    d = _mean(assets, 252).replace(0, np.nan)
+    result = (n / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# smoothed investmentsc(126d) / smoothed assets(504d) x closeadj
+def sti_f002_short_term_investments_rom_assets_504_126d_base_v066_signal(investmentsc, assets, closeadj):
+    n = _mean(investmentsc, 126)
+    d = _mean(assets, 504).replace(0, np.nan)
+    result = (n / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d std(investmentsc) / std(investments)
+def sti_f002_short_term_investments_volratio_investments_252d_base_v067_signal(investmentsc, investments):
+    n = _std(investmentsc, 252)
+    d = _std(investments, 252).replace(0, np.nan)
+    result = n / d
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d std(investmentsc) / std(investments)
+def sti_f002_short_term_investments_volratio_investments_504d_base_v068_signal(investmentsc, investments):
+    n = _std(investmentsc, 504)
+    d = _std(investments, 504).replace(0, np.nan)
+    result = n / d
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d std(investmentsc) / std(cashneq)
+def sti_f002_short_term_investments_volratio_cashneq_252d_base_v069_signal(investmentsc, cashneq):
+    n = _std(investmentsc, 252)
+    d = _std(cashneq, 252).replace(0, np.nan)
+    result = n / d
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d std(investmentsc) / std(cashneq)
+def sti_f002_short_term_investments_volratio_cashneq_504d_base_v070_signal(investmentsc, cashneq):
+    n = _std(investmentsc, 504)
+    d = _std(cashneq, 504).replace(0, np.nan)
+    result = n / d
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d smoothed investmentsc times closeadj
+def sti_f002_short_term_investments_raw_5d_base_v071_signal(investmentsc, closeadj):
+    result = _mean(investmentsc, 5) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 1008d smoothed investmentsc times closeadj
+def sti_f002_short_term_investments_raw_1008d_base_v072_signal(investmentsc, closeadj):
+    result = _mean(investmentsc, 1008) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d log of investmentsc/investments
+def sti_f002_short_term_investments_log_per_investments_252d_base_v073_signal(investmentsc, investments):
+    s = _short_term_investments_scaled(investmentsc, investments)
+    result = _mean(np.log(s.abs().replace(0, np.nan)), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d log of investmentsc/investments
+def sti_f002_short_term_investments_log_per_investments_504d_base_v074_signal(investmentsc, investments):
+    s = _short_term_investments_scaled(investmentsc, investments)
+    result = _mean(np.log(s.abs().replace(0, np.nan)), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d log of investmentsc/cashneq
+def sti_f002_short_term_investments_log_per_cashneq_252d_base_v075_signal(investmentsc, cashneq):
+    s = _short_term_investments_scaled(investmentsc, cashneq)
+    result = _mean(np.log(s.abs().replace(0, np.nan)), 252)
+    return result.replace([np.inf, -np.inf], np.nan)

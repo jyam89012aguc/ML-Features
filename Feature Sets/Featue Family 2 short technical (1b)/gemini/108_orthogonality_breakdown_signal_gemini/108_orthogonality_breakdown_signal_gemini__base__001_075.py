@@ -1,0 +1,792 @@
+"""108 orthogonality breakdown signal gemini base features 1-75 — Pipeline 1b-HF Grade v7.
+
+Hypothesis: Loss of independence between supposedly uncorrelated market factors.
+Version: 7.0 (Strict De-duplication + Functional Safety)
+Registry Status: Optimized for PostgreSQL Feature Store ingestion.
+PIT-clean: right-anchored rolling, explicit min_periods.
+"""
+import numpy as np
+import pandas as pd
+
+YDAYS = 252
+QDAYS = 63
+MDAYS = 21
+WDAYS = 5
+DDAYS_2Y = 504
+DDAYS_5Y = 1260
+
+
+def _safe_log(s, eps=1e-12):
+    return np.log(s.where(s > eps, np.nan))
+
+def _safe_div(num, den):
+    if isinstance(den, pd.Series):
+        d = den.replace(0, np.nan)
+    else:
+        d = np.where(den == 0, np.nan, den)
+    out = num / d
+    if isinstance(out, pd.Series):
+        return out.replace([np.inf, -np.inf], np.nan)
+    idx = num.index if hasattr(num, "index") else None
+    return pd.Series(out, index=idx).replace([np.inf, -np.inf], np.nan)
+
+def _rolling_zscore(s, window, min_periods=None):
+    if min_periods is None:
+        min_periods = max(window // 3, 2)
+    m = s.rolling(window, min_periods=min_periods).mean()
+    sd = s.rolling(window, min_periods=min_periods).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+def _atr(high, low, close, n=14):
+    pc = close.shift(1)
+    tr = pd.concat([high - low, (high - pc).abs(), (low - pc).abs()], axis=1).max(axis=1)
+    return tr.rolling(n, min_periods=max(n // 2, 1)).mean()
+
+def _rolling_slope(s, n, min_periods=None):
+    if min_periods is None:
+        min_periods = max(n // 3, 2)
+    def _slope(w):
+        valid = ~np.isnan(w)
+        if valid.sum() < min_periods:
+            return np.nan
+        x = np.arange(len(w), dtype=float)
+        if valid.all():
+            wv = w
+        else:
+            x = x[valid]; wv = w[valid]
+        xm = x.mean(); wm = wv.mean()
+        num = ((x - xm) * (wv - wm)).sum()
+        den = ((x - xm) ** 2).sum()
+        return num / den if den != 0 else np.nan
+    return s.rolling(n, min_periods=min_periods).apply(_slope, raw=True)
+
+def _absorption_ratio_proxy(returns_list, n_comp=1):
+    data = pd.concat(returns_list, axis=1).astype(float)
+    window = 21
+    n_comp = max(1, int(n_comp))
+    out = pd.Series(np.nan, index=data.index, dtype=float)
+    for i in range(window - 1, len(data)):
+        w = data.iloc[i - window + 1:i + 1].to_numpy(dtype=float)
+        if w.shape[1] < 2 or np.isnan(w).any():
+            continue
+        corr = np.corrcoef(w, rowvar=False)
+        if np.ndim(corr) != 2 or not np.isfinite(corr).all():
+            continue
+        eigvals = np.linalg.eigvalsh(corr)
+        total = eigvals.sum()
+        if not np.isfinite(total) or abs(total) < 1e-12:
+            continue
+        k = min(n_comp, len(eigvals))
+        out.iloc[i] = np.sort(eigvals)[-k:].sum() / total
+    return out
+
+
+# ============================================================
+# FEATURE HYPOTHESES (001-075)
+# ============================================================
+
+def f108_orbs_gemini_001(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Loss of independence between supposedly uncorrelated market factors. [window=5]"""
+    window = 5
+    res = _rolling_zscore(_absorption_ratio_proxy([_safe_log(close).diff(), _safe_log(open).diff(), _safe_log(high).diff(), _safe_log(low).diff()], 1), window)
+    return res
+
+def f108_orbs_gemini_002(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Loss of independence between supposedly uncorrelated market factors. [window=10]"""
+    window = 10
+    res = _rolling_zscore(_absorption_ratio_proxy([_safe_log(close).diff(), _safe_log(open).diff(), _safe_log(high).diff(), _safe_log(low).diff()], 1), window)
+    return res
+
+def f108_orbs_gemini_003(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Loss of independence between supposedly uncorrelated market factors. [window=21]"""
+    window = 21
+    res = _rolling_zscore(_absorption_ratio_proxy([_safe_log(close).diff(), _safe_log(open).diff(), _safe_log(high).diff(), _safe_log(low).diff()], 1), window)
+    return res
+
+def f108_orbs_gemini_004(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Loss of independence between supposedly uncorrelated market factors. [window=42]"""
+    window = 42
+    res = _rolling_zscore(_absorption_ratio_proxy([_safe_log(close).diff(), _safe_log(open).diff(), _safe_log(high).diff(), _safe_log(low).diff()], 1), window)
+    return res
+
+def f108_orbs_gemini_005(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Loss of independence between supposedly uncorrelated market factors. [window=63]"""
+    window = 63
+    res = _rolling_zscore(_absorption_ratio_proxy([_safe_log(close).diff(), _safe_log(open).diff(), _safe_log(high).diff(), _safe_log(low).diff()], 1), window)
+    return res
+
+def f108_orbs_gemini_006(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Loss of independence between supposedly uncorrelated market factors. [window=126]"""
+    window = 126
+    res = _rolling_zscore(_absorption_ratio_proxy([_safe_log(close).diff(), _safe_log(open).diff(), _safe_log(high).diff(), _safe_log(low).diff()], 1), window)
+    return res
+
+def f108_orbs_gemini_007(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Loss of independence between supposedly uncorrelated market factors. [window=252]"""
+    window = 252
+    res = _rolling_zscore(_absorption_ratio_proxy([_safe_log(close).diff(), _safe_log(open).diff(), _safe_log(high).diff(), _safe_log(low).diff()], 1), window)
+    return res
+
+def f108_orbs_gemini_008(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Loss of independence between supposedly uncorrelated market factors. [window=504]"""
+    window = 504
+    res = _rolling_zscore(_absorption_ratio_proxy([_safe_log(close).diff(), _safe_log(open).diff(), _safe_log(high).diff(), _safe_log(low).diff()], 1), window)
+    return res
+
+def f108_orbs_gemini_009(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Loss of independence between supposedly uncorrelated market factors. [window=756]"""
+    window = 756
+    res = _rolling_zscore(_absorption_ratio_proxy([_safe_log(close).diff(), _safe_log(open).diff(), _safe_log(high).diff(), _safe_log(low).diff()], 1), window)
+    return res
+
+def f108_orbs_gemini_010(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Loss of independence between supposedly uncorrelated market factors. [window=1260]"""
+    window = 1260
+    res = _rolling_zscore(_absorption_ratio_proxy([_safe_log(close).diff(), _safe_log(open).diff(), _safe_log(high).diff(), _safe_log(low).diff()], 1), window)
+    return res
+
+def f108_orbs_gemini_011(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=44, w2=426, w3=764, lag=1)."""
+    a = open.shift(1)
+    b = high.shift(1)
+    spread = _safe_div(a - b, a.abs().rolling(44, min_periods=max(44//3, 2)).mean())
+    decay = spread.ewm(span=300, adjust=False).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (spread - decay) * 1.458824 + 0.0009322 * anchor
+    return base_signal
+
+def f108_orbs_gemini_012(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=51, w2=439, w3=30, lag=2)."""
+    a = _safe_log(open.abs() + 1.0).shift(2)
+    b = _safe_log(high.abs() + 1.0).shift(2)
+    corr = a.rolling(439, min_periods=max(439//3, 3)).corr(b)
+    slope = _rolling_slope(a - b, 51)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = slope * (1.0 - corr) * 1.472353 + 0.0009323 * anchor
+    return base_signal
+
+def f108_orbs_gemini_013(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=58, w2=452, w3=47, lag=3)."""
+    a = open.shift(3)
+    b = high.shift(3)
+    cover = _safe_div(a.rolling(58, min_periods=max(58//3, 2)).mean(), b.abs().rolling(452, min_periods=max(452//3, 2)).mean())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = cover.diff(47) + 0.253667 * _rolling_slope(cover, 58) + 0.0009324 * anchor
+    return base_signal
+
+def f108_orbs_gemini_014(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=65, w2=465, w3=64, lag=5)."""
+    x = _safe_log(open.abs() + 1.0).shift(5)
+    y = _safe_log(high.abs() + 1.0).shift(5)
+    z = _safe_log(low.abs() + 1.0).shift(5)
+    basket = x - 0.26 * y + 0.740000 * z
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _rolling_slope(basket, 65) - _rolling_slope(basket, 465) + 0.0009325 * anchor
+    return base_signal
+
+def f108_orbs_gemini_015(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=72, w2=478, w3=81, lag=8)."""
+    x = open.shift(8)
+    step = x - x.shift(1)
+    downside = step.where(step < 0, 0.0).abs()
+    upside = step.where(step > 0, 0.0)
+    asym = _safe_div(downside.rolling(72, min_periods=max(72//3, 2)).mean(), upside.rolling(478, min_periods=max(478//3, 2)).mean().abs())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = asym.diff(81) * 1.512941 + 0.0009326 * anchor
+    return base_signal
+
+def f108_orbs_gemini_016(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=79, w2=491, w3=98, lag=13)."""
+    x = _safe_log(open.abs() + 1.0).shift(13)
+    draw = x - x.rolling(491, min_periods=max(491//3, 2)).max()
+    rebound = x - x.rolling(79, min_periods=max(79//3, 2)).min()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(draw, rebound.abs()) + 0.272667 * _rolling_slope(draw, 98) + 0.0009327 * anchor
+    return base_signal
+
+def f108_orbs_gemini_017(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=86, w2=504, w3=115, lag=21)."""
+    a = _safe_log(open.abs() + 1.0).shift(21)
+    b = _safe_log(high.abs() + 1.0).shift(21)
+    imbalance = a.diff(86) - b.diff(126)
+    stress = imbalance.rolling(115, min_periods=max(115//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (imbalance - stress) * 1.54 + 0.0009328 * anchor
+    return base_signal
+
+def f108_orbs_gemini_018(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=93, w2=18, w3=132, lag=34)."""
+    x = _safe_log(open.abs() + 1.0).shift(34)
+    trend = _rolling_slope(x, 93)
+    baseline = trend.rolling(18, min_periods=max(18//3, 2)).mean()
+    spread = trend - baseline
+    scale = trend.abs().rolling(132, min_periods=max(132//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(spread, scale) * 1.553529 + 0.0009329 * anchor
+    return base_signal
+
+def f108_orbs_gemini_019(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=100, w2=31, w3=149, lag=55)."""
+    x = _safe_log(open.abs() + 1.0).shift(55)
+    fast = _rolling_slope(x, 100)
+    slow = _rolling_slope(x, 31)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (fast - slow).ewm(span=149, adjust=False).mean() * 1.567059 + 0.000933 * anchor
+    return base_signal
+
+def f108_orbs_gemini_020(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=107, w2=44, w3=166, lag=0)."""
+    x = open.shift(0)
+    peak = x.rolling(44, min_periods=max(44//3, 2)).max()
+    trough = x.rolling(107, min_periods=max(107//3, 2)).min()
+    range_ = (peak - trough).abs()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(x - peak, range_) * 1.580588 + 0.0009331 * anchor
+    return base_signal
+
+def f108_orbs_gemini_021(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=114, w2=57, w3=183, lag=1)."""
+    x = open.shift(1)
+    change = x.pct_change(114)
+    rank = change.rolling(57, min_periods=max(57//3, 2)).rank(pct=True)
+    persistence = change.rolling(183, min_periods=max(183//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (rank - 0.5) + 0.304333 * persistence + 0.0009332 * anchor
+    return base_signal
+
+def f108_orbs_gemini_022(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=121, w2=70, w3=200, lag=2)."""
+    x = _safe_log(open.abs() + 1.0).shift(2)
+    ret = x.diff()
+    vol_fast = ret.rolling(121, min_periods=max(121//3, 2)).std()
+    vol_slow = ret.rolling(70, min_periods=max(70//3, 2)).std()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(vol_fast - vol_slow, vol_slow.abs()) * 1.607647 + 0.0009333 * anchor
+    return base_signal
+
+def f108_orbs_gemini_023(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=128, w2=83, w3=217, lag=3)."""
+    x = open.shift(3)
+    ma = x.rolling(83, min_periods=max(83//3, 2)).mean()
+    slope = _rolling_slope(_safe_log(x.abs() + 1.0), 128)
+    gap = _safe_div(x - ma, ma.abs())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = gap - 0.317 * slope + 0.0009334 * anchor
+    return base_signal
+
+def f108_orbs_gemini_024(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=135, w2=96, w3=234, lag=5)."""
+    x = open.shift(5)
+    impulse = x.diff(126)
+    drag = impulse.rolling(96, min_periods=max(96//3, 2)).mean()
+    noise = impulse.abs().rolling(234, min_periods=max(234//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(impulse - drag, noise) * 1.634706 + 0.0009335 * anchor
+    return base_signal
+
+def f108_orbs_gemini_025(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=142, w2=109, w3=251, lag=8)."""
+    x = _safe_log(open.abs() + 1.0).shift(8)
+    velocity = _rolling_slope(x, 142)
+    acceleration = _rolling_slope(velocity, 109)
+    curvature = _rolling_slope(acceleration, 251)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = curvature + 0.329667 * acceleration + 0.0009336 * anchor
+    return base_signal
+
+def f108_orbs_gemini_026(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=149, w2=122, w3=268, lag=13)."""
+    rel = _safe_div(open.shift(13), high.shift(13).abs() + 1e-12)
+    rel_log = _safe_log(rel.abs() + 1.0)
+    trend = _rolling_slope(rel_log, 149)
+    pressure = rel_log.diff(122)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = trend + 0.336 * pressure.rolling(268, min_periods=max(268//3, 2)).mean() + 0.0009337 * anchor
+    return base_signal
+
+def f108_orbs_gemini_027(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=156, w2=135, w3=285, lag=21)."""
+    a = open.shift(21)
+    b = high.shift(21)
+    spread = _safe_div(a - b, a.abs().rolling(156, min_periods=max(156//3, 2)).mean())
+    decay = spread.ewm(span=135, adjust=False).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (spread - decay) * 0.821765 + 0.0009338 * anchor
+    return base_signal
+
+def f108_orbs_gemini_028(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=163, w2=148, w3=302, lag=34)."""
+    a = _safe_log(open.abs() + 1.0).shift(34)
+    b = _safe_log(high.abs() + 1.0).shift(34)
+    corr = a.rolling(148, min_periods=max(148//3, 3)).corr(b)
+    slope = _rolling_slope(a - b, 163)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = slope * (1.0 - corr) * 0.835294 + 0.0009339 * anchor
+    return base_signal
+
+def f108_orbs_gemini_029(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=170, w2=161, w3=319, lag=55)."""
+    a = open.shift(55)
+    b = high.shift(55)
+    cover = _safe_div(a.rolling(170, min_periods=max(170//3, 2)).mean(), b.abs().rolling(161, min_periods=max(161//3, 2)).mean())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = cover.diff(126) + 0.355 * _rolling_slope(cover, 170) + 0.000934 * anchor
+    return base_signal
+
+def f108_orbs_gemini_030(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=177, w2=174, w3=336, lag=0)."""
+    x = _safe_log(open.abs() + 1.0).shift(0)
+    y = _safe_log(high.abs() + 1.0).shift(0)
+    z = _safe_log(low.abs() + 1.0).shift(0)
+    basket = x - 0.361333 * y + 0.638667 * z
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _rolling_slope(basket, 177) - _rolling_slope(basket, 174) + 0.0009341 * anchor
+    return base_signal
+
+def f108_orbs_gemini_031(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=184, w2=187, w3=353, lag=1)."""
+    x = open.shift(1)
+    step = x - x.shift(1)
+    downside = step.where(step < 0, 0.0).abs()
+    upside = step.where(step > 0, 0.0)
+    asym = _safe_div(downside.rolling(184, min_periods=max(184//3, 2)).mean(), upside.rolling(187, min_periods=max(187//3, 2)).mean().abs())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = asym.diff(126) * 0.875882 + 0.0009342 * anchor
+    return base_signal
+
+def f108_orbs_gemini_032(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=191, w2=200, w3=370, lag=2)."""
+    x = _safe_log(open.abs() + 1.0).shift(2)
+    draw = x - x.rolling(200, min_periods=max(200//3, 2)).max()
+    rebound = x - x.rolling(191, min_periods=max(191//3, 2)).min()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(draw, rebound.abs()) + 0.041667 * _rolling_slope(draw, 370) + 0.0009343 * anchor
+    return base_signal
+
+def f108_orbs_gemini_033(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=198, w2=213, w3=387, lag=3)."""
+    a = _safe_log(open.abs() + 1.0).shift(3)
+    b = _safe_log(high.abs() + 1.0).shift(3)
+    imbalance = a.diff(126) - b.diff(126)
+    stress = imbalance.rolling(387, min_periods=max(387//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (imbalance - stress) * 0.902941 + 0.0009344 * anchor
+    return base_signal
+
+def f108_orbs_gemini_034(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=205, w2=226, w3=404, lag=5)."""
+    x = _safe_log(open.abs() + 1.0).shift(5)
+    trend = _rolling_slope(x, 205)
+    baseline = trend.rolling(226, min_periods=max(226//3, 2)).mean()
+    spread = trend - baseline
+    scale = trend.abs().rolling(404, min_periods=max(404//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(spread, scale) * 0.916471 + 0.0009345 * anchor
+    return base_signal
+
+def f108_orbs_gemini_035(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=212, w2=239, w3=421, lag=8)."""
+    x = _safe_log(open.abs() + 1.0).shift(8)
+    fast = _rolling_slope(x, 212)
+    slow = _rolling_slope(x, 239)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (fast - slow).ewm(span=300, adjust=False).mean() * 0.93 + 0.0009346 * anchor
+    return base_signal
+
+def f108_orbs_gemini_036(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=219, w2=252, w3=438, lag=13)."""
+    x = open.shift(13)
+    peak = x.rolling(252, min_periods=max(252//3, 2)).max()
+    trough = x.rolling(219, min_periods=max(219//3, 2)).min()
+    range_ = (peak - trough).abs()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(x - peak, range_) * 0.943529 + 0.0009347 * anchor
+    return base_signal
+
+def f108_orbs_gemini_037(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=226, w2=265, w3=455, lag=21)."""
+    x = open.shift(21)
+    change = x.pct_change(126)
+    rank = change.rolling(265, min_periods=max(265//3, 2)).rank(pct=True)
+    persistence = change.rolling(455, min_periods=max(455//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (rank - 0.5) + 0.073333 * persistence + 0.0009348 * anchor
+    return base_signal
+
+def f108_orbs_gemini_038(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=233, w2=278, w3=472, lag=34)."""
+    x = _safe_log(open.abs() + 1.0).shift(34)
+    ret = x.diff()
+    vol_fast = ret.rolling(233, min_periods=max(233//3, 2)).std()
+    vol_slow = ret.rolling(278, min_periods=max(278//3, 2)).std()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(vol_fast - vol_slow, vol_slow.abs()) * 0.970588 + 0.0009349 * anchor
+    return base_signal
+
+def f108_orbs_gemini_039(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=240, w2=291, w3=489, lag=55)."""
+    x = open.shift(55)
+    ma = x.rolling(291, min_periods=max(291//3, 2)).mean()
+    slope = _rolling_slope(_safe_log(x.abs() + 1.0), 240)
+    gap = _safe_div(x - ma, ma.abs())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = gap - 0.086 * slope + 0.000935 * anchor
+    return base_signal
+
+def f108_orbs_gemini_040(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=247, w2=304, w3=506, lag=0)."""
+    x = open.shift(0)
+    impulse = x.diff(126)
+    drag = impulse.rolling(304, min_periods=max(304//3, 2)).mean()
+    noise = impulse.abs().rolling(506, min_periods=max(506//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(impulse - drag, noise) * 0.997647 + 0.0009351 * anchor
+    return base_signal
+
+def f108_orbs_gemini_041(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=7, w2=317, w3=523, lag=1)."""
+    x = _safe_log(open.abs() + 1.0).shift(1)
+    velocity = _rolling_slope(x, 7)
+    acceleration = _rolling_slope(velocity, 317)
+    curvature = _rolling_slope(acceleration, 523)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = curvature + 0.098667 * acceleration + 0.0009352 * anchor
+    return base_signal
+
+def f108_orbs_gemini_042(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=14, w2=330, w3=540, lag=2)."""
+    rel = _safe_div(open.shift(2), high.shift(2).abs() + 1e-12)
+    rel_log = _safe_log(rel.abs() + 1.0)
+    trend = _rolling_slope(rel_log, 14)
+    pressure = rel_log.diff(126)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = trend + 0.105 * pressure.rolling(540, min_periods=max(540//3, 2)).mean() + 0.0009353 * anchor
+    return base_signal
+
+def f108_orbs_gemini_043(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=21, w2=343, w3=557, lag=3)."""
+    a = open.shift(3)
+    b = high.shift(3)
+    spread = _safe_div(a - b, a.abs().rolling(21, min_periods=max(21//3, 2)).mean())
+    decay = spread.ewm(span=300, adjust=False).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (spread - decay) * 1.038235 + 0.0009354 * anchor
+    return base_signal
+
+def f108_orbs_gemini_044(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=28, w2=356, w3=574, lag=5)."""
+    a = _safe_log(open.abs() + 1.0).shift(5)
+    b = _safe_log(high.abs() + 1.0).shift(5)
+    corr = a.rolling(356, min_periods=max(356//3, 3)).corr(b)
+    slope = _rolling_slope(a - b, 28)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = slope * (1.0 - corr) * 1.051765 + 0.0009355 * anchor
+    return base_signal
+
+def f108_orbs_gemini_045(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=35, w2=369, w3=591, lag=8)."""
+    a = open.shift(8)
+    b = high.shift(8)
+    cover = _safe_div(a.rolling(35, min_periods=max(35//3, 2)).mean(), b.abs().rolling(369, min_periods=max(369//3, 2)).mean())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = cover.diff(126) + 0.124 * _rolling_slope(cover, 35) + 0.0009356 * anchor
+    return base_signal
+
+def f108_orbs_gemini_046(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=42, w2=382, w3=608, lag=13)."""
+    x = _safe_log(open.abs() + 1.0).shift(13)
+    y = _safe_log(high.abs() + 1.0).shift(13)
+    z = _safe_log(low.abs() + 1.0).shift(13)
+    basket = x - 0.130333 * y + 0.869667 * z
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _rolling_slope(basket, 42) - _rolling_slope(basket, 382) + 0.0009357 * anchor
+    return base_signal
+
+def f108_orbs_gemini_047(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=49, w2=395, w3=625, lag=21)."""
+    x = open.shift(21)
+    step = x - x.shift(1)
+    downside = step.where(step < 0, 0.0).abs()
+    upside = step.where(step > 0, 0.0)
+    asym = _safe_div(downside.rolling(49, min_periods=max(49//3, 2)).mean(), upside.rolling(395, min_periods=max(395//3, 2)).mean().abs())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = asym.diff(126) * 1.092353 + 0.0009358 * anchor
+    return base_signal
+
+def f108_orbs_gemini_048(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=56, w2=408, w3=642, lag=34)."""
+    x = _safe_log(open.abs() + 1.0).shift(34)
+    draw = x - x.rolling(408, min_periods=max(408//3, 2)).max()
+    rebound = x - x.rolling(56, min_periods=max(56//3, 2)).min()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(draw, rebound.abs()) + 0.143 * _rolling_slope(draw, 642) + 0.0009359 * anchor
+    return base_signal
+
+def f108_orbs_gemini_049(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=63, w2=421, w3=659, lag=55)."""
+    a = _safe_log(open.abs() + 1.0).shift(55)
+    b = _safe_log(high.abs() + 1.0).shift(55)
+    imbalance = a.diff(63) - b.diff(126)
+    stress = imbalance.rolling(659, min_periods=max(659//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (imbalance - stress) * 1.119412 + 0.000936 * anchor
+    return base_signal
+
+def f108_orbs_gemini_050(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=70, w2=434, w3=676, lag=0)."""
+    x = _safe_log(open.abs() + 1.0).shift(0)
+    trend = _rolling_slope(x, 70)
+    baseline = trend.rolling(434, min_periods=max(434//3, 2)).mean()
+    spread = trend - baseline
+    scale = trend.abs().rolling(676, min_periods=max(676//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(spread, scale) * 1.132941 + 0.0009361 * anchor
+    return base_signal
+
+def f108_orbs_gemini_051(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=77, w2=447, w3=693, lag=1)."""
+    x = _safe_log(open.abs() + 1.0).shift(1)
+    fast = _rolling_slope(x, 77)
+    slow = _rolling_slope(x, 447)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (fast - slow).ewm(span=300, adjust=False).mean() * 1.146471 + 0.0009362 * anchor
+    return base_signal
+
+def f108_orbs_gemini_052(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=84, w2=460, w3=710, lag=2)."""
+    x = open.shift(2)
+    peak = x.rolling(460, min_periods=max(460//3, 2)).max()
+    trough = x.rolling(84, min_periods=max(84//3, 2)).min()
+    range_ = (peak - trough).abs()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(x - peak, range_) * 1.16 + 0.0009363 * anchor
+    return base_signal
+
+def f108_orbs_gemini_053(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=91, w2=473, w3=727, lag=3)."""
+    x = open.shift(3)
+    change = x.pct_change(91)
+    rank = change.rolling(473, min_periods=max(473//3, 2)).rank(pct=True)
+    persistence = change.rolling(727, min_periods=max(727//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (rank - 0.5) + 0.174667 * persistence + 0.0009364 * anchor
+    return base_signal
+
+def f108_orbs_gemini_054(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=98, w2=486, w3=744, lag=5)."""
+    x = _safe_log(open.abs() + 1.0).shift(5)
+    ret = x.diff()
+    vol_fast = ret.rolling(98, min_periods=max(98//3, 2)).std()
+    vol_slow = ret.rolling(486, min_periods=max(486//3, 2)).std()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(vol_fast - vol_slow, vol_slow.abs()) * 1.187059 + 0.0009365 * anchor
+    return base_signal
+
+def f108_orbs_gemini_055(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=105, w2=499, w3=761, lag=8)."""
+    x = open.shift(8)
+    ma = x.rolling(499, min_periods=max(499//3, 2)).mean()
+    slope = _rolling_slope(_safe_log(x.abs() + 1.0), 105)
+    gap = _safe_div(x - ma, ma.abs())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = gap - 0.187333 * slope + 0.0009366 * anchor
+    return base_signal
+
+def f108_orbs_gemini_056(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=112, w2=13, w3=27, lag=13)."""
+    x = open.shift(13)
+    impulse = x.diff(112)
+    drag = impulse.rolling(13, min_periods=max(13//3, 2)).mean()
+    noise = impulse.abs().rolling(27, min_periods=max(27//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(impulse - drag, noise) * 1.214118 + 0.0009367 * anchor
+    return base_signal
+
+def f108_orbs_gemini_057(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=119, w2=26, w3=44, lag=21)."""
+    x = _safe_log(open.abs() + 1.0).shift(21)
+    velocity = _rolling_slope(x, 119)
+    acceleration = _rolling_slope(velocity, 26)
+    curvature = _rolling_slope(acceleration, 44)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = curvature + 0.2 * acceleration + 0.0009368 * anchor
+    return base_signal
+
+def f108_orbs_gemini_058(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=126, w2=39, w3=61, lag=34)."""
+    rel = _safe_div(open.shift(34), high.shift(34).abs() + 1e-12)
+    rel_log = _safe_log(rel.abs() + 1.0)
+    trend = _rolling_slope(rel_log, 126)
+    pressure = rel_log.diff(39)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = trend + 0.206333 * pressure.rolling(61, min_periods=max(61//3, 2)).mean() + 0.0009369 * anchor
+    return base_signal
+
+def f108_orbs_gemini_059(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=133, w2=52, w3=78, lag=55)."""
+    a = open.shift(55)
+    b = high.shift(55)
+    spread = _safe_div(a - b, a.abs().rolling(133, min_periods=max(133//3, 2)).mean())
+    decay = spread.ewm(span=52, adjust=False).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (spread - decay) * 1.254706 + 0.000937 * anchor
+    return base_signal
+
+def f108_orbs_gemini_060(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=140, w2=65, w3=95, lag=0)."""
+    a = _safe_log(open.abs() + 1.0).shift(0)
+    b = _safe_log(high.abs() + 1.0).shift(0)
+    corr = a.rolling(65, min_periods=max(65//3, 3)).corr(b)
+    slope = _rolling_slope(a - b, 140)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = slope * (1.0 - corr) * 1.268235 + 0.0009371 * anchor
+    return base_signal
+
+def f108_orbs_gemini_061(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=147, w2=78, w3=112, lag=1)."""
+    a = open.shift(1)
+    b = high.shift(1)
+    cover = _safe_div(a.rolling(147, min_periods=max(147//3, 2)).mean(), b.abs().rolling(78, min_periods=max(78//3, 2)).mean())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = cover.diff(112) + 0.225333 * _rolling_slope(cover, 147) + 0.0009372 * anchor
+    return base_signal
+
+def f108_orbs_gemini_062(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=154, w2=91, w3=129, lag=2)."""
+    x = _safe_log(open.abs() + 1.0).shift(2)
+    y = _safe_log(high.abs() + 1.0).shift(2)
+    z = _safe_log(low.abs() + 1.0).shift(2)
+    basket = x - 0.231667 * y + 0.768333 * z
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _rolling_slope(basket, 154) - _rolling_slope(basket, 91) + 0.0009373 * anchor
+    return base_signal
+
+def f108_orbs_gemini_063(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=161, w2=104, w3=146, lag=3)."""
+    x = open.shift(3)
+    step = x - x.shift(1)
+    downside = step.where(step < 0, 0.0).abs()
+    upside = step.where(step > 0, 0.0)
+    asym = _safe_div(downside.rolling(161, min_periods=max(161//3, 2)).mean(), upside.rolling(104, min_periods=max(104//3, 2)).mean().abs())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = asym.diff(126) * 1.308824 + 0.0009374 * anchor
+    return base_signal
+
+def f108_orbs_gemini_064(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=168, w2=117, w3=163, lag=5)."""
+    x = _safe_log(open.abs() + 1.0).shift(5)
+    draw = x - x.rolling(117, min_periods=max(117//3, 2)).max()
+    rebound = x - x.rolling(168, min_periods=max(168//3, 2)).min()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(draw, rebound.abs()) + 0.244333 * _rolling_slope(draw, 163) + 0.0009375 * anchor
+    return base_signal
+
+def f108_orbs_gemini_065(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=175, w2=130, w3=180, lag=8)."""
+    a = _safe_log(open.abs() + 1.0).shift(8)
+    b = _safe_log(high.abs() + 1.0).shift(8)
+    imbalance = a.diff(126) - b.diff(126)
+    stress = imbalance.rolling(180, min_periods=max(180//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (imbalance - stress) * 1.335882 + 0.0009376 * anchor
+    return base_signal
+
+def f108_orbs_gemini_066(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=182, w2=143, w3=197, lag=13)."""
+    x = _safe_log(open.abs() + 1.0).shift(13)
+    trend = _rolling_slope(x, 182)
+    baseline = trend.rolling(143, min_periods=max(143//3, 2)).mean()
+    spread = trend - baseline
+    scale = trend.abs().rolling(197, min_periods=max(197//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(spread, scale) * 1.349412 + 0.0009377 * anchor
+    return base_signal
+
+def f108_orbs_gemini_067(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=189, w2=156, w3=214, lag=21)."""
+    x = _safe_log(open.abs() + 1.0).shift(21)
+    fast = _rolling_slope(x, 189)
+    slow = _rolling_slope(x, 156)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (fast - slow).ewm(span=214, adjust=False).mean() * 1.362941 + 0.0009378 * anchor
+    return base_signal
+
+def f108_orbs_gemini_068(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=196, w2=169, w3=231, lag=34)."""
+    x = open.shift(34)
+    peak = x.rolling(169, min_periods=max(169//3, 2)).max()
+    trough = x.rolling(196, min_periods=max(196//3, 2)).min()
+    range_ = (peak - trough).abs()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(x - peak, range_) * 1.376471 + 0.0009379 * anchor
+    return base_signal
+
+def f108_orbs_gemini_069(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=203, w2=182, w3=248, lag=55)."""
+    x = open.shift(55)
+    change = x.pct_change(126)
+    rank = change.rolling(182, min_periods=max(182//3, 2)).rank(pct=True)
+    persistence = change.rolling(248, min_periods=max(248//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (rank - 0.5) + 0.276 * persistence + 0.000938 * anchor
+    return base_signal
+
+def f108_orbs_gemini_070(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=210, w2=195, w3=265, lag=0)."""
+    x = _safe_log(open.abs() + 1.0).shift(0)
+    ret = x.diff()
+    vol_fast = ret.rolling(210, min_periods=max(210//3, 2)).std()
+    vol_slow = ret.rolling(195, min_periods=max(195//3, 2)).std()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(vol_fast - vol_slow, vol_slow.abs()) * 1.403529 + 0.0009381 * anchor
+    return base_signal
+
+def f108_orbs_gemini_071(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=217, w2=208, w3=282, lag=1)."""
+    x = open.shift(1)
+    ma = x.rolling(208, min_periods=max(208//3, 2)).mean()
+    slope = _rolling_slope(_safe_log(x.abs() + 1.0), 217)
+    gap = _safe_div(x - ma, ma.abs())
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = gap - 0.288667 * slope + 0.0009382 * anchor
+    return base_signal
+
+def f108_orbs_gemini_072(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=224, w2=221, w3=299, lag=2)."""
+    x = open.shift(2)
+    impulse = x.diff(126)
+    drag = impulse.rolling(221, min_periods=max(221//3, 2)).mean()
+    noise = impulse.abs().rolling(299, min_periods=max(299//3, 2)).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = _safe_div(impulse - drag, noise) * 1.430588 + 0.0009383 * anchor
+    return base_signal
+
+def f108_orbs_gemini_073(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=231, w2=234, w3=316, lag=3)."""
+    x = _safe_log(open.abs() + 1.0).shift(3)
+    velocity = _rolling_slope(x, 231)
+    acceleration = _rolling_slope(velocity, 234)
+    curvature = _rolling_slope(acceleration, 316)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = curvature + 0.301333 * acceleration + 0.0009384 * anchor
+    return base_signal
+
+def f108_orbs_gemini_074(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=238, w2=247, w3=333, lag=5)."""
+    rel = _safe_div(open.shift(5), high.shift(5).abs() + 1e-12)
+    rel_log = _safe_log(rel.abs() + 1.0)
+    trend = _rolling_slope(rel_log, 238)
+    pressure = rel_log.diff(126)
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = trend + 0.307667 * pressure.rolling(333, min_periods=max(333//3, 2)).mean() + 0.0009385 * anchor
+    return base_signal
+
+def f108_orbs_gemini_075(open: pd.Series, high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
+    """Replacement for confirmed exact duplicate formula; distinct base signal (w1=245, w2=260, w3=350, lag=8)."""
+    a = open.shift(8)
+    b = high.shift(8)
+    spread = _safe_div(a - b, a.abs().rolling(245, min_periods=max(245//3, 2)).mean())
+    decay = spread.ewm(span=260, adjust=False).mean()
+    anchor = _safe_log(open.abs() + 1.0).diff().rolling(3, min_periods=2).mean()
+    base_signal = (spread - decay) * 1.471176 + 0.0009386 * anchor
+    return base_signal

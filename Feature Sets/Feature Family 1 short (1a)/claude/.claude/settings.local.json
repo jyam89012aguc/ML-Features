@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($bytes = [System.IO.File]::ReadAllBytes\\(\"C:\\\\Users\\\\jyama\\\\Desktop\\\\short origional and complete features 1a\\\\01_peak_and_blowoff\\\\01_peak_and_blowoff__base__001_075.py\"\\); \"First 3 bytes \\(hex\\): {0:X2} {1:X2} {2:X2}\" -f $bytes[0], $bytes[1], $bytes[2]; \"Length: $\\($bytes.Length\\)\"; \"Has CRLF: $\\($bytes -contains 0x0D\\)\")",
+      "Bash(python *)",
+      "PowerShell(python \"C:\\\\Users\\\\jyama\\\\Desktop\\\\short origional and complete features 1a\\\\_verify_151_225.py\")",
+      "PowerShell(python --version)",
+      "PowerShell(python \"C:\\\\Users\\\\jyama\\\\Desktop\\\\short origional and complete features 1a\\\\_smoketest_151_225.py\")",
+      "PowerShell(& \"C:\\\\Users\\\\jyama\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe\" \"C:\\\\Users\\\\jyama\\\\Desktop\\\\short origional and complete features 1a\\\\_verify_151_225.py\")",
+      "Bash(awk '/UNKNOWN INPUT NAMES/,/FUNCTION FAILURES by family/')",
+      "Bash(awk '/FUNCTION FAILURES by family/,/PER-FAMILY PASS\\\\/FAIL/')",
+      "Bash(awk '/SMOKE TEST SUMMARY/,/^======================================================================$/')",
+      "Bash(awk '/FUNCTION FAILURES by family/,/PER-FAMILY/')",
+      "Bash(awk '/FUNCTION FAILURES/,/PER-FAMILY/')",
+      "Bash(2>&1)",
+      "WebSearch",
+      "PowerShell(python \"C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\04_distribution_top_signature\\\\_verify_151_225.py\")",
+      "PowerShell(Get-Item *)",
+      "PowerShell(Remove-Item *)",
+      "PowerShell(python \"C:\\\\tmp\\\\smoke_pblo_151_225.py\")",
+      "PowerShell(python -c \"import sys; print\\(sys.executable\\)\")",
+      "PowerShell(python C:\\\\tmp\\\\verify_mcxf.py)",
+      "Bash(rm -f _gen_derivs.py)",
+      "Bash(ls _*.py)"
+    ]
+  }
+}

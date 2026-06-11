@@ -1,0 +1,561 @@
+"""
+90_90_insider_silence — Base Features 376-450
+Domain: 90_insider_silence
+Asset class: Equities
+Target context: Capitulation
+"""
+import numpy as np
+import pandas as pd
+
+# ── Utility helpers ──────────────────────────────────────────────────────────
+_EPS = 1e-9
+
+def _safe_div(a: pd.Series, b: pd.Series) -> pd.Series:
+    return a / b.replace(0, _EPS)
+
+def _rolling_mean(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).mean()
+
+def _rolling_std(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).std().fillna(0)
+
+def _zscore_rolling(s: pd.Series, w: int) -> pd.Series:
+    m = _rolling_mean(s, w)
+    sd = _rolling_std(s, w)
+    return _safe_div((s - m), sd)
+
+def _rank_pct(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).rank(pct=True)
+
+def _rolling_skew(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).skew().fillna(0)
+
+def _rolling_kurt(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).kurt().fillna(0)
+
+# ── Feature functions ────────────────────────────────────────────────────────
+
+def isil_376_voladj_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 5d volatility to filter out noise in high-volatility environments.
+    """
+    base = insider_buy_value
+    return _safe_div(base, _rolling_std(base, 5))
+
+def isil_377_voladj_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 21d volatility to filter out noise in high-volatility environments.
+    """
+    base = insider_buy_value
+    return _safe_div(base, _rolling_std(base, 21))
+
+def isil_378_voladj_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 63d volatility to filter out noise in high-volatility environments.
+    """
+    base = insider_buy_value
+    return _safe_div(base, _rolling_std(base, 63))
+
+def isil_379_voladj_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 126d volatility to filter out noise in high-volatility environments.
+    """
+    base = insider_buy_value
+    return _safe_div(base, _rolling_std(base, 126))
+
+def isil_380_voladj_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 252d volatility to filter out noise in high-volatility environments.
+    """
+    base = insider_buy_value
+    return _safe_div(base, _rolling_std(base, 252))
+
+def isil_381_lognorm_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Apply log-normalization to 90 insider silence over 5d to stabilize variance and capture exponential shifts.
+    """
+    base = insider_buy_value
+    return np.log(_rolling_mean(base, 5).clip(lower=_EPS))
+
+def isil_382_lognorm_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Apply log-normalization to 90 insider silence over 21d to stabilize variance and capture exponential shifts.
+    """
+    base = insider_buy_value
+    return np.log(_rolling_mean(base, 21).clip(lower=_EPS))
+
+def isil_383_lognorm_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Apply log-normalization to 90 insider silence over 63d to stabilize variance and capture exponential shifts.
+    """
+    base = insider_buy_value
+    return np.log(_rolling_mean(base, 63).clip(lower=_EPS))
+
+def isil_384_lognorm_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Apply log-normalization to 90 insider silence over 126d to stabilize variance and capture exponential shifts.
+    """
+    base = insider_buy_value
+    return np.log(_rolling_mean(base, 126).clip(lower=_EPS))
+
+def isil_385_lognorm_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Apply log-normalization to 90 insider silence over 252d to stabilize variance and capture exponential shifts.
+    """
+    base = insider_buy_value
+    return np.log(_rolling_mean(base, 252).clip(lower=_EPS))
+
+def isil_386_lvl_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Capture the raw intensity of 90 insider silence over a 5d horizon to identify extreme regimes.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_mean(base, 5)
+
+def isil_387_lvl_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Capture the raw intensity of 90 insider silence over a 21d horizon to identify extreme regimes.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_mean(base, 21)
+
+def isil_388_lvl_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Capture the raw intensity of 90 insider silence over a 63d horizon to identify extreme regimes.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_mean(base, 63)
+
+def isil_389_lvl_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Capture the raw intensity of 90 insider silence over a 126d horizon to identify extreme regimes.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_mean(base, 126)
+
+def isil_390_lvl_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Capture the raw intensity of 90 insider silence over a 252d horizon to identify extreme regimes.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_mean(base, 252)
+
+def isil_391_zscore_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify statistical anomalies in 90 insider silence by measuring deviations from the 5d mean.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _zscore_rolling(base, 5)
+
+def isil_392_zscore_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify statistical anomalies in 90 insider silence by measuring deviations from the 21d mean.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _zscore_rolling(base, 21)
+
+def isil_393_zscore_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify statistical anomalies in 90 insider silence by measuring deviations from the 63d mean.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _zscore_rolling(base, 63)
+
+def isil_394_zscore_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify statistical anomalies in 90 insider silence by measuring deviations from the 126d mean.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _zscore_rolling(base, 126)
+
+def isil_395_zscore_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify statistical anomalies in 90 insider silence by measuring deviations from the 252d mean.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _zscore_rolling(base, 252)
+
+def isil_396_rank_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Normalize 90 insider silence to a 0-1 range using a 5d rolling window to assess relative positioning.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rank_pct(base, 5)
+
+def isil_397_rank_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Normalize 90 insider silence to a 0-1 range using a 21d rolling window to assess relative positioning.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rank_pct(base, 21)
+
+def isil_398_rank_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Normalize 90 insider silence to a 0-1 range using a 63d rolling window to assess relative positioning.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rank_pct(base, 63)
+
+def isil_399_rank_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Normalize 90 insider silence to a 0-1 range using a 126d rolling window to assess relative positioning.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rank_pct(base, 126)
+
+def isil_400_rank_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Normalize 90 insider silence to a 0-1 range using a 252d rolling window to assess relative positioning.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rank_pct(base, 252)
+
+def isil_401_skew_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Measure the asymmetry of 90 insider silence distribution over 5d to detect tail risk or exhaustion.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_skew(base, 5)
+
+def isil_402_skew_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Measure the asymmetry of 90 insider silence distribution over 21d to detect tail risk or exhaustion.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_skew(base, 21)
+
+def isil_403_skew_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Measure the asymmetry of 90 insider silence distribution over 63d to detect tail risk or exhaustion.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_skew(base, 63)
+
+def isil_404_skew_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Measure the asymmetry of 90 insider silence distribution over 126d to detect tail risk or exhaustion.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_skew(base, 126)
+
+def isil_405_skew_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Measure the asymmetry of 90 insider silence distribution over 252d to detect tail risk or exhaustion.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_skew(base, 252)
+
+def isil_406_kurt_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify fat-tail events in 90 insider silence over 5d to capture explosive breakdown or reversal points.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_kurt(base, 5)
+
+def isil_407_kurt_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify fat-tail events in 90 insider silence over 21d to capture explosive breakdown or reversal points.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_kurt(base, 21)
+
+def isil_408_kurt_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify fat-tail events in 90 insider silence over 63d to capture explosive breakdown or reversal points.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_kurt(base, 63)
+
+def isil_409_kurt_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify fat-tail events in 90 insider silence over 126d to capture explosive breakdown or reversal points.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_kurt(base, 126)
+
+def isil_410_kurt_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify fat-tail events in 90 insider silence over 252d to capture explosive breakdown or reversal points.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _rolling_kurt(base, 252)
+
+def isil_411_voladj_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 5d volatility to filter out noise in high-volatility environments.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _safe_div(base, _rolling_std(base, 5))
+
+def isil_412_voladj_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 21d volatility to filter out noise in high-volatility environments.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _safe_div(base, _rolling_std(base, 21))
+
+def isil_413_voladj_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 63d volatility to filter out noise in high-volatility environments.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _safe_div(base, _rolling_std(base, 63))
+
+def isil_414_voladj_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 126d volatility to filter out noise in high-volatility environments.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _safe_div(base, _rolling_std(base, 126))
+
+def isil_415_voladj_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 252d volatility to filter out noise in high-volatility environments.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return _safe_div(base, _rolling_std(base, 252))
+
+def isil_416_lognorm_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Apply log-normalization to 90 insider silence over 5d to stabilize variance and capture exponential shifts.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return np.log(_rolling_mean(base, 5).clip(lower=_EPS))
+
+def isil_417_lognorm_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Apply log-normalization to 90 insider silence over 21d to stabilize variance and capture exponential shifts.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return np.log(_rolling_mean(base, 21).clip(lower=_EPS))
+
+def isil_418_lognorm_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Apply log-normalization to 90 insider silence over 63d to stabilize variance and capture exponential shifts.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return np.log(_rolling_mean(base, 63).clip(lower=_EPS))
+
+def isil_419_lognorm_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Apply log-normalization to 90 insider silence over 126d to stabilize variance and capture exponential shifts.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return np.log(_rolling_mean(base, 126).clip(lower=_EPS))
+
+def isil_420_lognorm_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Apply log-normalization to 90 insider silence over 252d to stabilize variance and capture exponential shifts.
+    """
+    base = _safe_div(insider_buy_value, insider_buy_value + insider_sell_value)
+    return np.log(_rolling_mean(base, 252).clip(lower=_EPS))
+
+def isil_421_lvl_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Capture the raw intensity of 90 insider silence over a 5d horizon to identify extreme regimes.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_mean(base, 5)
+
+def isil_422_lvl_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Capture the raw intensity of 90 insider silence over a 21d horizon to identify extreme regimes.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_mean(base, 21)
+
+def isil_423_lvl_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Capture the raw intensity of 90 insider silence over a 63d horizon to identify extreme regimes.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_mean(base, 63)
+
+def isil_424_lvl_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Capture the raw intensity of 90 insider silence over a 126d horizon to identify extreme regimes.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_mean(base, 126)
+
+def isil_425_lvl_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Capture the raw intensity of 90 insider silence over a 252d horizon to identify extreme regimes.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_mean(base, 252)
+
+def isil_426_zscore_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify statistical anomalies in 90 insider silence by measuring deviations from the 5d mean.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _zscore_rolling(base, 5)
+
+def isil_427_zscore_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify statistical anomalies in 90 insider silence by measuring deviations from the 21d mean.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _zscore_rolling(base, 21)
+
+def isil_428_zscore_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify statistical anomalies in 90 insider silence by measuring deviations from the 63d mean.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _zscore_rolling(base, 63)
+
+def isil_429_zscore_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify statistical anomalies in 90 insider silence by measuring deviations from the 126d mean.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _zscore_rolling(base, 126)
+
+def isil_430_zscore_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify statistical anomalies in 90 insider silence by measuring deviations from the 252d mean.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _zscore_rolling(base, 252)
+
+def isil_431_rank_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Normalize 90 insider silence to a 0-1 range using a 5d rolling window to assess relative positioning.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rank_pct(base, 5)
+
+def isil_432_rank_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Normalize 90 insider silence to a 0-1 range using a 21d rolling window to assess relative positioning.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rank_pct(base, 21)
+
+def isil_433_rank_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Normalize 90 insider silence to a 0-1 range using a 63d rolling window to assess relative positioning.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rank_pct(base, 63)
+
+def isil_434_rank_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Normalize 90 insider silence to a 0-1 range using a 126d rolling window to assess relative positioning.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rank_pct(base, 126)
+
+def isil_435_rank_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Normalize 90 insider silence to a 0-1 range using a 252d rolling window to assess relative positioning.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rank_pct(base, 252)
+
+def isil_436_skew_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Measure the asymmetry of 90 insider silence distribution over 5d to detect tail risk or exhaustion.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_skew(base, 5)
+
+def isil_437_skew_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Measure the asymmetry of 90 insider silence distribution over 21d to detect tail risk or exhaustion.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_skew(base, 21)
+
+def isil_438_skew_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Measure the asymmetry of 90 insider silence distribution over 63d to detect tail risk or exhaustion.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_skew(base, 63)
+
+def isil_439_skew_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Measure the asymmetry of 90 insider silence distribution over 126d to detect tail risk or exhaustion.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_skew(base, 126)
+
+def isil_440_skew_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Measure the asymmetry of 90 insider silence distribution over 252d to detect tail risk or exhaustion.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_skew(base, 252)
+
+def isil_441_kurt_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify fat-tail events in 90 insider silence over 5d to capture explosive breakdown or reversal points.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_kurt(base, 5)
+
+def isil_442_kurt_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify fat-tail events in 90 insider silence over 21d to capture explosive breakdown or reversal points.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_kurt(base, 21)
+
+def isil_443_kurt_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify fat-tail events in 90 insider silence over 63d to capture explosive breakdown or reversal points.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_kurt(base, 63)
+
+def isil_444_kurt_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify fat-tail events in 90 insider silence over 126d to capture explosive breakdown or reversal points.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_kurt(base, 126)
+
+def isil_445_kurt_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Identify fat-tail events in 90 insider silence over 252d to capture explosive breakdown or reversal points.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _rolling_kurt(base, 252)
+
+def isil_446_voladj_5d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 5d volatility to filter out noise in high-volatility environments.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _safe_div(base, _rolling_std(base, 5))
+
+def isil_447_voladj_21d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 21d volatility to filter out noise in high-volatility environments.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _safe_div(base, _rolling_std(base, 21))
+
+def isil_448_voladj_63d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 63d volatility to filter out noise in high-volatility environments.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _safe_div(base, _rolling_std(base, 63))
+
+def isil_449_voladj_126d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 126d volatility to filter out noise in high-volatility environments.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _safe_div(base, _rolling_std(base, 126))
+
+def isil_450_voladj_252d(insider_buy_shares: pd.Series, insider_sell_shares: pd.Series, insider_buy_value: pd.Series, insider_sell_value: pd.Series, insider_shares_held: pd.Series, officer_buy_value: pd.Series, director_buy_value: pd.Series, ceo_buy_value: pd.Series, cfo_buy_value: pd.Series) -> pd.Series:
+    """
+    Economic Rationale: Adjust 90 insider silence for rolling 252d volatility to filter out noise in high-volatility environments.
+    """
+    base = ceo_buy_value + cfo_buy_value
+    return _safe_div(base, _rolling_std(base, 252))

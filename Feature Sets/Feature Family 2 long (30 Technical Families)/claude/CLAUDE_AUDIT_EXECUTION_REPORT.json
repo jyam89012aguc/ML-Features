@@ -1,0 +1,346 @@
+{
+  "ran": 13476,
+  "errors": [],
+  "nonseries": [],
+  "allnan_count": 6,
+  "constants_count": 62,
+  "allnan": [
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_base_001_075_claude.py",
+      "name": "f02pc_f02_price_channel_position_dayslo_100d_base_v023_signal"
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_base_001_075_claude.py",
+      "name": "f02pc_f02_price_channel_position_lastside_40d_base_v034_signal"
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_jerk_001_150_claude.py",
+      "name": "f02pc_f02_price_channel_position_dayslo_100d_jerk_v023_signal"
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_jerk_001_150_claude.py",
+      "name": "f02pc_f02_price_channel_position_lastside_40d_jerk_v034_signal"
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_slope_001_150_claude.py",
+      "name": "f02pc_f02_price_channel_position_dayslo_100d_slope_v023_signal"
+    },
+    {
+      "file": "f02_price_channel_position\\f02_price_channel_position_slope_001_150_claude.py",
+      "name": "f02pc_f02_price_channel_position_lastside_40d_slope_v034_signal"
+    }
+  ],
+  "constants": [
+    {
+      "file": "f01_moving_average_systems\\f01_moving_average_systems_slope_001_150_claude.py",
+      "name": "f01ms_f01_moving_average_systems_sign_ohlc4_close_ema_30d_slope_v038_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+      "name": "f03ts_f03_trend_strength_metrics_daysadxhi_120d_base_v126_signal",
+      "value": "120.0"
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+      "name": "f03ts_f03_trend_strength_metrics_daysadxhi_120d_jerk_v126_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+      "name": "f03ts_f03_trend_strength_metrics_daysadxhi_120d_slope_v126_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_001_075_claude.py",
+      "name": "f04sr_f04_support_resistance_proximity_denhi_252d_base_v059_signal",
+      "value": "1.0"
+    },
+    {
+      "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_slope_001_150_claude.py",
+      "name": "f04sr_f04_support_resistance_proximity_denhi_252d_slope_v059_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_base_076_150_claude.py",
+      "name": "f12os_f12_oscillator_family_uords_60d_base_v143_signal",
+      "value": "60.0"
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_base_076_150_claude.py",
+      "name": "f12os_f12_oscillator_family_uoxsign_60d_base_v145_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_jerk_001_150_claude.py",
+      "name": "f12os_f12_oscillator_family_uords_60d_jerk_v143_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_jerk_001_150_claude.py",
+      "name": "f12os_f12_oscillator_family_uoxsign_60d_jerk_v145_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_slope_001_150_claude.py",
+      "name": "f12os_f12_oscillator_family_uords_60d_slope_v143_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f12_oscillator_family\\f12_oscillator_family_slope_001_150_claude.py",
+      "name": "f12os_f12_oscillator_family_uoxsign_60d_slope_v145_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+      "name": "f20ce_f20_volatility_compression_expansion_days_since_expansion_60d_v031_signal",
+      "value": "60.0"
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_076_150_claude.py",
+      "name": "f20ce_f20_volatility_compression_expansion_range_entropy_50d_v122_signal",
+      "value": "1.385494147649907"
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+      "name": "f20ce_f20_volatility_compression_expansion_days_since_expansion_60d_jerk_v031_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+      "name": "f20ce_f20_volatility_compression_expansion_range_entropy_50d_jerk_v122_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+      "name": "f20ce_f20_volatility_compression_expansion_days_since_expansion_60d_slope_v031_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+      "name": "f20ce_f20_volatility_compression_expansion_range_entropy_50d_slope_v122_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_076_150_claude.py",
+      "name": "f23ob_f23_on_balance_volume_family_adl_fracabove_sma40_50d_base_v120_signal",
+      "value": "1.0"
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_076_150_claude.py",
+      "name": "f23ob_f23_on_balance_volume_family_adl_revrate_sma30_60d_base_v133_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_jerk_001_150_claude.py",
+      "name": "f23ob_f23_on_balance_volume_family_adl_fracabove_sma40_50d_jerk_v120_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_jerk_001_150_claude.py",
+      "name": "f23ob_f23_on_balance_volume_family_adl_revrate_sma30_60d_jerk_v133_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+      "name": "f23ob_f23_on_balance_volume_family_adl_fracabove_sma40_50d_slope_v120_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+      "name": "f23ob_f23_on_balance_volume_family_adl_revrate_sma30_60d_slope_v133_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_osc_sign_3_10_base_v019_signal",
+      "value": "1.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_zero_streak_60d_base_v020_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_high_dist_days_50d_base_v030_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_high_acc_days_50d_base_v031_signal",
+      "value": "1.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_cmf_multiwin_signagree_base_v054_signal",
+      "value": "1.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_days_since_clv_neg_base_v058_signal",
+      "value": "60.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_zero_xover_count_120d_base_v073_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_076_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_clv_count_strong_neg_60d_base_v087_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_076_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_extreme_count_120d_base_v101_signal",
+      "value": "120.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_076_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_high_dist_vol_share_50d_base_v116_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_076_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_sign_freq_30d_base_v128_signal",
+      "value": "1.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_076_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_ad_above_below_freq_90d_base_v132_signal",
+      "value": "1.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_076_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_ad_sign_changes_60d_base_v144_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_osc_sign_3_10_jerk_v019_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_zero_streak_60d_jerk_v020_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_high_dist_days_50d_jerk_v030_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_high_acc_days_50d_jerk_v031_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_days_since_clv_neg_jerk_v058_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_zero_xover_count_120d_jerk_v073_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_clv_count_strong_neg_60d_jerk_v087_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_extreme_count_120d_jerk_v101_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_high_dist_vol_share_50d_jerk_v116_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_sign_freq_30d_jerk_v128_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_ad_above_below_freq_90d_jerk_v132_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_ad_sign_changes_60d_jerk_v144_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_osc_sign_3_10_slope_v019_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_zero_streak_60d_slope_v020_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_high_dist_days_50d_slope_v030_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_high_acc_days_50d_slope_v031_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_cmf_multiwin_signagree_slope_v054_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_days_since_clv_neg_slope_v058_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_zero_xover_count_120d_slope_v073_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_clv_count_strong_neg_60d_slope_v087_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_extreme_count_120d_slope_v101_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_high_dist_vol_share_50d_slope_v116_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_chaikin_sign_freq_30d_slope_v128_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_ad_above_below_freq_90d_slope_v132_signal",
+      "value": "0.0"
+    },
+    {
+      "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+      "name": "f26ad_f26_accumulation_distribution_ad_sign_changes_60d_slope_v144_signal",
+      "value": "0.0"
+    }
+  ],
+  "seconds": 94.58402919769287
+}

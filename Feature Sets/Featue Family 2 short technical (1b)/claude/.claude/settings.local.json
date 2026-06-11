@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import pandas, numpy; print\\(pandas.__version__, numpy.__version__\\)\")",
+      "Bash(python _build_families_11_12_13.py)",
+      "Bash(python _validate_11_12_13.py)",
+      "PowerShell(python -c \"import ast, os; p=r'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\14_supertrend_psar_chandelier\\\\14_supertrend_psar_chandelier__base__001_075.py'; src=open\\(p,encoding='utf-8'\\).read\\(\\); tree=ast.parse\\(src\\); funcs=[n.name for n in ast.walk\\(tree\\) if isinstance\\(n, ast.FunctionDef\\) and n.name.startswith\\('f14_stps_'\\)]; print\\('FUNCS:', len\\(funcs\\), '   FILE BYTES:', os.path.getsize\\(p\\)\\); import collections; dups=[k for k,v in collections.Counter\\(funcs\\).items\\(\\) if v>1]; print\\('DUPLICATES:', dups\\)\")",
+      "PowerShell($famDir = 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\14_supertrend_psar_chandelier'; python 'C:\\\\Users\\\\jyama\\\\Downloads\\\\pipeline 1a\\\\scripts\\\\derivative_generator.py' \"$famDir\\\\14_supertrend_psar_chandelier__base__001_075.py\" $famDir '14_supertrend_psar_chandelier' '001_075'; python 'C:\\\\Users\\\\jyama\\\\Downloads\\\\pipeline 1a\\\\scripts\\\\derivative_generator.py' \"$famDir\\\\14_supertrend_psar_chandelier__base__076_150.py\" $famDir '14_supertrend_psar_chandelier' '076_150')",
+      "Bash(python -c \"import ast; src=open\\('20_volume_dryup_at_high/20_volume_dryup_at_high__base__001_075.py'\\).read\\(\\); ast.parse\\(src\\); print\\('OK', len\\(src\\), 'bytes'\\)\")",
+      "Bash(python -c \"import ast; src=open\\('20_volume_dryup_at_high/20_volume_dryup_at_high__base__076_150.py'\\).read\\(\\); ast.parse\\(src\\); print\\('OK', len\\(src\\), 'bytes'\\)\")",
+      "Bash(python _gen_derivatives.py 20_volume_dryup_at_high/20_volume_dryup_at_high__base__001_075.py 20_volume_dryup_at_high/20_volume_dryup_at_high__base__076_150.py)",
+      "Bash(python _build_families_41_42_43.py)",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(python _validate_11_12_13.py 41_42_43)",
+      "PowerShell(python 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\_gen_derivatives.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\16_donchian_bollinger_keltner_bands\\\\16_donchian_bollinger_keltner_bands__base__001_075.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\16_donchian_bollinger_keltner_bands\\\\16_donchian_bollinger_keltner_bands__base__076_150.py')",
+      "WebSearch",
+      "PowerShell(python 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\_gen_derivatives.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\14_supertrend_psar_chandelier\\\\14_supertrend_psar_chandelier__base__001_075.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\14_supertrend_psar_chandelier\\\\14_supertrend_psar_chandelier__base__076_150.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\15_anchored_vwap_extension\\\\15_anchored_vwap_extension__base__001_075.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\15_anchored_vwap_extension\\\\15_anchored_vwap_extension__base__076_150.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\16_donchian_bollinger_keltner_bands\\\\16_donchian_bollinger_keltner_bands__base__001_075.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\16_donchian_bollinger_keltner_bands\\\\16_donchian_bollinger_keltner_bands__base__076_150.py')",
+      "PowerShell(python 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\_gen_derivs.py' 14_supertrend_psar_chandelier 15_anchored_vwap_extension 16_donchian_bollinger_keltner_bands)",
+      "PowerShell(python 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\_gen_derivs.py' 14_supertrend_psar_chandelier)",
+      "PowerShell(python 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\_gen_derivatives.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\14_supertrend_psar_chandelier' f14_stps 001_075)",
+      "PowerShell(python 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\_gen_derivatives.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\14_supertrend_psar_chandelier' f14_stps 076_150)",
+      "PowerShell(python 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\_gen_derivatives.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\15_anchored_vwap_extension' f15_avwx 001_075; python 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\_gen_derivatives.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\15_anchored_vwap_extension' f15_avwx 076_150; python 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\_gen_derivatives.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\16_donchian_bollinger_keltner_bands' f16_dbkb 001_075; python 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\_gen_derivatives.py' 'C:\\\\Users\\\\jyama\\\\Desktop\\\\short_technical_features_1b\\\\16_donchian_bollinger_keltner_bands' f16_dbkb 076_150)",
+      "PowerShell(Remove-Item *)"
+    ]
+  }
+}

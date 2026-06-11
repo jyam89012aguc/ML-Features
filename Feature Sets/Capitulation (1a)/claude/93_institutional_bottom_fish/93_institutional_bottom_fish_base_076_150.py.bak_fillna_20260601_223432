@@ -1,0 +1,1152 @@
+"""
+93_institutional_bottom_fish | SF3 Institutional Ownership — Accumulation at Lows (Features 076-200)
+
+DOMAIN
+------
+Institutions ENTERING or ADDING positions while the stock is deep in a drawdown
+("bottom fishing"). Covers new-position counts, increased-position counts, net
+additions, share/value inflows, and accumulation conditioned on proximity to
+multi-year price lows.
+
+OUT OF SCOPE for this folder
+-----------------------------
+- Holder exits / declines           → folder 91
+- Concentration / HHI shape         → folder 92
+- Peer-relative breadth             → folder 94
+- Forced-selling signals            → folder 95
+
+QUARTERLY → DAILY ALIGNMENT CONTRACT
+-------------------------------------
+Sharadar SF3 13F ownership fields (new_positions, increased_positions,
+closed_positions, decreased_positions, inst_holders, inst_shares, inst_value,
+inst_pct) are reported quarterly and are **forward-filled** to a daily index
+before being passed in.
+
+`close` is a genuine daily price series used ONLY to characterise drawdown
+depth / proximity to the trailing low.
+
+Trading-day conventions
+------------------------
+1 quarter  = 63  trading days  (_TD_QTR)
+2 quarters = 126 trading days  (_TD_2Q)
+1 year     = 252 trading days  (_TD_YEAR)
+2 years    = 504 trading days  (_TD_2Y)
+3 years    = 756 trading days  (_TD_3Y)
+"""
+
+import numpy as np
+import pandas as pd
+
+# ---------------------------------------------------------------------------
+# Constants
+# ---------------------------------------------------------------------------
+_TD_YEAR = 252
+_TD_2Y   = 504
+_TD_3Y   = 756
+_TD_QTR  = 63
+_TD_2Q   = 126
+_EPS     = 1e-9
+
+# ---------------------------------------------------------------------------
+# Utility helpers
+# ---------------------------------------------------------------------------
+
+def _align_quarterly_to_daily(series: pd.Series) -> pd.Series:
+    """Forward-fill a quarterly snapshot series to a daily index (no-op if
+    already ffilled by caller)."""
+    return series
+
+
+def _safe_div(num: pd.Series, den: pd.Series) -> pd.Series:
+    return num / (den.replace(0, np.nan) + _EPS * (den == 0).astype(float))
+
+
+def _safe_div_abs(num: pd.Series, den: pd.Series) -> pd.Series:
+    return num / (den.abs().replace(0, np.nan) + _EPS * (den.abs() == 0).astype(float))
+
+
+def _rolling_mean(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).mean()
+
+
+def _rolling_std(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=2).std()
+
+
+def _rolling_sum(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).sum()
+
+
+def _rolling_min(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).min()
+
+
+def _rolling_max(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).max()
+
+
+def _rolling_median(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=1).median()
+
+
+def _rolling_rank_pct(s: pd.Series, w: int) -> pd.Series:
+    return s.rolling(w, min_periods=2).apply(
+        lambda x: pd.Series(x).rank(pct=True).iloc[-1], raw=False
+    )
+
+
+def _zscore_rolling(s: pd.Series, w: int) -> pd.Series:
+    mu = _rolling_mean(s, w)
+    sd = _rolling_std(s, w).replace(0, np.nan)
+    return (s - mu) / (sd + _EPS)
+
+
+def _ewm_mean(s: pd.Series, span: int) -> pd.Series:
+    return s.ewm(span=span, min_periods=1).mean()
+
+
+def _proximity_to_trailing_low(close: pd.Series, window: int) -> pd.Series:
+    """(close - trailing_low) / trailing_low  >=0; 0 = at the low."""
+    trail_low = _rolling_min(close, window)
+    return _safe_div(close - trail_low, trail_low)
+
+
+def _drawdown_from_trailing_high(close: pd.Series, window: int) -> pd.Series:
+    """(trailing_high - close) / trailing_high  >=0; 0 = at the high."""
+    trail_high = _rolling_max(close, window)
+    return _safe_div(trail_high - close, trail_high)
+
+
+# ===========================================================================
+# Features 076 – 150
+# ===========================================================================
+
+# --- Ownership-level momentum and acceleration -----------------------------
+
+def ibf_076_inst_holders_qoq_change(inst_holders: pd.Series) -> pd.Series:
+    """QoQ change in total institutional holder count."""
+    return inst_holders.fillna(method='ffill').diff(_TD_QTR)
+
+
+def ibf_077_inst_holders_2q_change(inst_holders: pd.Series) -> pd.Series:
+    """2-quarter change in total institutional holder count."""
+    return inst_holders.fillna(method='ffill').diff(_TD_2Q)
+
+
+def ibf_078_inst_holders_qoq_pct(inst_holders: pd.Series) -> pd.Series:
+    """QoQ % change in total holder count."""
+    s = inst_holders.fillna(method='ffill')
+    prev = s.shift(_TD_QTR)
+    return _safe_div(s - prev, prev.abs() + _EPS)
+
+
+def ibf_079_inst_holders_at_1y_low(inst_holders: pd.Series,
+                                    close: pd.Series) -> pd.Series:
+    """Positive QoQ holder-count change * 1-yr drawdown depth."""
+    chg = inst_holders.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    prox = _proximity_to_trailing_low(close, _TD_YEAR)
+    return chg * (1 - prox).clip(0, 1)
+
+
+def ibf_080_inst_holders_rolling_4q_max(inst_holders: pd.Series) -> pd.Series:
+    """4-quarter trailing maximum of institutional holders."""
+    return _rolling_max(inst_holders.fillna(method='ffill'), _TD_YEAR)
+
+
+# --- Large-block accumulation proxies (value/shares per holder) -------------
+
+def ibf_081_large_ticket_new_flag(inst_value: pd.Series,
+                                   new_positions: pd.Series) -> pd.Series:
+    """1 if avg value per new holder exceeds 1-yr 75th pctile, else 0."""
+    ratio = _safe_div(inst_value.fillna(0), new_positions.replace(0, np.nan))
+    thresh = ratio.rolling(_TD_YEAR, min_periods=1).quantile(0.75)
+    return (ratio >= thresh).astype(float)
+
+
+def ibf_082_large_block_inflow_1y_low(inst_value: pd.Series,
+                                       new_positions: pd.Series,
+                                       close: pd.Series) -> pd.Series:
+    """Large-ticket flag * 1-yr drawdown depth."""
+    flag = ibf_081_large_ticket_new_flag(inst_value, new_positions)
+    dd = _drawdown_from_trailing_high(close, _TD_YEAR)
+    return flag * dd
+
+
+def ibf_083_value_per_holder_zscore_1y(inst_value: pd.Series,
+                                        inst_holders: pd.Series) -> pd.Series:
+    """Z-score of (value / holders) over 1-year window."""
+    ratio = _safe_div(inst_value.fillna(0),
+                      inst_holders.fillna(method='ffill').replace(0, np.nan))
+    return _zscore_rolling(ratio, _TD_YEAR)
+
+
+def ibf_084_shares_per_holder_zscore_1y(inst_shares: pd.Series,
+                                         inst_holders: pd.Series) -> pd.Series:
+    """Z-score of (shares / holders) over 1-year window."""
+    ratio = _safe_div(inst_shares.fillna(0),
+                      inst_holders.fillna(method='ffill').replace(0, np.nan))
+    return _zscore_rolling(ratio, _TD_YEAR)
+
+
+def ibf_085_value_per_holder_at_2y_low(inst_value: pd.Series,
+                                        inst_holders: pd.Series,
+                                        close: pd.Series) -> pd.Series:
+    """Value/holder ratio * 2-yr drawdown depth."""
+    ratio = _safe_div(inst_value.fillna(0),
+                      inst_holders.fillna(method='ffill').replace(0, np.nan))
+    dd = _drawdown_from_trailing_high(close, _TD_2Y)
+    return ratio * dd
+
+
+# --- Acceleration: quarter-over-quarter delta of QoQ changes ---------------
+
+def ibf_086_new_pos_qoq_acceleration(new_positions: pd.Series) -> pd.Series:
+    """QoQ change in new_positions minus its 1-quarter-prior QoQ change (acceleration)."""
+    np_ = new_positions.fillna(0)
+    d1 = np_ - np_.shift(_TD_QTR)
+    return d1 - d1.shift(_TD_QTR)
+
+
+def ibf_087_increased_pos_qoq_acceleration(increased_positions: pd.Series) -> pd.Series:
+    """Acceleration of increased_positions QoQ changes."""
+    ip = increased_positions.fillna(0)
+    d1 = ip - ip.shift(_TD_QTR)
+    return d1 - d1.shift(_TD_QTR)
+
+
+def ibf_088_gross_add_qoq_acceleration(new_positions: pd.Series,
+                                        increased_positions: pd.Series) -> pd.Series:
+    """Acceleration of gross-additions QoQ changes."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    d1 = gross - gross.shift(_TD_QTR)
+    return d1 - d1.shift(_TD_QTR)
+
+
+def ibf_089_inst_shares_qoq_acceleration(inst_shares: pd.Series) -> pd.Series:
+    """Acceleration of institutional share-count QoQ changes."""
+    s = inst_shares.fillna(method='ffill')
+    d1 = s - s.shift(_TD_QTR)
+    return d1 - d1.shift(_TD_QTR)
+
+
+def ibf_090_inst_value_qoq_acceleration(inst_value: pd.Series) -> pd.Series:
+    """Acceleration of institutional value QoQ changes."""
+    v = inst_value.fillna(method='ffill')
+    d1 = v - v.shift(_TD_QTR)
+    return d1 - d1.shift(_TD_QTR)
+
+
+# --- Positive-only (inflow) slices -----------------------------------------
+
+def ibf_091_new_pos_positive_only(new_positions: pd.Series) -> pd.Series:
+    """New positions clipped to positive values only (0 when negative or zero)."""
+    return new_positions.fillna(0).clip(lower=0)
+
+
+def ibf_092_shares_inflow_only(inst_shares: pd.Series) -> pd.Series:
+    """Positive QoQ share change only (inflow); negative changes become 0."""
+    return inst_shares.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+
+
+def ibf_093_value_inflow_only(inst_value: pd.Series) -> pd.Series:
+    """Positive QoQ value change only (inflow)."""
+    return inst_value.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+
+
+def ibf_094_pct_inflow_only(inst_pct: pd.Series) -> pd.Series:
+    """Positive QoQ pct-ownership change only."""
+    return inst_pct.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+
+
+def ibf_095_shares_inflow_zscore_2y(inst_shares: pd.Series) -> pd.Series:
+    """2-year z-score of positive-only share inflow."""
+    inflow = inst_shares.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    return _zscore_rolling(inflow, _TD_2Y)
+
+
+# --- Accumulation rate relative to holder base -----------------------------
+
+def ibf_096_new_pos_per_holder_qoq(new_positions: pd.Series,
+                                    inst_holders: pd.Series) -> pd.Series:
+    """New positions normalised by prev-quarter holder count."""
+    prev_holders = inst_holders.fillna(method='ffill').shift(_TD_QTR)
+    return _safe_div(new_positions.fillna(0), prev_holders.replace(0, np.nan))
+
+
+def ibf_097_gross_add_per_holder_qoq(new_positions: pd.Series,
+                                      increased_positions: pd.Series,
+                                      inst_holders: pd.Series) -> pd.Series:
+    """Gross additions normalised by prev-quarter holder count."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    prev_h = inst_holders.fillna(method='ffill').shift(_TD_QTR)
+    return _safe_div(gross, prev_h.replace(0, np.nan))
+
+
+def ibf_098_net_add_per_holder(new_positions: pd.Series,
+                                increased_positions: pd.Series,
+                                closed_positions: pd.Series,
+                                decreased_positions: pd.Series,
+                                inst_holders: pd.Series) -> pd.Series:
+    """Net additions / total holders."""
+    net = (new_positions.fillna(0) + increased_positions.fillna(0)
+           - closed_positions.fillna(0) - decreased_positions.fillna(0))
+    return _safe_div(net, inst_holders.fillna(method='ffill').replace(0, np.nan))
+
+
+def ibf_099_new_pos_holder_ratio_zscore(new_positions: pd.Series,
+                                         inst_holders: pd.Series) -> pd.Series:
+    """1-year z-score of (new_positions / inst_holders)."""
+    ratio = _safe_div(new_positions.fillna(0),
+                      inst_holders.fillna(method='ffill').replace(0, np.nan))
+    return _zscore_rolling(ratio, _TD_YEAR)
+
+
+def ibf_100_gross_add_holder_ratio_at_1y_low(new_positions: pd.Series,
+                                              increased_positions: pd.Series,
+                                              inst_holders: pd.Series,
+                                              close: pd.Series) -> pd.Series:
+    """(gross_add / holders) * 1-yr drawdown depth."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    ratio = _safe_div(gross, inst_holders.fillna(method='ffill').replace(0, np.nan))
+    dd = _drawdown_from_trailing_high(close, _TD_YEAR)
+    return ratio * dd
+
+
+# --- Rolling EWM and trend signals -----------------------------------------
+
+def ibf_101_new_pos_ewm_vs_sma_1y(new_positions: pd.Series) -> pd.Series:
+    """EWM(1Q) minus 1-year SMA of new_positions (short-term vs long-term momentum)."""
+    np_ = new_positions.fillna(0)
+    return _ewm_mean(np_, _TD_QTR) - _rolling_mean(np_, _TD_YEAR)
+
+
+def ibf_102_gross_add_ewm_vs_sma_2y(new_positions: pd.Series,
+                                      increased_positions: pd.Series) -> pd.Series:
+    """EWM(2Q) minus 2-year SMA of gross additions."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    return _ewm_mean(gross, _TD_2Q) - _rolling_mean(gross, _TD_2Y)
+
+
+def ibf_103_inst_shares_ewm_vs_sma_1y(inst_shares: pd.Series) -> pd.Series:
+    """EWM(1Q) minus 1-year SMA of institutional shares."""
+    s = inst_shares.fillna(method='ffill').fillna(0)
+    return _ewm_mean(s, _TD_QTR) - _rolling_mean(s, _TD_YEAR)
+
+
+def ibf_104_inst_value_ewm_vs_sma_1y(inst_value: pd.Series) -> pd.Series:
+    """EWM(1Q) minus 1-year SMA of institutional value."""
+    v = inst_value.fillna(method='ffill').fillna(0)
+    return _ewm_mean(v, _TD_QTR) - _rolling_mean(v, _TD_YEAR)
+
+
+def ibf_105_net_add_ewm_signal(new_positions: pd.Series,
+                                increased_positions: pd.Series,
+                                closed_positions: pd.Series,
+                                decreased_positions: pd.Series) -> pd.Series:
+    """EWM(1Q) of net additions."""
+    net = (new_positions.fillna(0) + increased_positions.fillna(0)
+           - closed_positions.fillna(0) - decreased_positions.fillna(0))
+    return _ewm_mean(net, _TD_QTR)
+
+
+# --- Drawdown-conditioned rolling sums -------------------------------------
+
+def ibf_106_new_pos_sum_4q_at_2y_low(new_positions: pd.Series,
+                                      close: pd.Series) -> pd.Series:
+    """4-quarter rolling sum of new_positions, masked to days near 2-yr low (within 15%)."""
+    prox = _proximity_to_trailing_low(close, _TD_2Y)
+    masked = new_positions.fillna(0) * (prox <= 0.15).astype(float)
+    return _rolling_sum(masked, _TD_YEAR)
+
+
+def ibf_107_gross_add_sum_4q_at_3y_low(new_positions: pd.Series,
+                                        increased_positions: pd.Series,
+                                        close: pd.Series) -> pd.Series:
+    """4-quarter rolling sum of gross additions masked to within 20% of 3-yr low."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    prox = _proximity_to_trailing_low(close, _TD_3Y)
+    masked = gross * (prox <= 0.20).astype(float)
+    return _rolling_sum(masked, _TD_YEAR)
+
+
+def ibf_108_value_inflow_sum_2y_at_3y_low(inst_value: pd.Series,
+                                            close: pd.Series) -> pd.Series:
+    """2-year rolling sum of value inflows masked to within 25% of 3-yr low."""
+    inflow = inst_value.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    prox = _proximity_to_trailing_low(close, _TD_3Y)
+    masked = inflow * (prox <= 0.25).astype(float)
+    return _rolling_sum(masked, _TD_2Y)
+
+
+def ibf_109_shares_inflow_sum_2y_at_2y_low(inst_shares: pd.Series,
+                                             close: pd.Series) -> pd.Series:
+    """2-year rolling sum of share inflows near 2-yr low."""
+    inflow = inst_shares.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    prox = _proximity_to_trailing_low(close, _TD_2Y)
+    masked = inflow * (prox <= 0.15).astype(float)
+    return _rolling_sum(masked, _TD_2Y)
+
+
+def ibf_110_net_add_sum_4q_at_1y_low(new_positions: pd.Series,
+                                      increased_positions: pd.Series,
+                                      closed_positions: pd.Series,
+                                      decreased_positions: pd.Series,
+                                      close: pd.Series) -> pd.Series:
+    """4-quarter sum of net additions when within 10% of 1-yr low."""
+    net = (new_positions.fillna(0) + increased_positions.fillna(0)
+           - closed_positions.fillna(0) - decreased_positions.fillna(0))
+    prox = _proximity_to_trailing_low(close, _TD_YEAR)
+    masked = net * (prox <= 0.10).astype(float)
+    return _rolling_sum(masked, _TD_YEAR)
+
+
+# --- Breadth of accumulation (proportion of holders buying) ----------------
+
+def ibf_111_new_to_total_ratio(new_positions: pd.Series,
+                                inst_holders: pd.Series) -> pd.Series:
+    """new_positions / inst_holders — entry rate among current holders."""
+    return _safe_div(new_positions.fillna(0),
+                     inst_holders.fillna(method='ffill').replace(0, np.nan))
+
+
+def ibf_112_increased_to_total_ratio(increased_positions: pd.Series,
+                                      inst_holders: pd.Series) -> pd.Series:
+    """increased_positions / inst_holders."""
+    return _safe_div(increased_positions.fillna(0),
+                     inst_holders.fillna(method='ffill').replace(0, np.nan))
+
+
+def ibf_113_buyer_breadth_index(new_positions: pd.Series,
+                                 increased_positions: pd.Series,
+                                 inst_holders: pd.Series) -> pd.Series:
+    """(new + increased) / inst_holders — fraction of holder universe actively buying."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    return _safe_div(gross, inst_holders.fillna(method='ffill').replace(0, np.nan))
+
+
+def ibf_114_buyer_breadth_at_2y_low(new_positions: pd.Series,
+                                     increased_positions: pd.Series,
+                                     inst_holders: pd.Series,
+                                     close: pd.Series) -> pd.Series:
+    """Buyer breadth * 2-yr drawdown depth."""
+    breadth = ibf_113_buyer_breadth_index(new_positions, increased_positions, inst_holders)
+    dd = _drawdown_from_trailing_high(close, _TD_2Y)
+    return breadth * dd
+
+
+def ibf_115_buyer_breadth_zscore_2y(new_positions: pd.Series,
+                                     increased_positions: pd.Series,
+                                     inst_holders: pd.Series) -> pd.Series:
+    """2-year z-score of buyer breadth."""
+    breadth = ibf_113_buyer_breadth_index(new_positions, increased_positions, inst_holders)
+    return _zscore_rolling(breadth, _TD_2Y)
+
+
+# --- Multi-quarter running totals of accumulation ----------------------------
+
+def ibf_116_new_pos_cumsum_2y(new_positions: pd.Series) -> pd.Series:
+    """2-year rolling cumulative sum of new positions."""
+    return _rolling_sum(new_positions.fillna(0), _TD_2Y)
+
+
+def ibf_117_gross_add_cumsum_3y(new_positions: pd.Series,
+                                  increased_positions: pd.Series) -> pd.Series:
+    """3-year rolling cumulative sum of gross additions."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    return _rolling_sum(gross, _TD_3Y)
+
+
+def ibf_118_net_add_cumsum_2y(new_positions: pd.Series,
+                               increased_positions: pd.Series,
+                               closed_positions: pd.Series,
+                               decreased_positions: pd.Series) -> pd.Series:
+    """2-year rolling cumulative sum of net additions."""
+    net = (new_positions.fillna(0) + increased_positions.fillna(0)
+           - closed_positions.fillna(0) - decreased_positions.fillna(0))
+    return _rolling_sum(net, _TD_2Y)
+
+
+def ibf_119_inst_shares_3y_range_pct(inst_shares: pd.Series) -> pd.Series:
+    """Current shares relative to 3-yr range: (s - min) / (max - min)."""
+    s = inst_shares.fillna(method='ffill')
+    lo = _rolling_min(s, _TD_3Y)
+    hi = _rolling_max(s, _TD_3Y)
+    return _safe_div(s - lo, hi - lo + _EPS)
+
+
+def ibf_120_inst_value_2y_range_pct(inst_value: pd.Series) -> pd.Series:
+    """Current value relative to 2-yr range: (v - min) / (max - min)."""
+    v = inst_value.fillna(method='ffill')
+    lo = _rolling_min(v, _TD_2Y)
+    hi = _rolling_max(v, _TD_2Y)
+    return _safe_div(v - lo, hi - lo + _EPS)
+
+
+# --- Relative change signals over various lags ------------------------------
+
+def ibf_121_new_pos_vs_prior_3q(new_positions: pd.Series) -> pd.Series:
+    """new_positions vs its value 3 quarters ago."""
+    np_ = new_positions.fillna(0)
+    return np_ - np_.shift(_TD_QTR * 3)
+
+
+def ibf_122_gross_add_vs_prior_4q(new_positions: pd.Series,
+                                    increased_positions: pd.Series) -> pd.Series:
+    """Gross additions vs value 4 quarters ago."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    return gross - gross.shift(_TD_YEAR)
+
+
+def ibf_123_inst_pct_vs_prior_4q(inst_pct: pd.Series) -> pd.Series:
+    """inst_pct minus its value 4 quarters ago."""
+    s = inst_pct.fillna(method='ffill')
+    return s - s.shift(_TD_YEAR)
+
+
+def ibf_124_inst_shares_vs_prior_4q(inst_shares: pd.Series) -> pd.Series:
+    """Institutional shares minus their value 4 quarters ago."""
+    s = inst_shares.fillna(method='ffill')
+    return s - s.shift(_TD_YEAR)
+
+
+def ibf_125_inst_value_vs_prior_2q(inst_value: pd.Series) -> pd.Series:
+    """Institutional value minus value 2 quarters ago."""
+    v = inst_value.fillna(method='ffill')
+    return v - v.shift(_TD_2Q)
+
+
+# --- Composite interaction terms -------------------------------------------
+
+def ibf_126_accum_intensity_score(new_positions: pd.Series,
+                                   increased_positions: pd.Series,
+                                   inst_shares: pd.Series,
+                                   inst_value: pd.Series) -> pd.Series:
+    """Composite: z-score of gross_add + z-score of share_inflow + z-score of value_inflow."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    s_in = inst_shares.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    v_in = inst_value.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    return (_zscore_rolling(gross, _TD_YEAR)
+            + _zscore_rolling(s_in, _TD_YEAR)
+            + _zscore_rolling(v_in, _TD_YEAR))
+
+
+def ibf_127_accum_intensity_at_3y_low(new_positions: pd.Series,
+                                       increased_positions: pd.Series,
+                                       inst_shares: pd.Series,
+                                       inst_value: pd.Series,
+                                       close: pd.Series) -> pd.Series:
+    """Accumulation intensity score * 3-yr drawdown depth."""
+    intensity = ibf_126_accum_intensity_score(
+        new_positions, increased_positions, inst_shares, inst_value
+    )
+    dd = _drawdown_from_trailing_high(close, _TD_3Y)
+    return intensity * dd
+
+
+def ibf_128_add_ratio_rolling_2q(new_positions: pd.Series,
+                                   increased_positions: pd.Series,
+                                   closed_positions: pd.Series,
+                                   decreased_positions: pd.Series) -> pd.Series:
+    """2-quarter rolling mean of the add-to-exit ratio."""
+    adds = new_positions.fillna(0) + increased_positions.fillna(0)
+    exits = closed_positions.fillna(0) + decreased_positions.fillna(0)
+    ratio = _safe_div(adds, exits + _EPS)
+    return _rolling_mean(ratio, _TD_2Q)
+
+
+def ibf_129_add_ratio_rolling_4q(new_positions: pd.Series,
+                                   increased_positions: pd.Series,
+                                   closed_positions: pd.Series,
+                                   decreased_positions: pd.Series) -> pd.Series:
+    """4-quarter rolling mean of the add-to-exit ratio."""
+    adds = new_positions.fillna(0) + increased_positions.fillna(0)
+    exits = closed_positions.fillna(0) + decreased_positions.fillna(0)
+    ratio = _safe_div(adds, exits + _EPS)
+    return _rolling_mean(ratio, _TD_YEAR)
+
+
+def ibf_130_add_ratio_zscore_2y(new_positions: pd.Series,
+                                  increased_positions: pd.Series,
+                                  closed_positions: pd.Series,
+                                  decreased_positions: pd.Series) -> pd.Series:
+    """2-year z-score of add-to-exit ratio."""
+    adds = new_positions.fillna(0) + increased_positions.fillna(0)
+    exits = closed_positions.fillna(0) + decreased_positions.fillna(0)
+    ratio = _safe_div(adds, exits + _EPS)
+    return _zscore_rolling(ratio, _TD_2Y)
+
+
+# --- Proximity-conditioned holder growth -----------------------------------
+
+def ibf_131_holder_growth_at_1y_low(inst_holders: pd.Series,
+                                     close: pd.Series) -> pd.Series:
+    """QoQ holder growth * 1-yr drawdown depth."""
+    chg = inst_holders.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    dd = _drawdown_from_trailing_high(close, _TD_YEAR)
+    return chg * dd
+
+
+def ibf_132_holder_growth_at_3y_low(inst_holders: pd.Series,
+                                     close: pd.Series) -> pd.Series:
+    """QoQ holder growth * 3-yr drawdown depth."""
+    chg = inst_holders.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    dd = _drawdown_from_trailing_high(close, _TD_3Y)
+    return chg * dd
+
+
+def ibf_133_holder_pct_chg_at_2y_low(inst_holders: pd.Series,
+                                      close: pd.Series) -> pd.Series:
+    """QoQ % holder growth * 2-yr drawdown depth."""
+    s = inst_holders.fillna(method='ffill')
+    prev = s.shift(_TD_QTR)
+    pct = _safe_div(s - prev, prev.abs() + _EPS).clip(lower=0)
+    dd = _drawdown_from_trailing_high(close, _TD_2Y)
+    return pct * dd
+
+
+def ibf_134_new_pos_pctile_2y_at_2y_low(new_positions: pd.Series,
+                                          close: pd.Series) -> pd.Series:
+    """2-year percentile rank of new_positions * 2-yr drawdown depth."""
+    pctile = _rolling_rank_pct(new_positions.fillna(0), _TD_2Y)
+    dd = _drawdown_from_trailing_high(close, _TD_2Y)
+    return pctile * dd
+
+
+def ibf_135_gross_add_pctile_3y_at_3y_low(new_positions: pd.Series,
+                                            increased_positions: pd.Series,
+                                            close: pd.Series) -> pd.Series:
+    """3-year percentile rank of gross additions * 3-yr drawdown depth."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    pctile = _rolling_rank_pct(gross, _TD_3Y)
+    dd = _drawdown_from_trailing_high(close, _TD_3Y)
+    return pctile * dd
+
+
+# --- Sequential accumulation (trend) signals --------------------------------
+
+def ibf_136_new_pos_trend_slope_4q(new_positions: pd.Series) -> pd.Series:
+    """OLS slope of new_positions over the trailing 4 quarters (trend)."""
+    def _slope(x):
+        n = len(x)
+        if n < 2:
+            return np.nan
+        xi = np.arange(n, dtype=float)
+        xm = xi.mean()
+        ym = x.mean()
+        denom = ((xi - xm) ** 2).sum()
+        if denom < _EPS:
+            return 0.0
+        return float(((xi - xm) * (x - ym)).sum() / denom)
+    return new_positions.fillna(0).rolling(_TD_YEAR, min_periods=2).apply(_slope, raw=True)
+
+
+def ibf_137_gross_add_trend_slope_4q(new_positions: pd.Series,
+                                       increased_positions: pd.Series) -> pd.Series:
+    """OLS slope of gross additions over trailing 4 quarters."""
+    def _slope(x):
+        n = len(x)
+        if n < 2:
+            return np.nan
+        xi = np.arange(n, dtype=float)
+        xm = xi.mean()
+        ym = x.mean()
+        denom = ((xi - xm) ** 2).sum()
+        if denom < _EPS:
+            return 0.0
+        return float(((xi - xm) * (x - ym)).sum() / denom)
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    return gross.rolling(_TD_YEAR, min_periods=2).apply(_slope, raw=True)
+
+
+def ibf_138_inst_pct_trend_slope_4q(inst_pct: pd.Series) -> pd.Series:
+    """OLS slope of inst_pct over trailing 4 quarters."""
+    def _slope(x):
+        n = len(x)
+        if n < 2:
+            return np.nan
+        xi = np.arange(n, dtype=float)
+        xm = xi.mean()
+        ym = x.mean()
+        denom = ((xi - xm) ** 2).sum()
+        if denom < _EPS:
+            return 0.0
+        return float(((xi - xm) * (x - ym)).sum() / denom)
+    return inst_pct.fillna(method='ffill').rolling(_TD_YEAR, min_periods=2).apply(_slope, raw=True)
+
+
+def ibf_139_inst_shares_trend_slope_2y(inst_shares: pd.Series) -> pd.Series:
+    """OLS slope of institutional shares over trailing 2 years."""
+    def _slope(x):
+        n = len(x)
+        if n < 2:
+            return np.nan
+        xi = np.arange(n, dtype=float)
+        xm = xi.mean()
+        ym = x.mean()
+        denom = ((xi - xm) ** 2).sum()
+        if denom < _EPS:
+            return 0.0
+        return float(((xi - xm) * (x - ym)).sum() / denom)
+    return inst_shares.fillna(method='ffill').rolling(_TD_2Y, min_periods=2).apply(_slope, raw=True)
+
+
+def ibf_140_gross_add_slope_at_2y_low(new_positions: pd.Series,
+                                       increased_positions: pd.Series,
+                                       close: pd.Series) -> pd.Series:
+    """4-quarter OLS slope of gross additions * 2-yr drawdown depth."""
+    slope = ibf_137_gross_add_trend_slope_4q(new_positions, increased_positions)
+    dd = _drawdown_from_trailing_high(close, _TD_2Y)
+    return slope * dd
+
+
+# --- Value / share accumulation density ------------------------------------
+
+def ibf_141_value_inflow_pctile_3y(inst_value: pd.Series) -> pd.Series:
+    """3-year percentile rank of quarterly value inflow."""
+    inflow = inst_value.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    return _rolling_rank_pct(inflow, _TD_3Y)
+
+
+def ibf_142_shares_inflow_pctile_3y(inst_shares: pd.Series) -> pd.Series:
+    """3-year percentile rank of quarterly share inflow."""
+    inflow = inst_shares.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    return _rolling_rank_pct(inflow, _TD_3Y)
+
+
+def ibf_143_value_inflow_density_1y(inst_value: pd.Series) -> pd.Series:
+    """Count of rolling days in 1 year with positive value inflow."""
+    inflow = inst_value.fillna(method='ffill').diff(_TD_QTR)
+    return _rolling_sum((inflow > 0).astype(float), _TD_YEAR)
+
+
+def ibf_144_shares_inflow_density_2y(inst_shares: pd.Series) -> pd.Series:
+    """Count of rolling days in 2 years with positive share inflow."""
+    inflow = inst_shares.fillna(method='ffill').diff(_TD_QTR)
+    return _rolling_sum((inflow > 0).astype(float), _TD_2Y)
+
+
+def ibf_145_pct_inflow_density_1y(inst_pct: pd.Series) -> pd.Series:
+    """Count of days in 1 year where ownership fraction increased QoQ."""
+    inflow = inst_pct.fillna(method='ffill').diff(_TD_QTR)
+    return _rolling_sum((inflow > 0).astype(float), _TD_YEAR)
+
+
+# --- Hybrid buy-signal composites at extreme lows --------------------------
+
+def ibf_146_extreme_accum_flag_3y(new_positions: pd.Series,
+                                   increased_positions: pd.Series,
+                                   inst_pct: pd.Series,
+                                   inst_shares: pd.Series,
+                                   close: pd.Series) -> pd.Series:
+    """1 if (gross_add > 1y median) AND inst_pct increasing AND within 15% of 3y low."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    gross_flag = (gross > _rolling_median(gross, _TD_YEAR)).astype(float)
+    pct_flag = (inst_pct.fillna(method='ffill').diff(_TD_QTR) > 0).astype(float)
+    prox = _proximity_to_trailing_low(close, _TD_3Y)
+    low_flag = (prox <= 0.15).astype(float)
+    return gross_flag * pct_flag * low_flag
+
+
+def ibf_147_accum_momentum_score_at_low(new_positions: pd.Series,
+                                         increased_positions: pd.Series,
+                                         inst_shares: pd.Series,
+                                         inst_pct: pd.Series,
+                                         close: pd.Series) -> pd.Series:
+    """Composite momentum z-scores * 2-yr drawdown depth."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    z1 = _zscore_rolling(gross, _TD_YEAR)
+    z2 = _zscore_rolling(inst_shares.fillna(method='ffill').diff(_TD_QTR).clip(lower=0), _TD_YEAR)
+    z3 = _zscore_rolling(inst_pct.fillna(method='ffill').diff(_TD_QTR).clip(lower=0), _TD_YEAR)
+    dd = _drawdown_from_trailing_high(close, _TD_2Y)
+    return (z1 + z2 + z3) * dd
+
+
+def ibf_148_new_pos_qoq_pct_at_2y_low(new_positions: pd.Series,
+                                        close: pd.Series) -> pd.Series:
+    """QoQ % change in new_positions * 2-yr drawdown depth."""
+    np_ = new_positions.fillna(0)
+    prev = np_.shift(_TD_QTR)
+    pct = _safe_div(np_ - prev, prev.abs() + _EPS)
+    dd = _drawdown_from_trailing_high(close, _TD_2Y)
+    return pct * dd
+
+
+def ibf_149_holder_and_share_joint_increase(inst_holders: pd.Series,
+                                              inst_shares: pd.Series) -> pd.Series:
+    """1 if both holder count and share count increased QoQ, else 0."""
+    h_up = (inst_holders.fillna(method='ffill').diff(_TD_QTR) > 0).astype(float)
+    s_up = (inst_shares.fillna(method='ffill').diff(_TD_QTR) > 0).astype(float)
+    return h_up * s_up
+
+
+def ibf_150_full_composite_bottom_fish(new_positions: pd.Series,
+                                        increased_positions: pd.Series,
+                                        closed_positions: pd.Series,
+                                        decreased_positions: pd.Series,
+                                        inst_holders: pd.Series,
+                                        inst_shares: pd.Series,
+                                        inst_value: pd.Series,
+                                        inst_pct: pd.Series,
+                                        close: pd.Series) -> pd.Series:
+    """Full composite bottom-fishing score: sum of z-scores of gross add, net add,
+    share inflow, value inflow, pct inflow, all scaled by 3-yr drawdown depth."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    net = gross - closed_positions.fillna(0) - decreased_positions.fillna(0)
+    s_in = inst_shares.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    v_in = inst_value.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    p_in = inst_pct.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    z = (_zscore_rolling(gross, _TD_YEAR)
+         + _zscore_rolling(net, _TD_YEAR)
+         + _zscore_rolling(s_in, _TD_YEAR)
+         + _zscore_rolling(v_in, _TD_YEAR)
+         + _zscore_rolling(p_in, _TD_YEAR))
+    dd = _drawdown_from_trailing_high(close, _TD_3Y)
+    return z * dd
+
+
+# ===========================================================================
+# Features 176 – 200  (NEW)
+# ===========================================================================
+
+# --- Holder-count trend and acceleration -----------------------------------
+
+def ibf_176_inst_holders_trend_slope_2y(inst_holders: pd.Series) -> pd.Series:
+    """OLS slope of institutional holder count over trailing 2 years."""
+    def _slope(x):
+        n = len(x)
+        if n < 2:
+            return np.nan
+        xi = np.arange(n, dtype=float)
+        xm = xi.mean(); ym = x.mean()
+        denom = ((xi - xm) ** 2).sum()
+        return 0.0 if denom < _EPS else float(((xi - xm) * (x - ym)).sum() / denom)
+    return inst_holders.fillna(method='ffill').rolling(_TD_2Y, min_periods=2).apply(_slope, raw=True)
+
+
+def ibf_177_inst_holders_3q_acceleration(inst_holders: pd.Series) -> pd.Series:
+    """Acceleration of holder-count: QoQ change in QoQ change over 3 quarters."""
+    h = inst_holders.fillna(method='ffill')
+    d1 = h - h.shift(_TD_QTR)
+    return d1 - d1.shift(_TD_QTR * 3)
+
+
+def ibf_178_inst_holders_expanding_min(inst_holders: pd.Series) -> pd.Series:
+    """Expanding minimum of institutional holder count — historical floor."""
+    return inst_holders.fillna(method='ffill').expanding().min()
+
+
+def ibf_179_inst_holders_vs_expanding_min(inst_holders: pd.Series) -> pd.Series:
+    """inst_holders / expanding_min — how far above all-time low holder count."""
+    h = inst_holders.fillna(method='ffill')
+    return _safe_div(h, h.expanding().min() + _EPS)
+
+
+# --- Value-level slope and range signals ------------------------------------
+
+def ibf_180_inst_value_trend_slope_2y(inst_value: pd.Series) -> pd.Series:
+    """OLS slope of institutional value over trailing 2 years."""
+    def _slope(x):
+        n = len(x)
+        if n < 2:
+            return np.nan
+        xi = np.arange(n, dtype=float)
+        xm = xi.mean(); ym = x.mean()
+        denom = ((xi - xm) ** 2).sum()
+        return 0.0 if denom < _EPS else float(((xi - xm) * (x - ym)).sum() / denom)
+    return inst_value.fillna(method='ffill').rolling(_TD_2Y, min_periods=2).apply(_slope, raw=True)
+
+
+def ibf_181_inst_value_3y_range_pct(inst_value: pd.Series) -> pd.Series:
+    """inst_value relative to its 3-yr range: (v - min) / (max - min)."""
+    v = inst_value.fillna(method='ffill')
+    lo = _rolling_min(v, _TD_3Y)
+    hi = _rolling_max(v, _TD_3Y)
+    return _safe_div(v - lo, hi - lo + _EPS)
+
+
+def ibf_182_inst_value_vs_3y_max(inst_value: pd.Series) -> pd.Series:
+    """inst_value / 3-yr trailing max."""
+    v = inst_value.fillna(method='ffill')
+    return _safe_div(v, _rolling_max(v, _TD_3Y) + _EPS)
+
+
+# --- Shares-level slope and range signals -----------------------------------
+
+def ibf_183_inst_shares_1y_range_pct(inst_shares: pd.Series) -> pd.Series:
+    """inst_shares relative to its 1-yr range: (s - min) / (max - min)."""
+    s = inst_shares.fillna(method='ffill')
+    lo = _rolling_min(s, _TD_YEAR)
+    hi = _rolling_max(s, _TD_YEAR)
+    return _safe_div(s - lo, hi - lo + _EPS)
+
+
+def ibf_184_inst_shares_zscore_1y(inst_shares: pd.Series) -> pd.Series:
+    """Rolling 1-year z-score of institutional share count."""
+    return _zscore_rolling(inst_shares.fillna(method='ffill'), _TD_YEAR)
+
+
+# --- Multi-signal at-low composite flags ------------------------------------
+
+def ibf_185_four_way_accum_flag(new_positions: pd.Series,
+                                 increased_positions: pd.Series,
+                                 inst_holders: pd.Series,
+                                 inst_pct: pd.Series) -> pd.Series:
+    """1 if new>0, increased>0, holders QoQ>0, and pct QoQ>0 all simultaneously."""
+    f1 = (new_positions.fillna(0) > 0).astype(float)
+    f2 = (increased_positions.fillna(0) > 0).astype(float)
+    f3 = (inst_holders.fillna(method='ffill').diff(_TD_QTR) > 0).astype(float)
+    f4 = (inst_pct.fillna(method='ffill').diff(_TD_QTR) > 0).astype(float)
+    return f1 * f2 * f3 * f4
+
+
+def ibf_186_four_way_accum_flag_at_3y_low(new_positions: pd.Series,
+                                            increased_positions: pd.Series,
+                                            inst_holders: pd.Series,
+                                            inst_pct: pd.Series,
+                                            close: pd.Series) -> pd.Series:
+    """Four-way accumulation flag * 3-yr drawdown depth."""
+    flag = ibf_185_four_way_accum_flag(new_positions, increased_positions,
+                                        inst_holders, inst_pct)
+    dd = _drawdown_from_trailing_high(close, _TD_3Y)
+    return flag * dd
+
+
+# --- Rolling mean of holder-normalised inflows ------------------------------
+
+def ibf_187_value_inflow_per_holder_2q_mean(inst_value: pd.Series,
+                                              inst_holders: pd.Series) -> pd.Series:
+    """2-quarter rolling mean of (value inflow / holder count)."""
+    inflow = inst_value.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    per_h = _safe_div(inflow, inst_holders.fillna(method='ffill').replace(0, np.nan))
+    return _rolling_mean(per_h, _TD_2Q)
+
+
+def ibf_188_shares_inflow_per_holder_2q_mean(inst_shares: pd.Series,
+                                               inst_holders: pd.Series) -> pd.Series:
+    """2-quarter rolling mean of (share inflow / holder count)."""
+    inflow = inst_shares.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    per_h = _safe_div(inflow, inst_holders.fillna(method='ffill').replace(0, np.nan))
+    return _rolling_mean(per_h, _TD_2Q)
+
+
+# --- Drawdown-depth percentile signals --------------------------------------
+
+def ibf_189_dd_1y_pctile_2y(close: pd.Series) -> pd.Series:
+    """2-year rolling percentile rank of 1-yr drawdown-from-high."""
+    dd = _drawdown_from_trailing_high(close, _TD_YEAR)
+    return _rolling_rank_pct(dd, _TD_2Y)
+
+
+def ibf_190_dd_2y_pctile_3y(close: pd.Series) -> pd.Series:
+    """3-year rolling percentile rank of 2-yr drawdown-from-high."""
+    dd = _drawdown_from_trailing_high(close, _TD_2Y)
+    return _rolling_rank_pct(dd, _TD_3Y)
+
+
+# --- Gross-add persistence (consecutive positive quarters) ------------------
+
+def ibf_191_gross_add_positive_qtrs_2q(new_positions: pd.Series,
+                                        increased_positions: pd.Series) -> pd.Series:
+    """Count of days in last 2 quarters where gross additions > 0."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    return _rolling_sum((gross > 0).astype(float), _TD_2Q)
+
+
+def ibf_192_gross_add_positive_qtrs_8q(new_positions: pd.Series,
+                                        increased_positions: pd.Series) -> pd.Series:
+    """Count of days in last 8 quarters (~2 years) where gross additions > 0."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    return _rolling_sum((gross > 0).astype(float), _TD_2Y)
+
+
+# --- Pct-ownership absolute level signals -----------------------------------
+
+def ibf_193_inst_pct_above_50pct_flag(inst_pct: pd.Series) -> pd.Series:
+    """1 if institutional ownership > 50%, else 0."""
+    return (inst_pct.fillna(method='ffill') > 0.50).astype(float)
+
+
+def ibf_194_inst_pct_zscore_1y(inst_pct: pd.Series) -> pd.Series:
+    """Rolling 1-year z-score of institutional ownership pct."""
+    return _zscore_rolling(inst_pct.fillna(method='ffill'), _TD_YEAR)
+
+
+# --- Value inflow at 1-yr low (distinct window/construction from existing) -
+
+def ibf_195_value_inflow_sum_4q_at_1y_low(inst_value: pd.Series,
+                                            close: pd.Series) -> pd.Series:
+    """4-quarter rolling sum of value inflows masked to within 10% of 1-yr low."""
+    inflow = inst_value.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    prox = _proximity_to_trailing_low(close, _TD_YEAR)
+    return _rolling_sum(inflow * (prox <= 0.10).astype(float), _TD_YEAR)
+
+
+def ibf_196_shares_inflow_sum_4q_at_1y_low(inst_shares: pd.Series,
+                                             close: pd.Series) -> pd.Series:
+    """4-quarter rolling sum of share inflows masked to within 10% of 1-yr low."""
+    inflow = inst_shares.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    prox = _proximity_to_trailing_low(close, _TD_YEAR)
+    return _rolling_sum(inflow * (prox <= 0.10).astype(float), _TD_YEAR)
+
+
+# --- Cross-metric divergence (value up, holders flat/down) -----------------
+
+def ibf_197_value_inflow_holder_flat_flag(inst_value: pd.Series,
+                                           inst_holders: pd.Series) -> pd.Series:
+    """1 if value QoQ>0 but holder-count QoQ<=0 (silent large-block buying)."""
+    val_up = (inst_value.fillna(method='ffill').diff(_TD_QTR) > 0).astype(float)
+    hld_flat = (inst_holders.fillna(method='ffill').diff(_TD_QTR) <= 0).astype(float)
+    return val_up * hld_flat
+
+
+def ibf_198_shares_up_value_flat_flag(inst_shares: pd.Series,
+                                       inst_value: pd.Series) -> pd.Series:
+    """1 if share QoQ>0 but value QoQ<=0 (accumulation at declining prices)."""
+    sh_up = (inst_shares.fillna(method='ffill').diff(_TD_QTR) > 0).astype(float)
+    val_flat = (inst_value.fillna(method='ffill').diff(_TD_QTR) <= 0).astype(float)
+    return sh_up * val_flat
+
+
+# --- Summary composite of all breadth signals at extreme low ---------------
+
+def ibf_199_breadth_and_depth_score(new_positions: pd.Series,
+                                     increased_positions: pd.Series,
+                                     inst_holders: pd.Series,
+                                     close: pd.Series) -> pd.Series:
+    """Buyer-breadth z-score * holder-count z-score * 3-yr drawdown depth."""
+    breadth_z = _zscore_rolling(
+        _safe_div(new_positions.fillna(0) + increased_positions.fillna(0),
+                  inst_holders.fillna(method='ffill').replace(0, np.nan)),
+        _TD_2Y
+    )
+    holder_z = _zscore_rolling(inst_holders.fillna(method='ffill'), _TD_2Y)
+    dd = _drawdown_from_trailing_high(close, _TD_3Y)
+    return breadth_z * holder_z * dd
+
+
+def ibf_200_extended_composite_bottom_fish(new_positions: pd.Series,
+                                            increased_positions: pd.Series,
+                                            inst_holders: pd.Series,
+                                            inst_shares: pd.Series,
+                                            inst_value: pd.Series,
+                                            inst_pct: pd.Series,
+                                            close: pd.Series) -> pd.Series:
+    """Extended composite: z-scores of gross_add, holder chg, share inflow, value
+    inflow, pct inflow summed and scaled by 2-yr drawdown depth."""
+    gross = new_positions.fillna(0) + increased_positions.fillna(0)
+    h_chg = inst_holders.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    s_in = inst_shares.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    v_in = inst_value.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    p_in = inst_pct.fillna(method='ffill').diff(_TD_QTR).clip(lower=0)
+    z = (_zscore_rolling(gross, _TD_YEAR) + _zscore_rolling(h_chg, _TD_YEAR)
+         + _zscore_rolling(s_in, _TD_YEAR) + _zscore_rolling(v_in, _TD_YEAR)
+         + _zscore_rolling(p_in, _TD_YEAR))
+    dd = _drawdown_from_trailing_high(close, _TD_2Y)
+    return z * dd
+
+
+# ===========================================================================
+# Registry
+# ===========================================================================
+INSTITUTIONAL_BOTTOM_FISH_REGISTRY_076_150 = {
+    "ibf_076_inst_holders_qoq_change": {"inputs": ["inst_holders"], "func": ibf_076_inst_holders_qoq_change},
+    "ibf_077_inst_holders_2q_change": {"inputs": ["inst_holders"], "func": ibf_077_inst_holders_2q_change},
+    "ibf_078_inst_holders_qoq_pct": {"inputs": ["inst_holders"], "func": ibf_078_inst_holders_qoq_pct},
+    "ibf_079_inst_holders_at_1y_low": {"inputs": ["inst_holders", "close"], "func": ibf_079_inst_holders_at_1y_low},
+    "ibf_080_inst_holders_rolling_4q_max": {"inputs": ["inst_holders"], "func": ibf_080_inst_holders_rolling_4q_max},
+    "ibf_081_large_ticket_new_flag": {"inputs": ["inst_value", "new_positions"], "func": ibf_081_large_ticket_new_flag},
+    "ibf_082_large_block_inflow_1y_low": {"inputs": ["inst_value", "new_positions", "close"], "func": ibf_082_large_block_inflow_1y_low},
+    "ibf_083_value_per_holder_zscore_1y": {"inputs": ["inst_value", "inst_holders"], "func": ibf_083_value_per_holder_zscore_1y},
+    "ibf_084_shares_per_holder_zscore_1y": {"inputs": ["inst_shares", "inst_holders"], "func": ibf_084_shares_per_holder_zscore_1y},
+    "ibf_085_value_per_holder_at_2y_low": {"inputs": ["inst_value", "inst_holders", "close"], "func": ibf_085_value_per_holder_at_2y_low},
+    "ibf_086_new_pos_qoq_acceleration": {"inputs": ["new_positions"], "func": ibf_086_new_pos_qoq_acceleration},
+    "ibf_087_increased_pos_qoq_acceleration": {"inputs": ["increased_positions"], "func": ibf_087_increased_pos_qoq_acceleration},
+    "ibf_088_gross_add_qoq_acceleration": {"inputs": ["new_positions", "increased_positions"], "func": ibf_088_gross_add_qoq_acceleration},
+    "ibf_089_inst_shares_qoq_acceleration": {"inputs": ["inst_shares"], "func": ibf_089_inst_shares_qoq_acceleration},
+    "ibf_090_inst_value_qoq_acceleration": {"inputs": ["inst_value"], "func": ibf_090_inst_value_qoq_acceleration},
+    "ibf_091_new_pos_positive_only": {"inputs": ["new_positions"], "func": ibf_091_new_pos_positive_only},
+    "ibf_092_shares_inflow_only": {"inputs": ["inst_shares"], "func": ibf_092_shares_inflow_only},
+    "ibf_093_value_inflow_only": {"inputs": ["inst_value"], "func": ibf_093_value_inflow_only},
+    "ibf_094_pct_inflow_only": {"inputs": ["inst_pct"], "func": ibf_094_pct_inflow_only},
+    "ibf_095_shares_inflow_zscore_2y": {"inputs": ["inst_shares"], "func": ibf_095_shares_inflow_zscore_2y},
+    "ibf_096_new_pos_per_holder_qoq": {"inputs": ["new_positions", "inst_holders"], "func": ibf_096_new_pos_per_holder_qoq},
+    "ibf_097_gross_add_per_holder_qoq": {"inputs": ["new_positions", "increased_positions", "inst_holders"], "func": ibf_097_gross_add_per_holder_qoq},
+    "ibf_098_net_add_per_holder": {"inputs": ["new_positions", "increased_positions", "closed_positions", "decreased_positions", "inst_holders"], "func": ibf_098_net_add_per_holder},
+    "ibf_099_new_pos_holder_ratio_zscore": {"inputs": ["new_positions", "inst_holders"], "func": ibf_099_new_pos_holder_ratio_zscore},
+    "ibf_100_gross_add_holder_ratio_at_1y_low": {"inputs": ["new_positions", "increased_positions", "inst_holders", "close"], "func": ibf_100_gross_add_holder_ratio_at_1y_low},
+    "ibf_101_new_pos_ewm_vs_sma_1y": {"inputs": ["new_positions"], "func": ibf_101_new_pos_ewm_vs_sma_1y},
+    "ibf_102_gross_add_ewm_vs_sma_2y": {"inputs": ["new_positions", "increased_positions"], "func": ibf_102_gross_add_ewm_vs_sma_2y},
+    "ibf_103_inst_shares_ewm_vs_sma_1y": {"inputs": ["inst_shares"], "func": ibf_103_inst_shares_ewm_vs_sma_1y},
+    "ibf_104_inst_value_ewm_vs_sma_1y": {"inputs": ["inst_value"], "func": ibf_104_inst_value_ewm_vs_sma_1y},
+    "ibf_105_net_add_ewm_signal": {"inputs": ["new_positions", "increased_positions", "closed_positions", "decreased_positions"], "func": ibf_105_net_add_ewm_signal},
+    "ibf_106_new_pos_sum_4q_at_2y_low": {"inputs": ["new_positions", "close"], "func": ibf_106_new_pos_sum_4q_at_2y_low},
+    "ibf_107_gross_add_sum_4q_at_3y_low": {"inputs": ["new_positions", "increased_positions", "close"], "func": ibf_107_gross_add_sum_4q_at_3y_low},
+    "ibf_108_value_inflow_sum_2y_at_3y_low": {"inputs": ["inst_value", "close"], "func": ibf_108_value_inflow_sum_2y_at_3y_low},
+    "ibf_109_shares_inflow_sum_2y_at_2y_low": {"inputs": ["inst_shares", "close"], "func": ibf_109_shares_inflow_sum_2y_at_2y_low},
+    "ibf_110_net_add_sum_4q_at_1y_low": {"inputs": ["new_positions", "increased_positions", "closed_positions", "decreased_positions", "close"], "func": ibf_110_net_add_sum_4q_at_1y_low},
+    "ibf_111_new_to_total_ratio": {"inputs": ["new_positions", "inst_holders"], "func": ibf_111_new_to_total_ratio},
+    "ibf_112_increased_to_total_ratio": {"inputs": ["increased_positions", "inst_holders"], "func": ibf_112_increased_to_total_ratio},
+    "ibf_113_buyer_breadth_index": {"inputs": ["new_positions", "increased_positions", "inst_holders"], "func": ibf_113_buyer_breadth_index},
+    "ibf_114_buyer_breadth_at_2y_low": {"inputs": ["new_positions", "increased_positions", "inst_holders", "close"], "func": ibf_114_buyer_breadth_at_2y_low},
+    "ibf_115_buyer_breadth_zscore_2y": {"inputs": ["new_positions", "increased_positions", "inst_holders"], "func": ibf_115_buyer_breadth_zscore_2y},
+    "ibf_116_new_pos_cumsum_2y": {"inputs": ["new_positions"], "func": ibf_116_new_pos_cumsum_2y},
+    "ibf_117_gross_add_cumsum_3y": {"inputs": ["new_positions", "increased_positions"], "func": ibf_117_gross_add_cumsum_3y},
+    "ibf_118_net_add_cumsum_2y": {"inputs": ["new_positions", "increased_positions", "closed_positions", "decreased_positions"], "func": ibf_118_net_add_cumsum_2y},
+    "ibf_119_inst_shares_3y_range_pct": {"inputs": ["inst_shares"], "func": ibf_119_inst_shares_3y_range_pct},
+    "ibf_120_inst_value_2y_range_pct": {"inputs": ["inst_value"], "func": ibf_120_inst_value_2y_range_pct},
+    "ibf_121_new_pos_vs_prior_3q": {"inputs": ["new_positions"], "func": ibf_121_new_pos_vs_prior_3q},
+    "ibf_122_gross_add_vs_prior_4q": {"inputs": ["new_positions", "increased_positions"], "func": ibf_122_gross_add_vs_prior_4q},
+    "ibf_123_inst_pct_vs_prior_4q": {"inputs": ["inst_pct"], "func": ibf_123_inst_pct_vs_prior_4q},
+    "ibf_124_inst_shares_vs_prior_4q": {"inputs": ["inst_shares"], "func": ibf_124_inst_shares_vs_prior_4q},
+    "ibf_125_inst_value_vs_prior_2q": {"inputs": ["inst_value"], "func": ibf_125_inst_value_vs_prior_2q},
+    "ibf_126_accum_intensity_score": {"inputs": ["new_positions", "increased_positions", "inst_shares", "inst_value"], "func": ibf_126_accum_intensity_score},
+    "ibf_127_accum_intensity_at_3y_low": {"inputs": ["new_positions", "increased_positions", "inst_shares", "inst_value", "close"], "func": ibf_127_accum_intensity_at_3y_low},
+    "ibf_128_add_ratio_rolling_2q": {"inputs": ["new_positions", "increased_positions", "closed_positions", "decreased_positions"], "func": ibf_128_add_ratio_rolling_2q},
+    "ibf_129_add_ratio_rolling_4q": {"inputs": ["new_positions", "increased_positions", "closed_positions", "decreased_positions"], "func": ibf_129_add_ratio_rolling_4q},
+    "ibf_130_add_ratio_zscore_2y": {"inputs": ["new_positions", "increased_positions", "closed_positions", "decreased_positions"], "func": ibf_130_add_ratio_zscore_2y},
+    "ibf_131_holder_growth_at_1y_low": {"inputs": ["inst_holders", "close"], "func": ibf_131_holder_growth_at_1y_low},
+    "ibf_132_holder_growth_at_3y_low": {"inputs": ["inst_holders", "close"], "func": ibf_132_holder_growth_at_3y_low},
+    "ibf_133_holder_pct_chg_at_2y_low": {"inputs": ["inst_holders", "close"], "func": ibf_133_holder_pct_chg_at_2y_low},
+    "ibf_134_new_pos_pctile_2y_at_2y_low": {"inputs": ["new_positions", "close"], "func": ibf_134_new_pos_pctile_2y_at_2y_low},
+    "ibf_135_gross_add_pctile_3y_at_3y_low": {"inputs": ["new_positions", "increased_positions", "close"], "func": ibf_135_gross_add_pctile_3y_at_3y_low},
+    "ibf_136_new_pos_trend_slope_4q": {"inputs": ["new_positions"], "func": ibf_136_new_pos_trend_slope_4q},
+    "ibf_137_gross_add_trend_slope_4q": {"inputs": ["new_positions", "increased_positions"], "func": ibf_137_gross_add_trend_slope_4q},
+    "ibf_138_inst_pct_trend_slope_4q": {"inputs": ["inst_pct"], "func": ibf_138_inst_pct_trend_slope_4q},
+    "ibf_139_inst_shares_trend_slope_2y": {"inputs": ["inst_shares"], "func": ibf_139_inst_shares_trend_slope_2y},
+    "ibf_140_gross_add_slope_at_2y_low": {"inputs": ["new_positions", "increased_positions", "close"], "func": ibf_140_gross_add_slope_at_2y_low},
+    "ibf_141_value_inflow_pctile_3y": {"inputs": ["inst_value"], "func": ibf_141_value_inflow_pctile_3y},
+    "ibf_142_shares_inflow_pctile_3y": {"inputs": ["inst_shares"], "func": ibf_142_shares_inflow_pctile_3y},
+    "ibf_143_value_inflow_density_1y": {"inputs": ["inst_value"], "func": ibf_143_value_inflow_density_1y},
+    "ibf_144_shares_inflow_density_2y": {"inputs": ["inst_shares"], "func": ibf_144_shares_inflow_density_2y},
+    "ibf_145_pct_inflow_density_1y": {"inputs": ["inst_pct"], "func": ibf_145_pct_inflow_density_1y},
+    "ibf_146_extreme_accum_flag_3y": {"inputs": ["new_positions", "increased_positions", "inst_pct", "inst_shares", "close"], "func": ibf_146_extreme_accum_flag_3y},
+    "ibf_147_accum_momentum_score_at_low": {"inputs": ["new_positions", "increased_positions", "inst_shares", "inst_pct", "close"], "func": ibf_147_accum_momentum_score_at_low},
+    "ibf_148_new_pos_qoq_pct_at_2y_low": {"inputs": ["new_positions", "close"], "func": ibf_148_new_pos_qoq_pct_at_2y_low},
+    "ibf_149_holder_and_share_joint_increase": {"inputs": ["inst_holders", "inst_shares"], "func": ibf_149_holder_and_share_joint_increase},
+    "ibf_150_full_composite_bottom_fish": {"inputs": ["new_positions", "increased_positions", "closed_positions", "decreased_positions", "inst_holders", "inst_shares", "inst_value", "inst_pct", "close"], "func": ibf_150_full_composite_bottom_fish},
+    "ibf_176_inst_holders_trend_slope_2y": {"inputs": ["inst_holders"], "func": ibf_176_inst_holders_trend_slope_2y},
+    "ibf_177_inst_holders_3q_acceleration": {"inputs": ["inst_holders"], "func": ibf_177_inst_holders_3q_acceleration},
+    "ibf_178_inst_holders_expanding_min": {"inputs": ["inst_holders"], "func": ibf_178_inst_holders_expanding_min},
+    "ibf_179_inst_holders_vs_expanding_min": {"inputs": ["inst_holders"], "func": ibf_179_inst_holders_vs_expanding_min},
+    "ibf_180_inst_value_trend_slope_2y": {"inputs": ["inst_value"], "func": ibf_180_inst_value_trend_slope_2y},
+    "ibf_181_inst_value_3y_range_pct": {"inputs": ["inst_value"], "func": ibf_181_inst_value_3y_range_pct},
+    "ibf_182_inst_value_vs_3y_max": {"inputs": ["inst_value"], "func": ibf_182_inst_value_vs_3y_max},
+    "ibf_183_inst_shares_1y_range_pct": {"inputs": ["inst_shares"], "func": ibf_183_inst_shares_1y_range_pct},
+    "ibf_184_inst_shares_zscore_1y": {"inputs": ["inst_shares"], "func": ibf_184_inst_shares_zscore_1y},
+    "ibf_185_four_way_accum_flag": {"inputs": ["new_positions", "increased_positions", "inst_holders", "inst_pct"], "func": ibf_185_four_way_accum_flag},
+    "ibf_186_four_way_accum_flag_at_3y_low": {"inputs": ["new_positions", "increased_positions", "inst_holders", "inst_pct", "close"], "func": ibf_186_four_way_accum_flag_at_3y_low},
+    "ibf_187_value_inflow_per_holder_2q_mean": {"inputs": ["inst_value", "inst_holders"], "func": ibf_187_value_inflow_per_holder_2q_mean},
+    "ibf_188_shares_inflow_per_holder_2q_mean": {"inputs": ["inst_shares", "inst_holders"], "func": ibf_188_shares_inflow_per_holder_2q_mean},
+    "ibf_189_dd_1y_pctile_2y": {"inputs": ["close"], "func": ibf_189_dd_1y_pctile_2y},
+    "ibf_190_dd_2y_pctile_3y": {"inputs": ["close"], "func": ibf_190_dd_2y_pctile_3y},
+    "ibf_191_gross_add_positive_qtrs_2q": {"inputs": ["new_positions", "increased_positions"], "func": ibf_191_gross_add_positive_qtrs_2q},
+    "ibf_192_gross_add_positive_qtrs_8q": {"inputs": ["new_positions", "increased_positions"], "func": ibf_192_gross_add_positive_qtrs_8q},
+    "ibf_193_inst_pct_above_50pct_flag": {"inputs": ["inst_pct"], "func": ibf_193_inst_pct_above_50pct_flag},
+    "ibf_194_inst_pct_zscore_1y": {"inputs": ["inst_pct"], "func": ibf_194_inst_pct_zscore_1y},
+    "ibf_195_value_inflow_sum_4q_at_1y_low": {"inputs": ["inst_value", "close"], "func": ibf_195_value_inflow_sum_4q_at_1y_low},
+    "ibf_196_shares_inflow_sum_4q_at_1y_low": {"inputs": ["inst_shares", "close"], "func": ibf_196_shares_inflow_sum_4q_at_1y_low},
+    "ibf_197_value_inflow_holder_flat_flag": {"inputs": ["inst_value", "inst_holders"], "func": ibf_197_value_inflow_holder_flat_flag},
+    "ibf_198_shares_up_value_flat_flag": {"inputs": ["inst_shares", "inst_value"], "func": ibf_198_shares_up_value_flat_flag},
+    "ibf_199_breadth_and_depth_score": {"inputs": ["new_positions", "increased_positions", "inst_holders", "close"], "func": ibf_199_breadth_and_depth_score},
+    "ibf_200_extended_composite_bottom_fish": {"inputs": ["new_positions", "increased_positions", "inst_holders", "inst_shares", "inst_value", "inst_pct", "close"], "func": ibf_200_extended_composite_bottom_fish},
+}

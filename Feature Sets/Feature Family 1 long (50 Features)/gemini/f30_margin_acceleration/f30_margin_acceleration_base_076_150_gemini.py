@@ -1,0 +1,1018 @@
+import pandas as pd
+import numpy as np
+import inspect
+
+def _sma(s, w):
+    """Simple Moving Average with min_periods handling."""
+    return s.rolling(w, min_periods=min(w, 20) if w > 20 else min(w, 2)).mean()
+
+def _std(s, w):
+    """Standard Deviation with min_periods handling."""
+    return s.rolling(w, min_periods=min(w, 20) if w > 20 else min(w, 2)).std()
+
+def _zscore(s, w):
+    """Z-Score calculation."""
+    sma = _sma(s, w)
+    std = _std(s, w)
+    return (s - sma) / std.replace(0, np.nan)
+
+def _ratio(num, den):
+    """Ratio of two series with zero handling."""
+    return num / den.replace(0, np.nan)
+
+def _growth(s, w):
+    """Percentage change over w periods."""
+    return s.pct_change(w)
+
+def _accel(s, w1, w2):
+    """Acceleration: growth of growth."""
+    return _growth(_growth(s, w1), w2)
+
+def _slope(s, w):
+    """Slope: difference normalized by absolute value."""
+    return s.diff(w) / s.abs().replace(0, np.nan)
+
+def _jerk(s, w):
+    """Jerk: change in slope or third derivative proxy."""
+    return s.diff(w)
+
+
+def f30_margin_acceleration_gp_w5_v076_signal(gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: gp smoothed over 5 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 5 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(gp, 5)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_gp_opinc_ratio_w10_v077_signal(gp, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to opinc smoothed over 10 days.
+    This ratio helps in identifying the relative value or relationship between gp and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 10 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 10)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_gp_ebitda_ratio_w21_v078_signal(gp, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to ebitda smoothed over 21 days.
+    This ratio helps in identifying the relative value or relationship between gp and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 21 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 21)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_gp_netinc_ratio_w42_v079_signal(gp, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to netinc smoothed over 42 days.
+    This ratio helps in identifying the relative value or relationship between gp and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 42 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 42)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_gp_revenue_ratio_w63_v080_signal(gp, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to revenue smoothed over 63 days.
+    This ratio helps in identifying the relative value or relationship between gp and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 63 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 63)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_gp_ratio_w126_v081_signal(opinc, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to gp smoothed over 126 days.
+    This ratio helps in identifying the relative value or relationship between opinc and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 126 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 126)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_w252_v082_signal(opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: opinc smoothed over 252 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 252 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(opinc, 252)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_opinc_ebitda_ratio_w504_v083_signal(opinc, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to ebitda smoothed over 504 days.
+    This ratio helps in identifying the relative value or relationship between opinc and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 504 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 504)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_netinc_ratio_w756_v084_signal(opinc, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to netinc smoothed over 756 days.
+    This ratio helps in identifying the relative value or relationship between opinc and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 756 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 756)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_revenue_ratio_w5_v085_signal(opinc, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to revenue smoothed over 5 days.
+    This ratio helps in identifying the relative value or relationship between opinc and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 5 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 5)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_gp_ratio_w10_v086_signal(ebitda, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to gp smoothed over 10 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 10 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 10)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_opinc_ratio_w21_v087_signal(ebitda, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to opinc smoothed over 21 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 21 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 21)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_w42_v088_signal(ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: ebitda smoothed over 42 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 42 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(ebitda, 42)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_ebitda_netinc_ratio_w63_v089_signal(ebitda, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to netinc smoothed over 63 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 63 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 63)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_revenue_ratio_w126_v090_signal(ebitda, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to revenue smoothed over 126 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 126 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 126)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_gp_ratio_w252_v091_signal(netinc, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to gp smoothed over 252 days.
+    This ratio helps in identifying the relative value or relationship between netinc and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 252 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 252)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_opinc_ratio_w504_v092_signal(netinc, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to opinc smoothed over 504 days.
+    This ratio helps in identifying the relative value or relationship between netinc and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 504 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 504)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_ebitda_ratio_w756_v093_signal(netinc, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to ebitda smoothed over 756 days.
+    This ratio helps in identifying the relative value or relationship between netinc and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 756 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 756)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_w5_v094_signal(netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: netinc smoothed over 5 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 5 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(netinc, 5)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_netinc_revenue_ratio_w10_v095_signal(netinc, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to revenue smoothed over 10 days.
+    This ratio helps in identifying the relative value or relationship between netinc and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 10 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 10)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_gp_ratio_w21_v096_signal(revenue, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to gp smoothed over 21 days.
+    This ratio helps in identifying the relative value or relationship between revenue and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 21 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 21)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_opinc_ratio_w42_v097_signal(revenue, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to opinc smoothed over 42 days.
+    This ratio helps in identifying the relative value or relationship between revenue and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 42 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 42)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_ebitda_ratio_w63_v098_signal(revenue, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to ebitda smoothed over 63 days.
+    This ratio helps in identifying the relative value or relationship between revenue and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 63 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 63)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_netinc_ratio_w126_v099_signal(revenue, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to netinc smoothed over 126 days.
+    This ratio helps in identifying the relative value or relationship between revenue and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 126 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 126)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_w252_v100_signal(revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: revenue smoothed over 252 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 252 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(revenue, 252)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_gp_w504_v101_signal(gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: gp smoothed over 504 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 504 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(gp, 504)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_gp_opinc_ratio_w756_v102_signal(gp, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to opinc smoothed over 756 days.
+    This ratio helps in identifying the relative value or relationship between gp and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 756 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 756)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_gp_ebitda_ratio_w5_v103_signal(gp, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to ebitda smoothed over 5 days.
+    This ratio helps in identifying the relative value or relationship between gp and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 5 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 5)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_gp_netinc_ratio_w10_v104_signal(gp, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to netinc smoothed over 10 days.
+    This ratio helps in identifying the relative value or relationship between gp and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 10 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 10)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_gp_revenue_ratio_w21_v105_signal(gp, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to revenue smoothed over 21 days.
+    This ratio helps in identifying the relative value or relationship between gp and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 21 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 21)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_gp_ratio_w42_v106_signal(opinc, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to gp smoothed over 42 days.
+    This ratio helps in identifying the relative value or relationship between opinc and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 42 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 42)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_w63_v107_signal(opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: opinc smoothed over 63 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 63 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(opinc, 63)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_opinc_ebitda_ratio_w126_v108_signal(opinc, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to ebitda smoothed over 126 days.
+    This ratio helps in identifying the relative value or relationship between opinc and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 126 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 126)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_netinc_ratio_w252_v109_signal(opinc, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to netinc smoothed over 252 days.
+    This ratio helps in identifying the relative value or relationship between opinc and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 252 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 252)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_revenue_ratio_w504_v110_signal(opinc, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to revenue smoothed over 504 days.
+    This ratio helps in identifying the relative value or relationship between opinc and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 504 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 504)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_gp_ratio_w756_v111_signal(ebitda, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to gp smoothed over 756 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 756 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 756)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_opinc_ratio_w5_v112_signal(ebitda, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to opinc smoothed over 5 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 5 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 5)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_w10_v113_signal(ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: ebitda smoothed over 10 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 10 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(ebitda, 10)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_ebitda_netinc_ratio_w21_v114_signal(ebitda, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to netinc smoothed over 21 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 21 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 21)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_revenue_ratio_w42_v115_signal(ebitda, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to revenue smoothed over 42 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 42 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 42)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_gp_ratio_w63_v116_signal(netinc, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to gp smoothed over 63 days.
+    This ratio helps in identifying the relative value or relationship between netinc and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 63 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 63)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_opinc_ratio_w126_v117_signal(netinc, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to opinc smoothed over 126 days.
+    This ratio helps in identifying the relative value or relationship between netinc and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 126 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 126)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_ebitda_ratio_w252_v118_signal(netinc, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to ebitda smoothed over 252 days.
+    This ratio helps in identifying the relative value or relationship between netinc and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 252 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 252)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_w504_v119_signal(netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: netinc smoothed over 504 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 504 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(netinc, 504)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_netinc_revenue_ratio_w756_v120_signal(netinc, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to revenue smoothed over 756 days.
+    This ratio helps in identifying the relative value or relationship between netinc and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 756 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 756)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_gp_ratio_w5_v121_signal(revenue, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to gp smoothed over 5 days.
+    This ratio helps in identifying the relative value or relationship between revenue and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 5 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 5)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_opinc_ratio_w10_v122_signal(revenue, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to opinc smoothed over 10 days.
+    This ratio helps in identifying the relative value or relationship between revenue and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 10 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 10)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_ebitda_ratio_w21_v123_signal(revenue, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to ebitda smoothed over 21 days.
+    This ratio helps in identifying the relative value or relationship between revenue and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 21 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 21)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_netinc_ratio_w42_v124_signal(revenue, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to netinc smoothed over 42 days.
+    This ratio helps in identifying the relative value or relationship between revenue and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 42 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 42)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_w63_v125_signal(revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: revenue smoothed over 63 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 63 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(revenue, 63)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_gp_w126_v126_signal(gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: gp smoothed over 126 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 126 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(gp, 126)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_gp_opinc_ratio_w252_v127_signal(gp, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to opinc smoothed over 252 days.
+    This ratio helps in identifying the relative value or relationship between gp and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 252 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 252)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_gp_ebitda_ratio_w504_v128_signal(gp, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to ebitda smoothed over 504 days.
+    This ratio helps in identifying the relative value or relationship between gp and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 504 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 504)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_gp_netinc_ratio_w756_v129_signal(gp, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to netinc smoothed over 756 days.
+    This ratio helps in identifying the relative value or relationship between gp and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 756 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 756)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_gp_revenue_ratio_w5_v130_signal(gp, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of gp to revenue smoothed over 5 days.
+    This ratio helps in identifying the relative value or relationship between gp and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(gp, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 5 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 5)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_gp_ratio_w10_v131_signal(opinc, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to gp smoothed over 10 days.
+    This ratio helps in identifying the relative value or relationship between opinc and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 10 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 10)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_w21_v132_signal(opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: opinc smoothed over 21 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 21 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(opinc, 21)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_opinc_ebitda_ratio_w42_v133_signal(opinc, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to ebitda smoothed over 42 days.
+    This ratio helps in identifying the relative value or relationship between opinc and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 42 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 42)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_netinc_ratio_w63_v134_signal(opinc, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to netinc smoothed over 63 days.
+    This ratio helps in identifying the relative value or relationship between opinc and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 63 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 63)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_opinc_revenue_ratio_w126_v135_signal(opinc, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of opinc to revenue smoothed over 126 days.
+    This ratio helps in identifying the relative value or relationship between opinc and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(opinc, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 126 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 126)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_gp_ratio_w252_v136_signal(ebitda, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to gp smoothed over 252 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 252 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 252)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_opinc_ratio_w504_v137_signal(ebitda, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to opinc smoothed over 504 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 504 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 504)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_w756_v138_signal(ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: ebitda smoothed over 756 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 756 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(ebitda, 756)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_ebitda_netinc_ratio_w5_v139_signal(ebitda, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to netinc smoothed over 5 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 5 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 5)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_ebitda_revenue_ratio_w10_v140_signal(ebitda, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of ebitda to revenue smoothed over 10 days.
+    This ratio helps in identifying the relative value or relationship between ebitda and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(ebitda, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 10 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 10)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_gp_ratio_w21_v141_signal(netinc, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to gp smoothed over 21 days.
+    This ratio helps in identifying the relative value or relationship between netinc and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 21 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 21)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_opinc_ratio_w42_v142_signal(netinc, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to opinc smoothed over 42 days.
+    This ratio helps in identifying the relative value or relationship between netinc and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 42 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 42)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_ebitda_ratio_w63_v143_signal(netinc, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to ebitda smoothed over 63 days.
+    This ratio helps in identifying the relative value or relationship between netinc and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 63 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 63)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_netinc_w126_v144_signal(netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: netinc smoothed over 126 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 126 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(netinc, 126)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+def f30_margin_acceleration_netinc_revenue_ratio_w252_v145_signal(netinc, revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of netinc to revenue smoothed over 252 days.
+    This ratio helps in identifying the relative value or relationship between netinc and revenue over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(netinc, revenue)
+    # Step 2: Smooth the resulting ratio using a moving average of 252 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 252)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_gp_ratio_w504_v146_signal(revenue, gp) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to gp smoothed over 504 days.
+    This ratio helps in identifying the relative value or relationship between revenue and gp over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, gp)
+    # Step 2: Smooth the resulting ratio using a moving average of 504 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 504)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_opinc_ratio_w756_v147_signal(revenue, opinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to opinc smoothed over 756 days.
+    This ratio helps in identifying the relative value or relationship between revenue and opinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, opinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 756 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 756)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_ebitda_ratio_w5_v148_signal(revenue, ebitda) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to ebitda smoothed over 5 days.
+    This ratio helps in identifying the relative value or relationship between revenue and ebitda over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, ebitda)
+    # Step 2: Smooth the resulting ratio using a moving average of 5 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 5)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_netinc_ratio_w10_v149_signal(revenue, netinc) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: Ratio of revenue to netinc smoothed over 10 days.
+    This ratio helps in identifying the relative value or relationship between revenue and netinc over time.
+    """
+    # Step 1: Calculate the raw ratio between the two input series
+    raw_ratio_val = _ratio(revenue, netinc)
+    # Step 2: Smooth the resulting ratio using a moving average of 10 periods
+    smoothed_ratio_series = _sma(raw_ratio_val, 10)
+    # Step 3: Replace any potential infinity results with NaN for consistency
+    final_output = smoothed_ratio_series.replace([np.inf, -np.inf], np.nan)
+    return final_output
+
+def f30_margin_acceleration_revenue_w21_v150_signal(revenue) -> pd.Series:
+    """
+    Base Signal for f30_margin_acceleration: revenue smoothed over 21 days.
+    This function calculates a smoothed version of the input series to capture underlying trends.
+    It uses a Simple Moving Average with a window of 21 periods.
+    """
+    # Step 1: Calculate the Simple Moving Average
+    smoothed_data = _sma(revenue, 21)
+    # Step 2: Handle infinity values by replacing them with NaN for stability
+    clean_result = smoothed_data.replace([np.inf, -np.inf], np.nan)
+    return clean_result
+
+if __name__ == "__main__":
+    import inspect
+    np.random.seed(42)
+    n = 2000
+    df = pd.DataFrame({col: np.abs(np.random.normal(100, 20, n).cumsum()) + 1 for col in ['gp', 'opinc', 'ebitda', 'netinc', 'revenue']})
+    
+    module = inspect.getmodule(inspect.currentframe())
+    funcs = [obj for name, obj in inspect.getmembers(module) if (inspect.isfunction(obj) and name.startswith('f30_margin_acceleration_'))]
+    print(f"Testing {len(funcs)} functions for f30_margin_acceleration\f30_margin_acceleration_base_076_150_gemini.py...")
+    for func in funcs:
+        sig = inspect.signature(func)
+        args = [df[p] for p in sig.parameters]
+        y1 = func(*args)
+        assert isinstance(y1, pd.Series), f"{func.__name__} did not return a Series"
+        assert not y1.isna().all(), f"{func.__name__} is all NaNs"
+    print(f"All {len(funcs)} tests passed!")
+
+REGISTRY = {fn.__name__: {"inputs": list(inspect.signature(fn).parameters.keys()), "func": fn} for fn in [obj for name, obj in inspect.getmembers(inspect.getmodule(inspect.currentframe())) if (inspect.isfunction(obj) and name.startswith('f30_margin_acceleration_'))]}
+F30_MARGIN_ACCELERATION_REGISTRY_BASE_76_150 = REGISTRY

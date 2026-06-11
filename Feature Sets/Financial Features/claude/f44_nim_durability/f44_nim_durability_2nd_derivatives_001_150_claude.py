@@ -1,0 +1,1262 @@
+import inspect
+import numpy as np
+import pandas as pd
+
+TRADING_DAYS_YEAR = 252
+TRADING_DAYS_HALF = 126
+TRADING_DAYS_QUARTER = 63
+TRADING_DAYS_MONTH = 21
+TRADING_DAYS_WEEK = 5
+
+
+def _z(s, w):
+    m = s.rolling(w, min_periods=max(1, w // 2)).mean()
+    sd = s.rolling(w, min_periods=max(1, w // 2)).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+
+def _mean(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).mean()
+
+
+def _std(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).std()
+
+
+def _safe_div(a, b):
+    return a / b.replace(0, np.nan)
+
+
+def _ema(s, w):
+    return s.ewm(span=w, min_periods=max(1, w // 2)).mean()
+
+
+def _diff(s, n):
+    return s.diff(periods=n)
+
+
+def _slope_pct(s, w):
+    return s.pct_change(periods=w)
+
+
+def _slope_diff_norm(s, w):
+    return s.diff(periods=w) / s.abs().replace(0, np.nan)
+
+
+# ===== folder domain primitives =====
+def _f44_nim_stability(revenue, assets, w):
+    """NIM proxy stability: rolling std of revenue/assets (lower = more stable)."""
+    nim = revenue / assets.replace(0, np.nan)
+    return nim.rolling(w, min_periods=max(1, w // 2)).std()
+
+
+def _f44_nim_floor(revenue, assets, w):
+    """NIM floor: rolling minimum of revenue/assets over window w."""
+    nim = revenue / assets.replace(0, np.nan)
+    return nim.rolling(w, min_periods=max(1, w // 2)).min()
+
+
+def _f44_nim_persistence(revenue, assets, w):
+    """NIM persistence: rolling mean of revenue/assets, signalling durability."""
+    nim = revenue / assets.replace(0, np.nan)
+    return nim.rolling(w, min_periods=max(1, w // 2)).mean()
+
+def f44nid_f44_nim_durability_stab_x_close_5d_i5d_slope_v001_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_mean21_5d_i5d_slope_v002_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_stability(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_mean63_5d_i5d_slope_v003_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_std21_5d_i5d_slope_v004_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_stability(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_std63_5d_i5d_slope_v005_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_z63_5d_i5d_slope_v006_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_z252_5d_i5d_slope_v007_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_stability(revenue, assets, 5), 252)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_ema21_5d_i5d_slope_v008_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_stability(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_ema63_5d_i5d_slope_v009_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_log_5d_i5d_slope_v010_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = np.log(base.abs().replace(0, np.nan)) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_sqrt_5d_i5d_slope_v011_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = np.sqrt(base.abs()) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_pct21_5d_i5d_slope_v012_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base.pct_change(21) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_pct63_5d_i5d_slope_v013_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base.pct_change(63) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_diff21_5d_i5d_slope_v014_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base.diff(21) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_sign_close_5d_i5d_slope_v015_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = np.sign(base - base.shift(63)) * closeadj * closeadj.pct_change(21)
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_x_close_5d_i5d_slope_v016_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_mean21_5d_i5d_slope_v017_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_floor(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_mean63_5d_i5d_slope_v018_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_std21_5d_i5d_slope_v019_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_floor(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_std63_5d_i5d_slope_v020_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_z63_5d_i5d_slope_v021_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_z252_5d_i5d_slope_v022_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_floor(revenue, assets, 5), 252)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_ema21_5d_i5d_slope_v023_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_floor(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_ema63_5d_i5d_slope_v024_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_pct21_5d_i5d_slope_v025_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.pct_change(21) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_pct63_5d_i5d_slope_v026_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.pct_change(63) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_diff21_5d_i5d_slope_v027_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.diff(21) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_diff63_5d_i5d_slope_v028_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.diff(63) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_sqrt_5d_i5d_slope_v029_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = np.sqrt(base.abs()) * closeadj * closeadj.pct_change(21)
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_log_5d_i5d_slope_v030_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = np.log(base.abs().replace(0, np.nan) + 1.0) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_x_close_5d_i5d_slope_v031_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_mean21_5d_i5d_slope_v032_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_persistence(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_mean63_5d_i5d_slope_v033_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_std21_5d_i5d_slope_v034_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_persistence(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_std63_5d_i5d_slope_v035_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_z63_5d_i5d_slope_v036_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_z252_5d_i5d_slope_v037_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_persistence(revenue, assets, 5), 252)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_ema21_5d_i5d_slope_v038_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_persistence(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_ema63_5d_i5d_slope_v039_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_pct21_5d_i5d_slope_v040_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.pct_change(21) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_pct63_5d_i5d_slope_v041_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.pct_change(63) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_diff21_5d_i5d_slope_v042_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.diff(21) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_diff63_5d_i5d_slope_v043_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.diff(63) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_sqrt_5d_i5d_slope_v044_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = np.sqrt(base.abs()) * closeadj * closeadj.pct_change(21)
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_log_5d_i5d_slope_v045_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = np.log(base.abs().replace(0, np.nan) + 1.0) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_minus_stab_5d_i5d_slope_v046_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_stability(revenue, assets, 5)
+    base_series = (a - b) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_div_stab_5d_i5d_slope_v047_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_stability(revenue, assets, 5)
+    base_series = a * closeadj / b.abs().replace(0, np.nan)
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_minus_floor_5d_i5d_slope_v048_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_floor(revenue, assets, 5)
+    base_series = (a - b) * closeadj
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_x_floor_5d_i5d_slope_v049_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_floor(revenue, assets, 5)
+    base_series = a * b * closeadj * 1000.0
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_x_floor_5d_i5d_slope_v050_signal(revenue, assets, closeadj):
+    a = _f44_nim_stability(revenue, assets, 5)
+    b = _f44_nim_floor(revenue, assets, 5)
+    base_series = a * b * closeadj * 1000.0
+    result = _slope_diff_norm(base_series, 5)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_x_close_5d_i10d_slope_v051_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_mean21_5d_i10d_slope_v052_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_stability(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_mean63_5d_i10d_slope_v053_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_std21_5d_i10d_slope_v054_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_stability(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_std63_5d_i10d_slope_v055_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_z63_5d_i10d_slope_v056_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_z252_5d_i10d_slope_v057_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_stability(revenue, assets, 5), 252)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_ema21_5d_i10d_slope_v058_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_stability(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_ema63_5d_i10d_slope_v059_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_log_5d_i10d_slope_v060_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = np.log(base.abs().replace(0, np.nan)) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_sqrt_5d_i10d_slope_v061_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = np.sqrt(base.abs()) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_pct21_5d_i10d_slope_v062_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base.pct_change(21) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_pct63_5d_i10d_slope_v063_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base.pct_change(63) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_diff21_5d_i10d_slope_v064_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base.diff(21) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_sign_close_5d_i10d_slope_v065_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = np.sign(base - base.shift(63)) * closeadj * closeadj.pct_change(21)
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_x_close_5d_i10d_slope_v066_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_mean21_5d_i10d_slope_v067_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_floor(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_mean63_5d_i10d_slope_v068_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_std21_5d_i10d_slope_v069_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_floor(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_std63_5d_i10d_slope_v070_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_z63_5d_i10d_slope_v071_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_z252_5d_i10d_slope_v072_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_floor(revenue, assets, 5), 252)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_ema21_5d_i10d_slope_v073_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_floor(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_ema63_5d_i10d_slope_v074_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_pct21_5d_i10d_slope_v075_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.pct_change(21) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_pct63_5d_i10d_slope_v076_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.pct_change(63) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_diff21_5d_i10d_slope_v077_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.diff(21) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_diff63_5d_i10d_slope_v078_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.diff(63) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_sqrt_5d_i10d_slope_v079_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = np.sqrt(base.abs()) * closeadj * closeadj.pct_change(21)
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_log_5d_i10d_slope_v080_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = np.log(base.abs().replace(0, np.nan) + 1.0) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_x_close_5d_i10d_slope_v081_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_mean21_5d_i10d_slope_v082_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_persistence(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_mean63_5d_i10d_slope_v083_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_std21_5d_i10d_slope_v084_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_persistence(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_std63_5d_i10d_slope_v085_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_z63_5d_i10d_slope_v086_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_z252_5d_i10d_slope_v087_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_persistence(revenue, assets, 5), 252)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_ema21_5d_i10d_slope_v088_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_persistence(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_ema63_5d_i10d_slope_v089_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_pct21_5d_i10d_slope_v090_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.pct_change(21) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_pct63_5d_i10d_slope_v091_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.pct_change(63) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_diff21_5d_i10d_slope_v092_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.diff(21) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_diff63_5d_i10d_slope_v093_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.diff(63) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_sqrt_5d_i10d_slope_v094_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = np.sqrt(base.abs()) * closeadj * closeadj.pct_change(21)
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_log_5d_i10d_slope_v095_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = np.log(base.abs().replace(0, np.nan) + 1.0) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_minus_stab_5d_i10d_slope_v096_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_stability(revenue, assets, 5)
+    base_series = (a - b) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_div_stab_5d_i10d_slope_v097_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_stability(revenue, assets, 5)
+    base_series = a * closeadj / b.abs().replace(0, np.nan)
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_minus_floor_5d_i10d_slope_v098_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_floor(revenue, assets, 5)
+    base_series = (a - b) * closeadj
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_x_floor_5d_i10d_slope_v099_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_floor(revenue, assets, 5)
+    base_series = a * b * closeadj * 1000.0
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_x_floor_5d_i10d_slope_v100_signal(revenue, assets, closeadj):
+    a = _f44_nim_stability(revenue, assets, 5)
+    b = _f44_nim_floor(revenue, assets, 5)
+    base_series = a * b * closeadj * 1000.0
+    result = _slope_diff_norm(base_series, 10)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_x_close_5d_i21d_slope_v101_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_mean21_5d_i21d_slope_v102_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_stability(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_mean63_5d_i21d_slope_v103_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_std21_5d_i21d_slope_v104_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_stability(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_std63_5d_i21d_slope_v105_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_z63_5d_i21d_slope_v106_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_z252_5d_i21d_slope_v107_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_stability(revenue, assets, 5), 252)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_ema21_5d_i21d_slope_v108_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_stability(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_ema63_5d_i21d_slope_v109_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_stability(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_log_5d_i21d_slope_v110_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = np.log(base.abs().replace(0, np.nan)) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_sqrt_5d_i21d_slope_v111_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = np.sqrt(base.abs()) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_pct21_5d_i21d_slope_v112_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base.pct_change(21) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_pct63_5d_i21d_slope_v113_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base.pct_change(63) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_diff21_5d_i21d_slope_v114_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = base.diff(21) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_sign_close_5d_i21d_slope_v115_signal(revenue, assets, closeadj):
+    base = _f44_nim_stability(revenue, assets, 5)
+    base_series = np.sign(base - base.shift(63)) * closeadj * closeadj.pct_change(21)
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_x_close_5d_i21d_slope_v116_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_mean21_5d_i21d_slope_v117_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_floor(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_mean63_5d_i21d_slope_v118_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_std21_5d_i21d_slope_v119_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_floor(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_std63_5d_i21d_slope_v120_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_z63_5d_i21d_slope_v121_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_z252_5d_i21d_slope_v122_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_floor(revenue, assets, 5), 252)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_ema21_5d_i21d_slope_v123_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_floor(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_ema63_5d_i21d_slope_v124_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_floor(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_pct21_5d_i21d_slope_v125_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.pct_change(21) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_pct63_5d_i21d_slope_v126_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.pct_change(63) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_diff21_5d_i21d_slope_v127_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.diff(21) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_diff63_5d_i21d_slope_v128_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = base.diff(63) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_sqrt_5d_i21d_slope_v129_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = np.sqrt(base.abs()) * closeadj * closeadj.pct_change(21)
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_floor_log_5d_i21d_slope_v130_signal(revenue, assets, closeadj):
+    base = _f44_nim_floor(revenue, assets, 5)
+    base_series = np.log(base.abs().replace(0, np.nan) + 1.0) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_x_close_5d_i21d_slope_v131_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_mean21_5d_i21d_slope_v132_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_persistence(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_mean63_5d_i21d_slope_v133_signal(revenue, assets, closeadj):
+    base = _mean(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_std21_5d_i21d_slope_v134_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_persistence(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_std63_5d_i21d_slope_v135_signal(revenue, assets, closeadj):
+    base = _std(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_z63_5d_i21d_slope_v136_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_z252_5d_i21d_slope_v137_signal(revenue, assets, closeadj):
+    base = _z(_f44_nim_persistence(revenue, assets, 5), 252)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_ema21_5d_i21d_slope_v138_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_persistence(revenue, assets, 5), 21)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_ema63_5d_i21d_slope_v139_signal(revenue, assets, closeadj):
+    base = _ema(_f44_nim_persistence(revenue, assets, 5), 63)
+    base_series = base * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_pct21_5d_i21d_slope_v140_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.pct_change(21) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_pct63_5d_i21d_slope_v141_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.pct_change(63) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_diff21_5d_i21d_slope_v142_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.diff(21) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_diff63_5d_i21d_slope_v143_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = base.diff(63) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_sqrt_5d_i21d_slope_v144_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = np.sqrt(base.abs()) * closeadj * closeadj.pct_change(21)
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_log_5d_i21d_slope_v145_signal(revenue, assets, closeadj):
+    base = _f44_nim_persistence(revenue, assets, 5)
+    base_series = np.log(base.abs().replace(0, np.nan) + 1.0) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_minus_stab_5d_i21d_slope_v146_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_stability(revenue, assets, 5)
+    base_series = (a - b) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_div_stab_5d_i21d_slope_v147_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_stability(revenue, assets, 5)
+    base_series = a * closeadj / b.abs().replace(0, np.nan)
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_minus_floor_5d_i21d_slope_v148_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_floor(revenue, assets, 5)
+    base_series = (a - b) * closeadj
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_pers_x_floor_5d_i21d_slope_v149_signal(revenue, assets, closeadj):
+    a = _f44_nim_persistence(revenue, assets, 5)
+    b = _f44_nim_floor(revenue, assets, 5)
+    base_series = a * b * closeadj * 1000.0
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+def f44nid_f44_nim_durability_stab_x_floor_5d_i21d_slope_v150_signal(revenue, assets, closeadj):
+    a = _f44_nim_stability(revenue, assets, 5)
+    b = _f44_nim_floor(revenue, assets, 5)
+    base_series = a * b * closeadj * 1000.0
+    result = _slope_diff_norm(base_series, 21)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+_FEATURES = [
+    f44nid_f44_nim_durability_stab_x_close_5d_i5d_slope_v001_signal,
+    f44nid_f44_nim_durability_stab_mean21_5d_i5d_slope_v002_signal,
+    f44nid_f44_nim_durability_stab_mean63_5d_i5d_slope_v003_signal,
+    f44nid_f44_nim_durability_stab_std21_5d_i5d_slope_v004_signal,
+    f44nid_f44_nim_durability_stab_std63_5d_i5d_slope_v005_signal,
+    f44nid_f44_nim_durability_stab_z63_5d_i5d_slope_v006_signal,
+    f44nid_f44_nim_durability_stab_z252_5d_i5d_slope_v007_signal,
+    f44nid_f44_nim_durability_stab_ema21_5d_i5d_slope_v008_signal,
+    f44nid_f44_nim_durability_stab_ema63_5d_i5d_slope_v009_signal,
+    f44nid_f44_nim_durability_stab_log_5d_i5d_slope_v010_signal,
+    f44nid_f44_nim_durability_stab_sqrt_5d_i5d_slope_v011_signal,
+    f44nid_f44_nim_durability_stab_pct21_5d_i5d_slope_v012_signal,
+    f44nid_f44_nim_durability_stab_pct63_5d_i5d_slope_v013_signal,
+    f44nid_f44_nim_durability_stab_diff21_5d_i5d_slope_v014_signal,
+    f44nid_f44_nim_durability_stab_sign_close_5d_i5d_slope_v015_signal,
+    f44nid_f44_nim_durability_floor_x_close_5d_i5d_slope_v016_signal,
+    f44nid_f44_nim_durability_floor_mean21_5d_i5d_slope_v017_signal,
+    f44nid_f44_nim_durability_floor_mean63_5d_i5d_slope_v018_signal,
+    f44nid_f44_nim_durability_floor_std21_5d_i5d_slope_v019_signal,
+    f44nid_f44_nim_durability_floor_std63_5d_i5d_slope_v020_signal,
+    f44nid_f44_nim_durability_floor_z63_5d_i5d_slope_v021_signal,
+    f44nid_f44_nim_durability_floor_z252_5d_i5d_slope_v022_signal,
+    f44nid_f44_nim_durability_floor_ema21_5d_i5d_slope_v023_signal,
+    f44nid_f44_nim_durability_floor_ema63_5d_i5d_slope_v024_signal,
+    f44nid_f44_nim_durability_floor_pct21_5d_i5d_slope_v025_signal,
+    f44nid_f44_nim_durability_floor_pct63_5d_i5d_slope_v026_signal,
+    f44nid_f44_nim_durability_floor_diff21_5d_i5d_slope_v027_signal,
+    f44nid_f44_nim_durability_floor_diff63_5d_i5d_slope_v028_signal,
+    f44nid_f44_nim_durability_floor_sqrt_5d_i5d_slope_v029_signal,
+    f44nid_f44_nim_durability_floor_log_5d_i5d_slope_v030_signal,
+    f44nid_f44_nim_durability_pers_x_close_5d_i5d_slope_v031_signal,
+    f44nid_f44_nim_durability_pers_mean21_5d_i5d_slope_v032_signal,
+    f44nid_f44_nim_durability_pers_mean63_5d_i5d_slope_v033_signal,
+    f44nid_f44_nim_durability_pers_std21_5d_i5d_slope_v034_signal,
+    f44nid_f44_nim_durability_pers_std63_5d_i5d_slope_v035_signal,
+    f44nid_f44_nim_durability_pers_z63_5d_i5d_slope_v036_signal,
+    f44nid_f44_nim_durability_pers_z252_5d_i5d_slope_v037_signal,
+    f44nid_f44_nim_durability_pers_ema21_5d_i5d_slope_v038_signal,
+    f44nid_f44_nim_durability_pers_ema63_5d_i5d_slope_v039_signal,
+    f44nid_f44_nim_durability_pers_pct21_5d_i5d_slope_v040_signal,
+    f44nid_f44_nim_durability_pers_pct63_5d_i5d_slope_v041_signal,
+    f44nid_f44_nim_durability_pers_diff21_5d_i5d_slope_v042_signal,
+    f44nid_f44_nim_durability_pers_diff63_5d_i5d_slope_v043_signal,
+    f44nid_f44_nim_durability_pers_sqrt_5d_i5d_slope_v044_signal,
+    f44nid_f44_nim_durability_pers_log_5d_i5d_slope_v045_signal,
+    f44nid_f44_nim_durability_pers_minus_stab_5d_i5d_slope_v046_signal,
+    f44nid_f44_nim_durability_pers_div_stab_5d_i5d_slope_v047_signal,
+    f44nid_f44_nim_durability_pers_minus_floor_5d_i5d_slope_v048_signal,
+    f44nid_f44_nim_durability_pers_x_floor_5d_i5d_slope_v049_signal,
+    f44nid_f44_nim_durability_stab_x_floor_5d_i5d_slope_v050_signal,
+    f44nid_f44_nim_durability_stab_x_close_5d_i10d_slope_v051_signal,
+    f44nid_f44_nim_durability_stab_mean21_5d_i10d_slope_v052_signal,
+    f44nid_f44_nim_durability_stab_mean63_5d_i10d_slope_v053_signal,
+    f44nid_f44_nim_durability_stab_std21_5d_i10d_slope_v054_signal,
+    f44nid_f44_nim_durability_stab_std63_5d_i10d_slope_v055_signal,
+    f44nid_f44_nim_durability_stab_z63_5d_i10d_slope_v056_signal,
+    f44nid_f44_nim_durability_stab_z252_5d_i10d_slope_v057_signal,
+    f44nid_f44_nim_durability_stab_ema21_5d_i10d_slope_v058_signal,
+    f44nid_f44_nim_durability_stab_ema63_5d_i10d_slope_v059_signal,
+    f44nid_f44_nim_durability_stab_log_5d_i10d_slope_v060_signal,
+    f44nid_f44_nim_durability_stab_sqrt_5d_i10d_slope_v061_signal,
+    f44nid_f44_nim_durability_stab_pct21_5d_i10d_slope_v062_signal,
+    f44nid_f44_nim_durability_stab_pct63_5d_i10d_slope_v063_signal,
+    f44nid_f44_nim_durability_stab_diff21_5d_i10d_slope_v064_signal,
+    f44nid_f44_nim_durability_stab_sign_close_5d_i10d_slope_v065_signal,
+    f44nid_f44_nim_durability_floor_x_close_5d_i10d_slope_v066_signal,
+    f44nid_f44_nim_durability_floor_mean21_5d_i10d_slope_v067_signal,
+    f44nid_f44_nim_durability_floor_mean63_5d_i10d_slope_v068_signal,
+    f44nid_f44_nim_durability_floor_std21_5d_i10d_slope_v069_signal,
+    f44nid_f44_nim_durability_floor_std63_5d_i10d_slope_v070_signal,
+    f44nid_f44_nim_durability_floor_z63_5d_i10d_slope_v071_signal,
+    f44nid_f44_nim_durability_floor_z252_5d_i10d_slope_v072_signal,
+    f44nid_f44_nim_durability_floor_ema21_5d_i10d_slope_v073_signal,
+    f44nid_f44_nim_durability_floor_ema63_5d_i10d_slope_v074_signal,
+    f44nid_f44_nim_durability_floor_pct21_5d_i10d_slope_v075_signal,
+    f44nid_f44_nim_durability_floor_pct63_5d_i10d_slope_v076_signal,
+    f44nid_f44_nim_durability_floor_diff21_5d_i10d_slope_v077_signal,
+    f44nid_f44_nim_durability_floor_diff63_5d_i10d_slope_v078_signal,
+    f44nid_f44_nim_durability_floor_sqrt_5d_i10d_slope_v079_signal,
+    f44nid_f44_nim_durability_floor_log_5d_i10d_slope_v080_signal,
+    f44nid_f44_nim_durability_pers_x_close_5d_i10d_slope_v081_signal,
+    f44nid_f44_nim_durability_pers_mean21_5d_i10d_slope_v082_signal,
+    f44nid_f44_nim_durability_pers_mean63_5d_i10d_slope_v083_signal,
+    f44nid_f44_nim_durability_pers_std21_5d_i10d_slope_v084_signal,
+    f44nid_f44_nim_durability_pers_std63_5d_i10d_slope_v085_signal,
+    f44nid_f44_nim_durability_pers_z63_5d_i10d_slope_v086_signal,
+    f44nid_f44_nim_durability_pers_z252_5d_i10d_slope_v087_signal,
+    f44nid_f44_nim_durability_pers_ema21_5d_i10d_slope_v088_signal,
+    f44nid_f44_nim_durability_pers_ema63_5d_i10d_slope_v089_signal,
+    f44nid_f44_nim_durability_pers_pct21_5d_i10d_slope_v090_signal,
+    f44nid_f44_nim_durability_pers_pct63_5d_i10d_slope_v091_signal,
+    f44nid_f44_nim_durability_pers_diff21_5d_i10d_slope_v092_signal,
+    f44nid_f44_nim_durability_pers_diff63_5d_i10d_slope_v093_signal,
+    f44nid_f44_nim_durability_pers_sqrt_5d_i10d_slope_v094_signal,
+    f44nid_f44_nim_durability_pers_log_5d_i10d_slope_v095_signal,
+    f44nid_f44_nim_durability_pers_minus_stab_5d_i10d_slope_v096_signal,
+    f44nid_f44_nim_durability_pers_div_stab_5d_i10d_slope_v097_signal,
+    f44nid_f44_nim_durability_pers_minus_floor_5d_i10d_slope_v098_signal,
+    f44nid_f44_nim_durability_pers_x_floor_5d_i10d_slope_v099_signal,
+    f44nid_f44_nim_durability_stab_x_floor_5d_i10d_slope_v100_signal,
+    f44nid_f44_nim_durability_stab_x_close_5d_i21d_slope_v101_signal,
+    f44nid_f44_nim_durability_stab_mean21_5d_i21d_slope_v102_signal,
+    f44nid_f44_nim_durability_stab_mean63_5d_i21d_slope_v103_signal,
+    f44nid_f44_nim_durability_stab_std21_5d_i21d_slope_v104_signal,
+    f44nid_f44_nim_durability_stab_std63_5d_i21d_slope_v105_signal,
+    f44nid_f44_nim_durability_stab_z63_5d_i21d_slope_v106_signal,
+    f44nid_f44_nim_durability_stab_z252_5d_i21d_slope_v107_signal,
+    f44nid_f44_nim_durability_stab_ema21_5d_i21d_slope_v108_signal,
+    f44nid_f44_nim_durability_stab_ema63_5d_i21d_slope_v109_signal,
+    f44nid_f44_nim_durability_stab_log_5d_i21d_slope_v110_signal,
+    f44nid_f44_nim_durability_stab_sqrt_5d_i21d_slope_v111_signal,
+    f44nid_f44_nim_durability_stab_pct21_5d_i21d_slope_v112_signal,
+    f44nid_f44_nim_durability_stab_pct63_5d_i21d_slope_v113_signal,
+    f44nid_f44_nim_durability_stab_diff21_5d_i21d_slope_v114_signal,
+    f44nid_f44_nim_durability_stab_sign_close_5d_i21d_slope_v115_signal,
+    f44nid_f44_nim_durability_floor_x_close_5d_i21d_slope_v116_signal,
+    f44nid_f44_nim_durability_floor_mean21_5d_i21d_slope_v117_signal,
+    f44nid_f44_nim_durability_floor_mean63_5d_i21d_slope_v118_signal,
+    f44nid_f44_nim_durability_floor_std21_5d_i21d_slope_v119_signal,
+    f44nid_f44_nim_durability_floor_std63_5d_i21d_slope_v120_signal,
+    f44nid_f44_nim_durability_floor_z63_5d_i21d_slope_v121_signal,
+    f44nid_f44_nim_durability_floor_z252_5d_i21d_slope_v122_signal,
+    f44nid_f44_nim_durability_floor_ema21_5d_i21d_slope_v123_signal,
+    f44nid_f44_nim_durability_floor_ema63_5d_i21d_slope_v124_signal,
+    f44nid_f44_nim_durability_floor_pct21_5d_i21d_slope_v125_signal,
+    f44nid_f44_nim_durability_floor_pct63_5d_i21d_slope_v126_signal,
+    f44nid_f44_nim_durability_floor_diff21_5d_i21d_slope_v127_signal,
+    f44nid_f44_nim_durability_floor_diff63_5d_i21d_slope_v128_signal,
+    f44nid_f44_nim_durability_floor_sqrt_5d_i21d_slope_v129_signal,
+    f44nid_f44_nim_durability_floor_log_5d_i21d_slope_v130_signal,
+    f44nid_f44_nim_durability_pers_x_close_5d_i21d_slope_v131_signal,
+    f44nid_f44_nim_durability_pers_mean21_5d_i21d_slope_v132_signal,
+    f44nid_f44_nim_durability_pers_mean63_5d_i21d_slope_v133_signal,
+    f44nid_f44_nim_durability_pers_std21_5d_i21d_slope_v134_signal,
+    f44nid_f44_nim_durability_pers_std63_5d_i21d_slope_v135_signal,
+    f44nid_f44_nim_durability_pers_z63_5d_i21d_slope_v136_signal,
+    f44nid_f44_nim_durability_pers_z252_5d_i21d_slope_v137_signal,
+    f44nid_f44_nim_durability_pers_ema21_5d_i21d_slope_v138_signal,
+    f44nid_f44_nim_durability_pers_ema63_5d_i21d_slope_v139_signal,
+    f44nid_f44_nim_durability_pers_pct21_5d_i21d_slope_v140_signal,
+    f44nid_f44_nim_durability_pers_pct63_5d_i21d_slope_v141_signal,
+    f44nid_f44_nim_durability_pers_diff21_5d_i21d_slope_v142_signal,
+    f44nid_f44_nim_durability_pers_diff63_5d_i21d_slope_v143_signal,
+    f44nid_f44_nim_durability_pers_sqrt_5d_i21d_slope_v144_signal,
+    f44nid_f44_nim_durability_pers_log_5d_i21d_slope_v145_signal,
+    f44nid_f44_nim_durability_pers_minus_stab_5d_i21d_slope_v146_signal,
+    f44nid_f44_nim_durability_pers_div_stab_5d_i21d_slope_v147_signal,
+    f44nid_f44_nim_durability_pers_minus_floor_5d_i21d_slope_v148_signal,
+    f44nid_f44_nim_durability_pers_x_floor_5d_i21d_slope_v149_signal,
+    f44nid_f44_nim_durability_stab_x_floor_5d_i21d_slope_v150_signal,
+]
+
+
+def _inputs_for(fn):
+    sig = inspect.signature(fn)
+    return [p.name for p in sig.parameters.values()]
+
+
+REGISTRY = {fn.__name__: {"inputs": _inputs_for(fn), "func": fn} for fn in _FEATURES}
+F44_NIM_DURABILITY_REGISTRY_SLOPE_001_150 = REGISTRY
+
+if __name__ == "__main__":
+    np.random.seed(42)
+    n = 1500
+    rets = np.random.normal(0.0005, 0.02, n)
+    closeadj = pd.Series(100.0 * np.exp(np.cumsum(rets)), name="closeadj")
+    high = closeadj * (1.0 + np.abs(np.random.normal(0, 0.01, n)))
+    low = closeadj * (1.0 - np.abs(np.random.normal(0, 0.01, n)))
+    high = pd.Series(high, name="high")
+    low = pd.Series(low, name="low")
+    volume = pd.Series(np.abs(np.random.normal(1e6, 3e5, n)), name="volume")
+
+    revenue = pd.Series(1e9 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="revenue")
+    ebitda  = pd.Series(2e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="ebitda")
+    ebit    = pd.Series(1.5e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="ebit")
+    netinc  = pd.Series(1e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.015, n))), name="netinc")
+    fcf     = pd.Series(8e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.015, n))), name="fcf")
+    ncfo    = pd.Series(1.2e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.014, n))), name="ncfo")
+    capex   = pd.Series(5e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.02, n))), name="capex")
+    depamor = pd.Series(4e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="depamor")
+    sgna    = pd.Series(2.5e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="sgna")
+    opex    = pd.Series(7e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="opex")
+    gp      = pd.Series(3.5e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="gp")
+    cor     = pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0003, 0.01, n))), name="cor")
+    rnd     = pd.Series(4e7 * np.exp(np.cumsum(np.random.normal(0.0003, 0.012, n))), name="rnd")
+    assets       = pd.Series(2e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="assets")
+    assetsc      = pd.Series(8e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="assetsc")
+    assetsnc     = pd.Series(1.2e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="assetsnc")
+    liabilities  = pd.Series(1.1e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="liabilities")
+    liabilitiesc = pd.Series(5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="liabilitiesc")
+    liabilitiesnc= pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="liabilitiesnc")
+    equity       = pd.Series(9e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="equity")
+    equityusd    = pd.Series(9e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="equityusd")
+    debt         = pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="debt")
+    debtc        = pd.Series(1.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="debtc")
+    debtnc       = pd.Series(4.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="debtnc")
+    cashneq      = pd.Series(2.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="cashneq")
+    inventory    = pd.Series(2e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="inventory")
+    receivables  = pd.Series(2.5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="receivables")
+    payables     = pd.Series(1.8e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="payables")
+    deferredrev  = pd.Series(1.0e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="deferredrev")
+    workingcapital = pd.Series(3e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="workingcapital")
+    ppnenet      = pd.Series(7e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="ppnenet")
+    intangibles  = pd.Series(3e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="intangibles")
+    tangibles    = pd.Series(6e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="tangibles")
+    invcap       = pd.Series(1.4e9 * np.exp(np.cumsum(np.random.normal(0.0002, 0.008, n))), name="invcap")
+    retearn      = pd.Series(5e8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="retearn")
+    sbcomp       = pd.Series(2e7 * np.exp(np.cumsum(np.random.normal(0.0002, 0.012, n))), name="sbcomp")
+    sharesbas    = pd.Series(1e8 * np.exp(np.cumsum(np.random.normal(-0.00005, 0.003, n))), name="sharesbas")
+    shareswa     = pd.Series(1e8 * np.exp(np.cumsum(np.random.normal(-0.00005, 0.003, n))), name="shareswa")
+    shareswadil  = pd.Series(1.02e8 * np.exp(np.cumsum(np.random.normal(-0.00005, 0.003, n))), name="shareswadil")
+    eps          = pd.Series(1.0 + 0.5*np.cumsum(np.random.normal(0.0003, 0.01, n))/np.arange(1,n+1), name="eps")
+    epsdil       = pd.Series(0.98 + 0.5*np.cumsum(np.random.normal(0.0003, 0.01, n))/np.arange(1,n+1), name="epsdil")
+    bvps         = pd.Series(10.0 * np.exp(np.cumsum(np.random.normal(0.0002, 0.005, n))), name="bvps")
+    fcfps        = pd.Series(0.8 * np.exp(np.cumsum(np.random.normal(0.0002, 0.01, n))), name="fcfps")
+    sps          = pd.Series(10.0 * np.exp(np.cumsum(np.random.normal(0.0002, 0.005, n))), name="sps")
+    dps          = pd.Series(0.5 * np.exp(np.cumsum(np.random.normal(0.0002, 0.005, n))), name="dps")
+    marketcap    = pd.Series(closeadj * 1e8, name="marketcap")
+    ev           = pd.Series(closeadj * 1.2e8 + debt - cashneq, name="ev")
+    pe           = pd.Series(closeadj / eps.replace(0, np.nan).abs(), name="pe")
+    pb           = pd.Series(closeadj / bvps.replace(0, np.nan).abs(), name="pb")
+    ps           = pd.Series(closeadj / sps.replace(0, np.nan).abs(), name="ps")
+    evebit       = pd.Series(ev / ebit.replace(0, np.nan).abs(), name="evebit")
+    evebitda     = pd.Series(ev / ebitda.replace(0, np.nan).abs(), name="evebitda")
+    grossmargin  = pd.Series(0.30 + 0.05*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="grossmargin")
+    ebitdamargin = pd.Series(0.20 + 0.05*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="ebitdamargin")
+    netmargin    = pd.Series(0.10 + 0.04*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="netmargin")
+    roa          = pd.Series(0.07 + 0.03*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="roa")
+    roe          = pd.Series(0.12 + 0.04*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="roe")
+    roic         = pd.Series(0.10 + 0.04*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="roic")
+    ros          = pd.Series(0.08 + 0.03*np.sin(np.arange(n)/200.0) + 0.01*np.random.randn(n), name="ros")
+    currentratio = pd.Series(1.5 + 0.3*np.sin(np.arange(n)/250.0) + 0.05*np.random.randn(n), name="currentratio")
+    de           = pd.Series(0.6 + 0.2*np.sin(np.arange(n)/250.0) + 0.05*np.random.randn(n), name="de")
+    payoutratio  = pd.Series(0.3 + 0.1*np.sin(np.arange(n)/250.0) + 0.03*np.random.randn(n), name="payoutratio")
+    divyield     = pd.Series(0.02 + 0.005*np.sin(np.arange(n)/250.0) + 0.001*np.random.randn(n), name="divyield")
+    assetturnover= pd.Series(0.7 + 0.15*np.sin(np.arange(n)/250.0) + 0.02*np.random.randn(n), name="assetturnover")
+
+    cols = {
+        "closeadj": closeadj, "high": high, "low": low, "volume": volume,
+        "revenue": revenue, "ebitda": ebitda, "ebit": ebit, "netinc": netinc, "fcf": fcf,
+        "ncfo": ncfo, "capex": capex, "depamor": depamor, "sgna": sgna, "opex": opex,
+        "gp": gp, "cor": cor, "rnd": rnd,
+        "assets": assets, "assetsc": assetsc, "assetsnc": assetsnc,
+        "liabilities": liabilities, "liabilitiesc": liabilitiesc, "liabilitiesnc": liabilitiesnc,
+        "equity": equity, "equityusd": equityusd,
+        "debt": debt, "debtc": debtc, "debtnc": debtnc, "cashneq": cashneq,
+        "inventory": inventory, "receivables": receivables, "payables": payables,
+        "deferredrev": deferredrev, "workingcapital": workingcapital,
+        "ppnenet": ppnenet, "intangibles": intangibles, "tangibles": tangibles,
+        "invcap": invcap, "retearn": retearn, "sbcomp": sbcomp,
+        "sharesbas": sharesbas, "shareswa": shareswa, "shareswadil": shareswadil,
+        "eps": eps, "epsdil": epsdil, "bvps": bvps, "fcfps": fcfps, "sps": sps, "dps": dps,
+        "marketcap": marketcap, "ev": ev,
+        "pe": pe, "pb": pb, "ps": ps, "evebit": evebit, "evebitda": evebitda,
+        "grossmargin": grossmargin, "ebitdamargin": ebitdamargin, "netmargin": netmargin,
+        "roa": roa, "roe": roe, "roic": roic, "ros": ros,
+        "currentratio": currentratio, "de": de,
+        "payoutratio": payoutratio, "divyield": divyield, "assetturnover": assetturnover,
+    }
+
+    n_features = 0
+    nan_ok = 0
+    domain_primitives = ('_f44_nim_stability', '_f44_nim_floor', '_f44_nim_persistence')
+    for name, meta in REGISTRY.items():
+        fn = meta["func"]
+        args = [cols[c] for c in meta["inputs"]]
+        y1 = fn(*args)
+        y2 = fn(*args)
+        pd.testing.assert_series_equal(y1, y2)
+        q = y1.iloc[504:].dropna()
+        assert len(q) > 0, name
+        assert q.nunique() > 50, f"{name} nunique={q.nunique()}"
+        assert q.std() > 0, name
+        assert not q.isna().all(), name
+        nan_ratio = y1.iloc[504:].isna().mean()
+        if nan_ratio < 0.5:
+            nan_ok += 1
+        src = inspect.getsource(fn)
+        assert any(p in src for p in domain_primitives), name
+        n_features += 1
+    assert n_features == 150, n_features
+    assert nan_ok >= int(0.8 * n_features), f"nan_ok={nan_ok}/{n_features}"
+    print(f"OK f44_nim_durability_2nd_derivatives_001_150_claude: {n_features} features pass")

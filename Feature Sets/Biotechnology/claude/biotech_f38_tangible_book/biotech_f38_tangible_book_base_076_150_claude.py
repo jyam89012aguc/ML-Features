@@ -1,0 +1,582 @@
+"""Family f38 - Tangible book value  (F_BalanceSheet) | base 076-150"""
+import inspect
+import numpy as np
+import pandas as pd
+
+TRADING_DAYS_YEAR = 252
+TRADING_DAYS_HALF = 126
+TRADING_DAYS_QUARTER = 63
+TRADING_DAYS_MONTH = 21
+TRADING_DAYS_WEEK = 5
+
+
+def _z(s, w):
+    m = s.rolling(w, min_periods=max(1, w // 2)).mean()
+    sd = s.rolling(w, min_periods=max(1, w // 2)).std()
+    return (s - m) / sd.replace(0, np.nan)
+
+
+def _mean(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).mean()
+
+
+def _std(s, w):
+    return s.rolling(w, min_periods=max(1, w // 2)).std()
+
+
+def _diff(s, n):
+    return s.diff(periods=n)
+
+
+def _slope_diff_norm(s, w):
+    return s.diff(periods=w) / s.abs().replace(0, np.nan)
+
+
+def _slope_pct(s, w):
+    return s.pct_change(periods=w)
+
+
+def _pct_change(s, n):
+    return s.pct_change(periods=n)
+
+
+def _safe_div(a, b):
+    return a / b.replace(0, np.nan)
+
+
+# ===== folder domain primitives =====
+def _tangible_book_scaled(field, scale):
+    return field / scale.replace(0, np.nan).abs()
+
+
+def _tangible_book_log(field):
+    return np.log(field.abs().replace(0, np.nan))
+
+
+def _tangible_book_per_share(field, sharesbas):
+    return field / sharesbas.replace(0, np.nan).abs()
+
+
+# 504d log of tangibles/marketcap
+def tb_f38_tangible_book_log_per_marketcap_504d_base_v076_signal(tangibles, marketcap):
+    s = _tangible_book_scaled(tangibles, marketcap)
+    result = _mean(np.log(s.abs().replace(0, np.nan)), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d log of tangibles/equity
+def tb_f38_tangible_book_log_per_equity_252d_base_v077_signal(tangibles, equity):
+    s = _tangible_book_scaled(tangibles, equity)
+    result = _mean(np.log(s.abs().replace(0, np.nan)), 252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d log of tangibles/equity
+def tb_f38_tangible_book_log_per_equity_504d_base_v078_signal(tangibles, equity):
+    s = _tangible_book_scaled(tangibles, equity)
+    result = _mean(np.log(s.abs().replace(0, np.nan)), 504)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# EWM(span=21) of tangibles times closeadj
+def tb_f38_tangible_book_ewm_21d_base_v079_signal(tangibles, closeadj):
+    result = tangibles.ewm(span=21, min_periods=max(1, 21//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# EWM(span=63) of tangibles times closeadj
+def tb_f38_tangible_book_ewm_63d_base_v080_signal(tangibles, closeadj):
+    result = tangibles.ewm(span=63, min_periods=max(1, 63//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# EWM(span=252) of tangibles times closeadj
+def tb_f38_tangible_book_ewm_252d_base_v081_signal(tangibles, closeadj):
+    result = tangibles.ewm(span=252, min_periods=max(1, 252//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d rolling median of tangibles times closeadj
+def tb_f38_tangible_book_med_63d_base_v082_signal(tangibles, closeadj):
+    result = tangibles.rolling(63, min_periods=max(1, 63//2)).median() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling median of tangibles times closeadj
+def tb_f38_tangible_book_med_252d_base_v083_signal(tangibles, closeadj):
+    result = tangibles.rolling(252, min_periods=max(1, 252//2)).median() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling median of tangibles times closeadj
+def tb_f38_tangible_book_med_504d_base_v084_signal(tangibles, closeadj):
+    result = tangibles.rolling(504, min_periods=max(1, 504//2)).median() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling skew of tangibles
+def tb_f38_tangible_book_skew_252d_base_v085_signal(tangibles):
+    result = tangibles.rolling(252, min_periods=max(1, 252//2)).skew()
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling skew of tangibles
+def tb_f38_tangible_book_skew_504d_base_v086_signal(tangibles):
+    result = tangibles.rolling(504, min_periods=max(1, 504//2)).skew()
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling kurtosis of tangibles
+def tb_f38_tangible_book_kurt_252d_base_v087_signal(tangibles):
+    result = tangibles.rolling(252, min_periods=max(1, 252//2)).kurt()
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling kurtosis of tangibles
+def tb_f38_tangible_book_kurt_504d_base_v088_signal(tangibles):
+    result = tangibles.rolling(504, min_periods=max(1, 504//2)).kurt()
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d percentile rank of tangibles times closeadj
+def tb_f38_tangible_book_rank_252d_base_v089_signal(tangibles, closeadj):
+    def _rank(x):
+        if len(x) < 2: return np.nan
+        return (x.rank(pct=True).iloc[-1])
+    result = tangibles.rolling(252, min_periods=max(1, 252//2)).apply(_rank, raw=False) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d percentile rank of tangibles times closeadj
+def tb_f38_tangible_book_rank_504d_base_v090_signal(tangibles, closeadj):
+    def _rank(x):
+        if len(x) < 2: return np.nan
+        return (x.rank(pct=True).iloc[-1])
+    result = tangibles.rolling(504, min_periods=max(1, 504//2)).apply(_rank, raw=False) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 1008d percentile rank of tangibles times closeadj
+def tb_f38_tangible_book_rank_1008d_base_v091_signal(tangibles, closeadj):
+    def _rank(x):
+        if len(x) < 2: return np.nan
+        return (x.rank(pct=True).iloc[-1])
+    result = tangibles.rolling(1008, min_periods=max(1, 1008//2)).apply(_rank, raw=False) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# deviation of tangibles from 63d mean times closeadj
+def tb_f38_tangible_book_devmean_63d_base_v092_signal(tangibles, closeadj):
+    m = _mean(tangibles, 63)
+    result = (tangibles - m) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# deviation of tangibles from 252d mean times closeadj
+def tb_f38_tangible_book_devmean_252d_base_v093_signal(tangibles, closeadj):
+    m = _mean(tangibles, 252)
+    result = (tangibles - m) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# deviation of tangibles from 504d mean times closeadj
+def tb_f38_tangible_book_devmean_504d_base_v094_signal(tangibles, closeadj):
+    m = _mean(tangibles, 504)
+    result = (tangibles - m) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d log-difference of tangibles times closeadj
+def tb_f38_tangible_book_logdiff_21d_base_v095_signal(tangibles, closeadj):
+    lr = _tangible_book_log(tangibles)
+    result = _diff(lr, 21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d log-difference of tangibles times closeadj
+def tb_f38_tangible_book_logdiff_63d_base_v096_signal(tangibles, closeadj):
+    lr = _tangible_book_log(tangibles)
+    result = _diff(lr, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d log-difference of tangibles times closeadj
+def tb_f38_tangible_book_logdiff_252d_base_v097_signal(tangibles, closeadj):
+    lr = _tangible_book_log(tangibles)
+    result = _diff(lr, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d rolling range of tangibles times closeadj
+def tb_f38_tangible_book_range_63d_base_v098_signal(tangibles, closeadj):
+    hi = tangibles.rolling(63, min_periods=max(1, 63//2)).max()
+    lo = tangibles.rolling(63, min_periods=max(1, 63//2)).min()
+    result = (hi - lo) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling range of tangibles times closeadj
+def tb_f38_tangible_book_range_252d_base_v099_signal(tangibles, closeadj):
+    hi = tangibles.rolling(252, min_periods=max(1, 252//2)).max()
+    lo = tangibles.rolling(252, min_periods=max(1, 252//2)).min()
+    result = (hi - lo) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling range of tangibles times closeadj
+def tb_f38_tangible_book_range_504d_base_v100_signal(tangibles, closeadj):
+    hi = tangibles.rolling(504, min_periods=max(1, 504//2)).max()
+    lo = tangibles.rolling(504, min_periods=max(1, 504//2)).min()
+    result = (hi - lo) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# tangibles relative to 252d mean times closeadj
+def tb_f38_tangible_book_rel_252d_base_v101_signal(tangibles, closeadj):
+    m = _mean(tangibles, 252).replace(0, np.nan)
+    result = (tangibles / m.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# tangibles relative to 504d mean times closeadj
+def tb_f38_tangible_book_rel_504d_base_v102_signal(tangibles, closeadj):
+    m = _mean(tangibles, 504).replace(0, np.nan)
+    result = (tangibles / m.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# tangibles relative to 1008d mean times closeadj
+def tb_f38_tangible_book_rel_1008d_base_v103_signal(tangibles, closeadj):
+    m = _mean(tangibles, 1008).replace(0, np.nan)
+    result = (tangibles / m.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized tangibles/assets 63d mean
+def tb_f38_tangible_book_sqnorm_assets_63d_base_v104_signal(tangibles, assets):
+    r = _tangible_book_scaled(tangibles, assets)
+    result = _mean(r, 63) / np.sqrt(63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized tangibles/assets 252d mean
+def tb_f38_tangible_book_sqnorm_assets_252d_base_v105_signal(tangibles, assets):
+    r = _tangible_book_scaled(tangibles, assets)
+    result = _mean(r, 252) / np.sqrt(252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized tangibles/marketcap 63d mean
+def tb_f38_tangible_book_sqnorm_marketcap_63d_base_v106_signal(tangibles, marketcap):
+    r = _tangible_book_scaled(tangibles, marketcap)
+    result = _mean(r, 63) / np.sqrt(63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized tangibles/marketcap 252d mean
+def tb_f38_tangible_book_sqnorm_marketcap_252d_base_v107_signal(tangibles, marketcap):
+    r = _tangible_book_scaled(tangibles, marketcap)
+    result = _mean(r, 252) / np.sqrt(252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized tangibles/equity 63d mean
+def tb_f38_tangible_book_sqnorm_equity_63d_base_v108_signal(tangibles, equity):
+    r = _tangible_book_scaled(tangibles, equity)
+    result = _mean(r, 63) / np.sqrt(63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# sqrt-normalized tangibles/equity 252d mean
+def tb_f38_tangible_book_sqnorm_equity_252d_base_v109_signal(tangibles, equity):
+    r = _tangible_book_scaled(tangibles, equity)
+    result = _mean(r, 252) / np.sqrt(252)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d mean/std of tangibles times closeadj
+def tb_f38_tangible_book_infrat_63d_base_v110_signal(tangibles, closeadj):
+    m = _mean(tangibles, 63)
+    s = _std(tangibles, 63).replace(0, np.nan)
+    result = (m / s) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d mean/std of tangibles times closeadj
+def tb_f38_tangible_book_infrat_252d_base_v111_signal(tangibles, closeadj):
+    m = _mean(tangibles, 252)
+    s = _std(tangibles, 252).replace(0, np.nan)
+    result = (m / s) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d mean/std of tangibles times closeadj
+def tb_f38_tangible_book_infrat_504d_base_v112_signal(tangibles, closeadj):
+    m = _mean(tangibles, 504)
+    s = _std(tangibles, 504).replace(0, np.nan)
+    result = (m / s) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d coefficient of variation of tangibles
+def tb_f38_tangible_book_cv_252d_base_v113_signal(tangibles):
+    m = _mean(tangibles, 252).abs().replace(0, np.nan)
+    s = _std(tangibles, 252)
+    result = s / m
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d coefficient of variation of tangibles
+def tb_f38_tangible_book_cv_504d_base_v114_signal(tangibles):
+    m = _mean(tangibles, 504).abs().replace(0, np.nan)
+    s = _std(tangibles, 504)
+    result = s / m
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 5d lagged tangibles times closeadj
+def tb_f38_tangible_book_lag_5d_base_v115_signal(tangibles, closeadj):
+    result = tangibles.shift(5) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d lagged tangibles times closeadj
+def tb_f38_tangible_book_lag_21d_base_v116_signal(tangibles, closeadj):
+    result = tangibles.shift(21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d lagged tangibles times closeadj
+def tb_f38_tangible_book_lag_63d_base_v117_signal(tangibles, closeadj):
+    result = tangibles.shift(63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d lagged tangibles times closeadj
+def tb_f38_tangible_book_lag_252d_base_v118_signal(tangibles, closeadj):
+    result = tangibles.shift(252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d cumsum(tangibles) / mean(assets) x closeadj
+def tb_f38_tangible_book_cumper_assets_252d_base_v119_signal(tangibles, assets, closeadj):
+    s = tangibles.rolling(252, min_periods=max(1, 252//2)).sum()
+    d = _mean(assets, 252).replace(0, np.nan)
+    result = (s / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d cumsum(tangibles) / mean(assets) x closeadj
+def tb_f38_tangible_book_cumper_assets_504d_base_v120_signal(tangibles, assets, closeadj):
+    s = tangibles.rolling(504, min_periods=max(1, 504//2)).sum()
+    d = _mean(assets, 504).replace(0, np.nan)
+    result = (s / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d cumsum(tangibles) / mean(marketcap) x closeadj
+def tb_f38_tangible_book_cumper_marketcap_252d_base_v121_signal(tangibles, marketcap, closeadj):
+    s = tangibles.rolling(252, min_periods=max(1, 252//2)).sum()
+    d = _mean(marketcap, 252).replace(0, np.nan)
+    result = (s / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d cumsum(tangibles) / mean(marketcap) x closeadj
+def tb_f38_tangible_book_cumper_marketcap_504d_base_v122_signal(tangibles, marketcap, closeadj):
+    s = tangibles.rolling(504, min_periods=max(1, 504//2)).sum()
+    d = _mean(marketcap, 504).replace(0, np.nan)
+    result = (s / d.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d mean of positive-only tangibles times closeadj
+def tb_f38_tangible_book_pos_63d_base_v123_signal(tangibles, closeadj):
+    pos = tangibles.where(tangibles > 0, 0)
+    result = _mean(pos, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d mean of positive-only tangibles times closeadj
+def tb_f38_tangible_book_pos_252d_base_v124_signal(tangibles, closeadj):
+    pos = tangibles.where(tangibles > 0, 0)
+    result = _mean(pos, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d mean of negative-only tangibles times closeadj
+def tb_f38_tangible_book_neg_63d_base_v125_signal(tangibles, closeadj):
+    neg = tangibles.where(tangibles < 0, 0)
+    result = _mean(neg, 63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d mean of negative-only tangibles times closeadj
+def tb_f38_tangible_book_neg_252d_base_v126_signal(tangibles, closeadj):
+    neg = tangibles.where(tangibles < 0, 0)
+    result = _mean(neg, 252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# halflife=21 EWM of tangibles times closeadj
+def tb_f38_tangible_book_hl_21d_base_v127_signal(tangibles, closeadj):
+    result = tangibles.ewm(halflife=21, min_periods=max(1, 21//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# halflife=63 EWM of tangibles times closeadj
+def tb_f38_tangible_book_hl_63d_base_v128_signal(tangibles, closeadj):
+    result = tangibles.ewm(halflife=63, min_periods=max(1, 63//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# halflife=252 EWM of tangibles times closeadj
+def tb_f38_tangible_book_hl_252d_base_v129_signal(tangibles, closeadj):
+    result = tangibles.ewm(halflife=252, min_periods=max(1, 252//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d zscore of tangibles
+def tb_f38_tangible_book_z_63d_base_v130_signal(tangibles):
+    result = _z(tangibles, 63)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 126d zscore of tangibles
+def tb_f38_tangible_book_z_126d_base_v131_signal(tangibles):
+    result = _z(tangibles, 126)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 1008d zscore of tangibles
+def tb_f38_tangible_book_z_1008d_base_v132_signal(tangibles):
+    result = _z(tangibles, 1008)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d/252d mean ratio of tangibles times closeadj
+def tb_f38_tangible_book_st_lt_252_21d_base_v133_signal(tangibles, closeadj):
+    sm = _mean(tangibles, 21)
+    lm = _mean(tangibles, 252).replace(0, np.nan)
+    result = (sm / lm.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d/252d mean ratio of tangibles times closeadj
+def tb_f38_tangible_book_st_lt_252_63d_base_v134_signal(tangibles, closeadj):
+    sm = _mean(tangibles, 63)
+    lm = _mean(tangibles, 252).replace(0, np.nan)
+    result = (sm / lm.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d/504d mean ratio of tangibles times closeadj
+def tb_f38_tangible_book_st_lt_504_21d_base_v135_signal(tangibles, closeadj):
+    sm = _mean(tangibles, 21)
+    lm = _mean(tangibles, 504).replace(0, np.nan)
+    result = (sm / lm.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d/504d mean ratio of tangibles times closeadj
+def tb_f38_tangible_book_st_lt_504_63d_base_v136_signal(tangibles, closeadj):
+    sm = _mean(tangibles, 63)
+    lm = _mean(tangibles, 504).replace(0, np.nan)
+    result = (sm / lm.abs()) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d lagged tangibles/assets times closeadj
+def tb_f38_tangible_book_lag_per_assets_21d_base_v137_signal(tangibles, assets, closeadj):
+    r = _tangible_book_scaled(tangibles, assets)
+    result = r.shift(21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d lagged tangibles/assets times closeadj
+def tb_f38_tangible_book_lag_per_assets_63d_base_v138_signal(tangibles, assets, closeadj):
+    r = _tangible_book_scaled(tangibles, assets)
+    result = r.shift(63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d lagged tangibles/assets times closeadj
+def tb_f38_tangible_book_lag_per_assets_252d_base_v139_signal(tangibles, assets, closeadj):
+    r = _tangible_book_scaled(tangibles, assets)
+    result = r.shift(252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 21d lagged tangibles/marketcap times closeadj
+def tb_f38_tangible_book_lag_per_marketcap_21d_base_v140_signal(tangibles, marketcap, closeadj):
+    r = _tangible_book_scaled(tangibles, marketcap)
+    result = r.shift(21) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d lagged tangibles/marketcap times closeadj
+def tb_f38_tangible_book_lag_per_marketcap_63d_base_v141_signal(tangibles, marketcap, closeadj):
+    r = _tangible_book_scaled(tangibles, marketcap)
+    result = r.shift(63) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d lagged tangibles/marketcap times closeadj
+def tb_f38_tangible_book_lag_per_marketcap_252d_base_v142_signal(tangibles, marketcap, closeadj):
+    r = _tangible_book_scaled(tangibles, marketcap)
+    result = r.shift(252) * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 63d sum of |tangibles| times closeadj
+def tb_f38_tangible_book_abssum_63d_base_v143_signal(tangibles, closeadj):
+    result = tangibles.abs().rolling(63, min_periods=max(1, 63//2)).sum() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d sum of |tangibles| times closeadj
+def tb_f38_tangible_book_abssum_252d_base_v144_signal(tangibles, closeadj):
+    result = tangibles.abs().rolling(252, min_periods=max(1, 252//2)).sum() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d sum of |tangibles| times closeadj
+def tb_f38_tangible_book_abssum_504d_base_v145_signal(tangibles, closeadj):
+    result = tangibles.abs().rolling(504, min_periods=max(1, 504//2)).sum() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d rolling autocorr(1) of tangibles
+def tb_f38_tangible_book_acf1_252d_base_v146_signal(tangibles):
+    result = tangibles.rolling(252, min_periods=max(1, 252//2)).apply(lambda x: x.autocorr(lag=1) if len(x) > 2 else np.nan, raw=False)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d rolling autocorr(1) of tangibles
+def tb_f38_tangible_book_acf1_504d_base_v147_signal(tangibles):
+    result = tangibles.rolling(504, min_periods=max(1, 504//2)).apply(lambda x: x.autocorr(lag=1) if len(x) > 2 else np.nan, raw=False)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 252d position-in-range of tangibles
+def tb_f38_tangible_book_posinrange_252d_base_v148_signal(tangibles):
+    m = _mean(tangibles, 252)
+    hi = tangibles.rolling(252, min_periods=max(1, 252//2)).max()
+    lo = tangibles.rolling(252, min_periods=max(1, 252//2)).min()
+    result = (m - lo) / (hi - lo).replace(0, np.nan)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# 504d position-in-range of tangibles
+def tb_f38_tangible_book_posinrange_504d_base_v149_signal(tangibles):
+    m = _mean(tangibles, 504)
+    hi = tangibles.rolling(504, min_periods=max(1, 504//2)).max()
+    lo = tangibles.rolling(504, min_periods=max(1, 504//2)).min()
+    result = (m - lo) / (hi - lo).replace(0, np.nan)
+    return result.replace([np.inf, -np.inf], np.nan)
+
+
+# halflife=5 EWM of tangibles times closeadj
+def tb_f38_tangible_book_hl_5d_base_v150_signal(tangibles, closeadj):
+    result = tangibles.ewm(halflife=5, min_periods=max(1, 5//2)).mean() * closeadj
+    return result.replace([np.inf, -np.inf], np.nan)

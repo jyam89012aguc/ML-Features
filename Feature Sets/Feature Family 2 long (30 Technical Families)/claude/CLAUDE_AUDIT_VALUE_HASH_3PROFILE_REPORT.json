@@ -1,0 +1,1592 @@
+{
+  "profiles": 3,
+  "groups_total": 113,
+  "nonconstant_groups": [
+    [
+      {
+        "file": "f01_moving_average_systems\\f01_moving_average_systems_base_001_075_claude.py",
+        "name": "f01ms_f01_moving_average_systems_return_skew_50d_base_v045_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_076_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_logretskew_50d_base_v097_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f01_moving_average_systems\\f01_moving_average_systems_base_001_075_claude.py",
+        "name": "f01ms_f01_moving_average_systems_ker_80d_base_v074_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kefr_80d_base_v092_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f01_moving_average_systems\\f01_moving_average_systems_base_076_150_claude.py",
+        "name": "f01ms_f01_moving_average_systems_rank_logclose_sma20_120d_base_v100_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_base_001_075_claude.py",
+        "name": "f12os_f12_oscillator_family_biaspct_30d_base_v069_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f01_moving_average_systems\\f01_moving_average_systems_jerk_001_150_claude.py",
+        "name": "f01ms_f01_moving_average_systems_ker_80d_jerk_v074_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kefr_80d_jerk_v092_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f01_moving_average_systems\\f01_moving_average_systems_slope_001_150_claude.py",
+        "name": "f01ms_f01_moving_average_systems_fracabove_sma20_30d_slope_v048_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f05_moving_average_envelope\\f05_moving_average_envelope_slope_001_150_claude.py",
+        "name": "f05me_f05_moving_average_envelope_bbsamesign_30d_slope_v139_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_base_001_075_claude.py",
+        "name": "f02pc_f02_price_channel_position_chwid_20d_base_v007_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_076_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_donchwid_20d_base_v122_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_base_001_075_claude.py",
+        "name": "f02pc_f02_price_channel_position_brkup_20d_base_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_001_075_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_sigbo_20d_base_v040_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_base_001_075_claude.py",
+        "name": "f02pc_f02_price_channel_position_stoK_14d_base_v027_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_base_001_075_claude.py",
+        "name": "f12os_f12_oscillator_family_stochk_14d_base_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_base_076_150_claude.py",
+        "name": "f02pc_f02_price_channel_position_ohlcrng_30d_base_v078_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_076_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_rngdonchrat_30d_base_v123_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_jerk_001_150_claude.py",
+        "name": "f02pc_f02_price_channel_position_chwid_20d_jerk_v007_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_donchwid_20d_jerk_v122_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_jerk_001_150_claude.py",
+        "name": "f02pc_f02_price_channel_position_brkup_20d_jerk_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_jerk_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_sigbo_20d_jerk_v040_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_slope_001_150_claude.py",
+        "name": "f02pc_f02_price_channel_position_brkup_20d_slope_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_slope_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_sigbo_20d_slope_v040_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f02_price_channel_position\\f02_price_channel_position_slope_001_150_claude.py",
+        "name": "f02pc_f02_price_channel_position_ohlcrng_30d_slope_v078_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_rngdonchrat_30d_slope_v123_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_001_075_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kst_30d_base_v022_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_base_076_150_claude.py",
+        "name": "f13mc_f13_macd_variants_kst_sum_base_v117_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_001_075_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kefr_120d_base_v026_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_076_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_efficiency_120d_base_v104_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_001_075_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_adxslope_30d_base_v060_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_adx_14d_slope_v001_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_atrtrend_30d_base_v123_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_001_075_claude.py",
+        "name": "f19an_f19_atr_normalized_price_cumret_cumatr_30d_base_v028_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_daysflip_60d_base_v125_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f05_moving_average_envelope\\f05_moving_average_envelope_base_076_150_claude.py",
+        "name": "f05me_f05_moving_average_envelope_bbdsmid_60d_base_v088_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signskew_60d_base_v137_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_076_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_skewlog_60d_base_v079_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_base_076_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signkurt_60d_base_v138_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_076_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_kurtlog_60d_base_v080_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kefr_120d_jerk_v026_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_jerk_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_efficiency_120d_jerk_v104_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_daysflip_60d_jerk_v125_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f05_moving_average_envelope\\f05_moving_average_envelope_jerk_001_150_claude.py",
+        "name": "f05me_f05_moving_average_envelope_bbdsmid_60d_jerk_v088_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signskew_60d_jerk_v137_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_jerk_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_skewlog_60d_jerk_v079_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_jerk_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signkurt_60d_jerk_v138_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_jerk_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_kurtlog_60d_jerk_v080_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_kefr_120d_slope_v026_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_slope_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_efficiency_120d_slope_v104_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signskew_60d_slope_v137_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_slope_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_skewlog_60d_slope_v079_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f03_trend_strength_metrics\\f03_trend_strength_metrics_slope_001_150_claude.py",
+        "name": "f03ts_f03_trend_strength_metrics_signkurt_60d_slope_v138_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_slope_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_kurtlog_60d_slope_v080_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_001_075_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_dshi_252d_base_v008_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_076_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_durdd_252d_base_v107_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_base_001_075_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_ddmpv_1d_base_v067_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+        "name": "f09cp_f09_close_position_within_range_prevbarpos_1d_base_v068_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_jerk_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_dshi_252d_jerk_v008_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_jerk_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_durdd_252d_jerk_v107_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_jerk_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_ddmpv_1d_jerk_v067_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_jerk_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_prevbarpos_1d_jerk_v068_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_slope_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_dshi_252d_slope_v008_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_slope_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_durdd_252d_slope_v107_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f04_support_resistance_proximity\\f04_support_resistance_proximity_slope_001_150_claude.py",
+        "name": "f04sr_f04_support_resistance_proximity_ddmpv_1d_slope_v067_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_prevbarpos_1d_slope_v068_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_base_076_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_atr_norm_14d_base_v112_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_atrwild_14d_base_v006_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_base_001_075_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_atr_wilder_14d_base_v016_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_076_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_atr_pct_close_25d_base_v088_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_base_076_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_color_entropy_30d_base_v129_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_076_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_seqent_30d_base_v119_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_jerk_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_clpos_1d_jerk_v028_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_jerk_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cp_1d_jerk_v001_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cpdiff_5d_slope_v036_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_jerk_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_oppos_1d_jerk_v029_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_jerk_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_op_1d_jerk_v007_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_jerk_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_atr_norm_14d_jerk_v112_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_atrwild_14d_jerk_v006_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_slope_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_clpos_1d_slope_v028_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cpdiff_5d_base_v036_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cp_1d_slope_v001_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_slope_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_oppos_1d_slope_v029_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_op_1d_slope_v007_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f06_candle_body_ratios\\f06_candle_body_ratios_slope_001_150_claude.py",
+        "name": "f06cb_f06_candle_body_ratios_atr_norm_14d_slope_v112_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_slope_001_150_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_atr_wilder_14d_slope_v016_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_relrng_1d_base_v001_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_076_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hlrange_5d_base_v133_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_atrsma_50d_base_v007_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_base_001_075_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_atr_sma_50d_base_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr4_1d_base_v030_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr4_v014_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr7_1d_base_v031_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr7_v015_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_insidecnt_30d_base_v034_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_inside_bar_count_30d_v019_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_base_001_075_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_outsidecnt_30d_base_v035_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_001_075_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_outcnt_30d_base_v019_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_relrng_1d_jerk_v001_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_jerk_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hlrange_5d_jerk_v133_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr4_1d_jerk_v030_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr4_jerk_v014_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_jerk_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr7_1d_jerk_v031_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr7_jerk_v015_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_relrng_1d_slope_v001_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hlrange_5d_slope_v133_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_atrwild_14d_slope_v006_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_slope_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_atr_pct_close_14d_slope_v088_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr4_1d_slope_v030_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr4_slope_v014_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_nr7_1d_slope_v031_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_nr7_slope_v015_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_insidecnt_30d_slope_v034_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_inside_bar_count_30d_slope_v019_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f08_high_low_range_dynamics\\f08_high_low_range_dynamics_slope_001_150_claude.py",
+        "name": "f08hl_f08_high_low_range_dynamics_outsidecnt_30d_slope_v035_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_slope_001_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_outcnt_30d_slope_v019_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cpsgn_1d_base_v003_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_clv_sign_1d_base_v002_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_base_001_075_claude.py",
+        "name": "f09cp_f09_close_position_within_range_streakhi_15d_base_v029_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_076_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_mfv_sign_streak_20d_base_v079_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_jerk_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cpsgn_1d_jerk_v003_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_clv_sign_1d_jerk_v002_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f09_close_position_within_range\\f09_close_position_within_range_slope_001_150_claude.py",
+        "name": "f09cp_f09_close_position_within_range_cpsgn_1d_slope_v003_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_clv_sign_1d_slope_v002_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_001_075_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_insstk_2d_base_v020_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_inside_bar_streak_v016_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_001_075_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_outstk_2d_base_v021_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_base_001_075_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_outside_bar_streak_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_076_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_upclstk_2d_base_v102_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_001_075_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_winstrk_60d_base_v062_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_001_075_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_upstreak_40d_base_v063_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_base_076_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_dnclstk_2d_base_v103_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_001_075_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_losstrk_60d_base_v063_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_jerk_001_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_insstk_2d_jerk_v020_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_inside_bar_streak_jerk_v016_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_jerk_001_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_outstk_2d_jerk_v021_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_jerk_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_outside_bar_streak_jerk_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_slope_001_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_insstk_2d_slope_v020_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_inside_bar_streak_slope_v016_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f10_candle_sequence_patterns\\f10_candle_sequence_patterns_slope_001_150_claude.py",
+        "name": "f10cs_f10_candle_sequence_patterns_outstk_2d_slope_v021_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f20_volatility_compression_expansion\\f20_volatility_compression_expansion_slope_001_150_claude.py",
+        "name": "f20ce_f20_volatility_compression_expansion_outside_bar_streak_slope_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_001_075_claude.py",
+        "name": "f11rc_f11_raw_roc_family_hurstret_80d_base_v037_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_001_075_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hurstret_80d_base_v051_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_001_075_claude.py",
+        "name": "f11rc_f11_raw_roc_family_signflip_30d_base_v072_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_001_075_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_signflip_count_30d_base_v039_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_base_076_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_signac1_60d_base_v101_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_base_076_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_signac_60d_base_v129_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_jerk_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_hurstret_80d_jerk_v037_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_jerk_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hurstret_80d_jerk_v051_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_jerk_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_signflip_30d_jerk_v072_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_jerk_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_signflip_count_30d_jerk_v039_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_slope_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_hurstret_80d_slope_v037_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_hurstret_80d_slope_v051_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f11_raw_roc_family\\f11_raw_roc_family_slope_001_150_claude.py",
+        "name": "f11rc_f11_raw_roc_family_signflip_30d_slope_v072_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_signflip_count_30d_slope_v039_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_base_001_075_claude.py",
+        "name": "f12os_f12_oscillator_family_chaikin_3_10_base_v045_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_076_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_chaikin_osc_base_v076_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_base_001_075_claude.py",
+        "name": "f12os_f12_oscillator_family_chaikinsign_40d_base_v073_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_076_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_sign_chaikin_osc_base_v078_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_base_076_150_claude.py",
+        "name": "f12os_f12_oscillator_family_willrslp_50d_base_v093_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_slope_001_150_claude.py",
+        "name": "f12os_f12_oscillator_family_willr_28d_slope_v092_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_jerk_001_150_claude.py",
+        "name": "f12os_f12_oscillator_family_chaikin_3_10_jerk_v045_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_jerk_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_chaikin_osc_jerk_v076_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_slope_001_150_claude.py",
+        "name": "f12os_f12_oscillator_family_chaikin_3_10_slope_v045_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_chaikin_osc_slope_v076_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f12_oscillator_family\\f12_oscillator_family_slope_001_150_claude.py",
+        "name": "f12os_f12_oscillator_family_mfirank_120d_slope_v144_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_mfi14_rank_120d_slope_v104_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_base_001_075_claude.py",
+        "name": "f13mc_f13_macd_variants_signxzero_12_26_base_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_001_075_claude.py",
+        "name": "f19an_f19_atr_normalized_price_sign_macd_atr14_base_v066_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_base_076_150_claude.py",
+        "name": "f13mc_f13_macd_variants_histposfrac_12_26_9_60d_base_v133_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_base_001_075_claude.py",
+        "name": "f19an_f19_atr_normalized_price_macd_above_signal_atr_60d_base_v073_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_jerk_001_150_claude.py",
+        "name": "f13mc_f13_macd_variants_signxzero_12_26_jerk_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_jerk_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_sign_macd_atr14_jerk_v066_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_jerk_001_150_claude.py",
+        "name": "f13mc_f13_macd_variants_histposfrac_12_26_9_60d_jerk_v133_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_jerk_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_macd_above_signal_60d_jerk_v073_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_slope_001_150_claude.py",
+        "name": "f13mc_f13_macd_variants_signxzero_12_26_slope_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_slope_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_sign_macd_atr14_slope_v066_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f13_macd_variants\\f13_macd_variants_slope_001_150_claude.py",
+        "name": "f13mc_f13_macd_variants_histposfrac_12_26_9_60d_slope_v133_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_slope_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_macd_above_signal_60d_slope_v073_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_jerk_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_winstrk_60d_jerk_v062_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_jerk_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_upstreak_40d_jerk_v063_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f15_cross_sectional_momentum\\f15_cross_sectional_momentum_slope_001_150_claude.py",
+        "name": "f15xm_f15_cross_sectional_momentum_winstrk_60d_slope_v062_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_upstreak_40d_slope_v063_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_076_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_ewmavol_lam94_base_v076_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f17_volatility_regime\\f17_volatility_regime_base_001_075_claude.py",
+        "name": "f17vr_f17_volatility_regime_ewmavol_lam94_base_v030_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_base_076_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_vovslope_base_v118_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_volofvol_21d_slope_v056_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_jerk_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_volofvol_21d_jerk_v056_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f16_realized_volatility_term_structure\\f16_realized_volatility_term_structure_slope_001_150_claude.py",
+        "name": "f16vt_f16_realized_volatility_term_structure_vovslope_slope_v118_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_base_076_150_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_gk_velocity_30_5d_base_v130_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_slope_001_150_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_gk_10d_slope_v005_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f18_parkinson_garman_klass_estimators\\f18_parkinson_garman_klass_estimators_jerk_001_150_claude.py",
+        "name": "f18pg_f18_parkinson_garman_klass_estimators_atr_wilder_14d_jerk_v016_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f19_atr_normalized_price\\f19_atr_normalized_price_jerk_001_150_claude.py",
+        "name": "f19an_f19_atr_normalized_price_atr_pct_close_14d_jerk_v088_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_base_076_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_roc_today_vs_5d_ago_base_v119_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_base_001_075_claude.py",
+        "name": "f27vr_f27_volume_regime_logv_diff_5d_base_v013_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_jerk_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_skew_60d_21d_jerk_v011_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_jerk_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_v_skew_60d_jerk_v078_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_jerk_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_max_to_min_30d_10d_jerk_v049_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_jerk_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_log_minmax_range_30d_jerk_v142_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_slope_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_skew_60d_21d_slope_v011_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_slope_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_v_skew_60d_slope_v078_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_slope_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_max_to_min_30d_10d_slope_v049_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_slope_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_log_minmax_range_30d_slope_v142_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f21_raw_volume_metrics\\f21_raw_volume_metrics_slope_001_150_claude.py",
+        "name": "f21rv_f21_raw_volume_metrics_vol_roc_today_vs_5d_ago_5d_slope_v119_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_base_076_150_claude.py",
+        "name": "f27vr_f27_volume_regime_logv_accel_5_5_base_v128_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f22_volume_trend\\f22_volume_trend_base_001_075_claude.py",
+        "name": "f22vt_f22_volume_trend_upvol_downvol_diff_sma_30d_base_v034_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_base_001_075_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_netfrac_30d_base_v049_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f22_volume_trend\\f22_volume_trend_slope_001_150_claude.py",
+        "name": "f22vt_f22_volume_trend_upvol_downvol_diff_sma_30d_slope_v034_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f23_on_balance_volume_family\\f23_on_balance_volume_family_slope_001_150_claude.py",
+        "name": "f23ob_f23_on_balance_volume_family_obv_netfrac_30d_slope_v049_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_base_001_075_claude.py",
+        "name": "f24vp_f24_volume_price_confirmation_updn_vol_ratio_log_30d_base_v014_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f28_price_volume_divergence\\f28_price_volume_divergence_base_001_075_claude.py",
+        "name": "f28pd_f28_price_volume_divergence_updown_vol_ratio_30d_base_v028_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_jerk_001_150_claude.py",
+        "name": "f24vp_f24_volume_price_confirmation_updn_vol_ratio_log_30d_jerk_v014_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f28_price_volume_divergence\\f28_price_volume_divergence_jerk_001_150_claude.py",
+        "name": "f28pd_f28_price_volume_divergence_updown_vol_ratio_30d_jerk_v028_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f24_volume_price_confirmation\\f24_volume_price_confirmation_slope_001_150_claude.py",
+        "name": "f24vp_f24_volume_price_confirmation_updn_vol_ratio_log_30d_slope_v014_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f28_price_volume_divergence\\f28_price_volume_divergence_slope_001_150_claude.py",
+        "name": "f28pd_f28_price_volume_divergence_updown_vol_ratio_30d_slope_v028_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_cmf21_slope_10d_base_v034_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_cmf_21d_slope_v007_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_base_001_075_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_chaikin_3_10_slope_5d_base_v069_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_chaikin_osc_3_10_slope_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_cmf_21d_jerk_v007_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_cmf21_slope_10d_slope_v034_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_jerk_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_chaikin_osc_3_10_jerk_v017_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f26_accumulation_distribution\\f26_accumulation_distribution_slope_001_150_claude.py",
+        "name": "f26ad_f26_accumulation_distribution_chaikin_3_10_slope_5d_slope_v069_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_jerk_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_logv_roc_21d_jerk_v080_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f27_volume_regime\\f27_volume_regime_slope_001_150_claude.py",
+        "name": "f27vr_f27_volume_regime_logv_roc_21d_slope_v080_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ],
+    [
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_base_001_075_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_rs_accel_diff_base_v047_signal",
+        "constant_all": false,
+        "constant_any": false
+      },
+      {
+        "file": "f29_relative_strength_vs_benchmark\\f29_relative_strength_vs_benchmark_jerk_001_150_claude.py",
+        "name": "f29rs_f29_relative_strength_vs_benchmark_log_rs_ratio_jerk_v004_signal",
+        "constant_all": false,
+        "constant_any": false
+      }
+    ]
+  ],
+  "errors": [],
+  "seconds": 203.08998560905457
+}
